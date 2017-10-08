@@ -1,7 +1,7 @@
 {
   "name": "TCC",
   "description": "Archives to development working of conclusion course",
-  "repository": "https://github.com/Vbobell/TCC.git",
+  "repository": "https://github.com/Vbobell/TCC",
   "logo": "",
   "keywords": ["node", "express", "heroku"],
   "image": ""
