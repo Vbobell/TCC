@@ -1,25 +1,23 @@
 {
-  "name": "schooltasks",
-  "version": "0.1",
-  "description": "TCC",
+  "name": "prestadorservico",
+  "version": "0.0.1",
+  "description": "Webservice",
   "engines": {
-    "node": "6.11.1"
+    "node": "6.10.2"
   },
   "main": "index.js",
   "scripts": {
+    "install": "npm install pg",
     "start": "node index.js"
   },
   "dependencies": {
     "ejs": "2.5.6",
-    "express": "4.15.2"
-  },
-  "devDependencies": {
-    "request": "^2.81.0",
-    "tape": "^4.7.0"
+    "express": "4.15.2",
+    "ps":"^0.0.2"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Vbobell/TCC"
+    "url": "https://github.com/Vbobell/webservice"
   },
   "keywords": [
     "node",
