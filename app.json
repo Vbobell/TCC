@@ -1,7 +1,7 @@
 {
-  "name": "Prestador de servico",
+  "name": "School tasks",
   "description": "Aplicação usando node.js",
-  "repository": "https://github.com/Vbobell/webservice",
+  "repository": "https://github.com/Vbobell/TCC",
   "logo": "",
   "keywords": ["node", "express", "heroku"],
   "image": ""
