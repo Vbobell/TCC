@@ -13,30 +13,21 @@ app.get('/', function(request, response) {
   response.render('pages/index');
 });
 
-app.get('/meta', function(request, response) {
-  response.render('pages/meta');
-});
-
-app.get('/prestadoresServico', function(request, response){
+app.get('/admin', function(request, response){
   pool.connect( function(err, client, done) {
 
   if (err) {
     return console.error('error fetching client from pool', err);
   }
 
-  var querySearch = 'SELECT prestador.imagem, prestador.nome, prestador.profissao,';
-      querySearch += 'endereco.cidade, endereco.bairro, endereco.endereco,';
-      querySearch += 'contato.dddT, contato.telefone, contato.dddW, contato.whats, contato.email ';
-      querySearch += 'FROM prestador, endereco, contato ';
-      querySearch += 'WHERE prestador.idPrestador = endereco.idPrestador ';
-      querySearch += 'AND prestador.idPrestador = contato.idPrestador';
+  var querySearch = 'SELECT * admin';
 
   client.query(querySearch, function(err, result) {
     done();
     if (err) {
       return console.error('error running query', err);
     }
-    response.json({"prestadorServico" : result.rows});
+    response.json({"admin" : result.rows});
   });
 
 });
