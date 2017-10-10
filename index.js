@@ -20,7 +20,7 @@ app.get('/admin', function(request, response){
     return console.error('error fetching client from pool', err);
   }
 
-  var querySearch = 'SELECT * admin';
+  var querySearch = 'SELECT * from admin';
 
   client.query(querySearch, function(err, result) {
     done();
