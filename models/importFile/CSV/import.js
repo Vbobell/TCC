@@ -8,9 +8,13 @@ class importFile{
     }
 
     returnData(dataArray){
-        csv.fromPath(this.file, {delimiter : this.delimiter})
+        var array = [];
+        csv.fromPath(this.file, {delimiter : this.delimiter, headers: false})
         .on("data", data =>{
-           return dataArray(data);
+           array.push(data);
+        })
+        .on("end", function(){
+            dataArray(array);
         });
     }
 }

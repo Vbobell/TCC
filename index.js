@@ -1,5 +1,6 @@
 var express = require('express');
 const pool = require('./lib/db');
+var importFile = require('./models/importFile/CSV/import');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -10,7 +11,9 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/importAdmin', function(request, response){
-  
+    var test = new importFile('models/importFile/CSV/test.csv', ',', 30);
+    response.set('Content-Type', 'text/plain');
+    test.returnData(data => response.json(data));
 });
 
 app.get('/admin', function(request, response){
