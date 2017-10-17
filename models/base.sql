@@ -6,4 +6,28 @@ create table admin(
     password varchar(30) DEFAULT 123456
 );
 
+create table course(
+    id_course serial NOT NULL primary key,
+    name_course varchar(30) NOT NULL
+);
+
+create table class_(
+    id_class serial NOT NULL primary key,
+    name_class varchar(30) NOT NULL
+);
+
+create table course_class(
+    id_course_class serial NOT NULL primary key,
+    id_course int NOT NULL,
+    id_class int NOT NULL,
+    foreign key (id_course) references course (id_course),
+    foreign key (id_class) references class_ (id_class)
+);
+
+create table teacher(
+    id_teacher serial NOT NULL primary key,
+    name_teacher varchar (30) NOT NULL,
+    registry varchar (10) NOT NULL,
+    password varchar (30) NOT NULL DEFAULT 123456
+);
 
