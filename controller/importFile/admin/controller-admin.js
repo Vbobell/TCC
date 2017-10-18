@@ -5,13 +5,13 @@ class ControllerAdmin{
     constructor(file){
         this.file = file;
     }
-    getDataAdmin(){
+    getDataAdmin(callback){
         var importAdmin = new ImportFile(this.file, ',', 30);
-        importAdmin.returnData(data => this.insertDataAdmin(data));
+        importAdmin.returnData(data => this.insertDataAdmin(data, response => callback(response)));
     }
-    insertDataAdmin(data){
+    insertDataAdmin(data, callback){
         var crudAdmin = new CrudAdmin();
-        crudAdmin.executeSelect('admin', data => console.log(data));
+        crudAdmin.executeSelect('admin', data => callback(data));
     }
 }
 

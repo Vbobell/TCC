@@ -5,11 +5,11 @@ class ControllerImport{
         this.route = route;
         this.file = file;
     }
-    controllerRedirect(){
+    controllerRedirect(callback){
         switch(this.route){
             case 'admin':
                 var controllerAdm = new ControllerAdmin(this.file);
-                controllerAdm.getDataAdmin();
+                controllerAdm.getDataAdmin(data => callback(data));
             break;
             default:
                 console.log('error');
