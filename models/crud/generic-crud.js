@@ -20,7 +20,8 @@ class Crud {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query('insert into ' + table + ' ' + columns + ' values ? ', [values], function (err, result) {
+            console.log(values);
+            client.query('insert into ' + table + ' ' + columns + ' values ($1, $2, $3) ', [values], function (err, result) {
                 done();
                 if (err) {
                     return console.error('error running query', err);
