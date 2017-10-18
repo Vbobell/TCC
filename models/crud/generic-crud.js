@@ -20,13 +20,14 @@ class Crud {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            console.log(values);
-            client.query('insert into ' + table + ' ' + columns + ' values ($1, $2, $3) ', values[0], function (err, result) {
-                done();
-                if (err) {
-                    return console.error('error running query', err);
-                }
-                return json(JSON.stringify(result.affectedRows));
+            values.forEach(function (i) {
+                client.query('insert into ' + table + ' ' + columns + ' values ($1, $2, $3) ', values[i], function (err, result) {
+                    done();
+                    if (err) {
+                        return console.error('error running query', err);
+                    }
+                    return json(result.affectedRows);
+                });
             });
         });
     }
