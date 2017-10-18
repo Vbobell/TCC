@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "deploy": "deploy.sh",
+    "install": "npm install pg fast-csv",
     "start": "node index.js"
   },
   "dependencies": {
