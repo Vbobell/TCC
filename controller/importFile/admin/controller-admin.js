@@ -6,8 +6,9 @@ class ControllerAdmin{
         this.file = file;
     }
     getDataAdmin(){
-        var importAdmin = new ImportFile(this.file, ',', 30);
-        importAdmin.returnData(data => this.insertDataAdmin(data));
+        //var importAdmin = new ImportFile(this.file, ',', 30);
+        //importAdmin.returnData(data => this.insertDataAdmin(data));
+        insertDataAdmin('test');
     }
     insertDataAdmin(data){
         var crudAdmin = new CrudAdmin();
