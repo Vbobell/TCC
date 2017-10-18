@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "install": "npm install pg",
+    "deploy": "deploy.sh",
     "start": "node index.js"
   },
   "dependencies": {
