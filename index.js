@@ -16,7 +16,7 @@ app.get('/import/*', function(request, response){
 });
 
 app.get('/importAdmin', function(request, response){
-  response.render('/pages/admin/import/importAdmin');
+  response.render('pages/admin/import/import-admin');
 });
 
 app.listen(app.get('port'), function() {
