@@ -1,19 +1,19 @@
 var express = require('express');
-const pool = require('./lib/db');
-var importFile = require('./models/importFile/CSV/import');
+var ControllerImport = require('./controller/importFile/controllerImport');
 var app = express();
+const pool = require('./lib/db');
 
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 
 app.set('views', __dirname + '/views');
+app.set('controller', __dirname + '/controller');
 app.set('view engine', 'ejs');
 
-app.get('/importAdmin', function(request, response){
-    var test = new importFile('models/importFile/CSV/test.csv', ',', 30);
-    response.set('Content-Type', 'text/plain');
-    test.returnData(data => response.json(data));
+app.get('/import/*', function(request, response){
+  var controller = new ControllerImport(request.params[0],'models/importFile/CSV/test.csv');
+  controller.controllerRedirect();
 });
 
 app.get('/admin', function(request, response){

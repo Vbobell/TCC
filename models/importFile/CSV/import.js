@@ -14,7 +14,7 @@ class importFile{
            array.push(data);
         })
         .on("end", function(){
-            dataArray(array);
+            return dataArray(array);
         });
     }
 }
