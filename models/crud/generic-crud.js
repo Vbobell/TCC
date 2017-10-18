@@ -15,7 +15,7 @@ class Crud {
             });
         });
     }
-    executeInsert(table, columns, values) {
+    executeInsert(table, columns, values, json) {
         pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
@@ -25,7 +25,7 @@ class Crud {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                return result.affectedRows;
+                return json(JSON.stringify(result.affectedRows);
             });
         });
     }
