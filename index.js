@@ -15,6 +15,10 @@ app.get('/import/*', function(request, response){
   controller.controllerRedirect(callback => response.json({"csv" : callback}));
 });
 
+app.get('/importAdmin', function(request, response){
+  response.render('/pages/admin/import/importAdmin');
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
