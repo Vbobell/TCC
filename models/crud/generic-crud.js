@@ -21,6 +21,7 @@ class Crud {
                 return console.error('error fetching client from pool', err);
             }
             values.forEach(function (i) {
+                console.log(values[i]);
                 client.query('insert into ' + table + ' ' + columns + ' values ($1, $2, $3) ', values[i], function (err, result) {
                     done();
                     if (err) {
