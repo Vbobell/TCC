@@ -7,7 +7,7 @@ class ControllerAdmin{
     }
     getDataAdmin(callback){
         var importAdmin = new ImportFile(this.file, ',', 30);
-        importAdmin.returnData(data => this.insertDataAdmin(data, response => callback(response)));
+        importAdmin.returnData(data => callback(data));
     }
     insertDataAdmin(data, callback){
         var crudAdmin = new CrudAdmin();

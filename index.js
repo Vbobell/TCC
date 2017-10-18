@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 
 app.get('/import/*', function(request, response){
   var controller = new ControllerImport(request.params[0],'models/importFile/CSV/test.csv');
-  controller.controllerRedirect(callback => response.json({"prestadorServico" : callback}));
+  controller.controllerRedirect(callback => response.json({"csv" : callback}));
 });
 
 app.listen(app.get('port'), function() {
