@@ -25,7 +25,7 @@ class Crud {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                return json(JSON.stringify(result.affectedRows);
+                return json(JSON.stringify(result.affectedRows));
             });
         });
     }
