@@ -3,7 +3,7 @@ var app = express();
 var fileUpload = require('express-fileupload');
 var ControllerImport = require('./controller/importFile/controller-import');
 const aws = require('aws-sdk');
-const S3_BUCKET = process.env.S3_BUCKET;
+const S3_BUCKET = process.env.S3_BUCKET_NAME;
 aws.config.region = 'us-east-2';
 
 app.set('port', (process.env.PORT || 5000));
@@ -37,7 +37,7 @@ app.get('/view/importAdmin', function(request, response){
 app.post('/upload', (req, res) => {
   const s3 = new aws.S3();
   const fileName = req.files.csv.name;
-  const file = req.files.csv.data;
+  const file = req.files.csv;
   const s3Params = {
     Bucket: S3_BUCKET,
     Key: fileName,
