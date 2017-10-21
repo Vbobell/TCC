@@ -34,7 +34,7 @@ app.get('/view/importAdmin', function(request, response){
   });
 });*/
 
-app.get('/upload', (req, res) => {
+app.post('/upload', (req, res) => {
   const s3 = new aws.S3();
   const fileName = req.files.name;
   const fileType = req.files.mimetype;
