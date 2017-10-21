@@ -1,5 +1,6 @@
 var express = require('express');
 var fileUpload = require('express-fileupload');
+var fs = require('fs');
 const aws = require('aws-sdk');
 aws.config.region = 'us-east-2';
 const S3_BUCKET = process.env.S3_BUCKET_NAME;
@@ -49,11 +50,13 @@ app.post('/upload', (req, res) => {
       return res.end();
     }
     const returnData = {
-      signedRequest: data,
-      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+      Bucket: S3_BUCKET,
+      Key: fileName
     };
-    var controller = new ControllerImport('admin',returnData.url);
-    controller.csvInsertData(callback => res.json({"csv" : callback}));
+    s3.getObject(returnData, (err, dataObject) => {
+      if (err) console.log(err, err.stack);
+      console.log(dataObject);           
+    });
     res.end();
   });
 });
