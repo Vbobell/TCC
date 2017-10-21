@@ -53,9 +53,12 @@ app.post('/upload', (req, res) => {
       Bucket: S3_BUCKET,
       Key: fileName
     };
+    var file = fs.createWriteStream('models/importFile/files/admin.csv');
     s3.getObject(returnData, (err, dataObject) => {
       if (err) console.log(err);
       console.log(dataObject);
+      file.write(dataObject.Body);
+      res.write('passou');
       res.end();        
     });
   });
