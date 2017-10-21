@@ -1,10 +1,10 @@
 var express = require('express');
-var app = express();
 var fileUpload = require('express-fileupload');
-var ControllerImport = require('./controller/importFile/controller-import');
 const aws = require('aws-sdk');
-const S3_BUCKET = process.env.S3_BUCKET_NAME;
 aws.config.region = 'us-east-2';
+const S3_BUCKET = process.env.S3_BUCKET_NAME;
+var app = express();
+var ControllerImport = require('./controller/importFile/controller-import');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -30,7 +30,7 @@ app.get('/view/importAdmin', function(request, response){
   csv.mv(__dirname + '/models/importFile/files/admin/' + csv.name, function(err) {
     if (err){
       return res.status(500).send(err);
-    }
+    }Test update file bucket
   });
 });*/
 
@@ -43,12 +43,16 @@ app.post('/upload', (req, res) => {
     Key: fileName,
     Body: file
   };
-  console.log(s3Params);
   s3.upload(s3Params, (err, data) => {
     if(err){
       console.log(err);
       return res.end();
     }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+    res.write(JSON.stringify(returnData));
     res.end();
   });
 });
