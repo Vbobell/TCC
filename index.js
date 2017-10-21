@@ -53,8 +53,9 @@ app.post('/upload', (req, res) => {
       Bucket: S3_BUCKET,
       Key: fileName
     };
+    console.log(data);
     s3.getObject(returnData, (err, dataObject) => {
-      if (err) console.log(err, err.stack);
+      if (err) console.log(err);
       res.write(dataObject);
       res.end();        
     });
