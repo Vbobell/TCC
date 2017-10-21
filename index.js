@@ -56,7 +56,7 @@ app.post('/upload', (req, res) => {
     console.log(data);
     s3.getObject(returnData, (err, dataObject) => {
       if (err) console.log(err);
-      res.write(JSON.parse(dataObject));
+      console.log(dataObject);
       res.end();        
     });
   });
