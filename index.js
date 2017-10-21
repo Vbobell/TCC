@@ -24,15 +24,41 @@ app.get('/view/importAdmin', function(request, response){
   response.render('pages/admin/import/import-admin');
 });
 
-app.post('/upload', function(req, res) {
+/*app.post('/upload', function(req, res) {
   var csv = req.files.csv;
   console.log(csv);
-  csv.mv(`https://${S3_BUCKET}.s3.amazonaws.com/`+ csv.name, function(err) {
+  csv.mv(__dirname + '/models/importFile/files/admin/' + csv.name, function(err) {
     if (err){
       return res.status(500).send(err);
     }
   });
+});*/
+
+app.get('/upload', (req, res) => {
+  const s3 = new aws.S3();
+  const fileName = req.files.name;
+  const fileType = req.files.mimetype;
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+    res.end();
+  });
 });
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
