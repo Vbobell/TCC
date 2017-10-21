@@ -15,4 +15,4 @@ class AdminImportController {
     }
 }
 
-module.exports = ControllerAdmin;
+module.exports = AdminImportController;
