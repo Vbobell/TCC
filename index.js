@@ -53,12 +53,16 @@ app.post('/upload', (req, res) => {
       Bucket: S3_BUCKET,
       Key: fileName
     };
-    console.log(data);
-    s3.getObject(returnData, (err, dataObject) => {
-      if (err) console.log(err);
-      console.log(dataObject);
-      res.end();        
-    });
+    var file = require('fs').createWriteStream('/models/importFile/files/admin.csv');
+    s3.getObject(returnData).
+      on('httpData', function(chunk) { 
+        file.write(chunk); 
+      }).on('httpDone', function() { 
+        file.end();
+        var controller = new ControllerImport('admin','/models/importFile/files/admin.csv');
+        controller.csvInsertData(callback => res.json({"csv" : callback}));
+        res.end();     
+      });
   });
 });
 
