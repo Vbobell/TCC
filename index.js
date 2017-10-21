@@ -44,7 +44,7 @@ app.post('/upload', (req, res) => {
     Body: file
   };
   console.log(s3Params);
-  s3.putObject(s3Params, (err, data) => {
+  s3.upload(s3Params, (err, data) => {
     if(err){
       console.log(err);
       return res.end();
