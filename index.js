@@ -52,7 +52,8 @@ app.post('/upload', (req, res) => {
       signedRequest: data,
       url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
     };
-    res.write(JSON.stringify(returnData));
+    var controller = new ControllerImport('admin',returnData.url);
+    controller.csvInsertData(callback => res.json({"csv" : callback}));
     res.end();
   });
 });
