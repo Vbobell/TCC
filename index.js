@@ -36,8 +36,8 @@ app.get('/view/importAdmin', function(request, response){
 
 app.post('/upload', (req, res) => {
   const s3 = new aws.S3();
-  const fileName = req.files.name;
-  const file = req.files;
+  const fileName = req.files.csv.name;
+  const file = req.files.csv;
   const s3Params = {
     Bucket: S3_BUCKET,
     Key: fileName,
