@@ -1,10 +1,12 @@
 var express = require('express');
-var ControllerImport = require('./controller/importFile/controller-import');
 var app = express();
+var fileUpload = require('express-fileupload');
+var ControllerImport = require('./controller/importFile/controller-import');
 
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
+app.use(fileUpload());
 
 app.set('views', __dirname + '/views');
 app.set('controller', __dirname + '/controller');
@@ -15,6 +17,18 @@ app.get('/import/*', function(request, response){
   controller.csvInsertData(callback => response.json({"csv" : callback}));
 });
 
+app.get('/view/importAdmin', function(request, response){
+  response.render('pages/admin/import/import-admin');
+});
+
+app.post('/upload', function(req, res) {
+  var csv = req.files.csv;
+  csv.mv(__dirname + '/models/importFile/files/admin/' + csv.name, function(err) {
+    if (err){
+      return res.status(500).send(err);
+    }
+  });
+});
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });

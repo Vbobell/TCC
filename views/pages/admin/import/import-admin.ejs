@@ -12,8 +12,27 @@
     </h1>
 </header>
 <section>
-    <input type="file" name="importAdmin"/>
+    <input type="file" id="fileUpload" name="importAdmin"/>
+    <button class="submit">  </button>
 </section>
 <script src="/frameworks/jquery-3.2.1.min.js"></script>
+<script>
+    var form;
+    $('#fileUpload').change(function (event) {
+        form = new FormData();
+        form.append('csv', event.target.files[0]);
+    });
+    $('.submit').on('click', function(){
+        $.ajax({
+            url : '/upload',
+            data: form,
+            processData: false,
+            contentType: false,
+            type: 'POST'
+        }).done(function(){
+            console.log('success');
+        });
+    })
+</script>
 </body>
 </html>

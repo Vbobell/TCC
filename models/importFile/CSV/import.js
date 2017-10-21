@@ -17,6 +17,9 @@ class importFile{
             return dataArray(array);
         });
     }
+    uploadCSV(file){
+        
+    }
 }
 
 module.exports = importFile;
