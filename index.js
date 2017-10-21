@@ -58,8 +58,11 @@ app.post('/upload', (req, res) => {
       if (err) console.log(err);
       console.log(dataObject);
       file.write(dataObject.Body);
-      res.write('passou');
-      res.end();        
+      var controller = new ControllerImport('admin','models/importFile/files/admin.csv');
+      controller.csvInsertData(callback => {
+        res.write('passou');
+        res.end();      
+      });
     });
   });
 });
