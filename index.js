@@ -60,8 +60,10 @@ app.post('/upload', (req, res) => {
       }).on('httpDone', function() { 
         file.end();
         var controller = new ControllerImport('admin','models/importFile/files/admin.csv');
-        controller.csvInsertData(callback => res.json({"csv" : callback}));
-        res.end();     
+        controller.csvInsertData(callback => {
+          res.write({"csv" : callback});
+          res.end();
+        });
       });
   });
 });
