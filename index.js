@@ -23,6 +23,7 @@ app.get('/view/importAdmin', function(request, response){
 
 app.post('/upload', function(req, res) {
   var csv = req.files.csv;
+  console.log(csv);
   csv.mv(__dirname + '/models/importFile/files/admin/' + csv.name, function(err) {
     if (err){
       return res.status(500).send(err);
