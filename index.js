@@ -2,6 +2,9 @@ var express = require('express');
 var app = express();
 var fileUpload = require('express-fileupload');
 var ControllerImport = require('./controller/importFile/controller-import');
+const aws = require('aws-sdk');
+const S3_BUCKET = process.env.S3_BUCKET;
+aws.config.region = 'us-east-2';
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -24,7 +27,7 @@ app.get('/view/importAdmin', function(request, response){
 app.post('/upload', function(req, res) {
   var csv = req.files.csv;
   console.log(csv);
-  csv.mv(__dirname + '/models/importFile/files/admin/' + csv.name, function(err) {
+  csv.mv(`https://${S3_BUCKET}.s3.amazonaws.com/`+ csv.name, function(err) {
     if (err){
       return res.status(500).send(err);
     }
