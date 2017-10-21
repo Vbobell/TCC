@@ -15,13 +15,13 @@ class Crud {
             });
         });
     }
-    executeInsert(table, columns, values, json) {
+    executeInsert(table, columns, parametres, values, json) {
         pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
             for(var i = 0; i < values.length; i++){
-                client.query('insert into ' + table + ' ' + columns + ' values ($1, $2, $3) ', values[i], function (err, result) {
+                client.query('insert into ' + table + ' ' + columns + ' values ' + parametres + ' ', values[i], function (err, result) {
                     done();
                     if (err) {
                         return console.error('error running query', err);

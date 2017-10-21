@@ -1,15 +1,16 @@
-var ControllerAdmin = require('./admin/controller-admin');
+var AdminImportController = require('./admin/controller-admin');
 
 class ControllerImport{
     constructor(route, file){
         this.route = route;
         this.file = file;
     }
-    controllerRedirect(callback){
+    csvInsertData(callback){
         switch(this.route){
             case 'admin':
-                var controllerAdm = new ControllerAdmin(this.file);
-                controllerAdm.getDataAdmin(data => callback(data));
+                var controllerAdm = new AdminImportController(this.file);
+                controllerAdm.getReadData(data => 
+                    controllerAdm.insertDataAdmin(data, response => callback(response)));
             break;
             default:
                 console.log('error');
