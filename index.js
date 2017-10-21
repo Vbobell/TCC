@@ -55,8 +55,10 @@ app.post('/upload', (req, res) => {
     };
     var file = require('fs').createWriteStream('models/importFile/files/admin.csv');
     s3.getObject(returnData).
-      on('httpData', function(chunk) { 
+      on('httpData', function(chunk) {
+        console.log(chunk); 
         file.write(chunk); 
+        console.log(file);
       }).on('httpDone', function() { 
         file.end();
         var controller = new ControllerImport('admin','models/importFile/files/admin.csv');
