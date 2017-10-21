@@ -55,9 +55,9 @@ app.post('/upload', (req, res) => {
     };
     s3.getObject(returnData, (err, dataObject) => {
       if (err) console.log(err, err.stack);
-      console.log(dataObject);           
+      res.write(dataObject);
+      res.end();        
     });
-    res.end();
   });
 });
 
