@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    	area{
+      background: #FFFFFF;
+      opacity: 0.6;
+      border-radius: 5%;
+        position: absolute;
+        animation: pulse 5s infinite;
+        -webkit-animation: pulse 5s;
+        -webkit-animation-iteration-count: infinite;
+	    }
+    </style>
+</head>
+
+<body>
+<img usemap="#map-0" width="300" height="300" src="https://www.stimulsoft.com/images/products/reports-js/js.png"/>
+<map id="map-0" name="map-0">
+<area alt="google" coords="0,0,82,126" data-coords="0,0,82,126" href="http://google.com" shape="rect" target="_blank">
+</map>
+<script src="/frameworks/jquery-3.2.1.min.js"></script>
+<script>
+$(document).ready(function(){
+$('map').each(function(i){ 
+  $('map').eq(i).find('area').each(function(j){
+      $('map').eq(i).find('area').eq(j).css({
+        'width': 22.22+'%',
+        'height': 22.22+'%',
+        'top': 10.323+'%',
+        'left': 11.111+'%'
+      });
+  }); 
+});
+});
+</script>
+ </body>
