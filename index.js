@@ -21,6 +21,10 @@ app.get('/import/*', function(request, response){
   controller.csvInsertData(callback => response.json({"csv" : callback}));
 });
 
+app.get('/view/test', function(request, response){
+  response.render('pages/test');
+});
+
 app.get('/view/importAdmin', function(request, response){
   response.render('pages/admin/import/import-admin');
 });
