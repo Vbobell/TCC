@@ -14,13 +14,12 @@ app.set('controller', __dirname + '/controller');
 app.set('view engine', 'ejs');
 
 app.get('/views/pages/admin/import/*', function (request, response) {
-  console.log(request.query);
   var route = new RouteImport(__dirname + request.path, request.query);
   route.getRoute('.ejs', data => {
     if (data)
       response.render(__dirname + request.path + request.query.data);
     else
-      response.render(__dirname + '/views/pages/error');
+      response.render('pages/error');
   });
 });
 
