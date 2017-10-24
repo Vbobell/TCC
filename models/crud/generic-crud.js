@@ -23,13 +23,13 @@ class Crud {
             }
             for(var i = 0; i < values.length; i++){
                 client.query('insert into ' + table + ' ' + columns + ' values ' + parametres + ' ', values[i], function (err, result) {
-                    done();
                     if (err) {
                         return console.error('error running query', err);
                     }
                     affectedRows.push(result);
                 });
             }
+            done();
             return json(affectedRows);
         });
     }
