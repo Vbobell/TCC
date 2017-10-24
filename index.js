@@ -13,6 +13,10 @@ app.set('controller', __dirname + '/controller');
 app.set('view engine', 'ejs');
 
 app.post('/import/*', (request, response) =>{
+<<<<<<< HEAD
+=======
+  console.log(request.params[0]);
+>>>>>>> 754fbcaf7bcb706ae841683bf301d016aa08aff2
   var controller = new ControllerImport(request.params[0],request.files.csv.data.toString('utf8').split('\r\n'));
   controller.csvInsertData(callback => {
     response.write(JSON.stringify(request.files.csv.data.toString('utf8').split('\r\n')));
