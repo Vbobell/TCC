@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 app.post('/import/*', (request, response) =>{
   var controller = new ControllerImport(request.params[0],request.files.csv.data.toString('utf8').split('\r\n'));
   controller.csvInsertData(callback => {
-    response.write(JSON.stringify(request.files.csv.data.toString('utf8').split('\r\n')));
+    response.write(callback);
     response.end();
   });
 });

@@ -16,6 +16,7 @@ class Crud {
         });
     }
     executeInsert(table, columns, parametres, values, json) {
+        var affectedRows = [];
         pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
@@ -26,9 +27,10 @@ class Crud {
                     if (err) {
                         return console.error('error running query', err);
                     }
-                    return json(result.affectedRows);
+                    affectedRows.push(result.affectedRows);
                 });
             }
+            return json(affectedRows);
         });
     }
 }
