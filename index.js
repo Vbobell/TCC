@@ -12,7 +12,7 @@ app.set('views', __dirname + '/views');
 app.set('controller', __dirname + '/controller');
 app.set('view engine', 'ejs');
 
-app.post('/import/admin', (request, response) =>{
+app.post('/import/*', (request, response) =>{
   var controller = new ControllerImport(request.params[0],request.files.csv.data.toString('utf8').split('\r\n'));
   controller.csvInsertData(callback => {
     response.write(JSON.stringify(request.files.csv.data.toString('utf8').split('\r\n')));
