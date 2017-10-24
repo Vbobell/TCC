@@ -14,7 +14,6 @@ class importFile{
            array.push(data);
         })
         .on("end", function(){
-            console.log(array);
             return dataArray(array);
         });
     }

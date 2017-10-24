@@ -1,13 +1,12 @@
-var ImportFile = require('../../../models/importFile/CSV/import');
+//var ImportFile = require('../../../models/importFile/CSV/import');
 var CrudAdmin = require('../../../models/crud/crudAdmin/crud-admin');
 
 class AdminImportController {
-    constructor(file) {
-        this.file = file;
+    constructor(data) {
+        this.data = data;
     }
     getReadData(callback) {
-        var importAdmin = new ImportFile(this.file, ',', 30);
-        importAdmin.returnData(data => callback(data));
+        return callback(this.data);
     }
     insertDataAdmin(data, callback) {
         var crudAdmin = new CrudAdmin();
