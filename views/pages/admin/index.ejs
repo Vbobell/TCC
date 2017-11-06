@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+    <% include ../../../public/scripts/standard-scripts.ejs %>
 </head>
 
 <body>
-
-<header>
-</header>
 <% include menu.ejs %>
-<section class="content">
+<% include way-now.ejs %>
+<section class="content" data-content="generic">
 </section>
-
+<section class="content" data-content="registre">
+    <article class="item" data-item="admin">
+        <figure>
+        <img src =""/>
+        <h2>Administrador</h2>
+        </figure>
+        <p>Visualize os dados dos administradores onde você pode edita-los e remove-los.</p>
+    </article>
+</section>
+<section class="content" data-content="import">
+    <article class="item" data-item="admin">
+        <figure>
+        <img src =""/>
+        <h2>Administrador</h2>
+        </figure>
+        <p>Faça importação dos administradores do sistema.</p>
+    </article>
+</section>
+<script src="/scripts/routes/menu/admin.js"></script>
 </body>
 
 </html>
