@@ -1,39 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <% include ../../../../../public/scripts/standard-scripts.ejs %>
-</head>
-
 <body>
-
-<header>
-    <h1>
-        importação administrador
-    </h1>
-</header>
-
-<section class="content">
+<section class="content" data-content="generic">
     <input type="file" id="fileUpload" name="importAdmin"/>
     <button class="submit">  </button>
 </section>
 
-<script>
-    var form;
-    $('#fileUpload').change(function (event) {
-        form = new FormData();
-        form.append('csv', event.target.files[0]);
-    });
-    $('.submit').on('click', function(){
-        $.ajax({
-            url : '/import/admin',
-            data: form,
-            processData: false,
-            contentType: false,
-            type: 'POST'
-        }).done(function(data){
-            console.log(data);
+<script class="script-import" data-content="generic">
+    (function(){
+        var form;
+        $('#fileUpload').change(function (event) {
+            form = new FormData();
+            form.append('csv', event.target.files[0]);
         });
-    })
+        $('.submit').on('click', function(){
+            $.ajax({
+                url : '/import/admin',
+                data: form,
+                processData: false,
+                contentType: false,
+                type: 'POST'
+            }).done(function(data){
+                console.log(data);
+            });
+        });
+    })();
 </script>
 </body>
 </html>
