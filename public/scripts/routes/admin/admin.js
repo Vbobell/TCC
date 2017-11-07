@@ -8,7 +8,7 @@ $(document).ready(function(){
         $(this).parent().attr('data-content') + '/?data=' + $(this).attr('data-item');
         $.ajax({
             url : url,
-            contentType: 'html',
+            dataType : 'html',
             type: 'GET'
         }).done(function(data){
             $('body').append($(data)[1]);
