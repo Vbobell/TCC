@@ -13,7 +13,7 @@ class ControllerImport{
                     controllerAdm.insertDataAdmin(data, response => callback(response)));
             break;
             default:
-                console.log('error');
+                callback('error');
             break;
         }
     }

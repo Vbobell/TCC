@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var ControllerImport = require('./controller/importFile/controller-import');
-var RouteImport = require('./controller/viewRoutes/routes-import');
+var Route = require('./controller/viewRoutes/routes');
 var fileUpload = require('express-fileupload');
 
 app.set('port', (process.env.PORT || 5000));
@@ -18,15 +18,18 @@ app.get('/admin', function (request, response) {
 });
 
 app.get('/admin/import/*', function (request, response) {
-  var route = new RouteImport(__dirname + '/views/pages' + request.path, request.query);
+  var route = new Route(app.get('views') + '/pages' + request.path, request.query);
   route.getRoute('.ejs', data => {
     if (data)
-      response.render('pages' + request.path + request.query.data);
+      response.render('pages'+ request.path + request.query.data);
     else
       response.render('pages/error');
   });
 });
 
+app.get('/admin/select/*', function (request, response) {
+  var route = new Route(__dirname + '/')
+});
 app.post('/import/*', (request, response) => {
   var controller = new ControllerImport(request.params[0], request.files.csv.data.toString('utf8').split('\r\n'));
   controller.csvInsertData(callback => {
