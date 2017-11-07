@@ -1,8 +1,9 @@
 var express = require('express');
 var app = express();
-var ControllerImport = require('./controller/importFile/controller-import');
-var Route = require('./controller/viewRoutes/routes');
 var fileUpload = require('express-fileupload');
+var ControllerImport = require('./controller/importFile/controller-import');
+var 
+var Route = require('./controller/viewRoutes/routes');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -28,7 +29,15 @@ app.get('/admin/import/*', function (request, response) {
 });
 
 app.get('/admin/select/*', function (request, response) {
-  var route = new Route(__dirname + '/')
+  var route = new Route(app.get('controller') + '/manage' + request.path, request.query);
+  route.getRoute('.ejs', data => {
+    if (data){
+
+      response.write();
+    }
+    else
+      response.render('pages/error');
+  });
 });
 app.post('/import/*', (request, response) => {
   var controller = new ControllerImport(request.params[0], request.files.csv.data.toString('utf8').split('\r\n'));
