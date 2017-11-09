@@ -11,7 +11,7 @@ class ManageAdmin{
     }
     loginValidation(){
         var crudAdmin = new CrudAdmin();
-        crudAdmin.selectUser('Joe','1', (data) => {
+        crudAdmin.selectUser('1','123456', (data) => {
             console.log(data);
             if(data > 0)
                 return true;
