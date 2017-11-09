@@ -25,16 +25,14 @@ app.get('/', function(request, response){
   var manageAdmin = new ManageAdmin();
   manageAdmin.loginValidation(valid => {
     if(valid){
-      request.session.views++;
-      console.log(request.session);
+      request.session.user = 'test';
     }
   });
   response.render('pages/login');
 });
 
 app.get('/admin', function (request, response) {
-  console.log(request.session);
-  if (request.session.views)
+  if (request.session.user == 'test')
     response.render('pages/admin/index');
   else
     response.render('pages/login');
