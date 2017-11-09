@@ -11,8 +11,10 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 app.use(fileUpload());
 
-app.use(express.cookieParser());
-app.use(express.session({ secret: 'example' }));
+app.use(session({ 
+  secret: 'keyboard cat', 
+  cookie: { maxAge: 60000 }
+}));
 
 
 app.set('views', __dirname + '/views');
