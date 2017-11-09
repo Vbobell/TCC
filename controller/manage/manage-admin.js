@@ -9,14 +9,13 @@ class ManageAdmin{
             return callback(data);
         });
     }
-    loginValidation(){
+    loginValidation(callback){
         var crudAdmin = new CrudAdmin();
         crudAdmin.selectUser('1','123456', (data) => {
-            console.log(data);
-            if(data > 0)
-                return true;
+            if(data.count == 1)
+                return callback(true);
             else
-                return false;
+                return callback(true);
         });
     }
 }

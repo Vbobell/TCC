@@ -25,13 +25,18 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response){
   var manageAdmin = new ManageAdmin();
-  console.log(manageAdmin.loginValidation());
+  manageAdmin.loginValidation(valid => {
+    if(valid)
+    request.session.views++
+  });
   response.render('pages/login');
 });
 
 app.get('/admin', function (request, response) {
-
-  response.render('pages/admin/index');
+  if (request.session.views)
+    response.render('pages/admin/index');
+  else
+    response.render('pages/login');
 });
 
 app.get('/admin/import/*', function (request, response) {
