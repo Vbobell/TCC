@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "install": "npm install pg fast-csv express-fileupload",
+    "install": "npm install pg express-fileupload",
     "start": "node index.js"
   },
   "dependencies": {
@@ -15,7 +15,7 @@
     "ejs": "2.5.6",
     "express": "^4.15.2",
     "express-fileupload": "^0.3.0",
-    "fast-csv": "^2.4.1",
+    "express-session": "^1.15.6",
     "pg": "^7.3.0",
     "ps": "^0.0.2"
   },
