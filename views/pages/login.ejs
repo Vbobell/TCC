@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+    <% include ../../public/scripts/standard-scripts.ejs %>
 </head>
 
 <body>
@@ -9,5 +9,9 @@
 <header>
     login
 </header>
-
+<input type="text" name="user"/>
+<input type="password" name="password"/>
+<button class="submit">Login</button>
+<script src="/scripts/routes/login.js"></script>
 </body>
+</html>

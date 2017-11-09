@@ -9,9 +9,9 @@ class ManageAdmin{
             return callback(data);
         });
     }
-    loginValidation(callback){
+    loginValidation(query, callback){
         var crudAdmin = new CrudAdmin();
-        crudAdmin.selectUser('1','123456', (data) => {
+        crudAdmin.selectUser(query.user,query.password, (data) => {
             if(data.count == 1)
                 return callback(true);
             else
