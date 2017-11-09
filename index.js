@@ -11,10 +11,8 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 app.use(fileUpload());
 
-app.use(session({ 
-  secret: 'keyboard cat', 
-cookie: { maxAge: 60000 }
-}));
+app.use(express.cookieParser());
+app.use(express.session({ secret: 'example' }));
 
 
 app.set('views', __dirname + '/views');
@@ -24,13 +22,16 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response){
   var manageAdmin = new ManageAdmin();
   manageAdmin.loginValidation(valid => {
-    if(valid)
-    request.session.views++
+    if(valid){
+      request.session.views++;
+      console.log(request.session);
+    }
   });
   response.render('pages/login');
 });
 
 app.get('/admin', function (request, response) {
+  console.log(request.session);
   if (request.session.views)
     response.render('pages/admin/index');
   else
