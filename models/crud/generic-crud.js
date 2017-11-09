@@ -33,6 +33,9 @@ class Crud {
             return json(affectedRows);
         });
     }
+    getPool(callback){
+        return callback(pool);
+    }
 }
 
 module.exports = Crud;

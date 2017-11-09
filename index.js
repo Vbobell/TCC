@@ -1,20 +1,36 @@
 var express = require('express');
 var app = express();
+var session = require('express-session');
 var fileUpload = require('express-fileupload');
 var ControllerImport = require('./controller/importFile/controller-import');
-var 
 var Route = require('./controller/viewRoutes/routes');
+var ManageAdmin = require('./controller/manage/manage-admin');
 
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 app.use(fileUpload());
 
+app.use(session({
+  secret: 'user',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+
+
 app.set('views', __dirname + '/views');
 app.set('controller', __dirname + '/controller');
 app.set('view engine', 'ejs');
 
+app.get('/', function(request, response){
+  var manageAdmin = new ManageAdmin();
+  console.log(manageAdmin.loginValidation());
+  response.render('pages/login');
+});
+
 app.get('/admin', function (request, response) {
+
   response.render('pages/admin/index');
 });
 

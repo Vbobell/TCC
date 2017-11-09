@@ -1,8 +1,7 @@
 var CrudAdmin = require('../../models/crud/crudAdmin/crud-admin');
 
-class manageAdmin{
+class ManageAdmin{
     constructor(){
-
     }
     getDataAdmins(callback){
         var crudAdmin = new CrudAdmin();
@@ -10,4 +9,16 @@ class manageAdmin{
             return callback(data);
         });
     }
+    loginValidation(){
+        var crudAdmin = new CrudAdmin();
+        crudAdmin.selectUser('Joe','1', (data) => {
+            console.log(data);
+            if(data > 0)
+                return true;
+            else
+                return false;
+        });
+    }
 }
+
+module.exports = ManageAdmin;
