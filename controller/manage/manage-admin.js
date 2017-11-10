@@ -15,7 +15,7 @@ class ManageAdmin{
             if(data.count == 1)
                 return callback(true);
             else
-                return callback(true);
+                return callback(false);
         });
     }
 }
