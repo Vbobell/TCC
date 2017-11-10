@@ -23,7 +23,9 @@ app.use(session({
 }));
 
 app.get('/logout', function(request, response){
-
+  request.session.destroy(function(err) {
+    response.redirect('/');
+  })
 });
 
 app.get('/', function(request, response){ 
@@ -72,7 +74,7 @@ app.post('/login', function(request, response){
   manageAdmin.loginValidation(request.body, valid => {
     if(valid){
       request.session.user = request.body.user;
-      response.redirect('pages/admin');
+      response.redirect('/admin');
       response.end();
     }else
       response.write('login inválido');
