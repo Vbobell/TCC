@@ -33,7 +33,6 @@ app.get('/', function(request, response){
 });
  
 app.get('/admin', function (request, response) {
-  console.log(request.session);
   if (request.session.user)
     response.render('pages/admin/index');
   else
@@ -74,12 +73,10 @@ app.post('/login', function(request, response){
   let manageAdmin = new ManageAdmin();
   manageAdmin.loginValidation(request.body, valid => {
     if(valid){
-      console.log(request.session);
       request.session.user = request.body.user;
-      console.log(request.session);
-      response.redirect('/admin');
+      response.send(valid);
     }else
-      response.write('login inválido');
+      response.send(valid);
   });
 });
 
