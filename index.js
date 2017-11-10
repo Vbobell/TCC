@@ -74,9 +74,9 @@ app.post('/login', function(request, response){
   manageAdmin.loginValidation(request.body, valid => {
     if(valid){
       request.session.user = request.body.user;
-      response.write(valid);
+      response.write(JSON.stringify(valid));
     }else
-      response.write(valid);
+      response.write(JSON.stringify(valid));
 
       response.end();
   });
