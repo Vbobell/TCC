@@ -8,7 +8,6 @@ $(document).ready(function(){
             data : JSON.stringify(data),
             type: 'POST'
         }).done(function(data){
-            console.log(data);
             if(data)
                 window.location.href = '/admin';
             else
