@@ -12,8 +12,8 @@ class ManageAdmin{
     loginValidation(query, callback){
         var crudAdmin = new CrudAdmin();
         crudAdmin.selectUser(query.user,query.password, data => {
-            console.log(data);
-            if(data[0] == 1)
+            console.log(data[0].count);
+            if(data[0].count == 1)
                 return callback(true);
             else
                 return callback(false);
