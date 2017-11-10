@@ -13,7 +13,7 @@ class ManageAdmin{
         let crudAdmin = new CrudAdmin();
         crudAdmin.selectUser(query.user,query.password, data => {
             let valid = JSON.parse(data);
-            if(valid.count == 1)
+            if(valid[0].count == 1)
                 return callback(true);
             else
                 return callback(false);
