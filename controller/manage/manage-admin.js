@@ -12,14 +12,7 @@ class ManageAdmin{
     loginValidation(query, callback){
         var crudAdmin = new CrudAdmin();
         crudAdmin.selectUser(query.user,query.password, (data) => {
-            console.log(typeof data.count);
-            console.log(data.count == '1');
-            console.log(data.count == 1);
-            console.log(data.count === 1);
-            console.log(data.count);
-            console.log(data.count.indexOf('1'));
-            console.log(data.count.indexOf(1));
-            if(data.count == '1')
+            if(JSON.parse(data.count) == 1)
                 return callback(true);
             else
                 return callback(false);
