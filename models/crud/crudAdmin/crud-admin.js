@@ -1,7 +1,7 @@
 var Crud = require('../generic-crud');
 
 class CrudAdmin extends Crud{
-    selectUser(user, password, json){
+    selectUser(user, password, callback){
         this.getPool((data) =>{ 
             data.connect(function (err, client, done) {
                 if (err) {
@@ -12,7 +12,7 @@ class CrudAdmin extends Crud{
                     if (err) {
                         return console.error('error running query', err);
                     }
-                    return json(JSON.stringify(result.rows));
+                    return callback(result.rows);
                 });
             });
         });
