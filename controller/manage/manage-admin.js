@@ -12,7 +12,8 @@ class ManageAdmin{
     loginValidation(query, callback){
         let crudAdmin = new CrudAdmin();
         crudAdmin.selectUser(query.user,query.password, data => {
-            if(JSON.parse(data).count == 1)
+            let valid = JSON.parse(data);
+            if(valid.count == 1)
                 return callback(true);
             else
                 return callback(false);
