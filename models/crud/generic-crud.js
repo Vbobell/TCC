@@ -11,7 +11,7 @@ class Crud {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                return json(JSON.stringify(result.rowCount));
+                return json(JSON.stringify(result.rows));
             });
         });
     }
