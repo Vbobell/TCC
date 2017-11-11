@@ -39,12 +39,12 @@ app.get('/admin', function (request, response) {
     response.redirect('/');
 });
 
-app.get('/admin/import/*', function (request, response) {
+app.get('/admin/route', function (request, response) {
   if (request.session.user){  
-  let route = new Route(app.get('views') + '/pages' + request.path, request.query);
+  let route = new Route(app.get('views') + '/pages' + request.body.path, request.body.file);
   route.getRoute('.ejs', data => {
     if (data)
-      response.render('pages'+ request.path + request.query.data);
+      response.render('pages'+ request.body.path + request.body.file);
     else
       response.redirect('/error');
   });
@@ -52,9 +52,9 @@ app.get('/admin/import/*', function (request, response) {
     response.redirect('/');
 });
 
-app.get('/admin/viewData/*', function (request, response) {
+/*app.get('/admin/viewData/', function (request, response) {
   if (request.session.user){  
-    let route = new Route(app.get('views') + '/pages' + request.path, request.query);
+    let route = new Route(app.get('views') + '/pages' + request.path + '/', request.body.file);
     route.getRoute('.ejs', data => {
       if (data)
         response.render('pages'+ request.path + request.query.data);
@@ -63,7 +63,7 @@ app.get('/admin/viewData/*', function (request, response) {
     });
     }else
       response.redirect('/');
-});
+});*/
 
 app.get('/admin/getData/*', function (request, response) {
   if (request.session.user){
@@ -117,7 +117,7 @@ app.post('/admin/remove', (request, response) => {
 
 app.post('/admin/edit', (request, response) => {
   if (request.session.user){
-    let manageAdmin = new ManageAdmin();
+    let manageAdmin = new ManageAdmin(app.get('views') + 'manage/', );
     manageAdmin.editAdmin(request.body, data => {
       response.write(JSON.stringify(data));
       response.end();
