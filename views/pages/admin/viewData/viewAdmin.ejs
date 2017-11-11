@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+<section class="content" data-content="generic">
+    <table></table>
+</section>
+
+<script class="script-admin" data-content="generic">
+    (function(){
+            $.ajax({
+                url : 'getData/admin',
+                type: 'GET'
+            }).done(function(data){
+                console.log(data);
+            });
+    })();
+</script>
+</body>
+</html>

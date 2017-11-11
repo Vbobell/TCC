@@ -52,14 +52,25 @@ app.get('/admin/import/*', function (request, response) {
     response.redirect('/');
 });
 
-app.get('/admin/select/*', function (request, response) {
+app.get('/admin/viewData/*', function (request, response) {
   if (request.session.user){
     let route = new Route(app.get('controller') + '/manage' + request.path, request.query);
-    route.getRoute('.ejs', data => {
+    route.getRoute('.js', data => {
       if (data){
-        response.write(JSON.stringify(data));
+        response.render('pages'+ request.path + request.query.data);
       }else
         response.redirect('pages/error');
+    });
+  }else
+    response.redirect('/');
+});
+
+app.get('getData/*', function (request, response) {
+  if (request.session.user){
+        let manageAdmin = new ManageAdmin();
+        manageAdmin.getDataAdmins(data => {
+          response.write(data);
+          response.end();
     });
   }else
     response.redirect('/');
