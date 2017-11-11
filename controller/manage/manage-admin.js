@@ -11,7 +11,7 @@ class ManageAdmin{
     }
     removeAdmin(data, callback){
         let crudAdmin = new CrudAdmin();
-        crudAdmin.executeDelete('admin', 'registre='+data.registre, data =>{
+        crudAdmin.executeDelete('admin', "registre='"+String(data.registre)+"'", data =>{
             return callback(data);
         });
     }
