@@ -44,7 +44,7 @@ app.get('/admin/route/*', function (request, response) {
   let route = new Route(app.get('views') + '/pages/admin/' + request.query.path + '/', request.query.file, '.ejs');
   route.getRoute(data => {
     if (data)
-      response.render('pages/admin' + request.query.path + '/' + request.query.file);
+      response.render('pages/admin/' + request.query.path + '/' + request.query.file);
     else
       response.redirect('/error');
   });
