@@ -13,7 +13,6 @@ $(document).ready(function(){
             $.ajax({
                 url : '/admin/route',
                 data : data,
-                dataType : 'html',
                 async : false,
                 type: 'POST'
             }).done(function(data){
