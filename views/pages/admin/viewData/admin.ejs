@@ -1,19 +1,44 @@
 <!DOCTYPE html>
 <html>
-<body>
-<section class="content" data-content="generic">
-    <table></table>
-</section>
 
-<script class="script-admin" data-content="generic">
-    (function(){
+<body>
+    <section class="content" data-content="generic">
+        <table class="registres">
+            <thead>
+                <tr>
+                    <td>
+                        Nome
+                    </td>
+                    <td>
+                        Registro
+                    </td>
+                    <td>
+                        Ação
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </section>
+
+    <script class="script-admin" data-content="generic">
+        (function () {
             $.ajax({
-                url : '/admin/getData/admin',
+                url: '/admin/getData/admin',
                 type: 'GET'
-            }).done(function(data){
-                console.log(data);
+            }).done(function (data) {
+                var registres = JSON.parse(data);
+                registres.forEach(function (item, i) {
+                    var elements = item.row.replace(/\(|\)/gi, '').split(',');
+                    $('table.registres tbody').append('<tr id=row"' + i + '"</tr>');
+                    elements.forEach(function(j){
+                        $('table.registres tbody tr#row' + i + '').append('<td>' + elements[j] +'</td>');
+                    });
+                });
             });
-    })();
-</script>
+        })();
+    </script>
 </body>
+
 </html>
