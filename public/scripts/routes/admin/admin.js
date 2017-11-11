@@ -4,10 +4,9 @@ $(document).ready(function(){
     });
 
     $('.item').on('click', function(){
-        var item = $(this);
+        var url = $(this).attr('data-item') + '/' + 
+        $(this).parent().attr('data-content') + '/?data=' +  $(this).attr('data-item');
         $('.content').fadeOut(1000, function(){
-            var url = item.attr('data-item') + '/' + 
-            item.parent().attr('data-content') + '/?data=' + item.attr('data-item');
             $('[data-content="generic"]').remove();
             $.ajax({
                 url : url,
