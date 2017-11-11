@@ -43,6 +43,7 @@ class Crud {
                     if (err) {
                         return console.error('error running query', err);
                     }
+                    console.log(result);
                     return json(result.rows);
                 });
         });
