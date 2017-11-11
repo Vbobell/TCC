@@ -19,7 +19,7 @@ app.use(session({
   secret: 'login', 
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 60000 }
+  cookie: { maxAge: 60000 * 60 }
 }));
 
 app.get('/logout', function(request, response){
