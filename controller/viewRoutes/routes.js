@@ -7,7 +7,6 @@ class Route{
         this.extension = extension;
     }
     getRoute(callback){
-        console.log(this.path + this.file + this.extension);
         return callback(fs.existsSync(this.path + this.file + this.extension));
     }
 }

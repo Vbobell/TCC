@@ -41,7 +41,7 @@ app.get('/admin', function (request, response) {
 
 app.get('/admin/route', function (request, response) {
   if (request.session.user){  
-  let route = new Route(app.get('views') + '/pages/' + request.query.path + '/', request.query.file, '.ejs');
+  let route = new Route(app.get('views') + '/pages/admin/' + request.query.path + '/', request.query.file, '.ejs');
   route.getRoute(data => {
     if (data)
       response.render('pages/' + request.query.path + '/' + request.query.file);
