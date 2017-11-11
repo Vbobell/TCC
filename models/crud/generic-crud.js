@@ -1,12 +1,12 @@
 const pool = require('../../lib/db');
 
 class Crud {
-    executeSelect(table, json) {
+    executeSelect(table, columns, json) {
         pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-            client.query('SELECT * from ' + table + ';', function (err, result) {
+            client.query('SELECT ' + columns + ' from ' + table + ';', function (err, result) {
                 done();
                 if (err) {
                     return console.error('error running query', err);
