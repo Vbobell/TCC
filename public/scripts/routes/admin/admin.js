@@ -4,10 +4,10 @@ $(document).ready(function(){
     });
 
     $('.item').on('click', function(){
-        $('.content').fadeOut(2000, function(){
-            $('[data-content="generic"]').remove();
+        $('.content').fadeOut(1000, function(){
             var url = $(this).attr('data-item') + '/' + 
             $(this).parent().attr('data-content') + '/?data=' + $(this).attr('data-item');
+            $('[data-content="generic"]').remove();
             $.ajax({
                 url : url,
                 dataType : 'html',
@@ -15,7 +15,7 @@ $(document).ready(function(){
             }).done(function(data){
                 $('body').append($(data)[1]);
                 $('body').append($(data)[3]);
-                $('.content[data-content="generic"]').fadeIn(2000);
+                $('.content[data-content="generic"]').fadeIn(1000);
             });
         });
     });
