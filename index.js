@@ -65,7 +65,7 @@ app.get('/admin/viewData/*', function (request, response) {
       response.redirect('/');
 });
 
-app.get('getData/*', function (request, response) {
+app.get('/admin/getData/*', function (request, response) {
   if (request.session.user){
         let manageAdmin = new ManageAdmin();
         manageAdmin.getDataAdmins(data => {
