@@ -13,8 +13,9 @@ $(document).ready(function(){
             $.ajax({
                 url : '/admin/route',
                 data : data,
+                dataType : 'html',
                 async : false,
-                type: 'POST'
+                type: 'GET'
             }).done(function(data){
                 $('body').append($(data)[1]);
                 $('body').append($(data)[3]);
