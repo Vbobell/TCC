@@ -11,7 +11,7 @@ $(document).ready(function(){
         $('.content').fadeOut(1000, function(){
             $('[data-content="generic"]').remove();
             $.ajax({
-                url : '/admin/route',
+                url : '/admin/route/',
                 data : data,
                 dataType : 'html',
                 async : false,

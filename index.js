@@ -39,7 +39,7 @@ app.get('/admin', function (request, response) {
     response.redirect('/');
 });
 
-app.get('/admin/route', function (request, response) {
+app.get('/admin/route/*', function (request, response) {
   if (request.session.user){  
   let route = new Route(app.get('views') + '/pages/admin/' + request.query.path + '/', request.query.file, '.ejs');
   route.getRoute(data => {
