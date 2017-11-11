@@ -3,9 +3,8 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
-const Route = require('./controller/viewRoutes/routes');
-const ControllerManage = require('./controller/manage/controller-manage');
 const ControllerImport = require('./controller/importFile/controller-import');
+const Route = require('./controller/viewRoutes/routes');
 const ManageAdmin = require('./controller/manage/manage-admin');
 
 app.set('port', (process.env.PORT || 5000));
@@ -22,9 +21,6 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 60000 }
 }));
-app.get('/', function(request, response){ 
-  response.render('pages/login'); 
-});
 
 app.get('/logout', function(request, response){
   request.session.destroy(function(err) {
@@ -32,6 +28,10 @@ app.get('/logout', function(request, response){
   })
 });
 
+app.get('/', function(request, response){ 
+    response.render('pages/login'); 
+});
+ 
 app.get('/admin', function (request, response) {
   if (request.session.user)
     response.render('pages/admin/index');
@@ -39,7 +39,7 @@ app.get('/admin', function (request, response) {
     response.redirect('/');
 });
 
-app.get('/admin/*', function (request, response) {
+app.get('/admin/import/*', function (request, response) {
   if (request.session.user){  
   let route = new Route(app.get('views') + '/pages' + request.path, request.query);
   route.getRoute('.ejs', data => {
@@ -52,16 +52,12 @@ app.get('/admin/*', function (request, response) {
     response.redirect('/');
 });
 
-app.get('/admin/getData/*', function (request, response) {
+app.get('/admin/select/*', function (request, response) {
   if (request.session.user){
     let route = new Route(app.get('controller') + '/manage' + request.path, request.query);
-    route.getRoute('.js', data => {
+    route.getRoute('.ejs', data => {
       if (data){
-        let manage = new ControllerManage(request.params[0]);
-        manage.getData(data => {
-          response.write(JSON.stringify(data));
-          response.end();
-        });
+        response.write(JSON.stringify(data));
       }else
         response.redirect('pages/error');
     });
