@@ -38,7 +38,7 @@ class Crud {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-                client.query('delete from '+ table + ' where = ' + parametres + ';', function (err, result) {
+                client.query('delete from '+ table + ' where ' + parametres + ';', function (err, result) {
                     done();
                     if (err) {
                         return console.error('error running query', err);
