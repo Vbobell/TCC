@@ -33,6 +33,20 @@ class Crud {
             return json(affectedRows);
         });
     }
+    executeDelete(table, parametres, json) {
+        pool.connect(function (err, client, done) {
+            if (err) {
+                return console.error('error fetching client from pool', err);
+            }
+                client.query('delete from '+ table + ' where = ' + parametres + ';', function (err, result) {
+                    if (err) {
+                        return console.error('error running query', err);
+                    }
+                });
+            done();
+            return json(result.rows);
+        });
+    }
     getPool(callback){
         return callback(pool);
     }

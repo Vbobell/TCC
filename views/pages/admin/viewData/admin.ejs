@@ -34,18 +34,32 @@
                     var elements = item.row.replace(/\(|\)/gi, '').split(',');
                     $('table.registres tbody').append('<tr id="row' + i + '"></tr>');
                     $('table.registres tbody tr#row' + i + '').after('<tr id="editRow' + i + '" class="hidden"></tr>');
-                    elements.forEach(function(j){
-                        $('table.registres tbody tr#row' + i + '').append('<td>' + j +'</td>');
-                        $('table.registres tbody tr#editRow'+ i + '').append('<td><input type="text" value="' + j + '"/></td>');
+                    elements.forEach(function(value){
+                        $('table.registres tbody tr#row' + i + '').append('<td>' + value +'</td>');
+                        $('table.registres tbody tr#editRow'+ i + '').append('<td><input type="text" value="' + value + '"/></td>');
                     });
                     $('table.registres tbody tr#row' + i + '').append(
-                        '<td><div class="edit"></div>'+
-                        '<div class="remove"></div></td>'
+                        '<td><div class="edit" data-id="tr#editRow'+i+'">E</div>'+
+                        '<div class="remove" data-id="'+elements[1]+'">R</div></td>'
                     );
                     $('table.registres tbody tr#editRow' + i + '').append(
-                        '<td><div class="save"></div>'+
-                        '<div class="cancel"></div></td>'
+                        '<td><div class="save">S</div>'+
+                        '<div class="cancel">C</div></td>'
                     );
+                });
+
+                $('.remove').on('click', function(){
+                    data = { 'registre': $(this).attr('data-id')};
+                    $.ajax({
+                        url : 'admin/remove/admin',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data : JSON.stringify(data),
+                        async : false,
+                        type: 'POST'
+                    }).done(function(data){
+                        console.log(data);
+                    });
                 });
             });
         })();

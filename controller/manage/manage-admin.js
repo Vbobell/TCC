@@ -9,6 +9,12 @@ class ManageAdmin{
             return callback(data);
         });
     }
+    removeAdmin(data, callback){
+        let crudAdmin = new CrudAdmin();
+        crudAdmin.executeDelete('admin', 'registre='+data.registre, data =>{
+            return callback(data);
+        });
+    }
     loginValidation(query, callback){
         let crudAdmin = new CrudAdmin();
         crudAdmin.selectUser(query.user,query.password, data => {
