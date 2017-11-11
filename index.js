@@ -53,10 +53,16 @@ app.get('/admin/import/*', function (request, response) {
 });
 
 app.get('/admin/viewData/*', function (request, response) {
-  if (request.session.user){
+  if (request.session.user){  
+    let route = new Route(app.get('views') + '/pages' + request.path, request.query);
+    route.getRoute('.ejs', data => {
+      if (data)
         response.render('pages'+ request.path + request.query.data);
-      }else
-    response.redirect('/');
+      else
+        response.redirect('pages/error');
+    });
+    }else
+      response.redirect('/');
 });
 
 app.get('getData/*', function (request, response) {
