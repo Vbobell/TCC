@@ -46,7 +46,7 @@ app.get('/admin/import/*', function (request, response) {
     if (data)
       response.render('pages'+ request.path + request.query.data);
     else
-      response.redirect('pages/error');
+      response.redirect('/error');
   });
   }else
     response.redirect('/');
@@ -59,7 +59,7 @@ app.get('/admin/viewData/*', function (request, response) {
       if (data)
         response.render('pages'+ request.path + request.query.data);
       else
-        response.redirect('pages/error');
+        response.redirect('/error');
     });
     }else
       response.redirect('/');
