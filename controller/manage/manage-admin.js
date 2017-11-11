@@ -11,7 +11,16 @@ class ManageAdmin{
     }
     removeAdmin(data, callback){
         let crudAdmin = new CrudAdmin();
-        crudAdmin.executeDelete('admin', "registre='"+String(data.registre)+"'", data =>{
+        let where = "registre='"+data.registre+"'";
+        crudAdmin.executeDelete('admin', where, data =>{
+            return callback(data);
+        });
+    }
+    editAdmin(data, callback){
+        let crudAdmin = new CrudAdmin();
+        let values = "('" + data.name + ", '" + data.registre + "')";
+        let where = "registre='"+data.registre+"'";
+        crudAdmin.executeUpdate('admin', '(name_admin, registre)', values, where, data => {
             return callback(data);
         });
     }

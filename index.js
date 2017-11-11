@@ -115,6 +115,17 @@ app.post('/admin/remove', (request, response) => {
     response.redirect('/');
 });
 
+app.post('/admin/edit', (request, response) => {
+  if (request.session.user){
+    let manageAdmin = new ManageAdmin();
+    manageAdmin.editAdmin(request.body, data => {
+      response.write(JSON.stringify(data));
+      response.end();
+    });
+  }else
+    response.redirect('/');
+});
+
 app.listen(app.get('port'), function () {
   console.log('Node app is running on port', app.get('port'));
 });
