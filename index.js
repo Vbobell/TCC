@@ -54,14 +54,8 @@ app.get('/admin/import/*', function (request, response) {
 
 app.get('/admin/viewData/*', function (request, response) {
   if (request.session.user){
-    let route = new Route(app.get('controller') + '/manage' + request.path, request.query);
-    route.getRoute('.js', data => {
-      if (data){
         response.render('pages'+ request.path + request.query.data);
       }else
-        response.redirect('pages/error');
-    });
-  }else
     response.redirect('/');
 });
 
