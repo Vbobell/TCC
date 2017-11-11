@@ -104,7 +104,7 @@ app.post('/import/*', (request, response) => {
     response.redirect('/');
 });
 
-app.post('/admin/remove/*', (request, response) => {
+app.post('/admin/remove', (request, response) => {
   if (request.session.user){
     let manageAdmin = new ManageAdmin();
     manageAdmin.removeAdmin(request.body, data => {
