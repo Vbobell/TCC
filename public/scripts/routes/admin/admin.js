@@ -11,6 +11,7 @@ $(document).ready(function(){
             $.ajax({
                 url : url,
                 dataType : 'html',
+                async : false,
                 type: 'GET'
             }).done(function(data){
                 $('body').append($(data)[1]);

@@ -26,7 +26,8 @@
         (function () {
             $.ajax({
                 url: '/admin/getData/admin',
-                type: 'GET'
+                type: 'GET',
+                async : false,
             }).done(function (data) {
                 var registres = JSON.parse(data);
                 registres.forEach(function (item, i) {
