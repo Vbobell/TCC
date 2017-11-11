@@ -5,7 +5,7 @@ class ManageAdmin{
     }
     getDataAdmins(callback){
         let crudAdmin = new CrudAdmin();
-        crudAdmin.executeSelect('admin', data =>{
+        crudAdmin.getDataView(data =>{
             return callback(data);
         });
     }
