@@ -15,7 +15,7 @@ $(document).ready(function(){
                 data : data,
                 dataType : 'html',
                 async : false,
-                type: 'GET'
+                type: 'POST'
             }).done(function(data){
                 $('body').append($(data)[1]);
                 $('body').append($(data)[3]);
