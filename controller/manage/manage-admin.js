@@ -18,10 +18,8 @@ class ManageAdmin{
     }
     editAdmin(data, callback){
         let crudAdmin = new CrudAdmin();
-        let values = "('" + data.name + ", '" + data.registre + "')";
+        let values = "('" + data.name + "', '" + data.registre + "')";
         let where = "registre='"+data.registre+"'";
-        console.log(values);
-        console.log(where);
         crudAdmin.executeUpdate('admin', '(name_admin, registre)', values, where, data => {
             return callback(data);
         });
