@@ -33,8 +33,6 @@ class CrudAdmin extends Crud{
             });
         });
     }
-
-    }
 }
 
 module.exports = CrudAdmin;
