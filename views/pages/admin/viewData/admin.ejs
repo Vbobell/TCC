@@ -32,7 +32,7 @@
                 registres.forEach(function (item, i) {
                     var elements = item.row.replace(/\(|\)/gi, '').split(',');
                     $('table.registres tbody').append('<tr id="row' + i + '"></tr>');
-                    $('table.registres tbody tr#row' + i + '').after('<tr id="editRow' + i + '" class="hidden"><td></td></tr>');
+                    $('table.registres tbody tr#row' + i + '').after('<tr id="editRow' + i + '" class="hidden"></tr>');
                     elements.forEach(function(j){
                         $('table.registres tbody tr#row' + i + '').append('<td>' + j +'</td>');
                         $('table.registres tbody tr#editRow'+ i + '').append('<td><input type="text" value="' + j + '"/></td>');
