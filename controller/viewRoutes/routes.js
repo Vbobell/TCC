@@ -1,12 +1,13 @@
 var fs = require('fs');
 
 class Route{
-    constructor(file, parametres){
+    constructor(path, file, extension){
+        this.path = path;
         this.file = file;
-        this.parametres = parametres;
+        this.extension = extension;
     }
-    getRoute(extension, callback){
-        return callback(fs.existsSync(this.file + this.parametres.data + extension));
+    getRoute(callback){
+        return callback(fs.existsSync(this.path + this.file + this.extension));
     }
 }
 module.exports = Route;
