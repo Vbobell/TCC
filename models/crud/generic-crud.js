@@ -11,7 +11,7 @@ class Crud {
                 if (err) {
                     return console.error('error running query', err);
                 }
-                return json(JSON.stringify(result.rows));
+                return json(JSON.stringify(result.rowCount));
             });
         });
     }
@@ -26,7 +26,7 @@ class Crud {
                     if (err) {
                         return console.error('error running query', err);
                     }
-                    affectedRows.push(result);
+                    affectedRows.push(result.rowCount);
                 });
             }
             done();
@@ -44,7 +44,7 @@ class Crud {
                         return console.error('error running query', err);
                     }
                     console.log(result);
-                    return json(result.rows);
+                    return json(result.rowCount);
                 });
         });
     }
@@ -58,7 +58,7 @@ class Crud {
                     if (err) {
                         return console.error('error running query', err);
                     }
-                    return json(result.rows);
+                    return json(result.rowCount);
                 });            
         });
     }
