@@ -117,7 +117,7 @@ app.post('/admin/remove', (request, response) => {
 
 app.post('/admin/edit', (request, response) => {
   if (request.session.user){
-    let manageAdmin = new ManageAdmin(app.get('views') + 'manage/', );
+    let manageAdmin = new ManageAdmin();
     manageAdmin.editAdmin(request.body, data => {
       response.write(JSON.stringify(data));
       response.end();
