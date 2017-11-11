@@ -51,7 +51,7 @@
                 $('.remove').on('click', function(){
                     data = { 'registre': $(this).attr('data-id')};
                     $.ajax({
-                        url : 'admin/remove/admin',
+                        url : 'admin/remove',
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         data : JSON.stringify(data),
