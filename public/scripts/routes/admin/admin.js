@@ -4,7 +4,10 @@ $(document).ready(function(){
     });
 
     $('.item').on('click', function(){
-        var data = { 'path' : $(this).attr('data-item') + '/' + $(this).parent().attr('data-content') + '/' ,  'file' : $(this).attr('data-item')};
+        var data = { 
+            'path' : $(this).attr('data-item') + '/' + $(this).parent().attr('data-content') + '/' ,  
+            'file' : $(this).attr('data-item')
+        };
         $('.content').fadeOut(1000, function(){
             $('[data-content="generic"]').remove();
             $.ajax({
