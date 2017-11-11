@@ -5,7 +5,7 @@ $(document).ready(function(){
 
     $('.item').on('click', function(){
         var data = { 
-            'path' : $(this).attr('data-item') + '/' + $(this).parent().attr('data-content') + '/' ,  
+            'path' : $(this).parent().attr('data-content') ,  
             'file' : $(this).attr('data-item')
         };
         $('.content').fadeOut(1000, function(){

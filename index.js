@@ -41,12 +41,10 @@ app.get('/admin', function (request, response) {
 
 app.get('/admin/route', function (request, response) {
   if (request.session.user){  
-  console.log(request);
-  console.log(request.query);
-  let route = new Route(app.get('views') + '/pages/' + request.body.path, request.body.file, '.ejs');
+  let route = new Route(app.get('views') + '/pages/' + '/' + request.body.path + '/', request.body.file, '.ejs');
   route.getRoute(data => {
     if (data)
-      response.render('pages'+ request.body.path + request.body.file);
+      response.render('pages/' + '/' + request.body.path + '/' + request.body.file);
     else
       response.redirect('/error');
   });
