@@ -31,7 +31,7 @@
                 var registres = JSON.parse(data);
                 registres.forEach(function (item, i) {
                     var elements = item.row.replace(/\(|\)/gi, '').split(',');
-                    $('table.registres tbody').append('<tr id=row"' + i + '"</tr>');
+                    $('table.registres tbody').append('<tr id=row"' + i + '"></tr>');
                     elements.forEach(function(j){
                         $('table.registres tbody tr#row' + i + '').append('<td>' + elements[j] +'</td>');
                     });
