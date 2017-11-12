@@ -5,10 +5,10 @@ $(document).ready(function(){
             var element = $(this);
             $('.page-content').fadeOut(300, function(){
                 $('[data-content="generic"]').remove();
-                $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(300, function(){
-                    element.addClass('selected');
-                    $('header h1 span').text(element.find('p').text());
-                });
+            });
+            $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(300, function(){
+                element.addClass('selected');
+                $('header h1 span').text(element.find('p').text());
             });
         }
     });
