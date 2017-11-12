@@ -11,7 +11,7 @@ $(document).ready(function(){
                     element.addClass('selected');
                     $('header h1 span').text(element.find('p').text());
                 });
-            }, 100);
+            }, 200);
         }
     });
 
