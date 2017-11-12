@@ -1,0 +1,40 @@
+body{
+    overflow: hidden;
+}
+section, header {
+    display: inline-block;
+}
+.page-content:not([data-content="viewData"]){
+    display: none;
+}
+.page-content {
+    width: 80%;
+    margin: 4% 6.5%;
+    position: relative;
+}
+.item{
+    display: inline-block;
+    width: 28%;
+}
+.item:not(:last-child){
+    margin: 0 5% 0 0;
+}
+.item figure {
+    display: inline-block;
+    background-color: #17b377;
+    color: #ffffff;
+    width: 100%;
+    vertical-align: middle;
+}
+.item figure img{
+    display: inline-block;
+}
+.item h2 {
+    display: inline-block;
+    text-align: center;
+}
+.item p {
+    background-color: #dae0da;
+    padding: 2em 1em;
+    text-align: center;
+}

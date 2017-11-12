@@ -42,6 +42,9 @@ big {
 a, a:link, a:visited, a:active, a:hover {
     text-decoration: underline;
 }
+figure {
+    margin: 0;
+}
 img {
     border: none;
 }

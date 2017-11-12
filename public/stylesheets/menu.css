@@ -1,0 +1,21 @@
+.menu {
+    background-color: #17b377;
+    width: 7%;
+    vertical-align: top;
+    float: left;
+}
+.menu figure {
+    text-align: center;
+    padding: 0.5em 0em;
+    cursor: pointer;
+    color: #ffffff;
+}
+.menu .menu-buttom.selected, .menu .menu-buttom:hover{
+    background-color: #dae0da;
+    color: #2c2b2e;
+    transition: 0.3s ease-in;
+}
+
+.menu figure img {
+    width: 60%;
+}

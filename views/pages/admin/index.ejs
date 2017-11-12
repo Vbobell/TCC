@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../../../public/stylesheets/clear.css"/>
+<meta charset="UTF-8">
+    <% include ../../../public/stylesheets/standard-css.ejs %>
 </head>
 
 <body>
-<% include menu.ejs %>
 <% include ../way-now.ejs %>
-<section class="content" data-content="viewData">
+<% include menu.ejs %>
+<section class="page-content" data-content="viewData">
     <article class="item" data-item="admin">
         <figure>
         <img src=""/>
@@ -16,7 +17,7 @@
         <p>Visualize os dados dos administradores onde você pode edita-los e remove-los.</p>
     </article>
 </section>
-<section class="content" data-content="import">
+<section class="page-content" data-content="import">
     <article class="item" data-item="admin">
         <figure>
         <img src =""/>
@@ -25,7 +26,6 @@
         <p>Faça importação dos administradores do sistema.</p>
     </article>
 </section>
-<a href="/logout">Desconectar</a>
 <% include ../../../public/scripts/standard-scripts.ejs %>
 <script src="/scripts/routes/admin/admin.js"></script>
 </body>

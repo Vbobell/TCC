@@ -19,7 +19,7 @@ app.use(session({
   secret: 'login', 
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 60000 * 60 }
+  cookie: { maxAge: (60000 * 60) * 24 }
 }));
 
 app.get('/logout', function(request, response){
@@ -78,6 +78,9 @@ app.post('/login', function(request, response){
 
       response.end();
   });
+  request.session.user = request.body.user;
+  response.write(JSON.stringify(true));
+  response.end();
 });
 
 app.post('/import/*', (request, response) => {
