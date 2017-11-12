@@ -52,19 +52,6 @@ app.get('/admin/route/*', function (request, response) {
     response.redirect('/');
 });
 
-/*app.get('/admin/viewData/', function (request, response) {
-  if (request.session.user){  
-    let route = new Route(app.get('views') + '/pages' + request.path + '/', request.body.file);
-    route.getRoute('.ejs', data => {
-      if (data)
-        response.render('pages'+ request.path + request.query.data);
-      else
-        response.redirect('/error');
-    });
-    }else
-      response.redirect('/');
-});*/
-
 app.get('/admin/getData/*', function (request, response) {
   if (request.session.user){
         let manageAdmin = new ManageAdmin();
