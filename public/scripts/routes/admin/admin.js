@@ -3,10 +3,10 @@ $(document).ready(function(){
         if(!$('.page-content[data-content="' + $(this).attr('data-menu') + '"]').is(':visible')){
             $('.menu-buttom').removeClass('selected');
             var element = $(this);
-            $('.page-content').fadeOut(300, function(){
+            $('.page-content').hide(400, function(){
                 $('[data-content="generic"]').remove();
             });
-            $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(300, function(){
+            $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(500, function(){
                 element.addClass('selected');
                 $('header h1 span').text(element.find('p').text());
             });
