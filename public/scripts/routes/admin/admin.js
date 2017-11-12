@@ -5,11 +5,13 @@ $(document).ready(function(){
             var element = $(this);
             $('.page-content').fadeOut(200, function(){
                 $('[data-content="generic"]').remove();
-                $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(500, function(){
+            });
+            setTimeout(function(){
+                $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(400, function(){
                     element.addClass('selected');
                     $('header h1 span').text(element.find('p').text());
                 });
-            });
+            }, 100);
         }
     });
 
