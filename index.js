@@ -69,7 +69,7 @@ app.get('/error', function (request, response){
 
 app.post('/login', function(request, response){
   let manageAdmin = new ManageAdmin();
-  /*manageAdmin.loginValidation(request.body, valid => {
+  manageAdmin.loginValidation(request.body, valid => {
     if(valid){
       request.session.user = request.body.user;
       response.write(JSON.stringify(valid));
@@ -77,10 +77,7 @@ app.post('/login', function(request, response){
       response.write(JSON.stringify(valid));
 
       response.end();
-  });*/
-  request.session.user = request.body.user;
-  response.write(JSON.stringify(true));
-  response.end();
+  });
 });
 
 app.post('/import/*', (request, response) => {
