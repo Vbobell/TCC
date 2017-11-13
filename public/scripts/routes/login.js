@@ -2,7 +2,7 @@ $(document).ready(function(){
     var width = $(window).width();
 
     if(width < 1024){
-        $('body').append($('.user-access'));
+        $('body .login-background').after($('.user-access'));
     }
 
     $('.submit').on('click', function(){

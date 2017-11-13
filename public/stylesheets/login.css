@@ -69,3 +69,17 @@ header{
 .login-background img {
     width: 70%;
 }
+@media all and (max-width:768px){
+    .software-identify{
+        width: 100%;
+    }
+    .user-access{
+        width: 90.8%;
+    }
+    .login-background img {
+        width: 100%;
+    }
+    .item-access input[type="text"], .item-access input[type="password"] {
+        width: 83.5%;
+    }
+}
