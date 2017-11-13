@@ -1,4 +1,10 @@
 $(document).ready(function(){
+    var width = $(window).width();
+
+    if(width < 1024){
+        $('body').append($('.user-access'));
+    }
+
     $('.submit').on('click', function(){
         data = { 'user': $('input[name="user"]').val(), 'password': $('input[name="password"]').val()};
         $.ajax({

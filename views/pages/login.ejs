@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <% include ../../public/scripts/standard-scripts.ejs %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/clear.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/header.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css"/>
 </head>
 
 <body>
-
-<header>
-    login
+<header class="header-login">
+    <section class="user-access">
+    <div class="item-access">
+        <img src="images/login/user.png"/>
+        <input type="text" name="user" placeholder="Login"/>
+    </div>
+    <div class="item-access">
+        <img src="images/login/password.png"/>
+        <input type="password" name="password" placeholder="Senha"/>
+    </div>  
+    <div class="item-access">
+        <a>Alterar senha?</a>
+        <button class="submit">Entrar</button>
+    </div>
+    </section>
+    <article class="software-identify">
+        <h1>School tasks</h1>
+        <h2>Evolua seu conhecimento com atividades e colaboração.</h2>
+    </article>
 </header>
-<input type="text" name="user"/>
-<input type="password" name="password"/>
-<button class="submit">Login</button>
+<figure class="login-background">
+        <img src="images/login/background.png"/>
+</figure>
+<% include ../../public/scripts/standard-scripts.ejs %>
 <script src="/scripts/routes/login.js"></script>
 </body>
 </html>
