@@ -9,7 +9,8 @@ $(document).ready(function(){
             setTimeout(function(){
                 $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(400, function(){
                     element.addClass('selected');
-                    $('header h1 span').text(element.find('p').text());
+                    $('header h1 span').remove();
+                    $('header h1').append('<span> > '+element.find('p').text()+'</span>');
                 });
             }, 200);
         }
@@ -20,7 +21,7 @@ $(document).ready(function(){
             'path' : $(this).parent().attr('data-content') ,  
             'file' : $(this).attr('data-item')
         };
-        $('.page-content').fadeOut(1000, function(){
+        $('.page-content').fadeOut(200, function(){
             $('[data-content="generic"]').remove();
             $.ajax({
                 url : '/admin/route/',
@@ -31,8 +32,11 @@ $(document).ready(function(){
             }).done(function(data){
                 $('body').append($(data)[1]);
                 $('body').append($(data)[3]);
-                $('.page-content[data-content="generic"]').fadeIn(1000);
+                setTimeout(function(){
+                    $('.page-content[data-content="generic"]').fadeIn(200);
+                },200);
             });
         });
+        $('.inner-header h1').append('<span> > '+$('.title-content h2').text()+'</span>');
     });
 });

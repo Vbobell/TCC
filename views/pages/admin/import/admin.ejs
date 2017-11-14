@@ -1,9 +1,29 @@
 <!DOCTYPE html>
 <html>
 <body>
-<section class="page-content" data-content="generic">
-    <input type="file" id="fileUpload" name="importAdmin"/>
-    <button class="submit">  </button>
+<section class="page-content big-content" data-content="generic">
+    <figure class="title-content">
+        <img src="images/admin/user-import.png"/>
+        <h2>Administrador</h2>
+    </figure>
+    <section class="big-inner-content">
+    <div class="upload-button-content">
+        <label for="fileUpload">Selecione o arquivo</label>
+        <input type="file" id="fileUpload" name="importAdmin"/>
+        <button class="submit import">Importar dados</button>
+    </div>
+    <article class="medium-article-content import-description">
+        <figure class="title-description">
+            <img src="images/admin/warning.png"/>
+            <h3>Atenção</h3>
+        </figure>
+        <ul>
+            <li>Formato csv separado por vírgula.</li>
+            <li>O tipo de arquivo para a importação não deve possuir cabeçalho.</li>
+            <li>Dados que pertencem ao administrador são nome e matrícula.</li>
+        </ul>
+    </article>
+    </section>
 </section>
 
 <script class="script-import" data-content="generic">

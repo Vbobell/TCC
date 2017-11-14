@@ -15,6 +15,7 @@ section, header {
 .item{
     display: inline-block;
     width: 28%;
+    cursor: pointer;
 }
 .item:not(:last-child){
     margin: 0 5% 0 0;

@@ -76,8 +76,12 @@ app.post('/login', function(request, response){
     }else
       response.write(JSON.stringify(valid));
 
-      response.end();
+      response.end();   
   });
+  //Local test
+  /*request.session.user = request.body.user;
+  response.write(JSON.stringify(true));
+  response.end();*/
 });
 
 app.post('/import/*', (request, response) => {
