@@ -19,7 +19,7 @@ class ManageAdmin{
     editAdmin(parametres, callback){
         let crudAdmin = new CrudAdmin();
         let values = "('" + parametres.name + "', '" + parametres.registre + "')";
-        let where = "registre='"+parametres.registre+"'";
+        let where = "id_admin='"+parametres.id_admin+"'";
         crudAdmin.executeUpdate('admin', '(name_admin, registre)', values, where, data => {
             return callback(data);
         });
