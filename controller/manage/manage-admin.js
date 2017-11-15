@@ -11,7 +11,7 @@ class ManageAdmin{
     }
     removeAdmin(parametres, callback){
         let crudAdmin = new CrudAdmin();
-        let where = "registre='"+parametres.registre+"'";
+        let where = "id_admin='"+parametres.registre+"'";
         crudAdmin.executeDelete('admin', where, data =>{
             return callback(data);
         });
