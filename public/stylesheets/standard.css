@@ -86,14 +86,35 @@ section, header {
     width: 100%;
     font-size: 1em;
 }
+
 .table-content thead td {
     font-weight: bold;
+}
+.table-content table td {
+    padding: 0.2em 2em;
+    line-height: 2em;
+}
+.border-top-right-left{
+    background-color: #17b377;
+    color:#ffffff;
+    border-top: 0.1em solid #2c2b2e;
+    border-right: 0.1em solid #2c2b2e;
+    border-left: 0.1em solid #2c2b2e;
+}
+.border-right-bottom-left{
+    border-right: 0.1em solid #2c2b2e;
+    border-bottom: 0.1em solid #2c2b2e;
+    border-left: 0.1em solid #2c2b2e;
 }
 .view-row{
     background-color:#ffffff;
 }
 .view-row:nth-child(4n+3) {
     background-color: #dae0da;
+}
+
+.edit-select{
+    background-color: #17b377 !important;
 }
 .submit{
     background-color: #17b377;
@@ -108,3 +129,30 @@ section, header {
     display: none;
     transition: 0.2s ease;
 }
+.tool{
+    display: inline-block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+}
+.open-edit{
+    background-image: url('../images/content/tools/edit.png');
+}
+.remove{
+    background-image: url('../images/content/tools/remove.png');
+}
+.edit{
+    background-image: url('../images/content/tools/save.png');
+}
+.cancel{
+    background-image: url('../images/content/tools/cancel.png');
+}
+
+/*subscript bootstrap*/
+.row{
+    margin: 0;
+}
+ 

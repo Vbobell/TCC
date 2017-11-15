@@ -55,10 +55,14 @@ app.get('/admin/route/*', function (request, response) {
 app.get('/admin/getData/*', function (request, response) {
   if (request.session.user){
         let manageAdmin = new ManageAdmin();
-        manageAdmin.getDataAdmins(request.query, data => {
+        anageAdmin.getDataAdmins(request.query, data => {
           response.write(data);
           response.end();
     });
+    //Local test
+    /*mvar data = [{'name_admin':'test','registre':1},{'name_admin':'test','registre':1}];
+    response.write(JSON.stringify(data));
+    response.end();*/
   }else
     response.redirect('/');
 });
