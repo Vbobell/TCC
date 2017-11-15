@@ -73,7 +73,7 @@
                 });
     
                 $('.remove').on('click', function(){
-                    data = { 'id_admin': $(this).attr('data-id')};
+                    data = { 'idAdmin': $(this).attr('data-id')};
                     $.ajax({
                         url : 'admin/remove',
                         contentType: "application/json; charset=utf-8",
@@ -91,7 +91,7 @@
                     data = {
                         'name': $($(this).attr('data-id')).find('input[name="name_admin"]').val(),
                         'registre': $($(this).attr('data-id')).find('input[name="registre"]').val(),
-                        'id_admin' : $(this).attr('data-id-edit')
+                        'idAdmin' : $(this).attr('data-id-edit')
                     };
                     $.ajax({
                         url : 'admin/edit',
