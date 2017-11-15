@@ -35,8 +35,8 @@ $(document).ready(function(){
                 setTimeout(function(){
                     $('.page-content[data-content="generic"]').fadeIn(200);
                 },200);
+                $('.inner-header h1').append('<span> > '+$('.title-content h2').text()+'</span>');
             });
         });
-        $('.inner-header h1').append('<span> > '+$('.title-content h2').text()+'</span>');
     });
 });
