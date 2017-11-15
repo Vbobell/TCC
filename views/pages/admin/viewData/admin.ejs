@@ -40,7 +40,7 @@
                 var registres = JSON.parse(data);
                 $('table.registres tbody').html('');
                 registres.forEach(function (item, i) {                   
-                    $('table.registres tbody').append('<tr id="row' + i + '"></tr>');
+                    $('table.registres tbody').append('<tr class="view-row" id="row' + i + '"></tr>');
                     $('table.registres tbody tr#row' + i + '').after('<tr id="editRow' + i + '" class="hidden"></tr>');
                 
                     $('table.registres tbody tr#row' + i + '').append('<td>' + item.name_admin +'</td><td>'+item.registre+'</td>');
