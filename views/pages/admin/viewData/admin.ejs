@@ -23,7 +23,7 @@
 
     <script class="script-admin" data-content="generic">
         (function () {
-            var parametres = { 'limit': 10, 'offset': 0 };
+            var getData = function(parametres){
             var tableHead = ['name_admin', 'registre'];
             $.ajax({
                 url: '/admin/getData/admin',
@@ -33,6 +33,7 @@
             }).done(function (data) {
                 var registres = JSON.parse(data);
                 registres.forEach(function (item, i) {
+                    $('table.registres tbody').html('');
                     $('table.registres tbody').append('<tr id="row' + i + '"></tr>');
                     $('table.registres tbody tr#row' + i + '').after('<tr id="editRow' + i + '" class="hidden"></tr>');
                 
@@ -61,7 +62,10 @@
                         async : false,
                         type: 'POST'
                     }).done(function(data){
-                        console.log(data);
+                        if(data > 0){
+                            getData({ 'limit': 10, 'offset': 0 });
+                            alert('dados alterados!');
+                        }
                     });
                 });
 
@@ -78,10 +82,15 @@
                         async : false,
                         type: 'POST'
                     }).done(function(data){
-                        console.log(data);
+                        if(data > 0){
+                            getData({ 'limit': 10, 'offset': 0 });
+                            alert('dados alterados!');
+                        }
                     });
                 });
             });
+            getData({ 'limit': 10, 'offset': 0 });
+        }
         })();
     </script>
 </body>
