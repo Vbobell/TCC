@@ -79,6 +79,7 @@ section, header {
     line-height: 2.5em;
 }
 .table-content {
+    width: 100%;
     padding: 0;
 }
 .table-content table{
@@ -87,6 +88,12 @@ section, header {
 }
 .table-content thead td {
     font-weight: bold;
+}
+.view-row{
+    background-color:#ffffff;
+}
+.view-row:nth-child(4n+3) {
+    background-color: #dae0da;
 }
 .submit{
     background-color: #17b377;
