@@ -23,7 +23,7 @@ class CrudAdmin extends Crud{
                 if (err) {
                     return console.error('error fetching client from pool', err);
                 }
-                client.query('SELECT name_admin, registre from admin limit = $1 and offset = $2 ', [limit, offset] , function (err, result) {
+                client.query('SELECT name_admin, registre from admin limit = $1 offset = $2 ', [limit, offset] , function (err, result) {
                     done();
                     if (err) {
                         return console.error('error running query', err);
