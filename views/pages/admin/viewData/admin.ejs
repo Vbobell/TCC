@@ -23,12 +23,12 @@
 
     <script class="script-admin" data-content="generic">
         (function () {
-            var parametres = { 'limit':10, 'offset':0 };
+            var parametres = { 'limit': 10, 'offset': 0 };
             var tableHead = ['name', 'registre'];
             $.ajax({
                 url: '/admin/getData/admin',
                 type: 'GET',
-                data: JSON.stringify(parametres),
+                data: parametres,
                 async : false,
             }).done(function (data) {
                 var registres = JSON.parse(data);
