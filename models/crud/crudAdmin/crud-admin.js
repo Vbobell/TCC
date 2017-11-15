@@ -28,6 +28,7 @@ class CrudAdmin extends Crud{
                     if (err) {
                         return console.error('error running query', err);
                     }
+                    console.log(JSON.stringify(result.rows));
                     return json(JSON.stringify(result.rows));
                 });
             });
