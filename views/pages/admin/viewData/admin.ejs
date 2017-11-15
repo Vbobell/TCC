@@ -70,6 +70,7 @@
 
                 $('.cancel').on('click', function(){
                     $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                    $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
                 });
     
                 $('.remove').on('click', function(){
@@ -82,7 +83,7 @@
                         async : false,
                         type: 'POST'
                     }).done(function(data){
-                            getData({ 'limit': 10, 'offset': 0 });
+                            getData({ 'limit': 9, 'offset': 0 });
                             alert('administrador removido!');
                     });
                 });
@@ -101,13 +102,13 @@
                         async : false,
                         type: 'POST'
                     }).done(function(data){
-                            getData({ 'limit': 10, 'offset': 0 });
+                            getData({ 'limit': 9, 'offset': 0 });
                             alert('dados alterados!');
                     });
                 });
             });
         }
-        getData({ 'limit': 10, 'offset': 0 });
+        getData({ 'limit': 9, 'offset': 0 });
         })();
     </script>
 </body>
