@@ -21,6 +21,7 @@ $(document).ready(function(){
             'path' : $(this).parent().attr('data-content') ,  
             'file' : $(this).attr('data-item')
         };
+        var key = false;
         $('.page-content').fadeOut(200, function(){
             $('[data-content="generic"]').remove();
             $.ajax({
@@ -35,7 +36,10 @@ $(document).ready(function(){
                 setTimeout(function(){
                     $('.page-content[data-content="generic"]').fadeIn(200);
                 },200);
-                $('.inner-header h1').append('<span> > '+$('.title-content h2').text()+'</span>');
+                if(!key){
+                    $('.inner-header h1').append('<span> > '+$('.title-content h2').text()+'</span>');
+                    key = true;
+                }
             });
         });
     });
