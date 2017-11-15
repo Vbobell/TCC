@@ -3,30 +3,30 @@ const CrudAdmin = require('../../models/crud/crudAdmin/crud-admin');
 class ManageAdmin{
     constructor(){
     }
-    getDataAdmins(callback){
+    getDataAdmins(parametres, callback){
         let crudAdmin = new CrudAdmin();
-        crudAdmin.executeSelect('admin', '(name_admin, registre)',data =>{
+        crudAdmin.selectUsers(parametres.limit, parametres.offset , data =>{
             return callback(data);
         });
     }
-    removeAdmin(data, callback){
+    removeAdmin(parametres, callback){
         let crudAdmin = new CrudAdmin();
-        let where = "registre='"+data.registre+"'";
+        let where = "registre='"+parametres.registre+"'";
         crudAdmin.executeDelete('admin', where, data =>{
             return callback(data);
         });
     }
-    editAdmin(data, callback){
+    editAdmin(parametres, callback){
         let crudAdmin = new CrudAdmin();
-        let values = "('" + data.name + "', '" + data.registre + "')";
-        let where = "registre='"+data.registre+"'";
+        let values = "('" + parametres.name + "', '" + parametres.registre + "')";
+        let where = "registre='"+parametres.registre+"'";
         crudAdmin.executeUpdate('admin', '(name_admin, registre)', values, where, data => {
             return callback(data);
         });
     }
-    loginValidation(query, callback){
+    loginValidation(parametres, callback){
         let crudAdmin = new CrudAdmin();
-        crudAdmin.selectUser(query.user,query.password, data => {
+        crudAdmin.selectUser(parametres.user,parametres.password, data => {
             if(JSON.parse(data)[0].count == 1)
                 return callback(true);
             else

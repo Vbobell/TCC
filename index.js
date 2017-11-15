@@ -55,7 +55,7 @@ app.get('/admin/route/*', function (request, response) {
 app.get('/admin/getData/*', function (request, response) {
   if (request.session.user){
         let manageAdmin = new ManageAdmin();
-        manageAdmin.getDataAdmins(data => {
+        manageAdmin.getDataAdmins(request.body, data => {
           response.write(data);
           response.end();
     });
