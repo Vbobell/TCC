@@ -32,9 +32,8 @@
                 async : false,
             }).done(function (data) {
                 var registres = JSON.parse(data);
-                console.log(registres);
                 registres.forEach(function (item, i) {
-                    var elements = item.row.replace(/\(|\)/gi, '').split(',');
+                    var elements = item.replace(/\(|\)/gi, '').split(',');
                     $('table.registres tbody').append('<tr id="row' + i + '"></tr>');
                     $('table.registres tbody tr#row' + i + '').after('<tr id="editRow' + i + '" class="hidden"></tr>');
                     elements.forEach(function(value, j){
