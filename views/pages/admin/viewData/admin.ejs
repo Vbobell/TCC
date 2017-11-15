@@ -32,8 +32,8 @@
                 async : false,
             }).done(function (data) {
                 var registres = JSON.parse(data);
-                registres.forEach(function (item, i) {
-                    $('table.registres tbody').html('');
+                $('table.registres tbody').html('');
+                registres.forEach(function (item, i) {                   
                     $('table.registres tbody').append('<tr id="row' + i + '"></tr>');
                     $('table.registres tbody tr#row' + i + '').after('<tr id="editRow' + i + '" class="hidden"></tr>');
                 
