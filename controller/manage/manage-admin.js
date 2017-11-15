@@ -5,6 +5,7 @@ class ManageAdmin{
     }
     getDataAdmins(parametres, callback){
         let crudAdmin = new CrudAdmin();
+        console.log(parametres);
         crudAdmin.selectUsers(parametres.limit, parametres.offset , data =>{
             return callback(data);
         });
