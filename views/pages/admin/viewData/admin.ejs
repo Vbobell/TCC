@@ -32,7 +32,7 @@
             var getData = function(parametres){
             var tableHead = ['name_admin', 'registre'];
             $.ajax({
-                url: '/admin/getData/admin',
+                url: '/admin/getData',
                 type: 'GET',
                 data: parametres,
                 async : false,
@@ -83,7 +83,7 @@
                         async : false,
                         type: 'POST'
                     }).done(function(data){
-                            getData({ 'limit': 9, 'offset': 0 });
+                            getData({'entity':'admin', 'limit': 9, 'offset': 0 });
                             alert('administrador removido!');
                     });
                 });
@@ -102,13 +102,13 @@
                         async : false,
                         type: 'POST'
                     }).done(function(data){
-                            getData({ 'limit': 9, 'offset': 0 });
+                            getData({'entity':'admin', 'limit': 9, 'offset': 0 });
                             alert('dados alterados!');
                     });
                 });
             });
         }
-        getData({ 'limit': 9, 'offset': 0 });
+        getData({'entity':'admin', 'limit': 9, 'offset': 0 });
         })();
     </script>
 </body>

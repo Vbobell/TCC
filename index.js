@@ -53,7 +53,7 @@ app.get('/admin/route/*', function (request, response) {
     response.redirect('/');
 });
 
-app.get('/admin/getData/*', function (request, response) {
+app.get('/admin/getData', function (request, response) {
   if (request.session.user){
     let manageSearch = new ManageSearch(request.query);
     manageSearch.getData(data =>{
