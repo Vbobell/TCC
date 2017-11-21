@@ -55,6 +55,8 @@ app.get('/admin/route/*', function (request, response) {
 
 app.get('/admin/getData', function (request, response) {
   if (request.session.user){
+    console.log(request.query);
+    console.log(request);
     let manageSearch = new ManageSearch(request.query.entity, request.query);
     manageSearch.getData(data =>{
       response.write(data);
