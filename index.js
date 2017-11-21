@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const ControllerImport = require('./controller/importFile/controller-import');
 const Route = require('./controller/viewRoutes/routes');
-const ManageAdmin = require('./controller/manage/manage-admin');
+const ManageAdmin = require('./controller/manage/manageAdmin/manage-admin');
+const ManageSearch = require('./controller/manage/manageAdmin/manage-search');
 
 app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');
@@ -54,10 +55,10 @@ app.get('/admin/route/*', function (request, response) {
 
 app.get('/admin/getData/*', function (request, response) {
   if (request.session.user){
-        let manageAdmin = new ManageAdmin();
-        manageAdmin.getDataAdmins(request.query, data => {
-          response.write(data);
-          response.end();
+    let manageSearch = new ManageSearch(request.query);
+    manageSearch.getData(data =>{
+      response.write(data);
+      response.end();
     });
     //Local test
     /*mvar data = [{'name_admin':'test','registre':1},{'name_admin':'test','registre':1}];
