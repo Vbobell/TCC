@@ -4,6 +4,8 @@ class ManageSearch{
     construtor(entity, parametres){
         this.entity = entity;
         this.parametres = parametres;
+        console.log(this.entity);
+        console.log(this.parametres);
     }
     getData(callback){
         console.log(this.entity);
