@@ -33,12 +33,12 @@ class Crud {
             return json(affectedRows);
         });
     }
-    executeUpdate(table, columns, values, parametres, json) {
+    executeUpdate(table, columns, values, parametres, registre, json) {
         pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-                client.query("update " + table + " set " + columns + " = " + values + " where " + parametres + ";", function (err, result) {
+                client.query("update " + table + " set " + columns + " = " + values + " where " + parametres + ";", registre, function (err, result) {
                     done();
                     if (err) {
                         return console.error('error running query', err);

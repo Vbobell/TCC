@@ -16,9 +16,10 @@ class ManageAdmin{
         });
     }
     editAdmin(parametres, callback){
-        let values = "('" + parametres.name + "', '" + parametres.registre + "')";
-        let where = "id_admin='"+parametres.idAdmin+"'";
-        this.crudAdmin.executeUpdate('admin', '(name_admin, registre)', values, where, data => {
+        let values = '($1, $2)';
+        let registre = [parametres.name, parametres.registre, parametres.idAdmin];
+        let where = 'id_admin= $3';
+        this.crudAdmin.executeUpdate('admin', '(name_admin, registre)', values, where, registre, data => {
             return callback(data);
         });
     }
