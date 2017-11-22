@@ -7,6 +7,7 @@ const ControllerImport = require('./controller/importFile/controller-import');
 const Route = require('./controller/viewRoutes/routes');
 const ManageAdmin = require('./controller/manage/manageAdmin/manage-admin');
 const ManageSearch = require('./controller/manage/manageAdmin/manage-search');
+const ManageEdit = require('./controller/manage/manageAdmin/manage-edit');
 
 app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');
@@ -55,8 +56,6 @@ app.get('/admin/route/*', function (request, response) {
 
 app.get('/admin/getData', function (request, response) {
   if (request.session.user){
-    console.log(request.query);
-    console.log(request.query.entity);
     let manageSearch = new ManageSearch(request.query.entity, request.query);
     manageSearch.getData(data =>{
       response.write(data);
@@ -115,9 +114,9 @@ app.post('/admin/remove', (request, response) => {
 
 app.post('/admin/edit', (request, response) => {
   if (request.session.user){
-    let manageAdmin = new ManageAdmin();
-    manageAdmin.editAdmin(request.body, data => {
-      response.write(JSON.stringify(data));
+    let manageEdit = new ManageEdit(request.query.entity, request.query);
+    manageEdit.getEdit( data =>{
+      response.write(data);
       response.end();
     });
   }else

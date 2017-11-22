@@ -1,15 +1,15 @@
 const ManageAdmin = require('./manage-admin');
 
-class ManageSearch{
+class ManageEdit{
     constructor(entity, parametres){
         this.entity = entity;
         this.parametres = parametres;
     }
-    getData(callback){
+    getEdit(callback){
         switch(this.entity){
             case 'admin':
                 let manageAdmin = new ManageAdmin();
-                manageAdmin.getDataAdmins(this.parametres, data => {
+                manageAdmin.editAdmin(this.parametres, data => {
                     return callback(data);
                 });
             break;
@@ -17,4 +17,4 @@ class ManageSearch{
     }
 }
 
-module.exports = ManageSearch;
+module.exports = ManageEdit;
