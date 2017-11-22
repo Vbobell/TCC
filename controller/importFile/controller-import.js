@@ -1,4 +1,5 @@
-var AdminImportController = require('./admin/import-admin');
+const AdminImportController = require('./admin/import-admin');
+const CourseImportController = require('./course/import-course');
 
 class ControllerImport{
     constructor(route, data){
@@ -8,10 +9,16 @@ class ControllerImport{
     csvInsertData(callback){
         switch(this.route){
             case 'admin':
-                var controllerAdm = new AdminImportController(this.data);
+                let controllerAdm = new AdminImportController(this.data);
                 controllerAdm.getReadData(data => 
-                    controllerAdm.insertDataAdmin(data, response => callback(response)));
+                    controllerAdm.insertDataAdmin(data, response => callback(response))
+                );
             break;
+            case 'course':
+                let controllerCourse = new CourseImportController(this.data);
+                controllerCourse.getReadData( data =>
+                    controllerCourse.insertDataAdmin(data, response => callback(response))
+                );
             default:
                 callback('error');
             break;
