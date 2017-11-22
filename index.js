@@ -116,7 +116,7 @@ app.post('/admin/edit', (request, response) => {
   if (request.session.user){
     let manageEdit = new ManageEdit(request.body.entity, request.body);
     manageEdit.getEdit( data =>{
-      response.write(data);
+      response.write(JSON.stringify(data));
       response.end();
     });
   }else
