@@ -1,4 +1,4 @@
-var AdminImportController = require('./admin/controller-admin');
+var AdminImportController = require('./admin/import-admin');
 
 class ControllerImport{
     constructor(route, data){

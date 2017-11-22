@@ -1,4 +1,4 @@
-var Crud = require('../generic-crud');
+const Crud = require('../generic-crud');
 
 class CrudAdmin extends Crud{
     selectUser(user, password, json){
