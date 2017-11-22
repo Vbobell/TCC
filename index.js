@@ -6,9 +6,9 @@ const fileUpload = require('express-fileupload');
 const ControllerImport = require('./controller/importFile/controller-import');
 const Route = require('./controller/viewRoutes/routes');
 const ManageAdmin = require('./controller/manage/manageAdmin/manage-admin');
-const ManageSearch = require('./controller/manage/manageAdmin/manage-search');
-const ManageEdit = require('./controller/manage/manageAdmin/manage-edit');
-const ManageRemove = require('./controller/manage/manageAdmin/manage-remove');
+const ManageSearch = require('./controller/manage/manageData/manage-search');
+const ManageEdit = require('./controller/manage/manageData/manage-edit');
+const ManageRemove = require('./controller/manage/manageData/manage-remove');
 
 app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');

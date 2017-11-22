@@ -1,4 +1,4 @@
-const ManageAdmin = require('./manage-admin');
+const ManageAdmin = require('../manageAdmin/manage-admin');
 
 class ManageSearch{
     constructor(entity, parametres){
