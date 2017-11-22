@@ -74,7 +74,7 @@
                 });
     
                 $('.remove').on('click', function(){
-                    data = { 'idAdmin': $(this).attr('data-id')};
+                    data = { 'entity': 'admin','idAdmin': $(this).attr('data-id') };
                     $.ajax({
                         url : 'admin/remove',
                         contentType: "application/json; charset=utf-8",
