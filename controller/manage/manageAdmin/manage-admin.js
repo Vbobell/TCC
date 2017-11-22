@@ -10,7 +10,7 @@ class ManageAdmin{
         });
     }
     removeAdmin(parametres, callback){
-        let where = 'id_admin= $1';
+        let where = 'id_admin = $1';
         let registre = parametres.idAdmin;
         this.crudAdmin.executeDelete('admin', where, registre, data =>{
             return callback(data);
