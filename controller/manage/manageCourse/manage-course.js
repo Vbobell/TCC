@@ -9,6 +9,13 @@ class ManageCourse{
             return callback(data);
         });
     }
+    removeCourse(parametres, callback){
+        let where = 'id_course = $1';
+        let registre = [parametres.idCourse];
+        this.crudCourse.executeDelete('course', where, registre, data =>{
+            return callback(data);
+        });
+    }
 }
 
 module.exports = ManageCourse;
