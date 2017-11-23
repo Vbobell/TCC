@@ -16,6 +16,14 @@ class ManageCourse{
             return callback(data);
         });
     }
+    editCourse(parametres, callback){
+        let values = '($1)';
+        let registre = [parametres.nameCourse];
+        let where = 'id_course = $3';
+        this.crudAdmin.executeUpdate('course', '(name_course)', values, where, registre, data => {
+            return callback(data);
+        });
+    }
 }
 
 module.exports = ManageCourse;
