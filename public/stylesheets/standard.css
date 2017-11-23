@@ -36,7 +36,7 @@ section, header {
 }
 .item p {
     background-color: #dae0da;
-    padding: 2em 1em;
+    padding: 2em 0.5em;
     text-align: center;
 }
 .big-inner-content {
