@@ -17,7 +17,7 @@ class ControllerImport{
             case 'course':
                 let controllerCourse = new CourseImportController(this.data);
                 controllerCourse.getReadData( data =>
-                    controllerCourse.insertDataAdmin(data, response => callback(response))
+                    controllerCourse.insertDataCourse(data, response => callback(response))
                 );
             default:
                 callback('error');
