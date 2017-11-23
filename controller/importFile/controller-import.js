@@ -10,7 +10,7 @@ class ControllerImport{
         switch(this.route){
             case 'admin':
                 let controllerAdm = new AdminImportController(this.data);
-                controllerAdm.getReadData(data => 
+                controllerAdm.getReadData( data => 
                     controllerAdm.insertDataAdmin(data, response => callback(response))
                 );
             break;
