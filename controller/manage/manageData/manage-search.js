@@ -1,4 +1,5 @@
 const ManageAdmin = require('../manageAdmin/manage-admin');
+const ManageCourse = require('../manageCourse/manage-course');
 
 class ManageSearch{
     constructor(entity, parametres){
@@ -10,6 +11,12 @@ class ManageSearch{
             case 'admin':
                 let manageAdmin = new ManageAdmin();
                 manageAdmin.getDataAdmins(this.parametres, data => {
+                    return callback(data);
+                });
+            break;
+            case 'course':
+                let manageCourse = new ManageCourse();
+                manageCourse.getDataCourses(this.parametres, data => {
                     return callback(data);
                 });
             break;
