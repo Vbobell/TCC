@@ -20,7 +20,7 @@ class ManageCourse{
         let values = '($1)';
         let registre = [parametres.nameCourse, parametres.idCourse];
         let where = 'id_course = $2';
-        this.crudAdmin.executeUpdate('course', '(name_course)', values, where, registre, data => {
+        this.crudCourse.executeUpdate('course', '(name_course)', values, where, registre, data => {
             return callback(data);
         });
     }
