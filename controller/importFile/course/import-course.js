@@ -13,7 +13,7 @@ class CourseImportController {
         return callback(this.data);
     }
     insertDataCourse(data, callback) {
-        let crud = new CrudAdmin();
+        let crud = new CrudCourse();
         crudAdmin.executeInsert('course','(name_course)', '($1)' , data, response => callback(response));
     }
 }
