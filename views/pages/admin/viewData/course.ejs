@@ -86,7 +86,8 @@
                 $('.edit').on('click', function(){
                     data = {
                         'entity': 'course',
-                        'nameCourse': $($(this).attr('data-id')).find('input[name="name_course"]').val()
+                        'nameCourse': $($(this).attr('data-id')).find('input[name="name_course"]').val(),
+                        'idCourse' : $(this).attr('data-id-edit')
                     };
                     $.ajax({
                         url : 'admin/edit',
