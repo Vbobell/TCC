@@ -26,26 +26,11 @@
     </section>
 </section>
 
+<script class="script-import" src="scripts/importData/import.js" data-content="generic"></script>
 <script class="script-import" data-content="generic">
     (function(){
-        var form;
-        $('#fileUpload').change(function (event) {
-            form = new FormData();
-            form.append('csv', event.target.files[0]);
-            console.log(event.target.files[0]);
-        });
-        /*$('.submit').on('click', function(){
-            $.ajax({
-                url : '/import/discipline',
-                data: form,
-                processData: false,
-                contentType: false,
-                type: 'POST'
-            }).done(function(data){
-                alert("Arquivo importado com sucesso!");
-            });
-        });
-        */
+        upload.file($('#fileUpload'), $('label[for="fileUpload"]'));
+        upload.uploadReady($('.submit'), '/import/discipline');
     })();
 </script>
 </body>
