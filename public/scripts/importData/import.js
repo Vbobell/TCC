@@ -26,4 +26,6 @@
             });
         }
     }
+
+    window.upload = upload;
 })();
