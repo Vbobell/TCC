@@ -75,6 +75,7 @@ app.get('/error', function (request, response){
 });
 
 app.post('/login', function(request, response){
+  request.session.user = request.body.user;
   let manageAdmin = new ManageAdmin();
   manageAdmin.loginValidation(request.body, valid => {
     if(valid){

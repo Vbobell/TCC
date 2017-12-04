@@ -33,6 +33,7 @@ $(document).ready(function(){
             }).done(function(data){
                 $('body').append($(data)[1]);
                 $('body').append($(data)[3]);
+                $('body').append($(data)[5]);
                 setTimeout(function(){
                     $('.page-content[data-content="generic"]').fadeIn(200);
                 },200);
