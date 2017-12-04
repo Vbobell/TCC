@@ -1,5 +1,6 @@
 const AdminImportController = require('./admin/import-admin');
 const CourseImportController = require('./course/import-course');
+const DisciplineImportController = require('./discipline/import-discipline');
 
 class ControllerImport{
     constructor(route, data){
@@ -18,6 +19,11 @@ class ControllerImport{
                 let controllerCourse = new CourseImportController(this.data);
                 controllerCourse.getReadData( data =>
                     controllerCourse.insertDataCourse(data, response => callback(response))
+                );
+            case 'discipline':
+                let controllerDiscipline = new DisciplineImportController(this.data);
+                controllerDiscipline.getReadData( data =>
+                    controllerDiscipline.insertDataDiscipline(data, response => callback(response))
                 );
             default:
                 callback('error');
