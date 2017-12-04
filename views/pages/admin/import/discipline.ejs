@@ -4,12 +4,12 @@
 <section class="page-content big-content" data-content="generic">
     <figure class="title-content">
         <img src="images/upload/user-import.png"/>
-        <h2>Curso</h2>
+        <h2>Disciplina</h2>
     </figure>
     <section class="big-inner-content">
     <div class="upload-button-content">
         <label for="fileUpload">Selecione o arquivo</label>
-        <input type="file" id="fileUpload" name="importCourse"/>
+        <input type="file" id="fileUpload" name="importDiscipline"/>
         <button class="submit import">Importar dados</button>
     </div>
     <article class="medium-article-content import-description">
@@ -20,7 +20,7 @@
         <ul>
             <li>Formato csv separado por vírgula.</li>
             <li>O tipo de arquivo para a importação não deve possuir cabeçalho.</li>
-            <li>Dado que pertencem ao curso é o seu nome.</li>
+            <li>Dado que pertencem a disciplina é o seu nome.</li>
         </ul>
     </article>
     </section>
@@ -32,10 +32,11 @@
         $('#fileUpload').change(function (event) {
             form = new FormData();
             form.append('csv', event.target.files[0]);
+            console.log(event.target.files[0]);
         });
-        $('.submit').on('click', function(){
+        /*$('.submit').on('click', function(){
             $.ajax({
-                url : '/import/course',
+                url : '/import/discipline',
                 data: form,
                 processData: false,
                 contentType: false,
@@ -44,6 +45,7 @@
                 alert("Arquivo importado com sucesso!");
             });
         });
+        */
     })();
 </script>
 </body>
