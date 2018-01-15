@@ -1,5 +1,6 @@
 const ManageAdmin = require('../manageAdmin/manage-admin');
 const ManageCourse = require('../manageCourse/manage-course');
+const ManageDiscipline = require('../manageDiscipline/manage-discipline');
 
 class ManageRemove{
     constructor(entity, parametres){
@@ -17,6 +18,12 @@ class ManageRemove{
             case 'course':
                 let manageCourse = new ManageCourse();
                 manageCourse.removeCourse(this.parametres, data => {
+                    return callback(data);
+                });
+            break;
+            case 'discipline':
+                let manageDiscipline = new ManageDiscipline();
+                manageDiscipline.removeDiscipline(this.parametres, data => {
                     return callback(data);
                 });
             break;
