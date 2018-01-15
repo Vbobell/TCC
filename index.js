@@ -25,6 +25,14 @@ app.use(session({
   cookie: { maxAge: (60000 * 60) * 24 }
 }));
 
+app.use((request, response, next) => {
+  if (request.session.user){
+    next();
+  }else{
+    response.redirect('/');
+  }
+});
+
 app.get('/logout', function(request, response){
   request.session.destroy(function(err) {
     response.redirect('/');
@@ -36,10 +44,7 @@ app.get('/', function(request, response){
 });
  
 app.get('/admin', function (request, response) {
-  if (request.session.user)
     response.render('pages/admin/index');
-  else
-    response.redirect('/');
 });
 
 app.get('/admin/route/*', function (request, response) {
