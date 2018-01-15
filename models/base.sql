@@ -29,7 +29,7 @@ create table course_class(
     foreign key (id_class) references class_ (id_class)
 );
 
-create course_discipline(
+create table course_discipline(
     id_course_discipline serial NOT NULL primary key,
     id_course int NOT NULL,
     id_discipline int NOT NULL,
