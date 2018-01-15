@@ -36,7 +36,6 @@
             }).done(function (data) {
                 var registres = JSON.parse(data);
                 $('table.registres tbody').html('');
-                console.log(registres);
                 registres.forEach(function (item, i) {                  
                     $('table.registres tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
                     $('table.registres tbody tr#row' + i + '').after('<tr class="row hidden" id="editRow' + i + '"></tr>');
@@ -86,9 +85,9 @@
 
                 $('.edit').on('click', function(){
                     data = {
-                        'entity': 'course',
-                        'nameCourse': $($(this).attr('data-id')).find('input[name="name_course"]').val(),
-                        'idCourse' : $(this).attr('data-id-edit')
+                        'entity': 'discipline',
+                        'nameDiscipline': $($(this).attr('data-id')).find('input[name="name_discipline"]').val(),
+                        'idDiscipline' : $(this).attr('data-id-edit')
                     };
                     $.ajax({
                         url : 'admin/edit',
@@ -98,13 +97,13 @@
                         async : false,
                         type: 'POST'
                     }).done(function(data){
-                            getData({'entity':'course', 'limit': 9, 'offset': 0 });
+                            getData({'entity':'discipline', 'limit': 9, 'offset': 0 });
                             alert('dados alterados!');
                     });
                 });
             });
         }
-        getData({'entity':'course', 'limit': 9, 'offset': 0 });
+        getData({'entity':'discipline', 'limit': 9, 'offset': 0 });
         })();
     </script>
 </body>
