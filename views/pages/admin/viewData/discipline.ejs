@@ -36,19 +36,20 @@
             }).done(function (data) {
                 var registres = JSON.parse(data);
                 $('table.registres tbody').html('');
-                registres.forEach(function (item, i) {                   
+                console.log(registres);
+                registres.forEach(function (item, i) {                  
                     $('table.registres tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
                     $('table.registres tbody tr#row' + i + '').after('<tr class="row hidden" id="editRow' + i + '"></tr>');
                 
                     $('table.registres tbody tr#row' + i + '').append(
                         '<td class="col-lg-9">' + item.name_discipline +'</td>'+
                         '<td class="col-lg-3 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
-                        '<div class="tool remove" data-id="'+item.name_discipline+'"></div></td>'
+                        '<div class="tool remove" data-id="'+item.id_discipline+'"></div></td>'
                     );
                     
                     $('table.registres tbody tr#editRow'+ i + '').append(
                         '<td class="col-lg-9"><input name="'+tableHead[0]+'" type="text" value="' + item.name_discipline + '"/></td>'+
-                        '<td class="col-lg-3"><div class="tool edit" data-id-edit=" '+item.name_discipline+'" data-id="tr#editRow'+i+'"></div>'+
+                        '<td class="col-lg-3"><div class="tool edit" data-id-edit=" '+item.id_discipline+'" data-id="tr#editRow'+i+'"></div>'+
                         '<div class="tool cancel"></div></td>'
                     );
                 });
