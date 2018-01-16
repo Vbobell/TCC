@@ -1,4 +1,4 @@
-const CrudAdmin = require('../../../models/crud/crudAdmin/crud-admin');
+const CrudAdmin = require('../../../../models/crud/crudAdmin/crud-admin');
 
 class ManageAdmin{
     constructor(){

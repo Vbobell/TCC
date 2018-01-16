@@ -1,4 +1,4 @@
-const CrudCourse = require('../../../models/crud/crudCourse/crud-course');
+const CrudCourse = require('../../../../models/crud/crudCourse/crud-course');
 
 class ManageCourse{
     constructor(){
