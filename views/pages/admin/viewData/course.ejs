@@ -35,6 +35,11 @@
                 async : false,
             }).done(function (data) {
                 var registres = JSON.parse(data);
+
+                getDataCourseDiscipline({'entity':'course', 'limit': 9, 'offset': 0 }, function(data){
+                    console.log(data);
+                });
+                
                 $('table.registres tbody').html('');
                 registres.forEach(function (item, i) {                   
                     $('table.registres tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
@@ -101,6 +106,17 @@
                             alert('dados alterados!');
                     });
                 });
+            });
+
+        }
+        var getDataCourseDiscipline = function(parametres, callback){
+            $.ajax({
+                url: '/admin/getData',
+                type: 'GET',
+                data: parametres,
+                async : true
+            }).done(function(data){
+                callback(data);
             });
         }
         getData({'entity':'course', 'limit': 9, 'offset': 0 });
