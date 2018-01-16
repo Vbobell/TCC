@@ -8,7 +8,7 @@ class CrudCourseDiscipline extends Crud{
                     return console.error('error fetching client from pool', err);
                 }
                 client.query(`SELECT course.id_course, course.name_course, 
-                            course_discipline.id_discipline, course_discipline.name_discipline 
+                            discipline.id_discipline, discipline.name_discipline 
                             from course, discipline, course_discipline 
                             where course_discipline.id_course = course.id_course and 
                             discipline.id_discipline = course_discipline.id_discipline 
