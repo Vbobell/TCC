@@ -36,10 +36,10 @@
             }).done(function (data) {
                 var registres = JSON.parse(data);
 
-                getDataCourseDiscipline({'entity':'course', 'limit': 9, 'offset': 0 }, function(data){
+                getDataCourseDiscipline({'entity':'courseDiscipline', 'limit': 9, 'offset': 0 }, function(data){
                     console.log(data);
                 });
-                
+
                 $('table.registres tbody').html('');
                 registres.forEach(function (item, i) {                   
                     $('table.registres tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
