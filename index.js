@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const ControllerImport = require('./controller/importFile/controller-import');
 const Route = require('./controller/viewRoutes/routes');
-const ManageAdmin = require('./controller/manage/manageAdmin/manage-admin');
-const ManageSearch = require('./controller/manage/manageData/manage-search');
-const ManageEdit = require('./controller/manage/manageData/manage-edit');
-const ManageRemove = require('./controller/manage/manageData/manage-remove');
+const ManageAdmin = require('./controller/manage/admin/manageAdmin/manage-admin');
+const ManageSearch = require('./controller/manage/admin/manageData/manage-search');
+const ManageEdit = require('./controller/manage/admin/manageData/manage-edit');
+const ManageRemove = require('./controller/manage/admin/manageData/manage-remove');
 
 app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');
