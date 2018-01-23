@@ -119,7 +119,7 @@
                     var elementView = $('table tr.view-row');
                     registres.forEach(function(item, i){
                         for(var i = 0; i < elementView.length; i++){
-                            if(elementView.eq(i).find('.discipline').attr('id') ==  `${item.id_course}courseDiscipline`){
+                            if(elementView.eq(i).find('.discipline').attr('id') ==  `courseDiscipline${item.id_course}`){
                                 elementView.eq(i).find('.discipline').append(item.name_discipline);
                             }
                         }
