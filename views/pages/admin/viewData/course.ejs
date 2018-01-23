@@ -46,14 +46,14 @@
                     
                         $('table.registres tbody tr#row' + i + '').append(
                             '<td class="col-lg-4">' + item.name_course +'</td>' +
-                            '<td class="col-lg-4" id="courseDiscipline'+item.id_course+'"></td>' +
+                            '<td class="col-lg-4 discipline" id="courseDiscipline'+item.id_course+'"></td>' +
                             '<td class="col-lg-4 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
                             '<div class="tool remove" data-id="'+item.id_course+'"></div></td>'
                         );
                         
                         $('table.registres tbody tr#editRow'+ i + '').append(
                             '<td class="col-lg-4"><input name="'+tableHead[0]+'" type="text" value="' + item.name_course + '"/></td>'+
-                            '<td class="col-lg-4" id="courseDiscipline'+item.id_course+'"></td>' +
+                            '<td class="col-lg-4 disciplineEdit" id="courseDiscipline'+item.id_course+'"></td>' +
                             '<td class="col-lg-4"><div class="tool edit" data-id-edit=" '+item.id_course+'" data-id="tr#editRow'+i+'"></div>'+
                             '<div class="tool cancel"></div></td>'
                         );
@@ -115,6 +115,15 @@
 
             getData({'entity':'course', 'limit': 9, 'offset': 0 }, function(){
                 getGenericData({'entity':'courseDiscipline', 'limit': 9, 'offset': 0 }, function(data){
+                    var registres = data;
+                    var elementView = $('table tr.view-row');
+                    registres.forEach(function(item, i){
+                        for(var i = 0; i < elementView.length; i++){
+                            if(elementView.eq(i).find('.discipline').attr('id') ==  `${item.id_course}courseDiscipline`){
+                                elementView.eq(i).find('.discipline').append(item.name_discipline);
+                            }
+                        }
+                    });
                     console.log(data);
                 });
                 getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
