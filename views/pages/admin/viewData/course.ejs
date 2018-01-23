@@ -115,7 +115,7 @@
 
             getData({'entity':'course', 'limit': 9, 'offset': 0 }, function(){
                 getGenericData({'entity':'courseDiscipline', 'limit': 9, 'offset': 0 }, function(data){
-                    var registres = data;
+                    var registres = JSON.parse(data);
                     var elementView = $('table tr.view-row');
                     registres.forEach(function(item, i){
                         for(var i = 0; i < elementView.length; i++){
