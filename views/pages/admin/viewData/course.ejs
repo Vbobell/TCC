@@ -119,7 +119,13 @@
                     getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
                         var disciplines = JSON.parse(data);
                         var elementEdit = $('table tr.edit-row');
-                        console.log(disciplines);
+                        var elements = disciplines.map(function(item,index){
+                            return item.name_discipline;
+                        });
+                        
+                        list(elements, function(structure){
+                            elementEdit.append(structure);
+                        });
                     });
                     getGenericData({'entity':'courseDiscipline', 'limit': 9, 'offset': 0 }, function(data){
                         var courseDisciplines = JSON.parse(data);
