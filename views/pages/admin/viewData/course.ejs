@@ -112,26 +112,27 @@
                     return callback();
                 });
             };
-
-            getData({'entity':'course', 'limit': 9, 'offset': 0 }, function(){
-                getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
-                    var disciplines = JSON.parse(data);
-                    var elementEdit = $('table tr.edit-row');
-                    console.log(disciplines);
-                });
-                getGenericData({'entity':'courseDiscipline', 'limit': 9, 'offset': 0 }, function(data){
-                    var courseDisciplines = JSON.parse(data);
-                    var elementView = $('table tr.view-row');
-                    courseDisciplines.forEach(function(item, i){
-                        for(var i = 0; i < elementView.length; i++){
-                            if(elementView.eq(i).find('.discipline').attr('id') ==  `courseDiscipline${item.id_course}`){
-                                elementView.eq(i).find('.discipline').append(item.name_discipline);
-                            }
-                        }
+            var mountStructure = function(){
+                getData({'entity':'course', 'limit': 9, 'offset': 0 }, function(){
+                    getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
+                        var disciplines = JSON.parse(data);
+                        var elementEdit = $('table tr.edit-row');
+                        console.log(disciplines);
                     });
-                    console.log(data);
+                    getGenericData({'entity':'courseDiscipline', 'limit': 9, 'offset': 0 }, function(data){
+                        var courseDisciplines = JSON.parse(data);
+                        var elementView = $('table tr.view-row');
+                        courseDisciplines.forEach(function(item, i){
+                            for(var i = 0; i < elementView.length; i++){
+                                if(elementView.eq(i).find('.discipline').attr('id') ==  `courseDiscipline${item.id_course}`){
+                                    elementView.eq(i).find('.discipline').append(item.name_discipline);
+                                }
+                            }
+                        });
+                        console.log(data);
+                    });
                 });
-            });
+            }
 /*     })(); */
     </script>
 </body>
