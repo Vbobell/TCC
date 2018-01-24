@@ -28,7 +28,7 @@
     </section>
     
     <script class="script-course" data-content="generic">
-/*         (function () { */
+        (function () {
             var getData = function(parametres, callback){
                 var tableHead = ['name_course'];
                 $.ajax({
@@ -136,9 +136,10 @@
                 });
                 return callback();
             };
-
-            mountStructure();
-/*     })(); */
+            mountStructure(function(){
+                console.log("success!");
+            });
+        })();
     </script>
 </body>
 
