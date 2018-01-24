@@ -84,8 +84,9 @@
                             async : false,
                             type: 'POST'
                         }).done(function(data){
-                                getData({'entity':'course', 'limit': 9, 'offset': 0 });
+                            mountStructure(function(){
                                 alert('curso removido!');
+                            });
                         });
                     });
 
@@ -104,15 +105,16 @@
                             async : false,
                             type: 'POST'
                         }).done(function(data){
-                                getData({'entity':'course', 'limit': 9, 'offset': 0 });
+                            mountStructure(function(){
                                 alert('dados alterados!');
+                            });
                         });
                     });
 
                     return callback();
                 });
             };
-            var mountStructure = function(){
+            var mountStructure = function(callback){
                 getData({'entity':'course', 'limit': 9, 'offset': 0 }, function(){
                     getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
                         var disciplines = JSON.parse(data);
@@ -132,7 +134,10 @@
                         console.log(data);
                     });
                 });
-            }
+                return callback();
+            };
+
+            mountStructure();
 /*     })(); */
     </script>
 </body>
