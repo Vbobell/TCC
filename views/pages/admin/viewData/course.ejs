@@ -28,7 +28,7 @@
     </section>
     
     <script class="script-course" data-content="generic">
-        (function () {
+/*         (function () { */
             var getData = function(parametres, callback){
                 var tableHead = ['name_course'];
                 $.ajax({
@@ -42,7 +42,7 @@
                     $('table.registres tbody').html('');
                     registres.forEach(function (item, i) {                   
                         $('table.registres tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
-                        $('table.registres tbody tr#row' + i + '').after('<tr class="row hidden" id="editRow' + i + '"></tr>');
+                        $('table.registres tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '"></tr>');
                     
                         $('table.registres tbody tr#row' + i + '').append(
                             '<td class="col-lg-4">' + item.name_course +'</td>' +
@@ -114,10 +114,15 @@
             };
 
             getData({'entity':'course', 'limit': 9, 'offset': 0 }, function(){
+                getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
+                    var disciplines = JSON.parse(data);
+                    var elementEdit = $('table tr.edit-row');
+                    console.log(disciplines);
+                });
                 getGenericData({'entity':'courseDiscipline', 'limit': 9, 'offset': 0 }, function(data){
-                    var registres = JSON.parse(data);
+                    var courseDisciplines = JSON.parse(data);
                     var elementView = $('table tr.view-row');
-                    registres.forEach(function(item, i){
+                    courseDisciplines.forEach(function(item, i){
                         for(var i = 0; i < elementView.length; i++){
                             if(elementView.eq(i).find('.discipline').attr('id') ==  `courseDiscipline${item.id_course}`){
                                 elementView.eq(i).find('.discipline').append(item.name_discipline);
@@ -126,11 +131,8 @@
                     });
                     console.log(data);
                 });
-                getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
-                    console.log(data);
-                });
             });
-    })();
+/*     })(); */
     </script>
 </body>
 
