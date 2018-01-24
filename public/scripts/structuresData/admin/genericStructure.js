@@ -3,6 +3,6 @@ var list = function(registres, callback){
     registres.forEach(function(item, i){
         structure += `<li> ${ item } </li>`; 
     });
-    structure += '<ul>';
+    structure += '</ul>';
     callback(structure);
 };

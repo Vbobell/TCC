@@ -122,9 +122,9 @@
                         var elements = disciplines.map(function(item,index){
                             return item.name_discipline;
                         });
-                        
+
                         list(elements, function(structure){
-                            elementEdit.append(structure);
+                            elementEdit.find('.disciplineEdit').append(structure);
                         });
                     });
                     getGenericData({'entity':'courseDiscipline', 'limit': 9, 'offset': 0 }, function(data){
@@ -142,9 +142,12 @@
                 });
                 return callback();
             };
-            mountStructure(function(){
-                console.log("success!");
-            });
+            var key = true;
+            if(key){
+                mountStructure(function(){
+                    key = false;
+                });
+            }
         })();
     </script>
 </body>
