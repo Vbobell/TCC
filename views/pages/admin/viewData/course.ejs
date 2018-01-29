@@ -117,11 +117,15 @@
             var mountStructure = function(callback){
                 getData({'entity':'course', 'limit': 9, 'offset': 0 }, function(){
                     getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
+                        
                         var disciplines = JSON.parse(data);
                         var elementEdit = $('table tr.edit-row');
+
                         var elements = disciplines.map(function(item,index){
-                            return item.name_discipline;
+                            return {name: item.name_discipline, id: item.id_course};
                         });
+
+                        elementEdit.find('.disciplineEdit').html('');
 
                         list(elements, function(structure){
                             elementEdit.find('.disciplineEdit').append(structure);
@@ -130,14 +134,20 @@
                     getGenericData({'entity':'courseDiscipline', 'limit': 9, 'offset': 0 }, function(data){
                         var courseDisciplines = JSON.parse(data);
                         var elementView = $('table tr.view-row');
+                        var elementEdit = $('table tr.edit-row');
+                        var disciplineForCourse = [];
+
+                        elementView.find('.discipline').html('');
+                        elementView.find('.discipline').append('<ul></ul>');
+
                         courseDisciplines.forEach(function(item, i){
-                            for(var i = 0; i < elementView.length; i++){
-                                if(elementView.eq(i).find('.discipline').attr('id') ==  `courseDiscipline${item.id_course}`){
-                                    elementView.eq(i).find('.discipline').append(item.name_discipline);
+                            for(var j = 0; j < elementView.length; j++){
+                                if(elementView.eq(j).find('.discipline').attr('id') == `courseDiscipline${item.id_course}`){
+                                    elementView.eq(j).find('.discipline ul').append('<li>' + item.name_discipline + '</li>');
+                                    elementEdit.eq(j).find(`input[name="${item.name_discipline+id_discipline}"]`).attr('checked','checked');
                                 }
                             }
                         });
-                        console.log(data);
                     });
                 });
                 return callback();
