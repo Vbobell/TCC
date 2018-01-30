@@ -93,6 +93,7 @@
                     $('.edit').on('click', function(){
                         var idCourse = $(this).attr('data-id-edit');
                         var nameCourse = $($(this).attr('data-id')).find('input[name="name_course"]').val();
+                        var element = $($(this).attr('data-id'));
                         data = {
                             'entity': 'course',
                             'nameCourse': nameCourse,
@@ -108,7 +109,7 @@
                             type: 'POST'
                         }).done(function(data){
                             disciplinesChecked = [];
-                            $($(this).attr('data-id')).find('input[name="disciplines"]:checked').each(function(){
+                            element.find('input[name="disciplines"]:checked').each(function(){
                                 disciplinesChecked.push(idCourse+','+$(this).val());
                             });
                             insertDisciplinesCourse = {
