@@ -117,10 +117,11 @@
                                 'registres' : disciplinesChecked
                             };
 
-                            console.log(data)
-
-                            mountStructure(function(){
-                                alert('dados alterados!');
+                            console.log(insertDisciplinesCourse);
+                            insertGenericData(insertDisciplinesCourse, function(){
+                                mountStructure(function(){
+                                    alert('dados alterados!');
+                                });
                             });
                         });
                     });

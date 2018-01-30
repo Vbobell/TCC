@@ -4,7 +4,7 @@ var insertGenericData = function(parametres, callback){
         type: 'POST',
         data: parametres,
         async : true
-    }).done(function(data){
-        callback(data);
+    }).done(function(){
+        callback();
     });
 };
