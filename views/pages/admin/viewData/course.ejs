@@ -91,10 +91,12 @@
                     });
 
                     $('.edit').on('click', function(){
+                        var idCourse = $(this).attr('data-id-edit');
+                        var nameCourse = $($(this).attr('data-id')).find('input[name="name_course"]').val();
                         data = {
                             'entity': 'course',
-                            'nameCourse': $($(this).attr('data-id')).find('input[name="name_course"]').val(),
-                            'idCourse' : $(this).attr('data-id-edit')
+                            'nameCourse': nameCourse,
+                            'idCourse' : idCourse
                         };
 
                         $.ajax({
@@ -105,6 +107,17 @@
                             async : false,
                             type: 'POST'
                         }).done(function(data){
+                            disciplinesChecked = [];
+                            $($(this).attr('data-id')).find('input[name="disciplines"]:checked').each(function(){
+                                disciplinesChecked.push(idCourse+','+$(this).val());
+                            });
+                            insertDisciplinesCourse = {
+                                'entity': 'course_discipline',
+                                'registres' : disciplinesChecked
+                            };
+
+                            console.log(data)
+
                             mountStructure(function(){
                                 alert('dados alterados!');
                             });
