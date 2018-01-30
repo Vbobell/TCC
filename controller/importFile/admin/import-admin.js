@@ -6,10 +6,12 @@ class AdminImportController {
     }
     getReadData(callback) {
         let newData = [];
+        console.log(this.data);
         for(var i = 0; i < this.data.length; i++){
             newData.push(this.data[i].split(','));
         }
         this.data = newData;
+        console.log(this.data);
         return callback(this.data);
     }
     insertDataAdmin(data, callback) {
