@@ -122,8 +122,7 @@
                         var elementEdit = $('table tr.edit-row');
 
                         var elements = disciplines.map(function(item,index){
-                            console.log(item);
-                            return {name: disciplines[index].name_discipline, id: disciplines[index].id_discipline};
+                            return {name: 'disciplines', value: item.name_discipline, id: item.id_discipline};
                         });
 
                         elementEdit.find('.disciplineEdit').html('');
@@ -145,7 +144,7 @@
                             for(var j = 0; j < elementView.length; j++){
                                 if(elementView.eq(j).find('.discipline').attr('id') == `courseDiscipline${item.id_course}`){
                                     elementView.eq(j).find('.discipline ul').append('<li>' + item.name_discipline + '</li>');
-                                    elementEdit.eq(j).find(`input[name="${item.name_discipline+id_discipline}"]`).attr('checked','checked');
+                                    elementEdit.eq(j).find(`input[id="${item.name_discipline+id_discipline}"]`).attr('checked','checked');
                                 }
                             }
                         });
