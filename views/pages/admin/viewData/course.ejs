@@ -122,7 +122,8 @@
                         var elementEdit = $('table tr.edit-row');
 
                         var elements = disciplines.map(function(item,index){
-                            return {name: item.name_discipline, id: item.id_discipline};
+                            console.log(item);
+                            return {name: disciplines[index].name_discipline, id: disciplines[index].id_discipline};
                         });
 
                         elementEdit.find('.disciplineEdit').html('');
