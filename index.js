@@ -9,6 +9,7 @@ const ManageAdmin = require('./controller/manage/admin/manageAdmin/manage-admin'
 const ManageSearch = require('./controller/manage/admin/manageData/manage-search');
 const ManageEdit = require('./controller/manage/admin/manageData/manage-edit');
 const ManageRemove = require('./controller/manage/admin/manageData/manage-remove');
+const ManageInsert = require('./controller/manage/admin/manageData/manage-insert');
 
 app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');
@@ -116,6 +117,17 @@ app.post('/admin/edit', (request, response) => {
   if (request.session.user){
     let manageEdit = new ManageEdit(request.body.entity, request.body);
     manageEdit.getEdit( data =>{
+      response.write(JSON.stringify(data));
+      response.end();
+    });
+  }else
+    response.redirect('/');
+});
+
+app.post('/admin/insert', (request, response) => {
+  if (request.session.user){
+    let manageInsert = new ManageInsert(request.body.entity, request.body.registres);
+    manageInsert.getInsert( data =>{
       response.write(JSON.stringify(data));
       response.end();
     });
