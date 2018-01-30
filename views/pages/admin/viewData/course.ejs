@@ -110,7 +110,7 @@
                         }).done(function(data){
                             disciplinesChecked = [];
                             element.find('input[name="disciplines"]:checked').each(function(){
-                                disciplinesChecked.push(idCourse+', '+$(this).val());
+                                disciplinesChecked.push(idCourse, $(this).val());
                             });
                             insertDisciplinesCourse = {
                                 'entity': 'course_discipline',
