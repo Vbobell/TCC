@@ -126,7 +126,7 @@ app.post('/admin/edit', (request, response) => {
 
 app.post('/admin/insert', (request, response) => {
   if (request.session.user){
-    let manageInsert = new ManageInsert(request.body.entity, request.body.data);
+    let manageInsert = new ManageInsert(request.body.entity, request.body.registres);
     manageInsert.getInsert( data =>{
       response.write(JSON.stringify(data));
       response.end();
