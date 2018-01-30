@@ -118,7 +118,7 @@
                             };
 
                             console.log(insertDisciplinesCourse);
-                            insertGenericData(insertDisciplinesCourse, function(){
+                            insertGenericData(JSON.stringify(insertDisciplinesCourse), function(){
                                 mountStructure(function(){
                                     alert('dados alterados!');
                                 });
