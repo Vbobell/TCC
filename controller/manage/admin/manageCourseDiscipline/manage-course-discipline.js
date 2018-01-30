@@ -11,6 +11,7 @@ class ManageCourseDiscipline{
         });
     }
     insertDataCourseDiscipline(data, callback) {
+        console.log(data);
         this.crudCourseDiscipline.executeInsert('course_discipline','(id_course, id_discipline)', '($1, $2)', 
             data, response => callback(response));
     }

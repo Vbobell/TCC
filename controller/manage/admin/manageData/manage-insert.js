@@ -9,6 +9,7 @@ class ManageInsert{
         switch(this.entity){
             case 'course_discipline':
                 let manageCourseDiscipline = new ManageCourseDiscipline();
+                console.log(this.parametres);
                 manageCourseDiscipline.insertDataCourseDiscipline(this.parametres, data => {
                     return callback(data);
                 });
