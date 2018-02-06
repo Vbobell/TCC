@@ -1,5 +1,3 @@
-import { request } from 'https';
-
 const ManageCourseDiscipline = require('../manageCourseDiscipline/manage-course-discipline');
 const ManageTeacherDiscipline = require('../manageTeacherDiscipline/manage-teacher-discipline');
 
