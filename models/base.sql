@@ -1,7 +1,7 @@
 create table admin(
 	id_admin serial NOT NULL primary key,  
     name_admin varchar(30) DEFAULT NULL, 
-    registre varchar(10) DEFAULT NULL,
+    registry varchar(10) DEFAULT NULL,
     user_level smallint DEFAULT NULL,
     password varchar(30) DEFAULT 123456
 );
@@ -51,3 +51,19 @@ create table teacher_discipline(
     foreign key (id_discipline) references discipline (id_discipline),
     foreign key (id_teacher) references teacher (id_teacher)
 );
+
+create table student(
+    id_student serial NOT NULL primary key,
+    name_student varchar (40) NOT NULL,
+    registry varchar (10) NOT NULL,
+    email varchar (30) NOT NULL,
+    password varchar (30) NOT NULL DEFAULT 123456
+);
+
+create table student_discipline(
+    id_student_discipline serial NOT NULL primary key,
+    id_discipline int NOT NULL,
+    id_student int NOT NULL,
+    foreign key (id_discipline) references discipline (id_discipline),
+    foreign key (id_student) references student (id_student)
+); 

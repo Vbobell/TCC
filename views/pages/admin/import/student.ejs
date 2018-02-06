@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+<section class="page-content big-content" data-content="generic">
+    <figure class="title-content">
+        <img src="images/upload/user-import.png"/>
+        <h2>Aluno</h2>
+    </figure>
+    <section class="big-inner-content">
+    <div class="upload-button-content">
+        <label for="fileUpload">Selecione o arquivo</label>
+        <input type="file" id="fileUpload" name="importStudent"/>
+        <button class="submit import">Importar dados</button>
+    </div>
+    <article class="medium-article-content import-description">
+        <figure class="title-description">
+            <img src="images/upload/warning.png"/>
+            <h3>Atenção</h3>
+        </figure>
+        <ul>
+            <li>Formato csv separado por vírgula.</li>
+            <li>O tipo de arquivo para a importação não deve possuir cabeçalho.</li>
+            <li>Dados que pertencem ao aluno são nome, matrícula e email.</li>
+        </ul>
+    </article>
+    </section>
+</section>
+<script class="script-import" src="scripts/importData/import.js" data-content="generic"></script>
+<script class="script-import" data-content="generic">
+    (function(){
+        upload.file($('#fileUpload'), $('label[for="fileUpload"]'));
+        upload.uploadReady($('.submit'), '/import/student');
+    })();
+</script>
+</body>
+</html>
