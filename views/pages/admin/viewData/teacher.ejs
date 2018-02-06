@@ -48,7 +48,7 @@
                 
                     $('table.registres tbody tr#row' + i + '').append(
                         '<td class="col-lg-4">' + item.name_teacher +'</td>'+
-                        '<td class="col-lg-3">'+item.registre+'</td>'+
+                        '<td class="col-lg-3">'+item.registry+'</td>'+
                         '<td class="col-lg-3 teacher"id="teacherDiscipline'+item.id_teacher+'"</td>'+
                         '<td class="col-lg-2 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
                         '<div class="tool remove" data-id="'+item.id_teacher+'"></div></td>'
@@ -56,7 +56,7 @@
                     
                     $('table.registres tbody tr#editRow'+ i + '').append(
                         '<td class="col-lg-4"><input name="'+tableHead[0]+'" type="text" value="' + item.name_teacher + '"/></td>'+
-                        '<td class="col-lg-3"><input name="'+tableHead[1]+'" type="text" value="' + item.registre + '"/></td>'+
+                        '<td class="col-lg-3"><input name="'+tableHead[1]+'" type="text" value="' + item.registry + '"/></td>'+
                         '<td class="col-lg-3 teacherEdit"id="teacherDiscipline'+item.id_teacher+'"</td>'+
                         '<td class="col-lg-2"><div class="tool edit" data-id-edit=" '+item.id_teacher+'" data-id="tr#editRow'+i+'"></div>'+
                         '<div class="tool cancel"></div></td>'
