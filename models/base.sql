@@ -39,8 +39,15 @@ create table course_discipline(
 
 create table teacher(
     id_teacher serial NOT NULL primary key,
-    name_teacher varchar (30) NOT NULL,
+    name_teacher varchar (40) NOT NULL,
     registry varchar (10) NOT NULL,
     password varchar (30) NOT NULL DEFAULT 123456
 );
 
+create table teacher_discipline(
+    id_teacher_discipline serial NOT NULL primary key,
+    id_discipline int NOT NULL,
+    id_teacher int NOT NULL,
+    foreign key (id_discipline) references discipline (id_discipline),
+    foreign key (id_teacher) references teacher (id_teacher)
+);
