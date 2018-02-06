@@ -20,7 +20,7 @@ class ManageTeacher{
         let values = '($1, $2)';
         let registre = [parametres.name, parametres.registre, parametres.idTeacher];
         let where = 'id_teacher = $3';
-        this.crudTeacher.executeUpdate('teacher', '(name_teacher, registre)', values, where, registre, data => {
+        this.crudTeacher.executeUpdate('teacher', '(name_teacher, registry)', values, where, registre, data => {
             return callback(data);
         });
     }
