@@ -3,6 +3,7 @@ const ManageCourse = require('../manageCourse/manage-course');
 const ManageDiscipline = require('../manageDiscipline/manage-discipline');
 const ManageCourseDiscipline = require('../manageCourseDiscipline/manage-course-discipline');
 const ManageTeacher = require('../manageTeacher/manage-teacher');
+const ManageTeacherDiscipline = require('../manageTeacherDiscipline/manage-teacher-discipline');
 
 class ManageSearch{
     constructor(entity, parametres){
@@ -38,6 +39,12 @@ class ManageSearch{
             case 'teacher':
                 let manageTeacher = new ManageTeacher();
                 manageTeacher.getDataTeachers(this.parametres, data =>{
+                    return callback(data);
+                });
+            break;
+            case 'teacherDiscipline':
+                let manageTeacherDiscipline = new ManageTeacherDiscipline();
+                manageTeacherDiscipline.getDataTeacherDiscipline(this.parametres, data =>{
                     return callback(data);
                 });
             break;
