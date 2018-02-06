@@ -35,7 +35,7 @@ class ManageSearch{
                     return callback(data);
                 });
             break;
-            case 'courseDiscipline':
+            case 'teacher':
                 let manageTeacher = new ManageTeacher();
                 manageTeacher.getDataTeachers(this.parametres, data =>{
                     return callback(data);
