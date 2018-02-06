@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/file.png"/>
+            <h2>Aluno</h2>
+        </figure>
+        <section class="big-inner-content table-content">
+        <table class="registres">
+            <thead>
+                <tr class="row">
+                    <td class="col-lg-3">
+                        Nome
+                    </td>
+                    <td class="col-lg-2">
+                        Registro
+                    </td>
+                    <td class="col-lg-3">
+                        E-mail
+                    </td>
+                    <td class="col-lg-2">
+                        Disciplina
+                    </td>
+                    <td class="col-lg-2">
+                        Ação
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        </section>
+    </section>
+
+    <script class="script-student" data-content="generic">
+        (function () {
+            var getData = function(parametres, callback){
+            var tableHead = ['name_student', 'registry', 'email'];
+            $.ajax({
+                url: '/admin/getData',
+                type: 'GET',
+                data: parametres,
+                async : false,
+            }).done(function (data) {
+                var registres = JSON.parse(data);
+                $('table.registres tbody').html('');
+                registres.forEach(function (item, i) {                   
+                    $('table.registres tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
+                    $('table.registres tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '"></tr>');
+                
+                    $('table.registres tbody tr#row' + i + '').append(
+                        '<td class="col-lg-3">' + item.name_student +'</td>'+
+                        '<td class="col-lg-2">'+item.registry+'</td>'+
+                        '<td class="col-lg-3">'+item.email+'</td>'+
+                        '<td class="col-lg-2 discipline"id="studentDiscipline'+item.id_student+'"></td>'+
+                        '<td class="col-lg-2 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
+                        '<div class="tool remove" data-id="'+item.id_student+'"></div></td>'
+                    );
+                    
+                    $('table.registres tbody tr#editRow'+ i + '').append(
+                        '<td class="col-lg-4"><input name="'+tableHead[0]+'" type="text" value="' + item.name_student + '"/></td>'+
+                        '<td class="col-lg-2"><input name="'+tableHead[1]+'" type="text" value="' + item.registry + '"/></td>'+
+                        '<td class="col-lg-3"><input name="'+tableHead[2]+'" type="text" value="' + item.email + '"/></td>'+
+                        '<td class="col-lg-2 disciplineEdit" id="studentDiscipline'+item.id_student+'"></td>'+
+                        '<td class="col-lg-2"><div class="tool edit" data-id-edit=" '+item.id_student+'" data-id="tr#editRow'+i+'"></div>'+
+                        '<div class="tool cancel"></div></td>'
+                    );
+                });
+
+                $('.open-edit').on('click', function(){
+                    $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                    $($(this).attr('data-id')).removeClass('hidden').slideDown();
+                    
+                    $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+
+                    $(this).parents('.view-row').addClass('border-top-right-left edit-select');
+                    $($(this).attr('data-id')).addClass('border-right-bottom-left');
+                });
+
+                $('.cancel').on('click', function(){
+                    $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                    $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+                });
+    
+                $('.remove').on('click', function(){
+                    data = { 'entity': 'student', 'idStudent': $(this).attr('data-id') };
+                    $.ajax({
+                        url : 'admin/remove',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data : JSON.stringify(data),
+                        async : false,
+                        type: 'POST'
+                    }).done(function(data){
+                            getData({'entity':'student', 'limit': 9, 'offset': 0 });
+                            alert('aluno removido!');
+                    });
+                });
+
+                $('.edit').on('click', function(){
+                    var idStudent = $(this).attr('data-id-edit');
+                    var nameStudent = $($(this).attr('data-id')).find('input[name="name_student"]').val();
+                    var Registry = $($(this).attr('data-id')).find('input[name="registry"]').val();
+                    var email = $($(this).attr('data-id')).find('input[name="email"]').val();
+                    var element = $($(this).attr('data-id'));
+
+                    data = {
+                        'entity': 'student',
+                        'name': nameStudent,
+                        'registry': Registry,
+                        'email': email,
+                        'idStudent' : idStudent
+                    };
+                    $.ajax({
+                        url : 'admin/edit',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data : JSON.stringify(data),
+                        async : false,
+                        type: 'POST'
+                    }).done(function(data){
+                        disciplinesChecked = [];
+                        element.find('input[name="disciplines"]:checked').each(function(){
+                            disciplinesChecked.push([parseInt(idStudent), parseInt($(this).val())]);
+                        });
+                        insertDisciplinesStudent = {
+                            'entity': 'studentDiscipline',
+                            'registres' : disciplinesChecked
+                        };
+                        
+                        insertGenericData(JSON.stringify(insertDisciplinesStudent), function(){
+                            mountStructure(function(){
+                                alert('dados alterados!');
+                            });
+                        });
+                    });
+                });
+                return callback();
+            });
+        }
+        var mountStructure = function(callback){
+                getData({'entity':'student', 'limit': 9, 'offset': 0 }, function(){
+                    getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
+                        
+                        var disciplines = JSON.parse(data);
+                        var elementEdit = $('table tr.edit-row');
+
+                        var elements = disciplines.map(function(item,index){
+                            return {name: 'disciplines', value: item.name_discipline, id: item.id_discipline};
+                        });
+
+                        elementEdit.find('.disciplineEdit').html('');
+
+                        listInputCheckBox(elements, function(structure){
+                            elementEdit.find('.disciplineEdit').append(structure);
+                        });
+                    });
+                    getGenericData({'entity':'studentDiscipline', 'limit': 9, 'offset': 0 }, function(data){
+                        var teacherDisciplines = JSON.parse(data);
+                        var elementView = $('table tr.view-row');
+                        var elementEdit = $('table tr.edit-row');
+                        var disciplineForTeacher = [];
+
+                        elementView.find('.discipline').html('');
+                        elementView.find('.discipline').append('<ul></ul>');
+
+                        teacherDisciplines.forEach(function(item, i){
+                            for(var j = 0; j < elementView.length; j++){
+                                if(elementView.eq(j).find('.discipline').attr('id') == `studentDiscipline${item.id_student}`){
+                                    elementView.eq(j).find('.discipline ul').append('<li>' + item.name_discipline + '</li>');
+                                    elementEdit.eq(j).find(`input[id="${item.name_discipline+item.id_discipline}"]`).attr('checked','checked');
+                                }
+                            }
+                        });
+                    });
+                });
+                return callback();
+            };
+
+            var key = true;
+            if(key){
+                mountStructure(function(){
+                    key = false;
+                });
+            }
+        })();
+
+    </script>
+</body>
+
+</html>

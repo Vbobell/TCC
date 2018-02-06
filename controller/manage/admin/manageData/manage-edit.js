@@ -2,6 +2,7 @@ const ManageAdmin = require('../manageAdmin/manage-admin');
 const ManageCourse = require('../manageCourse/manage-course');
 const ManageDiscipline = require('../manageDiscipline/manage-discipline');
 const ManageTeacher = require('../manageTeacher/manage-teacher');
+const ManageStudent = require('../manageStudent/manage-student');
 
 class ManageEdit{
     constructor(entity, parametres){
@@ -33,6 +34,12 @@ class ManageEdit{
                 manageTeacher.editTeacher(this.parametres, data => {
                     return callback(data);
                 });
+            break;   
+            case 'student':
+                let manageStudent = new ManageStudent();
+                manageStudent.editStudent(this.parametres, data => {
+                    return callback(data);
+            });
             break;                 
         }
     }
