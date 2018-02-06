@@ -11,16 +11,16 @@ class ManageTeacher{
     }
     removeTeacher(parametres, callback){
         let where = 'id_teacher = $1';
-        let registre = [parametres.idTeacher];
-        this.crudTeacher.executeDelete('teacher', where, registre, data =>{
+        let registry = [parametres.idTeacher];
+        this.crudTeacher.executeDelete('teacher', where, registry, data =>{
             return callback(data);
         });
     }
     editTeacher(parametres, callback){
         let values = '($1, $2)';
-        let registre = [parametres.name, parametres.registre, parametres.idTeacher];
+        let registry = [parametres.name, parametres.registry, parametres.idTeacher];
         let where = 'id_teacher = $3';
-        this.crudTeacher.executeUpdate('teacher', '(name_teacher, registry)', values, where, registre, data => {
+        this.crudTeacher.executeUpdate('teacher', '(name_teacher, registry)', values, where, registry, data => {
             return callback(data);
         });
     }
