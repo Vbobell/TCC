@@ -11,7 +11,7 @@ class ManageStudentDiscipline{
         });
     }
     insertDataStudentDiscipline(data, callback) {
-        this.this.crudStudentDiscipline.executeInsert('student_discipline','(id_student, id_discipline)', '($1, $2)', 
+        this.crudStudentDiscipline.executeInsert('student_discipline','(id_student, id_discipline)', '($1, $2)', 
             data, response => callback(response));
     }
 }
