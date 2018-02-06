@@ -113,11 +113,10 @@
                                 disciplinesChecked.push([parseInt(idCourse), parseInt($(this).val())]);
                             });
                             insertDisciplinesCourse = {
-                                'entity': 'course_discipline',
+                                'entity': 'courseDiscipline',
                                 'registres' : disciplinesChecked
                             };
 
-                            console.log(insertDisciplinesCourse);
                             insertGenericData(JSON.stringify(insertDisciplinesCourse), function(){
                                 mountStructure(function(){
                                     alert('dados alterados!');

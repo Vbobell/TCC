@@ -32,7 +32,7 @@
 
     <script class="script-teacher" data-content="generic">
         (function () {
-            var getData = function(parametres){
+            var getData = function(parametres, callback){
             var tableHead = ['name_teacher', 'registre'];
             $.ajax({
                 url: '/admin/getData',
@@ -49,7 +49,7 @@
                     $('table.registres tbody tr#row' + i + '').append(
                         '<td class="col-lg-4">' + item.name_teacher +'</td>'+
                         '<td class="col-lg-3">'+item.registry+'</td>'+
-                        '<td class="col-lg-3 teacher"id="teacherDiscipline'+item.id_teacher+'"</td>'+
+                        '<td class="col-lg-3 discipline"id="teacherDiscipline'+item.id_teacher+'"</td>'+
                         '<td class="col-lg-2 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
                         '<div class="tool remove" data-id="'+item.id_teacher+'"></div></td>'
                     );
@@ -57,7 +57,7 @@
                     $('table.registres tbody tr#editRow'+ i + '').append(
                         '<td class="col-lg-4"><input name="'+tableHead[0]+'" type="text" value="' + item.name_teacher + '"/></td>'+
                         '<td class="col-lg-3"><input name="'+tableHead[1]+'" type="text" value="' + item.registry + '"/></td>'+
-                        '<td class="col-lg-3 teacherEdit"id="teacherDiscipline'+item.id_teacher+'"</td>'+
+                        '<td class="col-lg-3 disciplineEdit"id="teacherDiscipline'+item.id_teacher+'"</td>'+
                         '<td class="col-lg-2"><div class="tool edit" data-id-edit=" '+item.id_teacher+'" data-id="tr#editRow'+i+'"></div>'+
                         '<div class="tool cancel"></div></td>'
                     );
@@ -94,11 +94,16 @@
                 });
 
                 $('.edit').on('click', function(){
+                    var idTeacher = $(this).attr('data-id-edit');
+                    var nameTeacher = $($(this).attr('data-id')).find('input[name="name_teacher"]').val();
+                    var Registry = $($(this).attr('data-id')).find('input[name="registre"]').val();
+                    var element = $($(this).attr('data-id'));
+
                     data = {
                         'entity': 'teacher',
-                        'name': $($(this).attr('data-id')).find('input[name="name_teacher"]').val(),
-                        'registry': $($(this).attr('data-id')).find('input[name="registre"]').val(),
-                        'idTeacher' : $(this).attr('data-id-edit')
+                        'name': nameTeacher,
+                        'registry': Registry,
+                        'idTeacher' : idTeacher
                     };
                     $.ajax({
                         url : 'admin/edit',
@@ -108,14 +113,72 @@
                         async : false,
                         type: 'POST'
                     }).done(function(data){
-                            getData({'entity':'teacher', 'limit': 9, 'offset': 0 });
-                            alert('dados alterados!');
+                        disciplinesChecked = [];
+                        element.find('input[name="disciplines"]:checked').each(function(){
+                            disciplinesChecked.push([parseInt(idTeacher), parseInt($(this).val())]);
+                        });
+                        insertDisciplinesTeacher = {
+                            'entity': 'teacherDiscipline',
+                            'registres' : disciplinesChecked
+                        };
+                        
+                        insertGenericData(JSON.stringify(insertDisciplinesTeacher), function(){
+                            mountStructure(function(){
+                                alert('dados alterados!');
+                            });
+                        });
                     });
                 });
+                return callback();
             });
         }
-        getData({'entity':'teacher', 'limit': 9, 'offset': 0 });
+        var mountStructure = function(callback){
+                getData({'entity':'teacher', 'limit': 9, 'offset': 0 }, function(){
+                    getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
+                        
+                        var disciplines = JSON.parse(data);
+                        var elementEdit = $('table tr.edit-row');
+
+                        var elements = disciplines.map(function(item,index){
+                            return {name: 'disciplines', value: item.name_discipline, id: item.id_discipline};
+                        });
+
+                        elementEdit.find('.disciplineEdit').html('');
+
+                        listInputCheckBox(elements, function(structure){
+                            elementEdit.find('.disciplineEdit').append(structure);
+                        });
+                    });
+                    getGenericData({'entity':'teacherDiscipline', 'limit': 9, 'offset': 0 }, function(data){
+                        var teacherDisciplines = JSON.parse(data);
+                        var elementView = $('table tr.view-row');
+                        var elementEdit = $('table tr.edit-row');
+                        var disciplineForTeacher = [];
+
+                        elementView.find('.discipline').html('');
+                        elementView.find('.discipline').append('<ul></ul>');
+
+                        courseDisciplines.forEach(function(item, i){
+                            for(var j = 0; j < elementView.length; j++){
+                                if(elementView.eq(j).find('.discipline').attr('id') == `teacherDiscipline${item.id_teacher}`){
+                                    elementView.eq(j).find('.discipline ul').append('<li>' + item.name_discipline + '</li>');
+                                    elementEdit.eq(j).find(`input[id="${item.name_discipline+item.id_discipline}"]`).attr('checked','checked');
+                                }
+                            }
+                        });
+                    });
+                });
+                return callback();
+            };
+
+            var key = true;
+            if(key){
+                mountStructure(function(){
+                    key = false;
+                });
+            }
         })();
+
     </script>
 </body>
 
