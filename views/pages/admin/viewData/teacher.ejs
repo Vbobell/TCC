@@ -44,7 +44,7 @@
                 $('table.registres tbody').html('');
                 registres.forEach(function (item, i) {                   
                     $('table.registres tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
-                    $('table.registres tbody tr#row' + i + '').after('<tr class="row hidden" id="editRow' + i + '"></tr>');
+                    $('table.registres tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '"></tr>');
                 
                     $('table.registres tbody tr#row' + i + '').append(
                         '<td class="col-lg-4">' + item.name_teacher +'</td>'+
