@@ -17,10 +17,10 @@ class ManageCourse{
         });
     }
     editDiscipline(parametres, callback){
-        let values = '($1)';
-        let registre = [parametres.nameDiscipline, parametres.idDiscipline];
-        let where = 'id_discipline = $2';
-        this.crudDiscipline.executeUpdate('discipline', '(name_discipline)', values, where, registre, data => {
+        let values = '($1, $2)';
+        let registre = [parametres.nameDiscipline, parametres.descriptionDiscipline, parametres.idDiscipline];
+        let where = 'id_discipline = $3';
+        this.crudDiscipline.executeUpdate('discipline', '(name_discipline, description_discipline)', values, where, registre, data => {
             return callback(data);
         });
     }

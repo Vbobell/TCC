@@ -14,7 +14,7 @@ class DisciplineImportController{
     }
     insertDataDiscipline(data, callback) {
         let crudDiscipline = new CrudDiscipline();
-        crudDiscipline.executeInsert('discipline','(name_discipline)', '($1)' , 
+        crudDiscipline.executeInsert('discipline','(name_discipline, description_discipline)', '($1, $2)' , 
         data, response => callback(response));
     }
 }

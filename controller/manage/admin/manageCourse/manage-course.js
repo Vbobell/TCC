@@ -17,10 +17,10 @@ class ManageCourse{
         });
     }
     editCourse(parametres, callback){
-        let values = '($1)';
-        let registre = [parametres.nameCourse, parametres.idCourse];
-        let where = 'id_course = $2';
-        this.crudCourse.executeUpdate('course', '(name_course)', values, where, registre, data => {
+        let values = '($1, $2)';
+        let registre = [parametres.nameCourse, parametres.descriptionCourse, parametres.idCourse];
+        let where = 'id_course = $3';
+        this.crudCourse.executeUpdate('course', '(name_course, description_course)', values, where, registre, data => {
             return callback(data);
         });
     }

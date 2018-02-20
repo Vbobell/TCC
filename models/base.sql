@@ -8,7 +8,8 @@ create table admin(
 
 create table course(
     id_course serial NOT NULL primary key,
-    name_course varchar(30) NOT NULL
+    name_course varchar(30) NOT NULL,
+    description_course text NOT NULL
 );
 
 create table class_(
@@ -18,7 +19,8 @@ create table class_(
 
 create table discipline(
     id_discipline serial NOT NULL primary key,
-    name_discipline varchar(30) NOT NULL
+    name_discipline varchar(30) NOT NULL,
+    description_discipline text NOT NULL
 );
 
 create table course_class(

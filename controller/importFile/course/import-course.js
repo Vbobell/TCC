@@ -14,7 +14,7 @@ class CourseImportController {
     }
     insertDataCourse(data, callback) {
         let crudCourse = new CrudCourse();
-        crudCourse.executeInsert('course','(name_course)', '($1)' , data, response => callback(response));
+        crudCourse.executeInsert('course','(name_course, description_course)', '($1, $2)' , data, response => callback(response));
     }
 }
 

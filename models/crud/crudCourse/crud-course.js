@@ -7,7 +7,7 @@ class CrudCourse extends Crud{
                 if (err) {
                     return console.error('error fetching client from pool', err);
                 }
-                client.query('SELECT id_course, name_course from course limit $1 offset $2;', [limit, offset] , function (err, result) {
+                client.query('SELECT id_course, name_course, description_course from course limit $1 offset $2;', [limit, offset] , function (err, result) {
                     done();
                     if (err) {
                         return console.error('error running query', err);
