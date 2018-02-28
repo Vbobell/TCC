@@ -1,71 +1,73 @@
-create table admin(
-	id_admin serial NOT NULL primary key,  
-    name_admin varchar(30) DEFAULT NULL, 
-    registry varchar(10) DEFAULT NULL,
-    user_level smallint DEFAULT NULL,
-    password varchar(30) DEFAULT 123456
+CREATE TABLE admin(
+	id_admin SERIAL NOT NULL PRIMARY KEY,  
+    name_admin VARCHAR(30) DEFAULT NULL, 
+    registry VARCHAR(10) DEFAULT NULL,
+    email VARCHAR (30) NOT NULL,
+    password VARCHAR(30) DEFAULT NULL
 );
 
-create table course(
-    id_course serial NOT NULL primary key,
-    name_course varchar(30) NOT NULL,
-    description_course text NOT NULL
+CREATE TABLE course(
+    id_course SERIAL NOT NULL PRIMARY KEY,
+    name_course VARCHAR(30) NOT NULL,
+    description_course TEXT NOT NULL
 );
 
-create table class_(
-    id_class serial NOT NULL primary key,
-    name_class varchar(30) NOT NULL
+CREATE TABLE discipline(
+    id_discipline SERIAL NOT NULL PRIMARY KEY,
+    name_discipline VARCHAR(30) NOT NULL,
+    description_discipline TEXT NOT NULL
 );
 
-create table discipline(
-    id_discipline serial NOT NULL primary key,
-    name_discipline varchar(30) NOT NULL,
-    description_discipline text NOT NULL
+CREATE TABLE course_discipline(
+    id_course_discipline SERIAL NOT NULL PRIMARY KEY,
+    id_course INT NOT NULL,
+    id_discipline INT NOT NULL,
+    FOREIGN KEY (id_course) REFERENCES course (id_course),
+    FOREIGN KEY (id_discipline) REFERENCES discipline (id_discipline)
 );
 
-create table course_class(
-    id_course_class serial NOT NULL primary key,
-    id_course int NOT NULL,
-    id_class int NOT NULL,
-    foreign key (id_course) references course (id_course),
-    foreign key (id_class) references class_ (id_class)
+CREATE TABLE teacher(
+    id_teacher SERIAL NOT NULL PRIMARY KEY,
+    name_teacher VARCHAR (40) NOT NULL,
+    registry VARCHAR (10) NOT NULL,
+    email VARCHAR (30) NOT NULL,
+    password VARCHAR (30) NOT NULL DEFAULT NULL
 );
 
-create table course_discipline(
-    id_course_discipline serial NOT NULL primary key,
-    id_course int NOT NULL,
-    id_discipline int NOT NULL,
-    foreign key (id_course) references course (id_course),
-    foreign key (id_discipline) references discipline (id_discipline)
+CREATE TABLE teacher_discipline(
+    id_teacher_discipline SERIAL NOT NULL PRIMARY KEY,
+    id_discipline INT NOT NULL,
+    id_teacher INT NOT NULL,
+    FOREIGN KEY (id_discipline) REFERENCES discipline (id_discipline),
+    FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher)
 );
 
-create table teacher(
-    id_teacher serial NOT NULL primary key,
-    name_teacher varchar (40) NOT NULL,
-    registry varchar (10) NOT NULL,
-    password varchar (30) NOT NULL DEFAULT 123456
+CREATE TABLE student(
+    id_student SERIAL NOT NULL PRIMARY KEY,
+    name_student VARCHAR (40) NOT NULL,
+    registry VARCHAR (10) NOT NULL,
+    email VARCHAR (30) NOT NULL,
+    password VARCHAR (30) NOT NULL DEFAULT NULL
 );
 
-create table teacher_discipline(
-    id_teacher_discipline serial NOT NULL primary key,
-    id_discipline int NOT NULL,
-    id_teacher int NOT NULL,
-    foreign key (id_discipline) references discipline (id_discipline),
-    foreign key (id_teacher) references teacher (id_teacher)
+CREATE TABLE student_discipline(
+    id_student_discipline SERIAL NOT NULL PRIMARY KEY,
+    id_discipline INT NOT NULL,
+    id_student INT NOT NULL,
+    FOREIGN KEY (id_discipline) REFERENCES discipline (id_discipline),
+    FOREIGN KEY (id_student) REFERENCES student (id_student)
 );
 
-create table student(
-    id_student serial NOT NULL primary key,
-    name_student varchar (40) NOT NULL,
-    registry varchar (10) NOT NULL,
-    email varchar (30) NOT NULL,
-    password varchar (30) NOT NULL DEFAULT 123456
+CREATE TABLE reward(
+    id_reward SERIAL NOT NULL PRIMARY KEY,
+    name_reward VARCHAR (40) NOT NULL,
+    enable_reward BOOLEAN DEFAULT TRUE
 );
 
-create table student_discipline(
-    id_student_discipline serial NOT NULL primary key,
-    id_discipline int NOT NULL,
-    id_student int NOT NULL,
-    foreign key (id_discipline) references discipline (id_discipline),
-    foreign key (id_student) references student (id_student)
-); 
+CREATE TABLE reward_configuration(
+    id_reward_config SERIAL NOT NULL PRIMARY KEY,
+    name_config VARCHAR (40) NOT NULL,
+    config TEXT NOT NULL,
+    id_reward INT NOT NULL,
+    FOREIGN KEY (id_reward) REFERENCES reward (id_reward)
+);
