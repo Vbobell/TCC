@@ -66,7 +66,6 @@ class ManageSearch{
             case 'reward':
                 let manageReward = new ManageReward();
                 manageReward.getDataRewards(this.parameters, data =>{
-                    console.log(data);
                     return callback(data);
                 });
             break;
