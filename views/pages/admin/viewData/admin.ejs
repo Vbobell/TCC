@@ -29,12 +29,12 @@
 
     <script class="script-admin" data-content="generic">
         (function () {
-            var getData = function(parametres){
+            var getData = function(parameters){
             var tableHead = ['name_admin', 'registre'];
             $.ajax({
                 url: '/admin/getData',
                 type: 'GET',
-                data: parametres,
+                data: parameters,
                 async : false,
             }).done(function (data) {
                 var registres = JSON.parse(data);

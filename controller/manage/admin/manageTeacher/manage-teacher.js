@@ -4,21 +4,21 @@ class ManageTeacher{
     constructor(){
         this.crudTeacher = new CrudTeacher();
     }
-    getDataTeachers(parametres, callback){
-        this.crudTeacher.selectUsers(parametres.limit, parametres.offset , data =>{
+    getDataTeachers(parameters, callback){
+        this.crudTeacher.selectUsers(parameters.limit, parameters.offset , data =>{
             return callback(data);
         });
     }
-    removeTeacher(parametres, callback){
+    removeTeacher(parameters, callback){
         let where = 'id_teacher = $1';
-        let registry = [parametres.idTeacher];
+        let registry = [parameters.idTeacher];
         this.crudTeacher.executeDelete('teacher', where, registry, data =>{
             return callback(data);
         });
     }
-    editTeacher(parametres, callback){
+    editTeacher(parameters, callback){
         let values = '($1, $2)';
-        let registry = [parametres.name, parametres.registry, parametres.idTeacher];
+        let registry = [parameters.name, parameters.registry, parameters.idTeacher];
         let where = 'id_teacher = $3';
         this.crudTeacher.executeUpdate('teacher', '(name_teacher, registry)', values, where, registry, data => {
             return callback(data);

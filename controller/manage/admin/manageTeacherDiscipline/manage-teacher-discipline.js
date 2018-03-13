@@ -5,8 +5,8 @@ class ManageTeacherDiscipline{
         this.crudTeacherDiscipline = new CrudTeacherDiscipline();
         this.data = ''; 
     }
-    getDataTeacherDiscipline(parametres, callback){
-        this.crudTeacherDiscipline.selectTeachersAndDiscipline(parametres.limit, parametres.offset , data =>{
+    getDataTeacherDiscipline(parameters, callback){
+        this.crudTeacherDiscipline.selectTeachersAndDiscipline(parameters.limit, parameters.offset , data =>{
             return callback(data);
         });
     }

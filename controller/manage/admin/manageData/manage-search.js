@@ -9,63 +9,63 @@ const ManageStudentDiscipline = require('../manageStudentDiscipline/manage-stude
 const ManageReward = require('../manageReward/manage-reward');
 
 class ManageSearch{
-    constructor(entity, parametres){
+    constructor(entity, parameters){
         this.entity = entity;
-        this.parametres = parametres;
+        this.parameters = parameters;
     }
     getData(callback){
         switch(this.entity){
             case 'admin':
                 let manageAdmin = new ManageAdmin();
-                manageAdmin.getDataAdmins(this.parametres, data => {
+                manageAdmin.getDataAdmins(this.parameters, data => {
                     return callback(data);
                 });
             break;
             case 'course':
                 let manageCourse = new ManageCourse();
-                manageCourse.getDataCourses(this.parametres, data => {
+                manageCourse.getDataCourses(this.parameters, data => {
                     return callback(data);
                 });
             break;
             case 'discipline':
                 let manageDiscipline = new ManageDiscipline();
-                manageDiscipline.getDataDiscipline(this.parametres, data =>{
+                manageDiscipline.getDataDiscipline(this.parameters, data =>{
                     return callback(data);
                 });
             break;
             case 'courseDiscipline':
                 let manageCourseDiscipline = new ManageCourseDiscipline();
-                manageCourseDiscipline.getDataCourseDiscipline(this.parametres, data =>{
+                manageCourseDiscipline.getDataCourseDiscipline(this.parameters, data =>{
                     return callback(data);
                 });
             break;
             case 'teacher':
                 let manageTeacher = new ManageTeacher();
-                manageTeacher.getDataTeachers(this.parametres, data =>{
+                manageTeacher.getDataTeachers(this.parameters, data =>{
                     return callback(data);
                 });
             break;
             case 'teacherDiscipline':
                 let manageTeacherDiscipline = new ManageTeacherDiscipline();
-                manageTeacherDiscipline.getDataTeacherDiscipline(this.parametres, data =>{
+                manageTeacherDiscipline.getDataTeacherDiscipline(this.parameters, data =>{
                     return callback(data);
                 });
             break;
             case 'student':
                 let manageStudent = new ManageStudent();
-                manageStudent.getDataStudents(this.parametres, data =>{
+                manageStudent.getDataStudents(this.parameters, data =>{
                     return callback(data);
                 });
             break;
             case 'studentDiscipline':
                 let manageStudentDiscipline = new ManageStudentDiscipline();
-                manageStudentDiscipline.getDataStudentDiscipline(this.parametres, data =>{
+                manageStudentDiscipline.getDataStudentDiscipline(this.parameters, data =>{
                     return callback(data);
                 });
             break;
             case 'reward':
             let manageReward = new ManageReward();
-            manageReward.getDataRewards(this.parametres, data =>{
+            manageReward.getDataRewards(this.parameters, data =>{
                 return callback(data);
             });
             break;

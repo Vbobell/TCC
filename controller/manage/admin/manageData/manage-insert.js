@@ -3,27 +3,27 @@ const ManageTeacherDiscipline = require('../manageTeacherDiscipline/manage-teach
 const ManageStudentDiscipline = require('../manageStudentDiscipline/manage-student-discipline');
 
 class ManageInsert{
-    constructor(entity, parametres){
+    constructor(entity, parameters){
         this.entity = entity;
-        this.parametres = parametres;
+        this.parameters = parameters;
     }
     getInsert(callback){
         switch(this.entity){
             case 'courseDiscipline':
                 let manageCourseDiscipline = new ManageCourseDiscipline();
-                manageCourseDiscipline.insertDataCourseDiscipline(this.parametres, data => {
+                manageCourseDiscipline.insertDataCourseDiscipline(this.parameters, data => {
                     return callback(data);
                 });
             break;
             case 'teacherDiscipline':
                 let manageTeacherDiscipline = new ManageTeacherDiscipline();
-                manageTeacherDiscipline.insertDataTeacherDiscipline(this.parametres, data => {
+                manageTeacherDiscipline.insertDataTeacherDiscipline(this.parameters, data => {
                     return callback(data);
                 });
             break;
             case 'studentDiscipline':
                 let manageStudentDiscipline = new ManageStudentDiscipline();
-                manageStudentDiscipline.insertDataStudentDiscipline(this.parametres, data => {
+                manageStudentDiscipline.insertDataStudentDiscipline(this.parameters, data => {
                     return callback(data);
                 });
             break;

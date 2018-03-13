@@ -5,39 +5,39 @@ const ManageTeacher = require('../manageTeacher/manage-teacher');
 const ManageStudent = require('../manageStudent/manage-student');
 
 class ManageEdit{
-    constructor(entity, parametres){
+    constructor(entity, parameters){
         this.entity = entity;
-        this.parametres = parametres;
+        this.parameters = parameters;
     }
     getEdit(callback){
         switch(this.entity){
             case 'admin':
                 let manageAdmin = new ManageAdmin();
-                manageAdmin.editAdmin(this.parametres, data => {
+                manageAdmin.editAdmin(this.parameters, data => {
                     return callback(data);
                 });
             break;
             case 'course':
                 let manageCourse = new ManageCourse();
-                manageCourse.editCourse(this.parametres, data => {
+                manageCourse.editCourse(this.parameters, data => {
                     return callback(data);
                 });
             break;
             case 'discipline':
                 let manageDiscipline = new ManageDiscipline();
-                manageDiscipline.editDiscipline(this.parametres, data => {
+                manageDiscipline.editDiscipline(this.parameters, data => {
                     return callback(data);
                 });
             break;  
             case 'teacher':
                 let manageTeacher = new ManageTeacher();
-                manageTeacher.editTeacher(this.parametres, data => {
+                manageTeacher.editTeacher(this.parameters, data => {
                     return callback(data);
                 });
             break;   
             case 'student':
                 let manageStudent = new ManageStudent();
-                manageStudent.editStudent(this.parametres, data => {
+                manageStudent.editStudent(this.parameters, data => {
                     return callback(data);
             });
             break;                 

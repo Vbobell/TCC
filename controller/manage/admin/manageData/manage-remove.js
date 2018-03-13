@@ -5,39 +5,39 @@ const ManageTeacher = require('../manageTeacher/manage-teacher');
 const ManageStudent = require('../manageStudent/manage-student');
 
 class ManageRemove{
-    constructor(entity, parametres){
+    constructor(entity, parameters){
         this.entity = entity;
-        this.parametres = parametres;
+        this.parameters = parameters;
     }
     getRemove(callback){
         switch(this.entity){
             case 'admin':
                 let manageAdmin = new ManageAdmin();
-                manageAdmin.removeAdmin(this.parametres, data => {
+                manageAdmin.removeAdmin(this.parameters, data => {
                     return callback(data);
                 });
             break;
             case 'course':
                 let manageCourse = new ManageCourse();
-                manageCourse.removeCourse(this.parametres, data => {
+                manageCourse.removeCourse(this.parameters, data => {
                     return callback(data);
                 });
             break;
             case 'discipline':
                 let manageDiscipline = new ManageDiscipline();
-                manageDiscipline.removeDiscipline(this.parametres, data => {
+                manageDiscipline.removeDiscipline(this.parameters, data => {
                     return callback(data);
                 });
             break;
             case 'teacher':
                 let manageTeacher = new ManageTeacher();
-                manageTeacher.removeTeacher(this.parametres, data => {
+                manageTeacher.removeTeacher(this.parameters, data => {
                     return callback(data);
                 });
             break;
             case 'student':
                 let manageStudent = new ManageStudent();
-                manageStudent.removeStudent(this.parametres, data => {
+                manageStudent.removeStudent(this.parameters, data => {
                     return callback(data);
                 });
             break;

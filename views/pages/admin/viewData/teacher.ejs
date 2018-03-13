@@ -32,12 +32,12 @@
 
     <script class="script-teacher" data-content="generic">
         (function () {
-            var getData = function(parametres, callback){
+            var getData = function(parameters, callback){
             var tableHead = ['name_teacher', 'registre'];
             $.ajax({
                 url: '/admin/getData',
                 type: 'GET',
-                data: parametres,
+                data: parameters,
                 async : false,
             }).done(function (data) {
                 var registres = JSON.parse(data);

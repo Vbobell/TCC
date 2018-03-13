@@ -5,8 +5,8 @@ class ManageStudentDiscipline{
         this.crudStudentDiscipline = new CrudStudentDiscipline();
         this.data = ''; 
     }
-    getDataStudentDiscipline(parametres, callback){
-        this.crudStudentDiscipline.selectStudentsAndDiscipline(parametres.limit, parametres.offset , data =>{
+    getDataStudentDiscipline(parameters, callback){
+        this.crudStudentDiscipline.selectStudentsAndDiscipline(parameters.limit, parameters.offset , data =>{
             return callback(data);
         });
     }
