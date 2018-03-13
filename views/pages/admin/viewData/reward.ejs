@@ -57,10 +57,10 @@
                         }
 
                         $('table.registers tbody tr#row' + i + '').append(
-                            '<td class="col-lg-2 reward"><img src="images/reward/' + item.file_reward + '.png"/></td>' +
+                            '<td class="col-lg-2 reward"><figure><img src="images/reward/' + item.file_reward + '.png"/><figure/></td>' +
                             '<td class="col-lg-3">' + item.name_reward +'</td>' +
                             '<td class="col-lg-3">' + item.description_reward +'</td>' +
-                            '<td class="col-lg-2"> <img src="images/content/' + imgEnableDisable + '"/></td>' +
+                            '<td class="col-lg-2"><figure><img src="images/content/' + imgEnableDisable + '"/><figure/></td>' +
                             '<td class="col-lg-2 content-tools"><div class="tool open-config" data-id="tr#editRow'+i+'"></div>' +
                             '<div class="tool enableDisable" data-enable="true" data-id="'+item.id_reward+'"></div></td>'
                         );

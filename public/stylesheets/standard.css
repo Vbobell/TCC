@@ -154,9 +154,10 @@ section, header {
 }
 
 /*rewards*/
-.reward{
+.reward figure {
     background-color: #2c2b2e;
     border-radius: 100%;
+    padding: 1em;
 }
 .reward img{
     width:100%;
