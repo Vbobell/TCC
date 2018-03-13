@@ -7,7 +7,7 @@
             <h2>Professor</h2>
         </figure>
         <section class="big-inner-content table-content">
-        <table class="registres">
+        <table class="registers">
             <thead>
                 <tr class="row">
                     <td class="col-lg-4">
@@ -40,13 +40,13 @@
                 data: parameters,
                 async : false,
             }).done(function (data) {
-                var registres = JSON.parse(data);
-                $('table.registres tbody').html('');
-                registres.forEach(function (item, i) {                   
-                    $('table.registres tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
-                    $('table.registres tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '"></tr>');
+                var registers = JSON.parse(data);
+                $('table.registers tbody').html('');
+                registers.forEach(function (item, i) {                   
+                    $('table.registers tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
+                    $('table.registers tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '"></tr>');
                 
-                    $('table.registres tbody tr#row' + i + '').append(
+                    $('table.registers tbody tr#row' + i + '').append(
                         '<td class="col-lg-4">' + item.name_teacher +'</td>'+
                         '<td class="col-lg-3">'+item.registry+'</td>'+
                         '<td class="col-lg-3 discipline"id="teacherDiscipline'+item.id_teacher+'"></td>'+
@@ -54,7 +54,7 @@
                         '<div class="tool remove" data-id="'+item.id_teacher+'"></div></td>'
                     );
                     
-                    $('table.registres tbody tr#editRow'+ i + '').append(
+                    $('table.registers tbody tr#editRow'+ i + '').append(
                         '<td class="col-lg-4"><input name="'+tableHead[0]+'" type="text" value="' + item.name_teacher + '"/></td>'+
                         '<td class="col-lg-3"><input name="'+tableHead[1]+'" type="text" value="' + item.registry + '"/></td>'+
                         '<td class="col-lg-3 disciplineEdit" id="teacherDiscipline'+item.id_teacher+'"></td>'+
@@ -119,7 +119,7 @@
                         });
                         insertDisciplinesTeacher = {
                             'entity': 'teacherDiscipline',
-                            'registres' : disciplinesChecked
+                            'registers' : disciplinesChecked
                         };
                         
                         insertGenericData(JSON.stringify(insertDisciplinesTeacher), function(){
