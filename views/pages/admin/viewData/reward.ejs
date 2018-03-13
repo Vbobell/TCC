@@ -44,7 +44,7 @@
                     async : false,
                 }).done(function (data) {
                     var registers = JSON.parse(data);
-
+                    console.log(registers);
                     $('table.registers tbody').html('');
                     registers.forEach(function (item, i) {                   
                         $('table.registers tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
@@ -75,7 +75,8 @@
                             enable = true;
                         }
 
-                        data = { 'entity': 'reward', 
+                        data = { 
+                        'entity': 'reward', 
                         'idReward': $(this).attr('data-id'),
                         'enable' : enable
                         };
