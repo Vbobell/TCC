@@ -153,6 +153,16 @@ section, header {
     background-image: url('../images/content/tools/cancel.png');
 }
 
+/*rewards*/
+.reward{
+    background-color: #2c2b2e;
+    border-radius: 100%;
+}
+.reward img{
+    width:100%;
+}
+/*rewards*/
+
 /*subscript bootstrap*/
 .row{
     margin: 0;
