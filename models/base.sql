@@ -60,7 +60,8 @@ CREATE TABLE student_discipline(
 
 CREATE TABLE reward(
     id_reward SERIAL NOT NULL PRIMARY KEY,
-    name_reward VARCHAR (40) NOT NULL,
+    name_reward VARCHAR (100) NOT NULL,
+    file_reward VARCHAR (40) NOT NULL,
     enable_reward BOOLEAN DEFAULT TRUE
 );
 
