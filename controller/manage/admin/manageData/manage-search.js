@@ -64,10 +64,11 @@ class ManageSearch{
                 });
             break;
             case 'reward':
-            let manageReward = new ManageReward();
-            manageReward.getDataRewards(this.parameters, data =>{
-                return callback(data);
-            });
+                let manageReward = new ManageReward();
+                manageReward.getDataRewards(this.parameters, data =>{
+                    console.log(data);
+                    return callback(data);
+                });
             break;
         }
     }
