@@ -12,7 +12,7 @@ class ManageReward{
     enableDisableReward(parameters, callback){
         let values = '($1)';
         let where = 'id_reward = $2';
-        let registry = [parameters.enableDisable, parameters.idReward];
+        let registry = [parameters.enable, parameters.idReward];
         this.crudReward.executeUpdate('reward', '(enable_reward)', values, where, registry, data => {
             return callback(data);
         });

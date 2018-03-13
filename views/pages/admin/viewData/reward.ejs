@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/file.png"/>
+            <h2>Bonificações</h2>
+        </figure>
+        <section class="big-inner-content table-content">
+        <table class="registers">
+            <thead>
+                <tr class="row">
+                    <td class="col-lg-2">
+                        Bonificação
+                    </td>
+                    <td class="col-lg-3">
+                        Nome
+                    </td>
+                    <td class="col-lg-4">
+                        Descrição
+                    </td>
+                    <td class="col-lg-1">
+                        Habilitada
+                    </td>
+                    <td class="col-lg-2">
+                        Ação
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        </section>
+    </section>
+    
+    <script class="script-reward" data-content="generic">
+        (function () {
+            var getData = function(parameters, callback){
+                var tableHead = ['file_reward', 'name_reward', 'description_reward'];
+                $.ajax({
+                    url: '/admin/getData',
+                    type: 'GET',
+                    data: parameters,
+                    async : false,
+                }).done(function (data) {
+                    var registers = JSON.parse(data);
+
+                    $('table.registers tbody').html('');
+                    registers.forEach(function (item, i) {                   
+                        $('table.registers tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
+                        $('table.registers tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '"></tr>');
+                    
+                        if(item.enable_reward){
+                           var imgEnableDisable = 'enable.png'; 
+                        }else{
+                            var imgEnableDisable = 'disable.png';
+                        }
+
+                        $('table.registers tbody tr#row' + i + '').append(
+                            '<td class="col-lg-2"><img src=images/reward/"' + item.file_reward + '".png/></td>' +
+                            '<td class="col-lg-3">' + item.name_reward +'</td>' +
+                            '<td class="col-lg-4">' + item.description_reward +'</td>' +
+                            '<td class="col-lg-1"> <img src=images/content/"' + imgEnableDisable + '</td>' +
+                            '<td class="col-lg-2 content-tools"><div class="tool open-config" data-id="tr#editRow'+i+'"></div>' +
+                            '<div class="tool enableDisable" data-enable="true" data-id="'+item.id_reward+'"></div></td>'
+                        );
+                    });
+        
+                    $('.enable').on('click', function(){
+                        var enable = "";
+                        var this_ = $(this);
+                        if($(this).attr('data-enable') == true){
+                            enable = false;
+                        }else{
+                            enable = true;
+                        }
+
+                        data = { 'entity': 'reward', 
+                        'idReward': $(this).attr('data-id'),
+                        'enable' : enable
+                        };
+
+                        $.ajax({
+                            url : 'admin/edit',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data : JSON.stringify(data),
+                            async : false,
+                            type: 'POST'
+                        }).done(function(data){
+                            if(this_.attr('data-enable-disable') == true){
+                                this_.attr('data-enable-disable', false);
+                            }else{
+                                this_.attr('data-enable-disable', true);
+                            }
+                        });
+                    });
+
+                    return callback();
+                });
+            };
+            var mountStructure = function(callback){
+                getData({'entity':'reward', 'limit': 9, 'offset': 0 }, function(){
+
+                });
+                return callback();
+            };
+            var key = true;
+            if(key){
+                mountStructure(function(){
+                    key = false;
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>
