@@ -11,16 +11,16 @@ class ManageCourse{
     }
     removeDiscipline(parameters, callback){
         let where = 'id_discipline = $1';
-        let registre = [parameters.idDiscipline];
-        this.crudDiscipline.executeDelete('discipline', where, registre, data =>{
+        let registry = [parameters.idDiscipline];
+        this.crudDiscipline.executeDelete('discipline', where, registry, data =>{
             return callback(data);
         });
     }
     editDiscipline(parameters, callback){
         let values = '($1, $2)';
-        let registre = [parameters.nameDiscipline, parameters.descriptionDiscipline, parameters.idDiscipline];
+        let registry = [parameters.nameDiscipline, parameters.descriptionDiscipline, parameters.idDiscipline];
         let where = 'id_discipline = $3';
-        this.crudDiscipline.executeUpdate('discipline', '(name_discipline, description_discipline)', values, where, registre, data => {
+        this.crudDiscipline.executeUpdate('discipline', '(name_discipline, description_discipline)', values, where, registry, data => {
             return callback(data);
         });
     }

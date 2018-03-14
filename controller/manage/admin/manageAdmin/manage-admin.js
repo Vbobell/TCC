@@ -11,16 +11,16 @@ class ManageAdmin{
     }
     removeAdmin(parameters, callback){
         let where = 'id_admin = $1';
-        let registre = [parameters.idAdmin];
-        this.crudAdmin.executeDelete('admin', where, registre, data =>{
+        let registry = [parameters.idAdmin];
+        this.crudAdmin.executeDelete('admin', where, registry, data =>{
             return callback(data);
         });
     }
     editAdmin(parameters, callback){
         let values = '($1, $2)';
-        let registre = [parameters.name, parameters.registre, parameters.idAdmin];
+        let registry = [parameters.name, parameters.registry, parameters.idAdmin];
         let where = 'id_admin = $3';
-        this.crudAdmin.executeUpdate('admin', '(name_admin, registre)', values, where, registre, data => {
+        this.crudAdmin.executeUpdate('admin', '(name_admin, registry)', values, where, registry, data => {
             return callback(data);
         });
     }

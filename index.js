@@ -63,10 +63,6 @@ app.get('/admin/getData', function (request, response) {
       response.write(data);
       response.end();
     });
-    //Local test
-    /*mvar data = [{'name_admin':'test','registre':1},{'name_admin':'test','registre':1}];
-    response.write(JSON.stringify(data));
-    response.end();*/
   }else
     response.redirect('/');
 });
@@ -85,10 +81,6 @@ app.post('/login', function(request, response){
       response.write(JSON.stringify(valid));
       response.end();   
   });
-  //Local test
-  /*request.session.user = request.body.user;
-  response.write(JSON.stringify(true));
-  response.end();*/
 });
 
 app.post('/import/*', (request, response) => {

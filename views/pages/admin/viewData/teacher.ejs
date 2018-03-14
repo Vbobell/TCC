@@ -33,7 +33,7 @@
     <script class="script-teacher" data-content="generic">
         (function () {
             var getData = function(parameters, callback){
-            var tableHead = ['name_teacher', 'registre'];
+            var tableHead = ['name_teacher', 'registry'];
             $.ajax({
                 url: '/admin/getData',
                 type: 'GET',
@@ -96,7 +96,7 @@
                 $('.edit').on('click', function(){
                     var idTeacher = $(this).attr('data-id-edit');
                     var nameTeacher = $($(this).attr('data-id')).find('input[name="name_teacher"]').val();
-                    var Registry = $($(this).attr('data-id')).find('input[name="registre"]').val();
+                    var Registry = $($(this).attr('data-id')).find('input[name="registry"]').val();
                     var element = $($(this).attr('data-id'));
 
                     data = {

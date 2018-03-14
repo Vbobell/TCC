@@ -33,12 +33,12 @@ class Crud {
             return json(affectedRows);
         });
     }
-    executeUpdate(table, columns, values, parameters, registre, json) {
+    executeUpdate(table, columns, values, parameters, registry, json) {
         pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-                client.query("update " + table + " set " + columns + " = " + values + " where " + parameters + ";", registre, function (err, result) {
+                client.query("update " + table + " set " + columns + " = " + values + " where " + parameters + ";", registry, function (err, result) {
                     done();
                     if (err) {
                         return console.error('error running query', err);
@@ -48,12 +48,12 @@ class Crud {
                 });
         });
     }
-    executeDelete(table, parameters, registre, json) {
+    executeDelete(table, parameters, registry, json) {
         pool.connect(function (err, client, done) {
             if (err) {
                 return console.error('error fetching client from pool', err);
             }
-                client.query("delete from "+ table + " where " + parameters + ";", registre, function (err, result) {
+                client.query("delete from "+ table + " where " + parameters + ";", registry, function (err, result) {
                     done();
                     if (err) {
                         return console.error('error running query', err);

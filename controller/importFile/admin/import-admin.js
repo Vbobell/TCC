@@ -14,7 +14,7 @@ class AdminImportController {
     }
     insertDataAdmin(data, callback) {
         let crudAdmin = new CrudAdmin();
-        crudAdmin.executeInsert('admin','(name_admin, registre)', '($1, $2)' , data, response => callback(response));
+        crudAdmin.executeInsert('admin','(name_admin, registry)', '($1, $2)' , data, response => callback(response));
     }
 }
 
