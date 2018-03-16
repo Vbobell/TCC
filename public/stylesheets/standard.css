@@ -82,19 +82,33 @@ section, header {
 }
 .table-content {
     width: 100%;
+    max-height: 400px;
     padding: 0;
+    overflow-y: scroll;
 }
 .table-content table{
     width: 100%;
     font-size: 1em;
+}
+.table-content thead tr.row{
+    width: 78.5%;
+    position: fixed;
+    background-color: #dae0da;
+    z-index: 2;
 }
 
 .table-content thead td {
     font-weight: bold;
 }
 .table-content table td {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0.2em 2em;
     line-height: 2em;
+}
+.table-content table tbody tr:first-child{
+    margin: 2.5em 0 0 0;
 }
 .border-top-right-left{
     background-color: #17b377;
@@ -152,7 +166,15 @@ section, header {
 .cancel{
     background-image: url('../images/content/tools/cancel.png');
 }
-
+.open-config{
+    background-image: url('../images/content/tools/lab.png');
+}
+figure.enable {
+    text-align: center;
+}
+figure.enable img {
+    width: 100%;
+}
 /*rewards*/
 .reward figure {
     background-color: #2c2b2e;
@@ -168,4 +190,9 @@ section, header {
 .row{
     margin: 0;
 }
- 
+.btn {
+    border-radius: 0px;
+}
+.toggle-handle {
+    background-color: #dae0da;
+}

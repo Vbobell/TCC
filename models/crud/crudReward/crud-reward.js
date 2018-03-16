@@ -7,7 +7,8 @@ class CrudReward extends Crud{
                 if (err) {
                     return console.error('error fetching client from pool', err);
                 }
-                client.query('SELECT id_reward, name_reward,description_reward, file_reward, enable_reward from reward limit $1 offset $2;', [limit, offset] , function (err, result) {
+                client.query(`SELECT id_reward, name_reward, description_reward, file_reward, 
+                enable_reward FROM reward ORDER BY name_reward ASC LIMIT $1 OFFSET $2;`, [limit, offset] , function (err, result) {
                     done();
                     if (err) {
                         return console.error('error running query', err);
