@@ -1,3 +1,4 @@
+---------------- bonificações ----------------
 INSERT INTO reward (name_reward, description_reward, file_reward)
 VALUES ('primeira atividade', 'primeira atividade', 'first-activity');
 
@@ -39,3 +40,27 @@ VALUES ('sequência de atividades prata realizas corretas', 'sequência de ativi
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
 VALUES ('sequência de atividades bronze realizas corretas', 'sequência de atividades bronze realizas corretas', 'bronze-sequence-activity');
+---------------- bonificações ----------------
+
+---------------- configuração de bonificação ----------------
+
+INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
+VALUES ('porcentagem de acertos atividade ouro', 'porcentagem de acertos para ser uma atividade ouro', '', 6);
+
+INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
+VALUES ('porcentagem de acertos atividade prata', 'porcentagem de acertos para ser uma atividade prata', '', 7);
+
+INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
+VALUES ('porcentagem de acertos atividade bronze', 'porcentagem de acertos para ser uma atividade bronze', '', 8);
+
+INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
+VALUES ('sequência de atividades realizas corretas', 'sequência de atividades realizas corretas', '', 4);
+
+INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
+VALUES ('sequência de atividades ouro', 'sequência de atividades ouro realizas corretas', '', 12);
+
+INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
+VALUES ('sequência de atividades prata', 'sequência de atividades prata realizas corretas', '', 13);
+
+INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
+VALUES ('sequência de atividades bronze', 'sequência de atividades bronze realizas corretas', '', 14);

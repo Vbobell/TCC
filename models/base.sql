@@ -68,7 +68,7 @@ CREATE TABLE reward(
 
 CREATE TABLE reward_configuration(
     id_reward_config SERIAL NOT NULL PRIMARY KEY,
-    name_config VARCHAR (40) NOT NULL,
+    name_config VARCHAR (100) NOT NULL,
     description_config TEXT NOT NULL,
     config TEXT NOT NULL,
     id_reward INT NOT NULL,
