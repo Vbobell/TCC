@@ -35,6 +35,7 @@
     
     <script class="script-reward" data-content="generic">
         (function () {
+            var config = new ConfigReward();
             var getData = function(parameters, callback){
                 var tableHead = ['file_reward', 'name_reward', 'description_reward'];
                 $.ajax({
@@ -44,11 +45,12 @@
                     async : false,
                 }).done(function (data) {
                     var registers = JSON.parse(data);
-
+                    
                     $('table.registers tbody').html('');
-                    registers.forEach(function (item, i) {                   
-                        $('table.registers tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
-                        $('table.registers tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '"></tr>');
+                    
+                    registers.forEach(function (item, i) {             
+                        $('table.registers tbody').append('<tr class="row view-row" id="row' + i + '" data-id="'+item.id_reward +'"></tr>');
+                        $('table.registers tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '" data-id="'+item.id_reward +'"></tr>');
                     
                         if(item.enable_reward){
                            var checked = 'checked';
@@ -56,7 +58,7 @@
                            var checked = '';
                         }
 
-                        $('table.registers tbody tr#row' + i + '').append(
+                        $('table.registers tbody tr#row' + i).append(
                             '<td class="col-lg-2 reward"><figure><img src="images/reward/' + item.file_reward + '.png"/></figure></td>' +
                             '<td class="col-lg-3">' + item.name_reward +'</td>' +
                             '<td class="col-lg-3">' + item.description_reward +'</td>' +
@@ -67,19 +69,18 @@
                             '<td class="col-lg-2 content-tools"><div class="tool open-config" data-id="tr#editRow'+i+'"></div>' +
                             '</td>'
                         );
+                        
                     });
 
                     $('.switch').bootstrapToggle();
         
                     $('.switch').on('change', function(){
-                        var enable = "";
-                        var _this = $(this);
                         data = { 
                         'entity': 'reward', 
                         'idReward': $(this).attr('data-id'),
                         'enable' : $(this).is(':checked')
                         };
-                        console.log(data);
+
                         $.ajax({
                             url : 'admin/edit',
                             contentType: "application/json; charset=utf-8",
@@ -91,15 +92,74 @@
                         });
                     });
 
+                    $('.open-config').on('click', function(){
+                        $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                        $($(this).attr('data-id')).removeClass('hidden').slideDown();
+                        
+                        $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+
+                        $(this).parents('.view-row').addClass('border-top-right-left edit-select');
+                        $($(this).attr('data-id')).addClass('border-right-bottom-left');
+                    });
+
                     return callback();
                 });
             };
             var mountStructure = function(callback){
                 getData({'entity':'reward', 'limit': 9, 'offset': 0 }, function(){
-                    return callback();
+                    getGenericData({'entity':'rewardConfig', 'limit': 9, 'offset': 0 }, function(registers){
+                        var registers = JSON.parse(registers);
+                        config.setConfig(registers);
+                        var structureConfigReward = new StructureConfigReward(config);
+
+                        registers.forEach(function (item, i) {
+                            structureConfigReward.buildStructure(item, function(data){
+                                if(data){
+                                    $('table.registers tbody tr.edit-row[data-id="'+ item.id_reward + '"]').html("");
+                                    $('table.registers tbody tr.edit-row[data-id="'+ item.id_reward + '"]').append(
+                                        '<td class="col-lg-10">' + data + '</td>' +
+                                        '<td class="col-lg-2"><div class="tool edit" data-id-name="" data-id-edit="'+item.id_reward_config+'"></div>' +
+                                        '<div class="tool cancel"></div></td>'
+                                    )
+                                    $('table.registers tbody tr.view-row[data-id="'+ item.id_reward + '"]').attr('data-config', true);
+                                }
+                            });
+                        });
+
+                        $('table.registers tbody tr.view-row:not(tr.view-row[data-config])').find('.open-config').remove();
+
+                        $('.edit').on('click', function(){
+                            var dataConfig = {
+                                'id': $(this).attr('data-id-edit'),
+                                'name': $(this).parents('.edit-row').find('.data-config').attr('name'),
+                                'value': $(this).parents('.edit-row').find('.data-config').val()
+                            };
+                            config.updateConfig(dataConfig, function(config){
+                                var data = {
+                                    'entity': 'rewardConfig',
+                                    'idConfig': dataConfig.id,
+                                    'config': config
+                                };
+                                $.ajax({
+                                    url : 'admin/edit',
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    data : JSON.stringify(data),
+                                    async : false,
+                                    type: 'POST'
+                                }).done(function(data){
+                                    mountStructure(function(){
+                                        alert('dados alterados!');
+                                    });
+                                });
+                            });
+                        });
+                    });
                 });
+                return callback();
             };
             var key = true;
+            
             if(key){
                 mountStructure(function(){
                     key = false;

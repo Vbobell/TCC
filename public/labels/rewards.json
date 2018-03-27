@@ -1,0 +1,90 @@
+{
+    "reward": {
+        "first-activity": {
+            "name": "primeira atividade",
+            "description": "primeira atividade"
+        },
+        "first-correct-activity": {
+            "name": "primeira atividade correta",
+            "description": "primeira atividade correta"
+        },
+        "first-do-activity": {
+            "name": "primeiro(a) a realizar a atividade",
+            "description": "primeiro(a) a realizar a atividade"
+        },
+        "sequence-activity": {
+            "name": "sequência de atividades realizadas corretas",
+            "description": "sequência de atividades realizadas corretas"
+        },
+        "correct-activity": {
+            "name": "atividade realizada",
+            "description": "atividade realizada"
+        },
+        "gold-activity": {
+            "name": "atividade realizada ouro",
+            "description": "atividade realizada ouro"
+        },
+        "silver-activity": {
+            "name": "atividade realizada prata",
+            "description": "atividade realizada prata"
+        },
+        "bronze-activity": {
+            "name": "atividade realizada bronze",
+            "description": "atividade realizada bronze"
+        },
+        "first-activity-gold": {
+            "name": "primeira atividade ouro realizada",
+            "description": "primeira atividade ouro realizada"
+        },
+        "first-activity-silver": {
+            "name": "primeira atividade prata realizada",
+            "description": "primeira atividade prata realizada"
+        },
+        "first-activity-bronze": {
+            "name": "primeira atividade bronze realizada",
+            "description": "primeira atividade bronze realizada"
+        },
+        "gold-sequence-activity": {
+            "name": "sequência de atividades ouro realizas corretas",
+            "description": "sequência de atividades ouro realizas corretas"
+        },
+        "silver-sequence-activity": {
+            "name": "sequência de atividades prata realizas corretas",
+            "description": "sequência de atividades prata realizas corretas"
+        },
+        "bronze-sequence-activity": {
+            "name": "sequência de atividades bronze realizas corretas",
+            "description": "sequência de atividades bronze realizas corretas"
+        }
+    },
+    "reward-config":{
+        "percent-of-correct-gold":{
+            "name": "porcentagem de acertos atividade ouro",
+            "description": "porcentagem de acertos para ser uma atividade ouro"
+        },
+        "percent-of-correct-silver":{
+            "name": "porcentagem de acertos atividade prata",
+            "description": "porcentagem de acertos para ser uma atividade prata"
+        },
+        "percent-of-correct-bronze":{
+            "name": "porcentagem de acertos atividade bronze",
+            "description": "porcentagem de acertos para ser uma atividade bronze"
+        },
+        "sequence-correct":{
+            "name": "sequência de atividades realizas corretas",
+            "description": "sequência de atividades realizas corretas"
+        },
+        "sequence-correct-gold":{
+            "name": "sequência de atividades ouro",
+            "description": "sequência de atividades ouro realizas corretas"
+        },
+        "sequence-correct-silver":{
+            "name": "sequência de atividades prata",
+            "description": "sequência de atividades prata realizas corretas"
+        },
+        "sequence-correct-bronze":{
+            "name": "sequência de atividades bronze",
+            "description": "sequência de atividades bronze realizas corretas"
+        }
+    }
+}

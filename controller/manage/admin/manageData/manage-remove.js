@@ -41,6 +41,8 @@ class ManageRemove{
                     return callback(data);
                 });
             break;
+            default:
+                return callback("error"); 
         }
     }
 }

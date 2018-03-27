@@ -27,6 +27,8 @@ class ManageInsert{
                     return callback(data);
                 });
             break;
+            default:
+                return callback("error"); 
         }
     }
 }
