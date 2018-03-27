@@ -21,10 +21,11 @@ $(document).ready(function(){
             data : JSON.stringify(data),
             type: 'POST'
         }).done(function(data){
-            if(data)
-                window.location.href = '/admin';
-            else
+            if(data){
+                window.location.href = data.route;
+            }else{
                 alert('login invalido');
+            }
         });
     });
 });

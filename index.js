@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const ControllerImport = require('./controller/importFile/controller-import');
 const Route = require('./controller/viewRoutes/routes');
-const ManageAdmin = require('./controller/manage/admin/manageAdmin/manage-admin');
+const ManageLogin = require('./controller/manage/login/manage-login');
 const ManageSearch = require('./controller/manage/admin/manageData/manage-search');
 const ManageEdit = require('./controller/manage/admin/manageData/manage-edit');
 const ManageRemove = require('./controller/manage/admin/manageData/manage-remove');
@@ -37,14 +37,27 @@ app.get('/', function(request, response){
 });
  
 app.get('/admin', function (request, response) {
-  if (request.session.user)
+  if (request.session.user && request.session.user.type == 'admin'){
     response.render('pages/admin/index');
-  else
+  }else if(request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
     response.redirect('/');
+  }
+});
+
+app.get('/teacher', function (request, response) {
+  if (request.session.user && request.session.user.type == 'teacher'){
+    response.render('pages/teacher/index');
+  }else if(request.session.user){
+      response.redirect(request.session.user.route);
+  }else{
+    response.redirect('/');
+  }
 });
 
 app.get('/admin/route/*', function (request, response) {
-  if (request.session.user){  
+  if (request.session.user && request.session.user.type == 'admin'){  
   let route = new Route(app.get('views') + '/pages/admin/' + request.query.path + '/', request.query.file, '.ejs');
   route.getRoute(data => {
     if (data)
@@ -52,19 +65,25 @@ app.get('/admin/route/*', function (request, response) {
     else
       response.redirect('/error');
   });
-  }else
-    response.redirect('/');
+  }else if(request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
+  response.redirect('/');
+  }
 });
 
 app.get('/admin/getData', function (request, response) {
-  if (request.session.user){
+  if (request.session.user && request.session.user.type == 'admin'){
     let manageSearch = new ManageSearch(request.query.entity, request.query);
     manageSearch.getData(data =>{
       response.write(data);
       response.end();
     });
-  }else
+  }else if(request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
     response.redirect('/');
+  }
 });
 
 app.get('/error', function (request, response){
@@ -72,59 +91,70 @@ app.get('/error', function (request, response){
 });
 
 app.post('/login', function(request, response){
-  request.session.user = request.body.user;
-  let manageAdmin = new ManageAdmin();
-  manageAdmin.loginValidation(request.body, valid => {
+  let manageLogin = new ManageLogin(request.body);
+  manageLogin.login(valid => {
     if(valid){
-      request.session.user = request.body.user;
-    }
-      response.write(JSON.stringify(valid));
-      response.end();   
+      request.session.user = valid;
+    }  
+    response.write(JSON.stringify(valid));
+    response.end();
   });
 });
 
 app.post('/import/*', (request, response) => {
-  if (request.session.user){
+  if (request.session.user && request.session.user.type == 'admin'){
     let controller = new ControllerImport(request.params[0], request.files.csv.data.toString('utf8').split('\r\n'));
     controller.csvInsertData(callback => {
       response.write(JSON.stringify(callback));
       response.end();
     });
-  }else
+  }else if(request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
     response.redirect('/');
+  }
 });
 
 app.post('/admin/remove', (request, response) => {
-  if (request.session.user){
+  if (request.session.user && request.session.user.type == 'admin'){
     let manageRemove = new ManageRemove(request.body.entity, request.body);
     manageRemove.getRemove( data =>{
       response.write(JSON.stringify(data));
       response.end();
     });
-  }else
+  }else if(request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
     response.redirect('/');
+  }
 });
 
 app.post('/admin/edit', (request, response) => {
-  if (request.session.user){
+  if (request.session.user && request.session.user.type == 'admin'){
     let manageEdit = new ManageEdit(request.body.entity, request.body);
     manageEdit.getEdit( data =>{
       response.write(JSON.stringify(data));
       response.end();
     });
-  }else
+  }else if(request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
     response.redirect('/');
+  }
 });
 
 app.post('/admin/insert', (request, response) => {
-  if (request.session.user){
+  if (request.session.user && request.session.user.type == 'admin'){
     let manageInsert = new ManageInsert(request.body.entity, request.body.registers);
     manageInsert.getInsert( data =>{
       response.write(JSON.stringify(data));
       response.end();
     });
-  }else
+  }else if(request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
     response.redirect('/');
+  }
 });
 
 app.listen(app.get('port'), function () {

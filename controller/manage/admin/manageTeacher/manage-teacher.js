@@ -24,6 +24,14 @@ class ManageTeacher{
             return callback(data);
         });
     }
+    loginValidation(parameters, callback){
+        this.crudTeacher.selectUser(parameters.user,parameters.password, data => {
+            if(JSON.parse(data)[0].count == 1)
+                return callback(true);
+            else
+                return callback(false);
+        });
+    }
 }
 
 module.exports = ManageTeacher;
