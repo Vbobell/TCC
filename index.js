@@ -3,13 +3,16 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
-const ControllerImport = require('./controller/importFile/controller-import');
 const Route = require('./controller/viewRoutes/routes');
 const ManageLogin = require('./controller/manage/login/manage-login');
+//Admin manage
+const ControllerImport = require('./controller/importFile/controller-import');
 const ManageSearch = require('./controller/manage/admin/manageData/manage-search');
 const ManageEdit = require('./controller/manage/admin/manageData/manage-edit');
 const ManageRemove = require('./controller/manage/admin/manageData/manage-remove');
 const ManageInsert = require('./controller/manage/admin/manageData/manage-insert');
+//Teacher manage
+const ManageSearchTeacher = require('./controller/manage/teacher/manageData/manage-search');
 
 app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');
@@ -48,7 +51,15 @@ app.get('/admin', function (request, response) {
 
 app.get('/teacher', function (request, response) {
   if (request.session.user && request.session.user.type == 'teacher'){
-    response.render('pages/teacher/index');
+    parameters = {
+      'registry': request.session.user.user,
+      'limit' : 9,
+      'offset' : 0
+    }
+    let manageSearchTeacher = new ManageSearchTeacher('teacherDiscipline', parameters);
+    manageSearchTeacher.getData((data) =>{
+      response.render('pages/teacher/index', {disciplines : data });
+    });
   }else if(request.session.user){
       response.redirect(request.session.user.route);
   }else{
@@ -145,7 +156,7 @@ app.post('/admin/edit', (request, response) => {
 
 app.post('/admin/insert', (request, response) => {
   if (request.session.user && request.session.user.type == 'admin'){
-    let manageInsert = new ManageInsert(request.body.entity, request.body.registers);
+    let manageInsert = new ManageInsert(request.body.entity, request.body);
     manageInsert.getInsert( data =>{
       response.write(JSON.stringify(data));
       response.end();

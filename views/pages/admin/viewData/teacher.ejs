@@ -119,7 +119,8 @@
                         });
                         insertDisciplinesTeacher = {
                             'entity': 'teacherDiscipline',
-                            'registers' : disciplinesChecked
+                            'registers' : disciplinesChecked,
+                            'idTeacher': idTeacher
                         };
                         
                         insertGenericData(JSON.stringify(insertDisciplinesTeacher), function(){

@@ -10,9 +10,15 @@ class ManageTeacherDiscipline{
             return callback(data);
         });
     }
-    insertDataTeacherDiscipline(data, callback) {
-        this.crudTeacherDiscipline.executeInsert('teacher_discipline','(id_teacher, id_discipline)', '($1, $2)', 
-            data, response => callback(response));
+    insertDataTeacherDiscipline(parameters, callback) {
+        let where = 'id_teacher = $1';
+        let registry = [parameters.idTeacher];
+        
+        this.crudTeacherDiscipline.executeDelete('teacher_discipline', where, registry, data =>{
+            this.crudTeacherDiscipline.executeInsert('teacher_discipline','(id_teacher, id_discipline)', '($1, $2)', 
+            parameters.registers, response => callback(response));
+        });
+        
     }
 }
 
