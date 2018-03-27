@@ -4,12 +4,12 @@ class Crud {
     executeSelect(table, columns, json) {
         pool.connect(function (err, client, done) {
             if (err) {
-                return console.error('error fetching client from pool', err);
+                return json(JSON.stringify(err));
             }
             client.query("SELECT " + columns + " from " + table + ";", function (err, result) {
                 done();
                 if (err) {
-                    return console.error('error running query', err);
+                    return json(JSON.stringify(err));
                 }
                 return json(JSON.stringify(result.rows));
             });
@@ -19,12 +19,12 @@ class Crud {
         var affectedRows = [];
         pool.connect(function (err, client, done) {
             if (err) {
-                return console.error('error fetching client from pool', err);
+                return json(JSON.stringify(err));
             }
             for(var i = 0; i < values.length; i++){
                 client.query("insert into " + table + " " + columns + " values " + parameters + ";", values[i], function (err, result) {
                     if (err) {
-                        return console.error('error running query', err);
+                        return json(JSON.stringify(err));
                     }
                     affectedRows.push(result.rowCount);
                 });
@@ -36,14 +36,13 @@ class Crud {
     executeUpdate(table, columns, values, parameters, registry, json) {
         pool.connect(function (err, client, done) {
             if (err) {
-                return console.error('error fetching client from pool', err);
+                return json(JSON.stringify(err));
             }
                 client.query("update " + table + " set " + columns + " = " + values + " where " + parameters + ";", registry, function (err, result) {
                     done();
                     if (err) {
-                        return console.error('error running query', err);
+                        return json(JSON.stringify(err));
                     }
-                    console.log(result);
                     return json(result.rowCount);
                 });
         });
@@ -51,12 +50,12 @@ class Crud {
     executeDelete(table, parameters, registry, json) {
         pool.connect(function (err, client, done) {
             if (err) {
-                return console.error('error fetching client from pool', err);
+                return json(JSON.stringify(err));
             }
                 client.query("delete from "+ table + " where " + parameters + ";", registry, function (err, result) {
                     done();
                     if (err) {
-                        return console.error('error running query', err);
+                        return json(JSON.stringify(err));
                     }
                     return json(result.rowCount);
                 });            

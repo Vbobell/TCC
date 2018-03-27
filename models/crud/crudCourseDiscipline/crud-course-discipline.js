@@ -5,20 +5,25 @@ class CrudCourseDiscipline extends Crud{
         this.getPool((data) =>{
             data.connect(function (err, client, done) {
                 if (err) {
-                    return console.error('error fetching client from pool', err);
+                    return json(JSON.stringify(err));
                 }
-                client.query(`SELECT course.id_course, course.name_course, 
+/*                 client.query(`SELECT course.id_course, course.name_course, 
                             discipline.id_discipline, discipline.name_discipline 
                             from course, discipline, course_discipline 
                             where course_discipline.id_course = course.id_course and 
                             discipline.id_discipline = course_discipline.id_discipline 
-                            limit $1 offset $2;`, [limit, offset] , function (err, result) {
-                    done();
-                    if (err) {
-                        return console.error('error running query', err);
-                    }
-                    return json(JSON.stringify(result.rows));
-                });
+                            limit $1 offset $2;`, [limit, offset] , function (err, result) { */
+                    client.query(`SELECT course.id_course, course.name_course, 
+                            discipline.id_discipline, discipline.name_discipline 
+                            from course, discipline, course_discipline 
+                            where course_discipline.id_course = course.id_course and 
+                            discipline.id_discipline = course_discipline.id_discipline;`, function (err, result) {
+                            done();
+                            if (err) {
+                                return json(JSON.stringify(err));
+                            }
+                            return json(JSON.stringify(result.rows));
+                        });
             });
         });
     }
