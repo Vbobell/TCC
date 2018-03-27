@@ -154,6 +154,11 @@
                                 });
                             });
                         });
+
+                        $('.cancel').on('click', function(){
+                            $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                            $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+                        });
                     });
                 });
                 return callback();
