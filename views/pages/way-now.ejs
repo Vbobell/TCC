@@ -16,4 +16,13 @@
             <a href="/logout">Desconectar</a>
         </div>
     </section>
+    <script>
+    (function(){
+        var user = {
+            name: '<%= user.name %>',
+            id: '<%= user.id %>'
+        }
+        localStorage.setItem('user', JSON.stringify(user));
+    })();
+    </script>
 </header>

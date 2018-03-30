@@ -6,7 +6,8 @@ class ManageDisciplineActivity{
         this.data = ''; 
     }
     getDataDisciplineActivity(parameters, callback){
-        this.crudDisciplineActivity.selectAcivity(parameters.registry, parameters.limit, parameters.offset , data =>{
+        let registers = [parameters.idDiscipline, parameters.idTeacher];
+        this.crudDisciplineActivity.selectAcivity(registers, parameters.limit, parameters.offset , data =>{
             return callback(data);
         });
     }

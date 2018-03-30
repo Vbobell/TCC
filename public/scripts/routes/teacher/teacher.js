@@ -17,6 +17,7 @@ $(document).ready(function(){
     });
 
     $('.item.activity').on('click', function(){
+        var user = JSON.parse(localStorage.getItem('user'));
         var data = { 
             'path' : $(this).parent().attr('data-path') ,  
             'file' : $(this).attr('data-item'),
@@ -24,7 +25,8 @@ $(document).ready(function(){
                 'type': 'search',
                 'entity': 'disciplineActivity',
                 'parameters': {
-                    'registry': $(this).attr('data-id')
+                    'idDiscipline': $(this).attr('data-id'),
+                    'idTeacher': user.id
                 }
             }
         };
