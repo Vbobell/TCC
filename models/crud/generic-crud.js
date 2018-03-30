@@ -52,13 +52,13 @@ class Crud {
             if (err) {
                 return json(JSON.stringify(err));
             }
-                client.query("delete from "+ table + " where " + parameters + ";", registry, function (err, result) {
-                    done();
-                    if (err) {
-                        return json(JSON.stringify(err));
-                    }
-                    return json(result.rowCount);
-                });            
+            client.query("delete from "+ table + " where " + parameters + ";", registry, function (err, result) {
+                done();
+                if (err) {
+                    return json(JSON.stringify(err));
+                }
+                return json(result.rowCount);
+            });            
         });
     }
     getPool(callback){
