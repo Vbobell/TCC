@@ -74,3 +74,35 @@ CREATE TABLE reward_configuration(
     id_reward INT NOT NULL,
     FOREIGN KEY (id_reward) REFERENCES reward (id_reward)
 );
+
+CREATE TABLE activity(
+    id_activity SERIAL NOT NULL PRIMARY KEY,
+    name_activity VARCHAR (100) NOT NULL,
+    description_activity TEXT NOT NULL,
+    point_activity INT NOT NULL,
+    id_discipline INT NOT NULL,
+    FOREIGN KEY (id_discipline) REFERENCES discipline (id_discipline)
+);
+
+CREATE TABLE activity_question(
+    id_question SERIAL NOT NULL PRIMARY KEY,
+    description_question TEXT NOT NULL,
+    order_question INT NOT NULL,
+    id_activity INT NOT NULL,
+    FOREIGN KEY (id_activity) REFERENCES activity (id_activity)
+);
+
+CREATE TABLE question_alternative(
+    id_alternative SERIAL NOT NULL PRIMARY KEY,
+    description_alternative TEXT NOT NULL,
+    id_question INT NOT NULL,
+    FOREIGN KEY (id_question) REFERENCES activity_question (id_question)
+);
+
+CREATE TABLE activity_reward(
+    id_activity_reward SERIAL NOT NULL PRIMARY KEY,
+    id_activity INT NOT NULL,
+    id_reward INT NOT NULL,
+    FOREIGN KEY (id_activity) REFERENCES activity (id_activity),
+    FOREIGN KEY (id_reward) REFERENCES reward (id_reward)
+);

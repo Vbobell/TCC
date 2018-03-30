@@ -1,4 +1,5 @@
 const ManageTeacherDiscipline = require('../manageTeacherDiscipline/manage-teacher-discipline');
+const ManageDisciplineActivity = require('../manageDisciplineActivity/manage-discipline-activity');
 
 class ManageSearchTeacher{
     constructor(entity, parameters){
@@ -13,8 +14,15 @@ class ManageSearchTeacher{
                     return callback(data);
                 });
             break;
+            case 'disciplineActivity':
+                let manageDisciplineActivity = new ManageDisciplineActivity();
+                manageDisciplineActivity.getDataDisciplineActivity(this.parameters, data =>{
+                    return callback(data);
+                });
+            break;
             default:
                 return callback(false);
+            break;
         }
     }
 }

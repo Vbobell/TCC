@@ -4,26 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <% include ../../../public/stylesheets/standard-css.ejs %>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css"/>
 </head>
 
 <body>
 <% include ../way-now.ejs %>
 <% include menu.ejs %>
-<section class="page-content" data-content="viewData">
+<section class="page-content" data-content="viewData" data-path="activity">
 
     <% disciplines.forEach(function(discipline) { %>
-    <article class="item" data-item="admin">
+    <article class="item activity" data-item="discipline-activity" data-id="<%= discipline.id_discipline %>">
         <figure>
         <img src=""/>
         <h2><%= discipline.name_discipline %></h2>
         </figure>
-        <p>Visualize as atividades da disciplina</p>
+        <p>Manipule as atividades da disciplina</p>
     </article>
     <% }); %>
 </section>
 
 <% include ../../../public/scripts/standard-scripts.ejs %>
+<script src="/scripts/routes/teacher/teacher.js"></script>
 </body>
 
 </html>

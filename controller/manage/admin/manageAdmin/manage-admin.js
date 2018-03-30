@@ -26,10 +26,11 @@ class ManageAdmin{
     }
     loginValidation(parameters, callback){
         this.crudAdmin.selectUser(parameters.user,parameters.password, data => {
-            if(JSON.parse(data)[0].count == 1)
-                return callback(true);
-            else
+            if(data.length == 0){
                 return callback(false);
+            }else{
+                return callback(data);
+            }
         });
     }
 }

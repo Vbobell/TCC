@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/file.png"/>
+            <h2>Atividades</h2>
+        </figure>
+        <section class="big-inner-content table-content">
+            <table class="registers">
+                <thead>
+                    <tr class="row">
+                        <td class="col-lg-5">
+                            Nome
+                        </td>
+                        <td class="col-lg-4">
+                            Descrição
+                        </td>
+                        <td class="col-lg-3">
+                            Ação
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                <% data.forEach(function(activity) { %>
+                    <tr class="row">
+                        <td class="col-lg-5">
+                        <%= activity.name_activity %>
+                        </td>
+                        <td class="col-lg-4">
+                            <%= activity.description_activity %>
+                        </td>
+                        <td class="col-lg-3">
+                            Ação
+                        </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </section>
+    </section>
+</body>
+</html>

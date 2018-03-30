@@ -10,12 +10,14 @@ class ManageLogin{
     login(callback){
         this.manageAdmin.loginValidation(this.user, (valid) =>{
             if(valid){
+                this.user.name = valid[0].name_admin;
                 this.user.route = '/admin';
                 this.user.type = 'admin';
                 return callback(this.user);
             }
             this.manageTeacher.loginValidation(this.user, (valid) =>{
                 if(valid){
+                    this.user.name = valid[0].name_teacher;
                     this.user.route = '/teacher';
                     this.user.type = 'teacher';
                     return callback(this.user);

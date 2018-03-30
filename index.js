@@ -12,7 +12,7 @@ const ManageEdit = require('./controller/manage/admin/manageData/manage-edit');
 const ManageRemove = require('./controller/manage/admin/manageData/manage-remove');
 const ManageInsert = require('./controller/manage/admin/manageData/manage-insert');
 //Teacher manage
-const ManageSearchTeacher = require('./controller/manage/teacher/manageData/manage-search');
+const RouteTeacher = require('./controller/viewRoutes/teacher/routes');
 
 app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');
@@ -29,6 +29,9 @@ app.use(session({
   cookie: { maxAge: (60000 * 60) * 24 }
 }));
 
+
+/* Login functions */
+
 app.get('/logout', function(request, response){
   request.session.destroy(function(err) {
     response.redirect('/');
@@ -41,7 +44,7 @@ app.get('/', function(request, response){
  
 app.get('/admin', function (request, response) {
   if (request.session.user && request.session.user.type == 'admin'){
-    response.render('pages/admin/index');
+    response.render('pages/admin/index', { way : 'registros', user : request.session.user});
   }else if(request.session.user){
     response.redirect(request.session.user.route);
   }else{
@@ -51,14 +54,23 @@ app.get('/admin', function (request, response) {
 
 app.get('/teacher', function (request, response) {
   if (request.session.user && request.session.user.type == 'teacher'){
-    parameters = {
-      'registry': request.session.user.user,
-      'limit' : 9,
-      'offset' : 0
-    }
-    let manageSearchTeacher = new ManageSearchTeacher('teacherDiscipline', parameters);
-    manageSearchTeacher.getData((data) =>{
-      response.render('pages/teacher/index', {disciplines : data });
+    controller = {
+      type: 'search',
+      entity: 'teacherDiscipline',
+      parameters: {
+        'registry': request.session.user.user,
+        'limit' : 9,
+        'offset' : 0
+      }
+    };
+
+    let routeTeacher = new RouteTeacher(controller);
+    routeTeacher.getRouteData((data) =>{
+      if(data){
+        response.render('pages/teacher/index', {disciplines : data , user : request.session.user, way : 'disciplinas'});
+      }else{
+        response.redirect('/error');
+      }
     });
   }else if(request.session.user){
       response.redirect(request.session.user.route);
@@ -67,12 +79,26 @@ app.get('/teacher', function (request, response) {
   }
 });
 
+app.post('/login', function(request, response){
+  let manageLogin = new ManageLogin(request.body);
+  manageLogin.login(valid => {
+    if(valid){
+      request.session.user = valid;
+    }  
+    response.write(JSON.stringify(valid));
+    response.end();
+  });
+});
+
+/* Login functions */
+
+/*admin functions*/
 app.get('/admin/route/*', function (request, response) {
   if (request.session.user && request.session.user.type == 'admin'){  
   let route = new Route(app.get('views') + '/pages/admin/' + request.query.path + '/', request.query.file, '.ejs');
   route.getRoute(data => {
     if (data)
-      response.render('pages/admin/' + request.query.path + '/' + request.query.file);
+      response.render('pages/admin/' + request.query.path + '/' + request.query.file, {user : request.session.user});
     else
       response.redirect('/error');
   });
@@ -95,21 +121,6 @@ app.get('/admin/getData', function (request, response) {
   }else{
     response.redirect('/');
   }
-});
-
-app.get('/error', function (request, response){
-  response.render('pages/error');
-});
-
-app.post('/login', function(request, response){
-  let manageLogin = new ManageLogin(request.body);
-  manageLogin.login(valid => {
-    if(valid){
-      request.session.user = valid;
-    }  
-    response.write(JSON.stringify(valid));
-    response.end();
-  });
 });
 
 app.post('/import/*', (request, response) => {
@@ -166,6 +177,40 @@ app.post('/admin/insert', (request, response) => {
   }else{
     response.redirect('/');
   }
+});
+/*admin functions*/
+
+/*teacher functions*/
+app.get('/teacher/route/*', function (request, response) {
+  if (request.session.user && request.session.user.type == 'teacher'){  
+  let route = new Route(app.get('views') + '/pages/teacher/' + request.query.path + '/', request.query.file, '.ejs');
+  
+  route.getRoute(routeData => {
+    if (routeData){
+      let routeTeacher = new RouteTeacher(request.query.controller);
+      
+      routeTeacher.getRouteData((data) => {
+        if(data){
+          response.render('pages/teacher/' + request.query.path + '/' + request.query.file, { data : data , user : request.session.user});
+        }else{
+          response.redirect('/error');
+        }
+      })
+    }
+    else{
+      response.redirect('/error');
+    }
+  });
+  }else if(request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
+  response.redirect('/');
+  }
+});
+
+
+app.get('/error', function (request, response){
+  response.render('pages/error');
 });
 
 app.listen(app.get('port'), function () {

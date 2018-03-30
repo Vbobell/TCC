@@ -7,12 +7,12 @@ class CrudAdmin extends Crud{
                 if (err) {
                     return json(JSON.stringify(err));
                 }
-                client.query('SELECT count(*) from admin where registry = $1 and password = $2;', [user,password] , function (err, result) {
+                client.query('SELECT name_admin from admin where registry = $1 and password = $2;', [user,password] , function (err, result) {
                     done();
                     if (err) {
                         return json(JSON.stringify(err));
                     }
-                    return json(JSON.stringify(result.rows));
+                    return json(result.rows);
                 });
             });
         });
