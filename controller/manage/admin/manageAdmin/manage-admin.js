@@ -27,7 +27,6 @@ class ManageAdmin{
     }
     loginValidation(parameters, callback){
         let hash = crypto.createHash('md5').update(parameters.password).digest('hex');
-        console.log(hash);
         this.crudAdmin.selectUser(parameters.user, hash, data => {
             if(data.length == 0){
                 return callback(false);
