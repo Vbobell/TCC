@@ -7,11 +7,11 @@ $(document).ready(function(){
     || navigator.userAgent.match(/BlackBerry/i)
     || navigator.userAgent.match(/Windows Phone/i);
     
-    if(!mobile){
+    /*if(!mobile){
         $('.menu').height($(window,document).height());
         
         $(window,document).resize(function(){
             $('.menu').height($(window,document).height());
         });
-    }
+    }*/
 });
