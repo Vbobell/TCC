@@ -4,13 +4,6 @@ $(document).ready(function(){
     if(width < 1024){
         $('body .login-background').after($('.user-access'));
     }
-    $(window).resize(function(){
-        if(width < 1024){
-            $('body .login-background').after($('.user-access'));
-        }else{
-            $('.header-login').prepend($('.user-access'));
-        }
-    });
 
     $('.submit').on('click', function(){
         data = { 'user': $('input[name="user"]').val(), 'password': $('input[name="password"]').val()};
