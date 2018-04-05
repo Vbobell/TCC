@@ -1,4 +1,5 @@
 const CrudAdmin = require('../../../models/crud/crudAdmin/crud-admin');
+const crypto = require('crypto');
 
 class AdminImportController {
     constructor(data) {
@@ -13,8 +14,18 @@ class AdminImportController {
         return callback(this.data);
     }
     insertDataAdmin(data, callback) {
-        let crudAdmin = new CrudAdmin();
-        crudAdmin.executeInsert('admin','(name_admin, registry, email)', '($1, $2, $3)' , data, response => callback(response));
+        this.generatedPassword(data, (registry) => {
+            let crudAdmin = new CrudAdmin();
+            crudAdmin.executeInsert('admin','(name_admin, registry, email, password)', '($1, $2, $3, $4)' , data, 
+            response => callback(response));
+        });
+    }
+    generatedPassword(data, callback){
+        data.forEach((registry, index) => {
+            let hash = crypto.createHash('md5').update(registry[1]).digest('hex');
+            data[index].push(hash);
+        });
+        return callback(data);
     }
 }
 

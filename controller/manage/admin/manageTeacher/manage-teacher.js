@@ -1,4 +1,5 @@
 const CrudTeacher = require('../../../../models/crud/crudTeacher/crud-teacher');
+const crypto = require('crypto');
 
 class ManageTeacher{
     constructor(){
@@ -25,7 +26,8 @@ class ManageTeacher{
         });
     }
     loginValidation(parameters, callback){
-        this.crudTeacher.selectUser(parameters.user,parameters.password, data => {
+        let hash = crypto.createHash('md5').update(parameters.password).digest('hex');
+        this.crudTeacher.selectUser(parameters.user,hash, data => {
             if(data.length == 0){
                 return callback(false);
             }else{

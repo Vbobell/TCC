@@ -1,4 +1,5 @@
 const CrudTeacher = require('../../../models/crud/crudTeacher/crud-teacher');
+const crypto = require('crypto');
 
 class TeacherImportController{
     constructor(data) {
@@ -13,9 +14,18 @@ class TeacherImportController{
         return callback(this.data);
     }
     insertDataTeacher(data, callback) {
-        let crudTeacher = new CrudTeacher();
-        crudTeacher.executeInsert('teacher','(name_teacher, registry, email)', '($1, $2, $3)' , 
-        data, response => callback(response));
+        this.generatedPassword(data, (registry) => {
+            let crudTeacher = new CrudTeacher();
+            crudTeacher.executeInsert('teacher','(name_teacher, registry, email, password)', '($1, $2, $3, $4)' , 
+            registry, response => callback(response));
+        });
+    }
+    generatedPassword(data, callback){
+        data.forEach((registry, index) => {
+            let hash = crypto.createHash('md5').update(registry[1]).digest('hex');
+            data[index].push(hash);
+        });
+        return callback(data);
     }
 }
 
