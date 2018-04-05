@@ -30,8 +30,10 @@
                         <td class="col-lg-4">
                             <%= activity.description_activity %>
                         </td>
-                        <td class="col-lg-3">
-                            Ação
+                        <td class="col-lg-3 content-tools">
+                            <div class="tool open-view" data-id="<%= activity.id_activity %>"></div>
+                            <div class="tool open-edit" data-id="<%= activity.id_activity %>"></div>
+                            <div class="tool remove" data-id="<%= activity.id_activity %>"></div>
                         </td>
                     </tr>
                 <% }); %>

@@ -3,6 +3,16 @@
     width: 7%;
     vertical-align: top;
     float: left;
+    box-shadow: inset 5px 5px 5px 1px rgba(0,0,0,.1), 
+    inset 0 -1px 0 rgba(0,0,0,.07), 
+    1px 1px 2px 1px rgba(0,0,0,0.4);
+}
+.menu .menu-identify {
+    display: inline-block;
+    background-color: #2c2b2e;
+    width: 100%;
+    padding: 1em 0;
+    text-align: center;
 }
 .menu figure {
     text-align: center;
@@ -19,3 +29,19 @@
 .menu figure img {
     width: 60%;
 }
+
+/*Menu activity*/
+.activity-menu {
+    background-color: #2c2b2e;
+    padding: 0;
+    color: white;
+}
+.activity-menu li {
+    padding: 0.2em 0.4em;
+}
+
+.activity-menu .active{
+    background-color: #dae0da;
+    color: #2c2b2e;
+}
+/*Menu activity*/

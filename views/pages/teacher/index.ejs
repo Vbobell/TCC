@@ -4,15 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <% include ../../../public/stylesheets/standard-css.ejs %>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/teacher-content.css"/>
 </head>
 
 <body>
 <% include ../way-now.ejs %>
 <% include menu.ejs %>
 <section class="page-content" data-content="viewData" data-path="activity">
-
+    <article class="item add activity" data-item="add-activity">
+            <figure>
+            <h2>Nova atividade</h2>
+            </figure>
+            <img class="add-activity" src="images/content/itens/new-file.png"/>
+            <p>Inserir nova atividade para disciplinas</p>
+    </article>
     <% disciplines.forEach(function(discipline) { %>
-    <article class="item activity" data-item="discipline-activity" data-id="<%= discipline.id_discipline %>">
+    <article class="item discipline activity" data-item="discipline-activity" data-id="<%= discipline.id_discipline %>">
         <figure>
         <img src=""/>
         <h2><%= discipline.name_discipline %></h2>

@@ -1,0 +1,19 @@
+.question header {
+    display: flex;
+    justify-content: space-between;
+}
+.question .type-question {
+    display: flex;
+}
+.type-question figure {
+    text-align: center;
+    background-color: #17b377;
+    margin: 0 1em 0 0;
+    padding: 0.2em;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2),
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+}
+.type-question figure img {
+    width: 70%;
+}

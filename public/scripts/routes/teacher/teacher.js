@@ -10,13 +10,48 @@ $(document).ready(function(){
                 $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(400, function(){
                     element.addClass('selected');
                     $('header h1 span').remove();
-                    $('header h1').append('<span> > '+element.find('p').text()+'</span>');
+                    $('header h1').append('<span> > disciplinas</span>');
                 });
             }, 200);
         }
     });
 
-    $('.item.activity').on('click', function(){
+    $('.add.activity').on('click', function(){
+        var user = JSON.parse(localStorage.getItem('user'));
+        var data = { 
+            'path' : $(this).parent().attr('data-path') ,  
+            'file' : $(this).attr('data-item'),
+            'controller' : {
+                'type': 'search',
+                'entity': 'newActivity',
+                'parameters': {
+                    'registry': user.id
+                }
+            }
+        }
+        var key = false;
+        $('.page-content').fadeOut(200, function(){
+            $('[data-content="generic"]').remove();
+            $.ajax({
+                url : '/teacher/route/',
+                data : data,
+                dataType : 'html',
+                async : false,
+                type: 'GET'
+            }).done(function(data){
+                $('body').append($(data)[1]);
+                setTimeout(function(){
+                    $('.page-content[data-content="generic"]').fadeIn(200);
+                },200);
+                if(!key){
+                    $('.inner-header h1').append('<span> > '+$('.title-content h2').text()+'</span>');
+                    key = true;
+                }
+            });
+        });
+    });
+
+    $('.item.discipline.activity').on('click', function(){
         var user = JSON.parse(localStorage.getItem('user'));
         var data = { 
             'path' : $(this).parent().attr('data-path') ,  

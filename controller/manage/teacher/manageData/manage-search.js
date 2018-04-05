@@ -20,6 +20,12 @@ class ManageSearchTeacher{
                     return callback(data);
                 });
             break;
+            case 'newActivity':
+                let manageActivityDiscipline = new ManageTeacherDiscipline();
+                manageActivityDiscipline.getDataTeacherDiscipline(this.parameters, data =>{
+                    return callback(data);
+                });
+            break;
             default:
                 return callback(false);
             break;

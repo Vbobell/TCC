@@ -39,7 +39,11 @@ app.get('/logout', function(request, response){
 });
 
 app.get('/', function(request, response){ 
+  if (request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
     response.render('pages/login'); 
+  }
 });
  
 app.get('/admin', function (request, response) {

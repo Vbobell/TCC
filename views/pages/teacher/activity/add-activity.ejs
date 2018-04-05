@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/new-file.png"/>
+            <h2>Criar atividade</h2>
+        </figure>
+        <section class="big-inner-content table-content">
+            <section class="col-xl-2 activity-menu">
+                <ul>
+                    <li class="active" data-menu="question">Questão</li>
+                    <li data-menu="config">Configurações</li>
+                </ul>
+            </section>
+            <section class="col-xl-10">
+                <section class="col-xl-12 question" data-section="question">
+                    <header class="col-xl-12">
+                        <h3>Inserir questão</h3>
+                    </header>
+                    <div class="col-xl-12 type-question">
+                        <figure data-tool="unique">
+                            <img src="images/content/tools/unique.png"/>
+                        </figure>
+                        <figure data-tool="multiple">
+                            <img src="images/content/tools/multiple.png"/>
+                        </figure>
+                        <figure data-tool="draw">
+                            <img src="images/content/tools/draw.png"/>
+                        </figure>
+                    </div>
+                    <article>
+                        <div data-content="unique">
+                            <h4>Única escolha</h4>
+                            <p contenteditable="true"></p>
+                            <button></button>
+                            <label>Nova alternativa</label>
+                        </div>
+                        <div data-content="multiple">
+                            <h4>Multipla escolha</h4>
+                            <p contenteditable="true"></p>
+                            <button></button>
+                            <label>Nova alternativa</label>
+                        </div>
+                        <div data-content="draw">
+                            <h4>resposta escrita</h4>
+                            <p contenteditable="true"></p>
+                        </div>
+                    </article>
+                </section>
+                <section class="config" data-section="config" style="display:none;">
+                    <div>
+                        <h3>disciplina</h3>
+                        <ul>
+                        <% data.forEach(function(discipline) { %>
+                            <li>
+                                <label for="#discipline-<%= discipline.id_discipline %>"><%= discipline.name_discipline %></label>
+                                <input type="radio" id="discipline-<%= discipline.id_discipline %>" data-id="<%= discipline.id_discipline %>"/>
+                            </li>
+                        <% }); %>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </section>
+</body>
+</html>

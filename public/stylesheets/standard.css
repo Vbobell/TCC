@@ -14,8 +14,14 @@ section, header {
 }
 .item{
     display: inline-block;
+    background-color: #dae0da;
     width: 28%;
     cursor: pointer;
+    vertical-align: top;
+    text-align: center;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
 }
 .item:not(:nth-child(3n+3)) {
     margin: 0 5% 5% 0;
@@ -26,6 +32,7 @@ section, header {
     color: #ffffff;
     width: 100%;
     vertical-align: middle;
+    text-align: left;
 }
 .item figure img{
     display: inline-block;
@@ -35,8 +42,18 @@ section, header {
     font-size: 1.5em;
     text-align: center;
 }
+.item img + p {
+    color: #ffffff;
+    padding: 0.5em;
+}
+.item.add{
+    background-color: #2c2b2e;
+}
+.item img.add-activity {
+    width: 15%;
+    padding: 0.5em 0;
+}
 .item p {
-    background-color: #dae0da;
     padding: 2em 0.5em;
     text-align: center;
 }
@@ -47,6 +64,9 @@ section, header {
 }
 .page-content.big-content {
     background-color: #dae0da;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
 }
 .title-content {
     display: flex;
@@ -59,7 +79,7 @@ section, header {
 .title-content img {
     width: 5%;
     padding: 0.5em;
-    margin: 0 2em;
+    margin: 0 0.2em;
 }
 .title-description {
     display: flex;
@@ -111,6 +131,10 @@ section, header {
 .table-content table tbody tr:first-child{
     margin: 2.5em 0 0 0;
 }
+.table-content ul {
+    list-style: none;
+    margin: 0;
+}
 .border-top-right-left{
     background-color: #17b377;
     color:#ffffff;
@@ -154,6 +178,7 @@ section, header {
     width: 1.5em;
     height: 1.5em;
     vertical-align: middle;
+    cursor: pointer;
 }
 .open-edit{
     background-image: url('../images/content/tools/edit.png');
@@ -169,6 +194,9 @@ section, header {
 }
 .open-config{
     background-image: url('../images/content/tools/lab.png');
+}
+.open-view{
+    background-image: url('../images/content/tools/view.png');
 }
 figure.enable {
     text-align: center;
