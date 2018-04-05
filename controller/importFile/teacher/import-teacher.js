@@ -14,7 +14,7 @@ class TeacherImportController{
     }
     insertDataTeacher(data, callback) {
         let crudTeacher = new CrudTeacher();
-        crudTeacher.executeInsert('teacher','(name_teacher, registry)', '($1, $2)' , 
+        crudTeacher.executeInsert('teacher','(name_teacher, registry, email)', '($1, $2, $3)' , 
         data, response => callback(response));
     }
 }
