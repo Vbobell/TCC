@@ -21,8 +21,9 @@ class Crud {
             if (err) {
                 return json(JSON.stringify(err));
             }
+            
             for(var i = 0; i < values.length; i++){
-                client.query("insert into " + table + " " + columns + " values " + parameters + ";", values[i], function (err, result) {
+                client.query("insert into " + table + " " + columns + " values " + parameters, values[i], function (err, result) {
                     if (err) {
                         return json(JSON.stringify(err));
                     }

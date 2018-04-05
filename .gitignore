@@ -62,3 +62,5 @@ typings/
 #directories
 
 test/*
+
+.vscode

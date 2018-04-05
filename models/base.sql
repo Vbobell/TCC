@@ -2,7 +2,7 @@ CREATE TABLE admin(
 	id_admin SERIAL NOT NULL PRIMARY KEY,  
     name_admin VARCHAR(30) DEFAULT NULL, 
     registry VARCHAR(10) DEFAULT NULL,
-    email VARCHAR (30) NOT NULL,
+    email VARCHAR (100) NOT NULL,
     password TEXT DEFAULT NULL
 );
 
@@ -30,7 +30,7 @@ CREATE TABLE teacher(
     id_teacher SERIAL NOT NULL PRIMARY KEY,
     name_teacher VARCHAR (40) NOT NULL,
     registry VARCHAR (10) NOT NULL,
-    email VARCHAR (30) NOT NULL,
+    email VARCHAR (100) NOT NULL,
     password TEXT DEFAULT NULL
 );
 
@@ -46,7 +46,7 @@ CREATE TABLE student(
     id_student SERIAL NOT NULL PRIMARY KEY,
     name_student VARCHAR (40) NOT NULL,
     registry VARCHAR (10) NOT NULL,
-    email VARCHAR (30) NOT NULL,
+    email VARCHAR (100) NOT NULL,
     password TEXT DEFAULT NULL
 );
 

@@ -7,7 +7,9 @@ class CourseImportController {
     getReadData(callback) {
         let newData = [];
         for(var i = 0; i < this.data.length; i++){
-            newData.push(this.data[i].split(','));
+            if(this.data[i].length > 0){
+                newData.push(this.data[i].split(','));
+            }
         }
         this.data = newData;
         return callback(this.data);

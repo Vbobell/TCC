@@ -8,7 +8,9 @@ class AdminImportController {
     getReadData(callback) {
         let newData = [];
         for(var i = 0; i < this.data.length; i++){
-            newData.push(this.data[i].split(','));
+            if(this.data[i].length > 0){
+                newData.push(this.data[i].split(','));
+            }
         }
         this.data = newData;
         return callback(this.data);
@@ -16,15 +18,16 @@ class AdminImportController {
     insertDataAdmin(data, callback) {
         this.generatedPassword(data, (registry) => {
             let crudAdmin = new CrudAdmin();
-            crudAdmin.executeInsert('admin','(name_admin, registry, email, password)', '($1, $2, $3, $4)' , data, 
-            response => callback(response));
+            crudAdmin.executeInsert('admin','(name_admin, registry, email, password)', '($1, $2, $3, $4)' , registry, response => {
+                callback(response);
+            });
         });
     }
     generatedPassword(data, callback){
-        data.forEach((registry, index) => {
-            let hash = crypto.createHash('md5').update(registry[1]).digest('hex');
-            data[index].push(hash);
-        });
+        for(var i = 0; i < data.length; i++){
+            let hash = crypto.createHash('md5').update(String(data[i][1])).digest('hex');
+            data[i].push(hash);
+        }
         return callback(data);
     }
 }
