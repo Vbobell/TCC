@@ -1,5 +1,6 @@
 const ManageTeacherDiscipline = require('../manageTeacherDiscipline/manage-teacher-discipline');
 const ManageDisciplineActivity = require('../manageDisciplineActivity/manage-discipline-activity');
+const ManageRewardActivity = require('../manageRewardActivity/manage-reward-activity');
 
 class ManageSearchTeacher{
     constructor(entity, parameters){
@@ -22,8 +23,17 @@ class ManageSearchTeacher{
             break;
             case 'newActivity':
                 let manageActivityDiscipline = new ManageTeacherDiscipline();
-                manageActivityDiscipline.getDataTeacherDiscipline(this.parameters, data =>{
-                    return callback(data);
+                let manageRewardActivity = new ManageRewardActivity();
+                let returnData = {
+                    disciplines: "",
+                    rewards: ""
+                };
+                manageActivityDiscipline.getDataTeacherDiscipline(this.parameters, dataDiscipline =>{
+                    returnData.disciplines = dataDiscipline;
+                    manageRewardActivity.getDataRewardActivity(this.parameters, dataReward =>{
+                        returnData.rewards = dataReward;                       
+                        return callback(returnData);
+                    });
                 });
             break;
             default:

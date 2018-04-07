@@ -9,42 +9,97 @@
         <section class="big-inner-content table-content">
             <section class="col-xl-2 activity-menu">
                 <ul>
-                    <li class="active" data-menu="question">Questão</li>
-                    <li data-menu="config">Configurações</li>
+                    <li class="item-menu-list active" data-menu="question">Questão</li>
+                    <li class="item-menu-list" data-menu="config">Configurações</li>
                 </ul>
+                <div class="activity-action">
+                    <button id="save-activity" class="tool edit"></button>
+                    <label for="save-activity">Salvar atividade</label>
+                </div>
             </section>
-            <section class="col-xl-10">
-                <section class="col-xl-12 question" data-section="question">
+            <section class="col-xl-10 activity-content">
+                <section class="col-xl-12 section-question" data-section="question">
                     <header class="col-xl-12">
                         <h3>Inserir questão</h3>
                     </header>
-                    <div class="col-xl-12 type-question">
-                        <figure data-tool="unique">
-                            <img src="images/content/tools/unique.png"/>
-                        </figure>
-                        <figure data-tool="multiple">
-                            <img src="images/content/tools/multiple.png"/>
-                        </figure>
-                        <figure data-tool="draw">
-                            <img src="images/content/tools/draw.png"/>
-                        </figure>
-                    </div>
-                    <article>
-                        <div data-content="unique">
+                    <section class="col-xl-12 question-tools">
+                        <div class="col-xl-8 type-question">
+                            <figure class="active" data-tool="unique">
+                                <img src="images/content/tools/unique.png"/>
+                            </figure>
+                            <figure data-tool="multiple">
+                                <img src="images/content/tools/multiple.png"/>
+                            </figure>
+                            <figure data-tool="draw">
+                                <img src="images/content/tools/draw.png"/>
+                            </figure>
+                        </div>
+                        <div class="col-xl-4 question-action">
+                                <button id="save-activity" class="tool btn-add"></button>
+                                <label for="save-activity">Adicionar questão</label>
+                        </div>
+                    </section>
+                    <article class="content-question" data-section="question">
+                        <div class="elements-question" data-content="unique">
                             <h4>Única escolha</h4>
-                            <p contenteditable="true"></p>
-                            <button></button>
-                            <label>Nova alternativa</label>
+                            <div class="question">
+                                <h5>Descrição</h5>
+                                <p contenteditable="true"></p>
+                            </div>
+                            <div class="alternative">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class="col-xl-1 content-tool"><h5>Correta</h5></td>
+                                            <td class="col-xl-10"><h5>Descrição</h5></td>
+                                            <td class="col-xl-1 content-tool"></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="not-alternative">
+                                            <td>
+                                                Não há alternativas para a questão.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button id="new-alternative-radio" class="tool btn-add" data-type="radio"></button>
+                            <label for="#new-alternative-radio">Nova alternativa</label>
                         </div>
-                        <div data-content="multiple">
+                        <div class="elements-question" data-content="multiple">
                             <h4>Multipla escolha</h4>
-                            <p contenteditable="true"></p>
-                            <button></button>
-                            <label>Nova alternativa</label>
+                            <div class="question">
+                                <h5>Descrição</h5>
+                                <p contenteditable="true"></p>
+                            </div>
+                            <div class="alternative">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class="col-xl-1 content-tool"><h5>Correta</h5></td>
+                                            <td class="col-xl-10"><h5>Descrição</h5></td>
+                                            <td class="col-xl-1 content-tool"></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="not-alternative">
+                                            <td>
+                                                Não há alternativas para a questão.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button id="new-alternative-checkbox" class="tool btn-add" data-type="checkbox"></button>
+                            <label for="#new-alternative-checkbox">Nova alternativa</label>
                         </div>
-                        <div data-content="draw">
-                            <h4>resposta escrita</h4>
-                            <p contenteditable="true"></p>
+                        <div class="elements-question" data-content="draw">
+                            <h4>Resposta escrita</h4>
+                            <div class="question">
+                                <h5>Descrição</h5>
+                                <p contenteditable="true"></p>
+                            </div>
                         </div>
                     </article>
                 </section>
@@ -52,7 +107,8 @@
                     <div>
                         <h3>disciplina</h3>
                         <ul>
-                        <% data.forEach(function(discipline) { %>
+
+                        <% data.disciplines.forEach(function(discipline) { %>
                             <li>
                                 <label for="#discipline-<%= discipline.id_discipline %>"><%= discipline.name_discipline %></label>
                                 <input type="radio" id="discipline-<%= discipline.id_discipline %>" data-id="<%= discipline.id_discipline %>"/>
@@ -64,5 +120,64 @@
             </section>
         </section>
     </section>
+    <script class="script-add-activity" data-content="generic">
+    (function() {
+        $('.type-question figure').on('click', function(){
+            var _this = $(this);
+            if(!_this.hasClass('active')){
+                $('.type-question figure').removeClass('active').addClass('inactive');
+                $('.content-question > div').fadeOut(400, function(){
+                    setTimeout(function(){
+                        $('.content-question > div[data-content="'+_this.attr('data-tool')+'"]').fadeIn(200, function(){
+                            $('.type-question figure').removeClass('inactive');
+                            _this.addClass('active');
+                        });
+                    }, 400);
+                });
+            }
+        });
+
+        $('.activity-menu .item-menu-list').on('click', function(){
+            var _this = $(this);
+            if(!_this.hasClass('active')){
+                $('.activity-menu .item-menu-list').removeClass('active').addClass('inactive');
+                $('.table-content [data-section]').fadeOut(400, function(){
+                    setTimeout(function(){
+                        $('.table-content [data-section="'+_this.attr('data-menu')+'"]').fadeIn(200, function(){
+                            $('.activity-menu .item-menu-list').removeClass('inactive');
+                            _this.addClass('active');
+                        });
+                    }, 400);
+                });
+            }
+        });
+
+        $('.tool.btn-add').on('click', function(){
+            var _this = $(this);
+            
+            _this.parents('.elements-question').find('.alternative table .not-alternative').fadeOut(200, function(){
+                $('.tool.btn-add').addClass('inactive');
+
+                _this.parents('.elements-question').find('.alternative table').append(
+                        `<tr>
+                            <td class="col-xl-1 content-tool"><input type="${ _this.attr('data-type') }"/></td>
+                            <td class="col-xl-10"><p contenteditable="true"></p></td>
+                            <td class="col-xl-1 content-tool"><button class="tool remove"></button></td>
+                        </tr>`
+                );
+                $('.tool.btn-add').removeClass('inactive');
+
+                $('.tool.remove').on('click', function(){
+                    if($(this).parents('.alternative').find('table tbody tr').length == 2){
+                        $(this).parents('.alternative').find('table .not-alternative').fadeIn(200);
+                        $(this).parents('tr').remove();
+                    }else{
+                        $(this).parents('tr').remove();
+                    }
+                });
+            });
+        });
+    })();
+    </script>
 </body>
 </html>

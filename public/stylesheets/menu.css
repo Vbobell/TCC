@@ -38,10 +38,30 @@
 }
 .activity-menu li {
     padding: 0.2em 0.4em;
+    cursor: pointer;
 }
 
 .activity-menu .active{
     background-color: #dae0da;
     color: #2c2b2e;
+    box-shadow: inset 5px 5px 5px 1px rgba(0,0,0,.1), 
+    inset 0 -1px 0 rgba(0,0,0,.07), 
+    1px 1px 2px 1px rgba(0,0,0,0.4);
+}
+.activity-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #17b377;
+    width: 100%;
+    padding: 0.5em 0;
+    bottom: 0;
+    position: absolute;
+}
+.activity-action button#save-activity {
+    margin: 0 0.4em 0 0;
+}
+.activity-action label {
+    margin: 0;
 }
 /*Menu activity*/

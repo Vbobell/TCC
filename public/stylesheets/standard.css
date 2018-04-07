@@ -105,7 +105,7 @@ section, header {
     width: 100%;
     max-height: 400px;
     padding: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .table-content table{
     width: 100%;
@@ -170,6 +170,7 @@ section, header {
     display: none;
     transition: 0.2s ease;
 }
+
 .tool{
     display: inline-block;
     background-size: cover;
@@ -179,6 +180,17 @@ section, header {
     height: 1.5em;
     vertical-align: middle;
     cursor: pointer;
+}
+button.tool{
+    background-color: transparent;
+    border: none;
+    -webkit-appearance: none;
+}
+button.tool.btn-add {
+    background-color: #17b377;
+    padding: 20px;
+    border-radius: 100%;
+    background-size: 50%;
 }
 .open-edit{
     background-image: url('../images/content/tools/edit.png');
@@ -198,6 +210,9 @@ section, header {
 .open-view{
     background-image: url('../images/content/tools/view.png');
 }
+.btn-add {
+    background-image: url('../images/content/tools/add.png');
+}
 figure.enable {
     text-align: center;
 }
@@ -206,7 +221,7 @@ figure.enable img {
 }
 /*rewards*/
 .reward figure {
-    background-color: #2c2b2e;
+    background-color: #17b377;
     border-radius: 100%;
     padding: 1em;
 }
@@ -214,6 +229,17 @@ figure.enable img {
     width:100%;
 }
 /*rewards*/
+
+/*utils*/
+.inactive{
+    opacity: 0.6 !important;
+    pointer-events: none !important;
+}
+button:focus {
+    outline: 0;
+    outline: 0;
+}
+/*utils*/
 
 /*subscript bootstrap*/
 .row{

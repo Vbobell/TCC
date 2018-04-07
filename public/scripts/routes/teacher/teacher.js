@@ -10,7 +10,7 @@ $(document).ready(function(){
                 $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(400, function(){
                     element.addClass('selected');
                     $('header h1 span').remove();
-                    $('header h1').append('<span> > disciplinas</span>');
+                    $('header h1').append('<span> > atividades</span>');
                 });
             }, 200);
         }
@@ -25,7 +25,8 @@ $(document).ready(function(){
                 'type': 'search',
                 'entity': 'newActivity',
                 'parameters': {
-                    'registry': user.id
+                    'registry': user.registry,
+                    'ids': [6, 7, 8]
                 }
             }
         }
@@ -40,6 +41,7 @@ $(document).ready(function(){
                 type: 'GET'
             }).done(function(data){
                 $('body').append($(data)[1]);
+                $('body').append($(data)[3]);
                 setTimeout(function(){
                     $('.page-content[data-content="generic"]').fadeIn(200);
                 },200);

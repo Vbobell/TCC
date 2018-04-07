@@ -1,45 +1,45 @@
 ---------------- bonificações ----------------
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('primeira atividade', 'primeira atividade', 'first-activity');
+VALUES ('Primeira atividade realizada', 'Primeira atividade realizada em uma disciplina', 'first-activity');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('primeira atividade correta', 'primeira atividade correta', 'first-correct-activity');
+VALUES ('Primeira atividade correta', 'Primeira atividade realizada corretamente em uma disciplina', 'first-correct-activity');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('primeiro(a) a realizar a atividade', 'primeiro(a) a realizar a atividade', 'first-do-activity');
+VALUES ('Primeiro(a) a realizar a atividade', 'Primeiro(a) a realizar uma atividade na disciplina', 'first-do-activity');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('sequência de atividades realizadas corretas', 'sequência de atividades realizadas corretas', 'sequence-activity');
+VALUES ('Sequência de atividades', 'Sequência de atividades realizadas nas disciplinas', 'sequence-activity');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('atividade realizada', 'atividade realizada', 'correct-activity');
+VALUES ('Atividade realizada', 'Atividade realizada na disciplina', 'correct-activity');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('atividade realizada ouro','atividade realizada ouro', 'gold-activity');
+VALUES ('Atividade ouro','Atividade com valor de ouro para a disciplina', 'gold-activity');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('atividade realizada prata', 'atividade realizada prata', 'silver-activity');
+VALUES ('Atividade prata', 'Atividade com valor de prata para a disciplina', 'silver-activity');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('atividade realizada bronze', 'atividade realizada bronze', 'bronze-activity');
+VALUES ('Atividade bronze', 'Atividade com valor de bronze para a disciplina', 'bronze-activity');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('primeira atividade ouro realizada', 'primeira atividade ouro realizada', 'first-activity-gold');
+VALUES ('Primeira atividade ouro', 'Primeira atividade com valor de ouro realizada na disciplina', 'first-activity-gold');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('primeira atividade prata realizada', 'primeira atividade prata realizada',  'first-activity-silver');
+VALUES ('Primeira atividade prata', 'Primeira atividade com valor de prata realizada na disciplina',  'first-activity-silver');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('primeira atividade bronze realizada.', 'primeira atividade bronze realizada.', 'first-activity-bronze');
+VALUES ('Primeira atividade bronze', 'Primeira atividade com valor de bronze realizada na disciplina', 'first-activity-bronze');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('sequência de atividades ouro realizas corretas', 'sequência de atividades ouro realizas corretas', 'gold-sequence-activity');
+VALUES ('Sequência de atividades ouro', 'Sequência de atividades ourp realizadas nas disciplinas', 'gold-sequence-activity');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('sequência de atividades prata realizas corretas', 'sequência de atividades prata realizas corretas', 'silver-sequence-activity');
+VALUES ('Sequência de atividades prata', 'Sequência de atividades prata realizadas nas disciplinas', 'silver-sequence-activity');
 
 INSERT INTO reward (name_reward, description_reward, file_reward)
-VALUES ('sequência de atividades bronze realizas corretas', 'sequência de atividades bronze realizas corretas', 'bronze-sequence-activity');
+VALUES ('Sequência de atividades bronze', 'Sequência de atividades bronze realizadas nas disciplinas', 'bronze-sequence-activity');
 ---------------- bonificações ----------------
 
 ---------------- configuração de bonificação ----------------
