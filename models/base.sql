@@ -1,7 +1,7 @@
 CREATE TABLE admin(
 	id_admin SERIAL NOT NULL PRIMARY KEY,  
-    name_admin VARCHAR(30) DEFAULT NULL, 
-    registry VARCHAR(10) DEFAULT NULL,
+    name_admin VARCHAR(70) DEFAULT NULL, 
+    registry VARCHAR(30) DEFAULT NULL,
     email VARCHAR (100) NOT NULL,
     password TEXT DEFAULT NULL
 );
@@ -28,8 +28,8 @@ CREATE TABLE course_discipline(
 
 CREATE TABLE teacher(
     id_teacher SERIAL NOT NULL PRIMARY KEY,
-    name_teacher VARCHAR (40) NOT NULL,
-    registry VARCHAR (10) NOT NULL,
+    name_teacher VARCHAR (70) NOT NULL,
+    registry VARCHAR(30) DEFAULT NULL,
     email VARCHAR (100) NOT NULL,
     password TEXT DEFAULT NULL
 );
@@ -44,8 +44,8 @@ CREATE TABLE teacher_discipline(
 
 CREATE TABLE student(
     id_student SERIAL NOT NULL PRIMARY KEY,
-    name_student VARCHAR (40) NOT NULL,
-    registry VARCHAR (10) NOT NULL,
+    name_student VARCHAR (70) NOT NULL,
+    registry VARCHAR(30) DEFAULT NULL,
     email VARCHAR (100) NOT NULL,
     password TEXT DEFAULT NULL
 );
@@ -97,6 +97,7 @@ CREATE TABLE activity_question(
 CREATE TABLE question_alternative(
     id_alternative SERIAL NOT NULL PRIMARY KEY,
     description_alternative TEXT NOT NULL,
+    correct_alternative BOOLEAN NOT NULL,
     id_question INT NOT NULL,
     FOREIGN KEY (id_question) REFERENCES activity_question (id_question)
 );

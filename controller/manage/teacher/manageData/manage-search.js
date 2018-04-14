@@ -2,7 +2,7 @@ const ManageTeacherDiscipline = require('../manageTeacherDiscipline/manage-teach
 const ManageDisciplineActivity = require('../manageDisciplineActivity/manage-discipline-activity');
 const ManageRewardActivity = require('../manageRewardActivity/manage-reward-activity');
 
-class ManageSearchTeacher{
+class ManageSearch{
     constructor(entity, parameters){
         this.entity = entity;
         this.parameters = parameters;
@@ -43,4 +43,4 @@ class ManageSearchTeacher{
     }
 }
 
-module.exports = ManageSearchTeacher;
+module.exports = ManageSearch;

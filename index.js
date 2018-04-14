@@ -212,6 +212,22 @@ app.get('/teacher/route/*', function (request, response) {
   }
 });
 
+app.post('/teacher/insert', (request, response) => {
+  if (request.session.user && request.session.user.type == 'teacher'){
+        let routeTeacher = new RouteTeacher(request.body.controller);
+        
+        routeTeacher.getRouteData((data) => {
+          if(data){
+            response.write(JSON.stringify(data));
+            response.end();
+          }else{
+            response.redirect('/error');
+          }
+        })
+      }else{
+        response.redirect('/error');
+      }
+});
 
 app.get('/error', function (request, response){
   response.render('pages/error');

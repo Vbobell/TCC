@@ -17,6 +17,7 @@ $(document).ready(function(){
     });
 
     $('.item').on('click', function(){
+        $('.item').addClass('inactive');
         var data = { 
             'path' : $(this).parent().attr('data-content') ,  
             'file' : $(this).attr('data-item')
@@ -28,7 +29,7 @@ $(document).ready(function(){
                 url : '/admin/route/',
                 data : data,
                 dataType : 'html',
-                async : false,
+                async : true,
                 type: 'GET'
             }).done(function(data){
                 $('body').append($(data)[1]);
@@ -38,6 +39,7 @@ $(document).ready(function(){
                     $('.page-content[data-content="generic"]').fadeIn(200);
                 },200);
                 if(!key){
+                    $('.item').removeClass('inactive');
                     $('.inner-header h1').append('<span> > '+$('.title-content h2').text()+'</span>');
                     key = true;
                 }

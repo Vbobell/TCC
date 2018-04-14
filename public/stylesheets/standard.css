@@ -4,6 +4,10 @@ body{
 section, header {
     display: inline-block;
 }
+
+body h4{
+    margin: 0 0 0.5em 0;
+}
 .page-content:not([data-content="viewData"]){
     display: none;
 }
@@ -212,6 +216,9 @@ button.tool.btn-add {
 }
 .btn-add {
     background-image: url('../images/content/tools/add.png');
+}
+.btn-correct{
+    background-image: url('../images/content/tools/correct.png');
 }
 figure.enable {
     text-align: center;

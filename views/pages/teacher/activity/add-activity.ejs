@@ -35,8 +35,8 @@
                             </figure>
                         </div>
                         <div class="col-xl-4 question-action">
-                                <button id="save-activity" class="tool btn-add"></button>
-                                <label for="save-activity">Adicionar questão</label>
+                                <button id="save-question" class="tool btn-correct"></button>
+                                <label for="save-question">Adicionar questão</label>
                         </div>
                     </section>
                     <article class="content-question" data-section="question">
@@ -44,7 +44,7 @@
                             <h4>Única escolha</h4>
                             <div class="question">
                                 <h5>Descrição</h5>
-                                <p contenteditable="true"></p>
+                                <p class="description" contenteditable="true"></p>
                             </div>
                             <div class="alternative">
                                 <table>
@@ -71,7 +71,7 @@
                             <h4>Multipla escolha</h4>
                             <div class="question">
                                 <h5>Descrição</h5>
-                                <p contenteditable="true"></p>
+                                <p class="description" contenteditable="true"></p>
                             </div>
                             <div class="alternative">
                                 <table>
@@ -98,30 +98,51 @@
                             <h4>Resposta escrita</h4>
                             <div class="question">
                                 <h5>Descrição</h5>
-                                <p contenteditable="true"></p>
+                                <p class="description" contenteditable="true"></p>
                             </div>
                         </div>
                     </article>
                 </section>
-                <section class="config" data-section="config" style="display:none;">
-                    <div>
-                        <h3>disciplina</h3>
+                <section class="col-xl-12 activity-config" data-section="config" style="display:none;">
+                    <header class="col-xl-12">
+                        <h3>Configuração</h3>
+                    </header>
+                    <section class="col-xl-12 content-config">
+                    <div class="col-xl-3 config-item">
+                        <h4>Disciplina</h4>
                         <ul>
-
                         <% data.disciplines.forEach(function(discipline) { %>
                             <li>
-                                <label for="#discipline-<%= discipline.id_discipline %>"><%= discipline.name_discipline %></label>
                                 <input type="radio" id="discipline-<%= discipline.id_discipline %>" data-id="<%= discipline.id_discipline %>"/>
+                                <label for="#discipline-<%= discipline.id_discipline %>"><%= discipline.name_discipline %></label>
                             </li>
                         <% }); %>
                         </ul>
                     </div>
+                    <div class="col-xl-7 config-item reward">
+                        <h4 class="col-xl-12">Bonificação</h4>
+                        <% data.rewards.forEach(function(reward) { %>
+                            <div class="col-xl-4">
+                                <figure data-id="<%= reward.id_reward %>">
+                                    <img src="images/reward/<%=reward.file_reward%>.png"/>
+                                </figure>
+                                <label><%= reward.name_reward %></label>
+                            </div>
+                        <% }); %>  
+                    </div>
+                    <div class="col-xl-2 config-item">
+                        <h4>Pontuação</h4>
+                        <input id="point" type="number" min="1" max="10" value="1"/>
+                    </div>
+                    </section>
                 </section>
             </section>
         </section>
     </section>
     <script class="script-add-activity" data-content="generic">
     (function() {
+        var activity = new Activity();
+
         $('.type-question figure').on('click', function(){
             var _this = $(this);
             if(!_this.hasClass('active')){
@@ -159,9 +180,9 @@
                 $('.tool.btn-add').addClass('inactive');
 
                 _this.parents('.elements-question').find('.alternative table').append(
-                        `<tr>
-                            <td class="col-xl-1 content-tool"><input type="${ _this.attr('data-type') }"/></td>
-                            <td class="col-xl-10"><p contenteditable="true"></p></td>
+                        `<tr class="row-data">
+                            <td class="col-xl-1 content-tool"><input class="correct" type="${ _this.attr('data-type') }"/></td>
+                            <td class="col-xl-10"><p class="description" contenteditable="true"></p></td>
                             <td class="col-xl-1 content-tool"><button class="tool remove"></button></td>
                         </tr>`
                 );
@@ -176,6 +197,78 @@
                     }
                 });
             });
+        });
+
+        $('#save-question').on('click', function(){
+            var typeQuestion = $('.type-question figure.active').attr('data-tool');
+            var questionElement = $(`.content-question .elements-question[data-content="${typeQuestion}"]`);
+            var questionAlternative = questionElement.find('.alternative');
+            
+            try{
+                if(questionElement.find('.question .description').text().length == 0){
+                    throw "empty";
+                }
+
+                if(questionAlternative.length == 0){
+                    var question = new Question(typeQuestion, questionElement.find('.description').text(), null);
+                    console.log(question);
+                }else{
+                    if(questionAlternative.find('.description').text().length == 0){
+                        throw "empty";
+                    }
+                    
+                    var alternatives = [];
+                    questionAlternative.find('.row-data').each(function(i, el){
+                        var alternative = new Alternative($(this).find('.correct').is(':checked'), $(this).find('.description').text());
+                        alternatives.push(alternative);
+                    });
+                    console.log(alternatives);
+                    var question = new Question(typeQuestion, questionElement.find('.description').text(), alternatives);
+                    console.log(question);
+                }
+                activity.addQuestion(question);
+                console.log(activity);
+            }catch(e){
+                alert('preencha todos os campos!');
+            }
+        });
+        
+        $('#save-activity').on('click', function(){
+            $(this).addClass('inactive');
+            var _this = $(this);
+            var user = JSON.parse(localStorage.getItem('user'));
+            var config = { 
+                'nameActivity' : 'Teste',
+                'descriptionActivity' : 'atividade teste',
+                'pointActivity': 10,
+                'idDiscipline': 1,
+                'idTeacher': 11001
+            };
+
+            activity.mountObjectSave(config, function(activityObject){
+                var data = { 
+                    'controller' : {
+                        'type': 'insert',
+                        'entity': 'activity',
+                        'parameters': activityObject
+                    }
+                };
+                var key = false;
+                
+                $.ajax({
+                    url : '/teacher/insert',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data : JSON.stringify(data),
+                    async : false,
+                    type: 'POST'
+                }).done(function(data){
+                    console.log(data);
+                });
+            });
+        });
+        $('.config-item.reward figure').on('click', function(){
+            $(this).toggleClass('active');
         });
     })();
     </script>
