@@ -79,14 +79,16 @@ $(document).ready(function(){
                 async : true,
                 type: 'GET'
             }).done(function(data){
-                $('body').append($(data)[1]);
-                setTimeout(function(){
-                    $('.page-content[data-content="generic"]').fadeIn(200);
-                },200);
-                if(!key){
-                    $('.item').removeClass('inactive');
-                    $('.inner-header h1').append('<span> > '+disciplineText+'</span><span> > '+$('.title-content h2').text()+'</span>');
-                    key = true;
+                if($('[data-content="generic"]').length == 0){
+                    $('body').append($(data)[1]);
+                    setTimeout(function(){
+                        $('.page-content[data-content="generic"]').fadeIn(200);
+                    },200);
+                    if(!key){
+                        $('.item').removeClass('inactive');
+                        $('.inner-header h1').append('<span> > '+disciplineText+'</span><span> > '+$('.title-content h2').text()+'</span>');
+                        key = true;
+                    }
                 }
             });
         });
