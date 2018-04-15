@@ -131,14 +131,15 @@
                         $('.edit').on('click', function(){
                             var dataConfig = {
                                 'id': $(this).attr('data-id-edit'),
+                                'idReward': $(this).parents('.edit-row').attr('data-id'),
                                 'name': $(this).parents('.edit-row').find('.data-config').attr('name'),
                                 'value': $(this).parents('.edit-row').find('.data-config').val()
                             };
-                            config.updateConfig(dataConfig, function(config){
+                            config.updateConfig(dataConfig, function(dataCall){
                                 var data = {
                                     'entity': 'rewardConfig',
                                     'idConfig': dataConfig.id,
-                                    'config': config
+                                    'config': dataCall
                                 };
                                 $.ajax({
                                     url : 'admin/edit',

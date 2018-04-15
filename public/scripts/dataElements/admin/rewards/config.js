@@ -59,7 +59,7 @@ class ConfigReward{
 
     updateConfig(data, callback){
         this.rewards.forEach(function(registry, i){
-            if(data.id == registry.id){
+            if(data.idReward == registry.id){
                 registry.config[data.name] = data.value;
                 return callback(registry.config);
             }
