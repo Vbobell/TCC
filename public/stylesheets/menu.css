@@ -65,3 +65,28 @@
     margin: 0;
 }
 /*Menu activity*/
+
+@media all and (max-width: 1023px){
+    .menu {
+        display: flex;
+        vertical-align: top;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        position: fixed;
+        top: 70px;
+        float: none;
+        box-shadow: none;
+        z-index: 1;
+    }
+    .menu .menu-identify {
+        display: none;
+    }
+    .menu figure {
+        padding: 0.5em 0em;
+        width: 25%;
+    }
+    .menu figure img {
+        width: 50%;
+    }
+}

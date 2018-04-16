@@ -39,3 +39,28 @@ a {
     color: #ffffff;
     cursor: pointer;
 }
+
+@media all and (max-width: 1023px){
+    .inner-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #2c2b2e;
+        width: 100%;
+        padding: 0.5em 1em;
+        position: fixed;
+        float: none;
+        box-shadow: none;
+        z-index: 1;
+    }
+    .inner-header h1 {
+        padding:0;
+        font-size: 1em;
+        color: #ffffff;
+    }
+    .identify-user{
+        background-color: #2c2b2e;
+        padding: 0; 
+        float: none;
+    }
+}
