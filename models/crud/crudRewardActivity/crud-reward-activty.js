@@ -11,7 +11,7 @@ class CrudRewardActivity extends Crud{
                 enable_reward FROM reward ORDER BY name_reward ASC LIMIT $1 OFFSET $2;`, [limit, offset] , function (err, result) {
                 */
                client.query(`SELECT id_reward, name_reward, description_reward, file_reward, 
-               enable_reward FROM reward WHERE id_reward = ANY($1::int[]) AND enable_reward = true ORDER BY name_reward ASC`,[ids], function (err, result) {
+               enable_reward FROM reward WHERE id_reward = ANY($1::int[]) AND enable_reward = true ORDER BY id_reward ASC`,[ids], function (err, result) {
                 done();
                     if (err) {
                         return json(JSON.stringify(err));
