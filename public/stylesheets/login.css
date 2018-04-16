@@ -79,6 +79,12 @@ header{
         height: 100%;
         position: fixed;
     }
+    .software-identify h1 {
+        font-size: 2em;
+    }
+    .software-identify h2 {
+        font-size: 1em;
+    }
     .header-login,
     .login-background,
     .user-access{
@@ -100,6 +106,11 @@ header{
     .login-background img {
         width: 100%;
         margin: 0 auto;
+    }
+    .item-access{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
     .item-access input[type="text"], .item-access input[type="password"] {
         width: 83.5%;
