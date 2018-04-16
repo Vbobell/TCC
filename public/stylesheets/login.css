@@ -69,15 +69,37 @@ header{
 .login-background img {
     width: 70%;
 }
-@media all and (max-width:768px){
+@media all and (max-width:1024px){
+    body{
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        position: fixed;
+    }
+    .header-login,
+    .login-background,
+    .user-access{
+        height: 30%;
+    }
     .software-identify{
         width: 100%;
     }
+    .login-background{
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
     .user-access{
-        width: 90.8%;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
     }
     .login-background img {
         width: 100%;
+        margin: 0 auto;
     }
     .item-access input[type="text"], .item-access input[type="password"] {
         width: 83.5%;

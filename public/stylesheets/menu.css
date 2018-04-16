@@ -85,8 +85,9 @@
     .menu figure {
         padding: 0.5em 0em;
         width: 25%;
+        font-size: 0.8em;
     }
     .menu figure img {
-        width: 50%;
+        width: 25%;
     }
 }

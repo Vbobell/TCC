@@ -7,6 +7,9 @@ $(document).ready(function(){
                 $('[data-content="generic"]').remove();
             });
             setTimeout(function(){
+                if(mobile){
+                    $('.page-content[data-content="' +element.attr('data-menu') + '"]').css('display','flex');
+                }
                 $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(400, function(){
                     element.addClass('selected');
                     $('header h1 span').remove();

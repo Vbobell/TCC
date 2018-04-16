@@ -49,3 +49,23 @@
     width: 15%;
     margin: 0 1em;
 }
+
+@media all and (max-width: 1023px){
+    .upload-button-content {
+        width: 90%;
+        margin: 0 auto;
+        padding: 1em 0 0;
+    }
+    .import-description {
+        width: 90%;
+        margin: 1em auto 0;
+    }
+    .import {
+        height: 5em;
+        line-height: 8em;
+        background-size: 15%;
+    }
+    #fileUpload{
+        width: 90%;
+    }
+}

@@ -10,13 +10,13 @@
         <table class="registers">
             <thead>
                 <tr class="row">
-                    <td class="col-lg-5">
+                    <td class="col-12 col-sm-12 col-md-12 col-lg-5">
                         Nome
                     </td>
-                    <td class="col-lg-4">
+                    <td class="col-12 col-sm-12 col-md-12 col-lg-4">
                         Registro
                     </td>
-                    <td class="col-lg-3">
+                    <td class="col-12 col-sm-12 col-md-12 col-lg-3">
                         Ação
                     </td>
                 </tr>
@@ -44,16 +44,16 @@
                     $('table.registers tbody tr#row' + i + '').after('<tr class="row hidden" id="editRow' + i + '"></tr>');
                 
                     $('table.registers tbody tr#row' + i + '').append(
-                        '<td class="col-lg-5">' + item.name_admin +'</td>'+
-                        '<td class="col-lg-4">'+item.registry+'</td>'+
-                        '<td class="col-lg-3 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
+                        '<td class="col-12 col-sm-12 col-md-12 col-lg-5">' + item.name_admin +'</td>'+
+                        '<td class="col-12 col-sm-12 col-md-12 col-lg-4">'+item.registry+'</td>'+
+                        '<td class="col-12 col-sm-12 col-md-12 col-lg-3 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
                         '<div class="tool remove" data-id="'+item.id_admin+'"></div></td>'
                     );
                     
                     $('table.registers tbody tr#editRow'+ i + '').append(
-                        '<td class="col-lg-5"><input name="'+tableHead[0]+'" type="text" value="' + item.name_admin + '"/></td>'+
-                        '<td class="col-lg-4"><input name="'+tableHead[1]+'" type="text" value="' + item.registry + '"/></td>'+
-                        '<td class="col-lg-3"><div class="tool edit" data-id-edit=" '+item.id_admin+'" data-id="tr#editRow'+i+'"></div>'+
+                        '<td class="col-12 col-sm-12 col-md-12 col-lg-5"><input name="'+tableHead[0]+'" type="text" value="' + item.name_admin + '"/></td>'+
+                        '<td class="col-12 col-sm-12 col-md-12 col-lg-4"><input name="'+tableHead[1]+'" type="text" value="' + item.registry + '"/></td>'+
+                        '<td class="col-12 col-sm-12 col-md-12 col-lg-3"><div class="tool edit" data-id-edit=" '+item.id_admin+'" data-id="tr#editRow'+i+'"></div>'+
                         '<div class="tool cancel"></div></td>'
                     );
                 });

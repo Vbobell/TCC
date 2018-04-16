@@ -267,12 +267,37 @@ button:focus {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-        padding: 170px 0 1em 0;
+        padding: 140px 0 1em 0;
         margin: 0;
+    }
+    .big-inner-content {
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 0;
     }
     .item,
     .item:not(:nth-child(3n+3)) {
         width: 90%;
         margin:0 auto 1em;
+    }
+    .title-content{
+        justify-content: center;
+    }
+    .title-content img {
+        width: 15%;
+    }
+    .title-content h2{
+        font-size: 1.5em;
+    }
+    .table-content{
+        max-height: 500px;
+        margin: 0;
+    }
+    .table-content thead tr.row{
+        width: 100%;
+        position: relative;
+    }
+    .table-content table tbody tr:first-child {
+        margin: 0;
     }
 }
