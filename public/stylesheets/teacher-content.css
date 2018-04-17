@@ -102,6 +102,18 @@ p[contenteditable] {
     flex-wrap: wrap;
     align-content: baseline;
     justify-content: space-around;
+    text-align: center;
+}
+.activity-config .config-item input[type="text"] {
+    width: 95%;
+}
+.activity-config .config-item textarea {
+    width: 95%;
+    height: 65%;
+    resize: none;
+}
+.activity-config .config-item.reward h4 {
+    text-align: left;
 }
 .activity-config .config-item.reward figure{
     width: 100%;

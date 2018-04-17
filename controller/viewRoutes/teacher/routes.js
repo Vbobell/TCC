@@ -1,5 +1,6 @@
 const ManageSearch = require('../../manage/teacher/manageData/manage-search');
 const ManageInsert = require('../../manage/teacher/manageData/manage-insert');
+const ManageUpdate = require('../../manage/teacher/manageData/manage-update');
 
 class RouteTeacher{
     constructor(controller){
@@ -18,6 +19,13 @@ class RouteTeacher{
             manageInsert.getInsert((data) => {
                 return callback(data);
             });
+            break;
+            case 'update':
+            let manageUpdate = new ManageUpdate(this.controller.entity, this.controller.parameters);
+            manageUpdate.getUpdate((data) => {
+                return callback(data);
+            });
+            break;
             default:
                 return callback(false);
             break;

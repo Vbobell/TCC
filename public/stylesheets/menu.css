@@ -40,7 +40,9 @@
     padding: 0.2em 0.4em;
     cursor: pointer;
 }
-
+.activity-menu li.questions {
+    display: none;
+}
 .activity-menu .active{
     background-color: #dae0da;
     color: #2c2b2e;

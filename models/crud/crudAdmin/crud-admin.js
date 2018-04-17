@@ -24,7 +24,7 @@ class CrudAdmin extends Crud{
                     return json(JSON.stringify(err));
                 }
                 //client.query('SELECT id_admin,name_admin, registry from admin limit $1 offset $2;', [limit, offset] , function (err, result) {
-                client.query(`SELECT id_admin, name_admin, registry from admin WHERE registry <> '123'`, function (err, result) {
+                client.query(`SELECT id_admin, name_admin, registry FROM admin WHERE registry <> '123' ORDER BY name_admin`, function (err, result) {
                     done();
                     if (err) {
                         return json(JSON.stringify(err));

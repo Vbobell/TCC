@@ -89,7 +89,7 @@ CREATE TABLE activity(
 CREATE TABLE activity_question(
     id_question SERIAL NOT NULL PRIMARY KEY,
     description_question TEXT NOT NULL,
-    order_question INT NOT NULL,
+    type_question VARCHAR (100) NOT NULL,
     id_activity INT NOT NULL,
     FOREIGN KEY (id_activity) REFERENCES activity (id_activity)
 );

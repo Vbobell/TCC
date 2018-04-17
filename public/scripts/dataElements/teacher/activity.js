@@ -1,5 +1,6 @@
 class Activity{
     constructor(){
+        this.id = null;
         this.questions = [];
         this.config = "";
     }

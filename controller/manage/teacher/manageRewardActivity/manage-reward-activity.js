@@ -1,4 +1,4 @@
-const CrudRewardActivity = require('../../../../models/crud/crudRewardActivity/crud-reward-activty');
+const CrudRewardActivity = require('../../../../models/crud/crudRewardActivity/crud-reward-activity');
 
 class ManageRewardActivity{
     constructor(){

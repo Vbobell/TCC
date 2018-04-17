@@ -1,5 +1,6 @@
 class Question{
-    constructor(type, description, alternatives){
+    constructor(id, type, description, alternatives){
+        this.id = id;
         this.type = type;
         this.description = description;
         this.alternatives = alternatives;

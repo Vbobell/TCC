@@ -10,6 +10,7 @@
             <section class="col-xl-2 activity-menu">
                 <ul>
                     <li class="item-menu-list active" data-menu="question">Questão</li>
+                    <li class="item-menu-list questions"><ul></ul></li>
                     <li class="item-menu-list" data-menu="config">Configurações</li>
                 </ul>
                 <div class="activity-action">
@@ -108,31 +109,39 @@
                         <h3>Configuração</h3>
                     </header>
                     <section class="col-xl-12 content-config">
-                    <div class="col-xl-3 config-item">
+                    <div class="col-xl-4 config-item">
+                        <h4>Nome da atividade</h4>
+                        <input name="name-activity" type="text"/>
+                    </div>
+                    <div class="col-xl-4 config-item">
+                        <h4>Descrição da atividade</h4>
+                        <textarea name="description-activity" style="resize: none"></textarea>
+                    </div>
+                    <div class="col-xl-4 config-item">
                         <h4>Disciplina</h4>
                         <ul>
                         <% data.disciplines.forEach(function(discipline) { %>
                             <li>
-                                <input type="radio" id="discipline-<%= discipline.id_discipline %>" data-id="<%= discipline.id_discipline %>"/>
+                                <input type="radio" name="discipline-activity" id="discipline-<%= discipline.id_discipline %>" data-id="<%= discipline.id_discipline %>"/>
                                 <label for="#discipline-<%= discipline.id_discipline %>"><%= discipline.name_discipline %></label>
                             </li>
                         <% }); %>
                         </ul>
                     </div>
-                    <div class="col-xl-7 config-item reward">
+                    <div class="col-xl-8 config-item reward">
                         <h4 class="col-xl-12">Bonificação</h4>
                         <% data.rewards.forEach(function(reward) { %>
                             <div class="col-xl-4">
-                                <figure data-id="<%= reward.id_reward %>">
+                                <figure name="reward-activity" data-id="<%= reward.id_reward %>">
                                     <img src="images/reward/<%=reward.file_reward%>.png"/>
                                 </figure>
                                 <label><%= reward.name_reward %></label>
                             </div>
                         <% }); %>  
                     </div>
-                    <div class="col-xl-2 config-item">
+                    <div class="col-xl-4 config-item">
                         <h4>Pontuação</h4>
-                        <input id="point" type="number" min="1" max="10" value="1"/>
+                        <input id="point" name="points-activity" type="number" min="1" max="10" value="1"/>
                     </div>
                     </section>
                 </section>
@@ -181,7 +190,7 @@
 
                 _this.parents('.elements-question').find('.alternative table').append(
                         `<tr class="row-data">
-                            <td class="col-xl-1 content-tool"><input class="correct" type="${ _this.attr('data-type') }"/></td>
+                            <td class="col-xl-1 content-tool"><input class="correct" name="correct-${ _this.attr('data-type') }" type="${ _this.attr('data-type') }"/></td>
                             <td class="col-xl-10"><p class="description" contenteditable="true"></p></td>
                             <td class="col-xl-1 content-tool"><button class="tool remove"></button></td>
                         </tr>`
@@ -203,15 +212,15 @@
             var typeQuestion = $('.type-question figure.active').attr('data-tool');
             var questionElement = $(`.content-question .elements-question[data-content="${typeQuestion}"]`);
             var questionAlternative = questionElement.find('.alternative');
-            
+            var question = "";
+
             try{
                 if(questionElement.find('.question .description').text().length == 0){
                     throw "empty";
                 }
 
                 if(questionAlternative.length == 0){
-                    var question = new Question(typeQuestion, questionElement.find('.description').text(), null);
-                    console.log(question);
+                    question = new Question(null, typeQuestion, questionElement.find('.question .description').text(), null);
                 }else{
                     if(questionAlternative.find('.description').text().length == 0){
                         throw "empty";
@@ -219,53 +228,106 @@
                     
                     var alternatives = [];
                     questionAlternative.find('.row-data').each(function(i, el){
-                        var alternative = new Alternative($(this).find('.correct').is(':checked'), $(this).find('.description').text());
+                        var alternative = new Alternative(null, $(this).find('.correct').is(':checked'), $(this).find('.description').text());
                         alternatives.push(alternative);
                     });
-                    console.log(alternatives);
-                    var question = new Question(typeQuestion, questionElement.find('.description').text(), alternatives);
-                    console.log(question);
+                    question = new Question(null, typeQuestion, questionElement.find('.question .description').text(), alternatives);
                 }
                 activity.addQuestion(question);
-                console.log(activity);
             }catch(e){
                 alert('preencha todos os campos!');
+            }finally{
+                $('li.questions ul').append(
+                    $('<li>')
+                        .append($('<label>').text(question.description.substr(0, 10)))
+                        .append($('<div class="tool open-edit">'))
+                        .append($('<div class="tool remove">'))
+                        .attr('data-question', activity.questions.length-1)
+                )
+
+                $('.content-question .question .description').text('');
+                $('.content-question .alternative .row-data').remove();
+                $('.content-question .alternative .not-alternative').show();
+                $('li.questions').fadeIn(200);
             }
         });
         
         $('#save-activity').on('click', function(){
-            $(this).addClass('inactive');
-            var _this = $(this);
+            var that = $(this);
             var user = JSON.parse(localStorage.getItem('user'));
             var config = { 
-                'nameActivity' : 'Teste',
-                'descriptionActivity' : 'atividade teste',
-                'pointActivity': 10,
-                'idDiscipline': 1,
-                'idTeacher': 11001
+                    'nameActivity' : '',
+                    'descriptionActivity' : '',
+                    'pointActivity': $('[name="points-activity"]').val(),
+                    'idDiscipline': 0,
+                    'idTeacher': user.id
             };
 
-            activity.mountObjectSave(config, function(activityObject){
-                var data = { 
-                    'controller' : {
-                        'type': 'insert',
-                        'entity': 'activity',
-                        'parameters': activityObject
+            try{
+                var nameActivity = $('[name="name-activity"]');
+                var descriptionActivity = $('[name="description-activity"]');
+                var disciplineActivity = $('[name="discipline-activity"]:checked');
+
+                if(nameActivity.val().replace(' ', '').length == 0 || 
+                descriptionActivity.val().replace(' ', '').length == 0 || 
+                disciplineActivity.length == 0){
+                    throw "empty";
+                }else{
+                    config.nameActivity = nameActivity.val();
+                    config.descriptionActivity = descriptionActivity.val();
+                    config.idDiscipline =  disciplineActivity.attr('data-id');
+                }
+            }catch(e){
+                if(e.message == 'empty'){
+                    alert('preencha todos os campos da configuração!');
+                }
+            }finally {
+                that.addClass('inactive');
+                activity.mountObjectSave(config, function(activityObject){
+                    var type = "";
+
+                    if(!activity.id){
+                        type = 'insert';
+                    }else{
+                        type = 'update';
                     }
-                };
-                var key = false;
-                
-                $.ajax({
-                    url : '/teacher/insert',
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data : JSON.stringify(data),
-                    async : false,
-                    type: 'POST'
-                }).done(function(data){
-                    console.log(data);
+                    var data = { 
+                        'controller' : {
+                            'type': type,
+                            'entity': 'activity',
+                            'parameters': activityObject
+                        }
+                    };
+                    var key = false;
+                    
+                    $.ajax({
+                        url : '/teacher/post/' + type,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data : JSON.stringify(data),
+                        async : false,
+                        type: 'POST'
+                    }).done(function(data){
+                        try{
+                            if(!data){
+                                throw "error";
+                            }
+                        }catch(e){
+                            that.removeClass('inactive');
+                            alert('ocorreu um erro!');
+                        }finally{
+                            console.log(activity);
+                            activity.id = data.id;
+                            activity.config = data.config;
+                            activity.questions = data.questions;
+                            console.log(activity);
+                            that.next().text('Editar atividade');
+                            that.removeClass('inactive');
+                            alert('atividade salva com sucesso!');
+                        }
+                    });
                 });
-            });
+            }
         });
         $('.config-item.reward figure').on('click', function(){
             $(this).toggleClass('active');

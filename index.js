@@ -212,7 +212,7 @@ app.get('/teacher/route/*', function (request, response) {
   }
 });
 
-app.post('/teacher/insert', (request, response) => {
+app.post('/teacher/post/*', (request, response) => {
   if (request.session.user && request.session.user.type == 'teacher'){
         let routeTeacher = new RouteTeacher(request.body.controller);
         

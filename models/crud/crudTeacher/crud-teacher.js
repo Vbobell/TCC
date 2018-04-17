@@ -24,7 +24,7 @@ class CrudTeacher extends Crud{
                     return json(JSON.stringify(err));
                 }
                 //client.query('SELECT id_teacher, name_teacher, registry from teacher limit $1 offset $2;', [limit, offset] , function (err, result) {
-                client.query('SELECT id_teacher, name_teacher, registry from teacher', function (err, result) {
+                client.query('SELECT id_teacher, name_teacher, registry FROM teacher ORDER BY name_teacher', function (err, result) {
                     done();
                     if (err) {
                         return json(JSON.stringify(err));

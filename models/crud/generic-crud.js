@@ -6,7 +6,7 @@ class Crud {
             if (err) {
                 return json(JSON.stringify(err));
             }
-            client.query("SELECT " + columns + " from " + table + ";", function (err, result) {
+            client.query(`SELECT ${columns} FROM ${table}`, function (err, result) {
                 done();
                 if (err) {
                     return json(JSON.stringify(err));
@@ -23,7 +23,7 @@ class Crud {
             }
             
             for(var i = 0; i < values.length; i++){
-                client.query("insert into " + table + " " + columns + " values " + parameters, values[i], function (err, result) {
+                client.query(`INSERT INTO ${table} ${columns} VALUES  ${parameters}`, values[i], function (err, result) {
                     if (err) {
                         return json(JSON.stringify(err));
                     }
@@ -39,7 +39,7 @@ class Crud {
             if (err) {
                 return json(JSON.stringify(err));
             }
-                client.query("update " + table + " set " + columns + " = " + values + " where " + parameters + ";", registry, function (err, result) {
+                client.query(`UPDATE ${table} SET ${columns}  = ${values} WHERE ${parameters}`, registry, function (err, result) {
                     done();
                     if (err) {
                         return json(JSON.stringify(err));
@@ -53,7 +53,7 @@ class Crud {
             if (err) {
                 return json(JSON.stringify(err));
             }
-            client.query("delete from "+ table + " where " + parameters + ";", registry, function (err, result) {
+            client.query(`DELETE FROM ${table} WHERE ${parameters}`, registry, function (err, result) {
                 done();
                 if (err) {
                     return json(JSON.stringify(err));
@@ -64,6 +64,21 @@ class Crud {
     }
     getPool(callback){
         return callback(pool);
+    }
+    executeUniqueInsert(table, columns, parameters, id, values, json) {
+        var affectedRows = [];
+        pool.connect(function (err, client, done) {
+            if (err) {
+                return json(false);
+            }
+            client.query(`INSERT INTO ${table} ${columns} VALUES ${parameters} RETURNING ${id}`, values, function (err, result) {
+                done();
+                if (err) {
+                    return json(false);
+                }
+                json(result.rows);
+            });
+        });
     }
 }
 
