@@ -5,6 +5,19 @@ class ManageActivity{
         this.crudActivity = new CrudActivity();
         this.data = ''; 
     }
+    getDataActivity(parameters, callback){
+        let registry = [
+            parameters.idActivity,
+            parameters.idTeacher
+        ]
+
+        this.crudActivity.selectActivityObject(
+            registry,
+            (data) =>{
+                callback(data);
+            }
+        );
+    }
 
     insertDataActivity(parameters, callback){
         let registry = [

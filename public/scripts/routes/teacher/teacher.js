@@ -81,6 +81,7 @@ $(document).ready(function(){
             }).done(function(data){
                 if($('[data-content="generic"]').length == 0){
                     $('body').append($(data)[1]);
+                    $('body').append($(data)[3]);
                     setTimeout(function(){
                         $('.page-content[data-content="generic"]').fadeIn(200);
                     },200);

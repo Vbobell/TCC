@@ -1,6 +1,9 @@
 const ManageTeacherDiscipline = require('../manageTeacherDiscipline/manage-teacher-discipline');
 const ManageDisciplineActivity = require('../manageDisciplineActivity/manage-discipline-activity');
 const ManageRewardActivity = require('../manageRewardActivity/manage-reward-activity');
+const ManageActivity = require('../manageActivity/manage-activity');
+const ManageQuestionActivity = require('../manageQuestionActivity/manage-question-activity');
+const ManageAlternativeQuestion = require('../manageAlternativeQuestion/ManageAlternativeQuestion');
 
 class ManageSearch{
     constructor(entity, parameters){
@@ -33,6 +36,56 @@ class ManageSearch{
                     manageRewardActivity.getDataRewardActivity(this.parameters, dataReward =>{
                         returnData.rewards = dataReward;                       
                         return callback(returnData);
+                    });
+                });
+            break;
+            case 'editActivity':
+                let that = this;
+                
+                let manageEditActivityDiscipline = new ManageTeacherDiscipline();
+                let manageEditRewardActivity = new ManageRewardActivity();
+                let manageActivity = new ManageActivity();
+                let manageQuestionActivity = new ManageQuestionActivity();
+                let manageAlternativeQuestion = new ManageAlternativeQuestion();
+                
+                let returnEditData = {
+                    disciplines: "",
+                    rewards: "",
+                    activity: {
+                        id: parseInt(that.parameters.idActivity),
+                        config: "",
+                        questions: "" 
+                    }
+                };
+                
+                manageEditActivityDiscipline.getDataTeacherDiscipline(that.parameters, dataDiscipline =>{
+                    returnEditData.disciplines = dataDiscipline;
+                    
+                    manageEditRewardActivity.getDataRewardActivity(that.parameters, dataReward =>{
+                        returnEditData.rewards = dataReward;
+                        
+                        manageActivity.getDataActivity(that.parameters, dataActivity =>{
+                            returnEditData.activity.config = dataActivity;
+                            
+                            manageQuestionActivity.getQuestionObject(that.parameters.idActivity, dataQuestion =>{
+                                returnEditData.activity.questions = dataQuestion;
+                                
+                                returnEditData.activity.questions.forEach((question, index) => {
+                                    
+                                    manageAlternativeQuestion.getAlternativeQuestion(question.id, (alternative, indexAlternative) =>{
+                                        if(alternative.length == 0){
+                                            returnEditData.activity.questions[index].alternatives = null;
+                                        }else{
+                                            returnEditData.activity.questions[index].alternatives = alternative;
+                                        }
+
+                                        if(index == returnEditData.activity.questions.length-1){
+                                            return callback(returnEditData);
+                                        }
+                                    });
+                                });
+                            });
+                        });
                     });
                 });
             break;

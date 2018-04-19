@@ -4,7 +4,11 @@
     <section class="page-content big-content" data-content="generic">
         <figure class="title-content">
             <img src="images/content/itens/new-file.png"/>
-            <h2>Criar atividade</h2>
+            <% if (data.activity) { %>
+                <h2>Editar atividade</h2>
+            <% } else { %>
+                <h2>Criar atividade</h2>
+            <% } %>
         </figure>
         <section class="big-inner-content table-content">
             <section class="col-xl-2 activity-menu">
@@ -15,7 +19,11 @@
                 </ul>
                 <div class="activity-action">
                     <button id="save-activity" class="tool edit"></button>
-                    <label for="save-activity">Salvar atividade</label>
+                    <% if (data.activity) { %>
+                        <label for="save-activity">Atualizar atividade</label>
+                    <% } else { %>
+                        <label for="save-activity">Salvar atividade</label>
+                    <% } %>
                 </div>
             </section>
             <section class="col-xl-10 activity-content">
@@ -36,7 +44,7 @@
                             </figure>
                         </div>
                         <div class="col-xl-4 question-action">
-                                <button id="save-question" class="tool btn-correct"></button>
+                                <button id="save-question" data-save="insert" class="tool btn-correct"></button>
                                 <label for="save-question">Adicionar questão</label>
                         </div>
                     </section>
@@ -115,7 +123,7 @@
                     </div>
                     <div class="col-xl-4 config-item">
                         <h4>Descrição da atividade</h4>
-                        <textarea name="description-activity" style="resize: none"></textarea>
+                        <textarea name="description-activity"></textarea>
                     </div>
                     <div class="col-xl-4 config-item">
                         <h4>Disciplina</h4>
@@ -150,7 +158,44 @@
     </section>
     <script class="script-add-activity" data-content="generic">
     (function() {
+
+        var editActivity = '<%- JSON.stringify(data.activity) %>';
+
         var activity = new Activity();
+        var mountStructure = new StructureActivity();
+
+        if(editActivity.length > 0){
+            editActivity = JSON.parse(editActivity);
+            var configEdit = { 
+                        'nameActivity' : editActivity.config[0].nameactivity,
+                        'descriptionActivity' : editActivity.config[0].descriptionactivity,
+                        'pointActivity': editActivity.config[0].pointactivity,
+                        'idDiscipline': editActivity.config[0].iddiscipline,
+                        'idTeacher': editActivity.config[0].idteacher
+            };
+
+            activity.id = editActivity.id;
+            activity.config = configEdit;
+            activity.questions = editActivity.questions;
+
+            mountStructure.mountListQuestion(activity.questions, function(){
+                $('.activity-menu li.questions').show();
+
+                $('.questions .open-edit').on('click', function(){
+                    mountStructure.setElements($(this).parents('li.question').attr('data-question'), activity.questions[parseInt($(this).parents('li.question').attr('data-question'))]);
+                });
+                $('.questions .remove').on('click', function(){
+                    activity.removeQuestion(parseInt($(this).parents('li.question').attr('data-question')));
+                    $(this).parents('li.question').remove();
+                    
+                    $('li.question').each(function(i,el){
+                        $(this).attr('data-question', i);
+                    });
+                });
+            });
+
+            mountStructure.setConfig(activity.config);
+        }
 
         $('.type-question figure').on('click', function(){
             var _this = $(this);
@@ -167,7 +212,7 @@
             }
         });
 
-        $('.activity-menu .item-menu-list').on('click', function(){
+        $('.activity-menu .item-menu-list:not(.questions)').on('click', function(){
             var _this = $(this);
             if(!_this.hasClass('active')){
                 $('.activity-menu .item-menu-list').removeClass('active').addClass('inactive');
@@ -195,9 +240,9 @@
                             <td class="col-xl-1 content-tool"><button class="tool remove"></button></td>
                         </tr>`
                 );
-                $('.tool.btn-add').removeClass('inactive');
+                $('.elements-question .tool.btn-add').removeClass('inactive');
 
-                $('.tool.remove').on('click', function(){
+                $('.elements-question .tool.remove').on('click', function(){
                     if($(this).parents('.alternative').find('table tbody tr').length == 2){
                         $(this).parents('.alternative').find('table .not-alternative').fadeIn(200);
                         $(this).parents('tr').remove();
@@ -213,17 +258,25 @@
             var questionElement = $(`.content-question .elements-question[data-content="${typeQuestion}"]`);
             var questionAlternative = questionElement.find('.alternative');
             var question = "";
+            var that = $(this);
+            var valid = false;
 
             try{
                 if(questionElement.find('.question .description').text().length == 0){
+                    valid = false;
                     throw "empty";
+                }else{
+                    valid = true;
                 }
 
                 if(questionAlternative.length == 0){
                     question = new Question(null, typeQuestion, questionElement.find('.question .description').text(), null);
                 }else{
                     if(questionAlternative.find('.description').text().length == 0){
+                        valid = false;
                         throw "empty";
+                    }else{
+                        valid = true;
                     }
                     
                     var alternatives = [];
@@ -233,37 +286,61 @@
                     });
                     question = new Question(null, typeQuestion, questionElement.find('.question .description').text(), alternatives);
                 }
-                activity.addQuestion(question);
+                if(that.attr('data-save') == 'edit'){
+                    activity.editQuestion(parseInt(that.attr('data-edit')), question);
+                }else{
+                    activity.addQuestion(question);
+                }
             }catch(e){
                 alert('preencha todos os campos!');
             }finally{
-                $('li.questions ul').append(
-                    $('<li>')
-                        .append($('<label>').text(question.description.substr(0, 10)))
-                        .append($('<div class="tool open-edit">'))
-                        .append($('<div class="tool remove">'))
-                        .attr('data-question', activity.questions.length-1)
-                )
-
-                $('.content-question .question .description').text('');
-                $('.content-question .alternative .row-data').remove();
-                $('.content-question .alternative .not-alternative').show();
-                $('li.questions').fadeIn(200);
+                if(valid){
+                    if(that.attr('data-save') == 'edit'){
+                        $(`li.question[data-question="${that.attr('data-edit')}"] label`)
+                        .text(question.description.substr(0, 10));
+                    }else{
+                        $('li.questions ul').append(
+                            $('<li class="question">')
+                                .append($('<label>').text(question.description.substr(0, 10)))
+                                .append($('<div class="tool open-edit">'))
+                                .append($('<div class="tool remove">'))
+                                .attr('data-question', activity.questions.length-1)
+                        )
+                    }
+                    $('.content-question .question .description').text('');
+                    $('.content-question .alternative .row-data').remove();
+                    $('.content-question .alternative .not-alternative').show();
+                    $('.question-action label').text('Adicionar questão');
+                    $('li.questions').fadeIn(200);
+                    $('.questions .open-edit, .questions .remove').off('click');
+                    
+                    $('.questions .open-edit').on('click', function(){
+                        mountStructure.setElements($(this).parents('li.question').attr('data-question'), activity.questions[parseInt($(this).parents('li.question').attr('data-question'))]);
+                    });
+                    $('.questions .remove').on('click', function(){
+                        activity.removeQuestion(parseInt($(this).parents('li.question').attr('data-question')));
+                        $(this).parents('li.question').remove();
+                        
+                        $('li.question').each(function(i,el){
+                            $(this).attr('data-question', i);
+                        });
+                    });
+                }
             }
         });
         
         $('#save-activity').on('click', function(){
-            var that = $(this);
-            var user = JSON.parse(localStorage.getItem('user'));
-            var config = { 
-                    'nameActivity' : '',
-                    'descriptionActivity' : '',
-                    'pointActivity': $('[name="points-activity"]').val(),
-                    'idDiscipline': 0,
-                    'idTeacher': user.id
-            };
-
             try{
+                var that = $(this);
+                var valid = false;
+                var user = JSON.parse(localStorage.getItem('user'));
+                var config = { 
+                        'nameActivity' : '',
+                        'descriptionActivity' : '',
+                        'pointActivity': $('[name="points-activity"]').val(),
+                        'idDiscipline': 0,
+                        'idTeacher': user.id
+                };
                 var nameActivity = $('[name="name-activity"]');
                 var descriptionActivity = $('[name="description-activity"]');
                 var disciplineActivity = $('[name="discipline-activity"]:checked');
@@ -276,62 +353,62 @@
                     config.nameActivity = nameActivity.val();
                     config.descriptionActivity = descriptionActivity.val();
                     config.idDiscipline =  disciplineActivity.attr('data-id');
+                    valid = true;
                 }
             }catch(e){
-                if(e.message == 'empty'){
-                    alert('preencha todos os campos da configuração!');
-                }
+                alert('preencha todos os campos da configuração!');
             }finally {
-                that.addClass('inactive');
-                activity.mountObjectSave(config, function(activityObject){
-                    var type = "";
+                if(valid){
+                    that.addClass('inactive');
+                    activity.mountObjectSave(config, function(activityObject){
+                        var type = "";
 
-                    if(!activity.id){
-                        type = 'insert';
-                    }else{
-                        type = 'update';
-                    }
-                    var data = { 
-                        'controller' : {
-                            'type': type,
-                            'entity': 'activity',
-                            'parameters': activityObject
+                        if(!activity.id){
+                            type = 'insert';
+                        }else{
+                            type = 'update';
                         }
-                    };
-                    var key = false;
-                    
-                    $.ajax({
-                        url : '/teacher/post/' + type,
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        data : JSON.stringify(data),
-                        async : false,
-                        type: 'POST'
-                    }).done(function(data){
-                        try{
-                            if(!data){
-                                throw "error";
+                        var data = { 
+                            'controller' : {
+                                'type': type,
+                                'entity': 'activity',
+                                'parameters': activityObject
                             }
-                        }catch(e){
-                            that.removeClass('inactive');
-                            alert('ocorreu um erro!');
-                        }finally{
-                            console.log(activity);
-                            activity.id = data.id;
-                            activity.config = data.config;
-                            activity.questions = data.questions;
-                            console.log(activity);
-                            that.next().text('Editar atividade');
-                            that.removeClass('inactive');
-                            alert('atividade salva com sucesso!');
-                        }
+                        };
+                        var key = false;
+                        
+                        $.ajax({
+                            url : '/teacher/post/' + type,
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data : JSON.stringify(data),
+                            async : false,
+                            type: 'POST'
+                        }).done(function(data){
+                            try{
+                                if(!data){
+                                    throw "error";
+                                }
+                            }catch(e){
+                                that.removeClass('inactive');
+                                alert('ocorreu um erro!');
+                            }finally{
+                                activity.id = data.id;
+                                activity.config = data.config;
+                                activity.questions = data.questions;
+                                that.next().text('alterar atividade');
+                                that.removeClass('inactive');
+                                alert('atividade salva com sucesso!');
+                            }
+                        });
                     });
-                });
+                }
             }
         });
         $('.config-item.reward figure').on('click', function(){
             $(this).toggleClass('active');
         });
+
     })();
     </script>
 </body>

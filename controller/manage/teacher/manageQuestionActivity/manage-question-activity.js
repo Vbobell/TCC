@@ -45,6 +45,12 @@ class ManageQuestionActivity{
                 callback(ids);
         });
     }
+
+    getQuestionObject(idActivity, callback){
+        this.crudQuestionActivity.selectQuestionObject(idActivity, objectQuestion => {
+            callback(objectQuestion);
+        });
+    }
 }
 
 module.exports = ManageQuestionActivity;

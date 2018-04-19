@@ -36,6 +36,12 @@ class ManageAlternativeQuestion{
             }
         );
     }
+
+    getAlternativeQuestion(idQuestion, callback){
+        this.crudAlternativeQuestion.selectAlternativeQuestion(idQuestion, alternative => {
+            callback(alternative);
+        });
+    }
 }
 
 module.exports = ManageAlternativeQuestion;

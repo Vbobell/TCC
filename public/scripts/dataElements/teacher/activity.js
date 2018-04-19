@@ -13,11 +13,10 @@ class Activity{
         }
     }
     removeQuestion(position){
-        if(position == 0){
-            this.questions.splice(position, position+1);
-        }else{
-            this.questions.splice(position-1, position);
-        }
+        this.questions.splice(position, 1);
+    }
+    editQuestion(position, question){
+        this.questions[position] = question;
     }
     mountObjectSave(config, callback){
         this.config = config;
