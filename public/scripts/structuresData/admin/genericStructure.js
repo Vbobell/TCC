@@ -4,7 +4,7 @@ var list = function(registers, callback){
         structure += `<li> ${ item } </li>`; 
     });
     structure += '</ul>';
-    callback(structure);
+    return callback(structure);
 };
 
 var listInputCheckBox = function(registers, callback){
@@ -14,5 +14,5 @@ var listInputCheckBox = function(registers, callback){
                      <label for="${item.value + item.id}">${ item.value }</label> </li>`; 
     });
     structure += '</ul>';
-    callback(structure);
+    return callback(structure);
 };

@@ -19,7 +19,7 @@ class ManageQuestionActivity{
             'id_question',
             registry,
             response => {
-                callback(response);
+               return callback(response);
             });
     }
 
@@ -31,7 +31,7 @@ class ManageQuestionActivity{
             where,
             [idActivity],
             response =>{
-                callback(response);
+                return callback(response);
             }
         );
     }
@@ -42,13 +42,13 @@ class ManageQuestionActivity{
             data.forEach(question => {
                 ids.push(question.id_question);
             });
-                callback(ids);
+            return callback(ids);
         });
     }
 
     getQuestionObject(idActivity, callback){
         this.crudQuestionActivity.selectQuestionObject(idActivity, objectQuestion => {
-            callback(objectQuestion);
+            return callback(objectQuestion);
         });
     }
 }

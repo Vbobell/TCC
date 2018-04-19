@@ -21,6 +21,22 @@ class CrudRewardActivity extends Crud{
             });
         });
     }
+    selectRewardInActivity(idActivity, json){
+        this.getPool((data) =>{
+            data.connect(function (err, client, done) {
+                if (err) {
+                    return json(JSON.stringify(err));
+                }
+               client.query(`SELECT id_reward FROM activity_reward WHERE id_activity = $1`,[idActivity], function (err, result) {
+                done();
+                    if (err) {
+                        return json(JSON.stringify(err));
+                    }
+                    return json(result.rows);
+                });
+            });
+        });
+    }
 }
 
 module.exports = CrudRewardActivity;

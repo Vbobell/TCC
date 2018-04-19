@@ -72,5 +72,8 @@ class StructureActivity{
         $('.content-config textarea[name="description-activity"]').val(config.descriptionActivity);
         $('.content-config input[name="points-activity"]').val(config.pointActivity);
         $(`#discipline-${config.idDiscipline}`).prop('checked', true);
+        config.rewards.forEach(function(reward, index){
+            $(`.reward figure[data-id="${reward.id_reward}"]`).addClass('active');
+        });
     }
 }

@@ -20,7 +20,7 @@ class ManageAlternativeQuestion{
             'id_alternative',
             registry,
             response => {
-                callback(response);
+                return callback(response);
             });
     }
 
@@ -32,14 +32,14 @@ class ManageAlternativeQuestion{
             where,
             [idQuestions],
             response =>{
-                callback(response);
+                return callback(response);
             }
         );
     }
 
     getAlternativeQuestion(idQuestion, callback){
         this.crudAlternativeQuestion.selectAlternativeQuestion(idQuestion, alternative => {
-            callback(alternative);
+            return callback(alternative);
         });
     }
 }

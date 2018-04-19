@@ -166,12 +166,14 @@
 
         if(editActivity.length > 0){
             editActivity = JSON.parse(editActivity);
+
             var configEdit = { 
                         'nameActivity' : editActivity.config[0].nameactivity,
                         'descriptionActivity' : editActivity.config[0].descriptionactivity,
                         'pointActivity': editActivity.config[0].pointactivity,
                         'idDiscipline': editActivity.config[0].iddiscipline,
-                        'idTeacher': editActivity.config[0].idteacher
+                        'idTeacher': editActivity.config[0].idteacher,
+                        'rewards': editActivity.rewards
             };
 
             activity.id = editActivity.id;
@@ -339,7 +341,8 @@
                         'descriptionActivity' : '',
                         'pointActivity': $('[name="points-activity"]').val(),
                         'idDiscipline': 0,
-                        'idTeacher': user.id
+                        'idTeacher': user.id,
+                        'rewards': []
                 };
                 var nameActivity = $('[name="name-activity"]');
                 var descriptionActivity = $('[name="description-activity"]');
@@ -350,6 +353,9 @@
                 disciplineActivity.length == 0){
                     throw "empty";
                 }else{
+                    $('figure.active[name="reward-activity"]').each(function(){
+                        config.rewards.push($(this).attr('data-id'));
+                    });
                     config.nameActivity = nameActivity.val();
                     config.descriptionActivity = descriptionActivity.val();
                     config.idDiscipline =  disciplineActivity.attr('data-id');

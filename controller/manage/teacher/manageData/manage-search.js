@@ -54,7 +54,8 @@ class ManageSearch{
                     activity: {
                         id: parseInt(that.parameters.idActivity),
                         config: "",
-                        questions: "" 
+                        questions: "",
+                        rewards: ""
                     }
                 };
                 
@@ -67,21 +68,25 @@ class ManageSearch{
                         manageActivity.getDataActivity(that.parameters, dataActivity =>{
                             returnEditData.activity.config = dataActivity;
                             
-                            manageQuestionActivity.getQuestionObject(that.parameters.idActivity, dataQuestion =>{
-                                returnEditData.activity.questions = dataQuestion;
-                                
-                                returnEditData.activity.questions.forEach((question, index) => {
-                                    
-                                    manageAlternativeQuestion.getAlternativeQuestion(question.id, (alternative, indexAlternative) =>{
-                                        if(alternative.length == 0){
-                                            returnEditData.activity.questions[index].alternatives = null;
-                                        }else{
-                                            returnEditData.activity.questions[index].alternatives = alternative;
-                                        }
+                            manageEditRewardActivity.getRewardInActivity(that.parameters, dataRewardActivity =>{
+                                returnEditData.activity.rewards = dataRewardActivity;
 
-                                        if(index == returnEditData.activity.questions.length-1){
-                                            return callback(returnEditData);
-                                        }
+                                manageQuestionActivity.getQuestionObject(that.parameters.idActivity, dataQuestion =>{
+                                    returnEditData.activity.questions = dataQuestion;
+                                    
+                                    returnEditData.activity.questions.forEach((question, index) => {
+                                        
+                                        manageAlternativeQuestion.getAlternativeQuestion(question.id, (alternative, indexAlternative) =>{
+                                            if(alternative.length == 0){
+                                                returnEditData.activity.questions[index].alternatives = null;
+                                            }else{
+                                                returnEditData.activity.questions[index].alternatives = alternative;
+                                            }
+
+                                            if(index == returnEditData.activity.questions.length-1){
+                                                return callback(returnEditData);
+                                            }
+                                        });
                                     });
                                 });
                             });

@@ -14,7 +14,7 @@ class ManageActivity{
         this.crudActivity.selectActivityObject(
             registry,
             (data) =>{
-                callback(data);
+                return callback(data);
             }
         );
     }
@@ -35,7 +35,7 @@ class ManageActivity{
             'id_activity',
             registry,
             response => {
-                callback(response);
+                return callback(response);
             });
     }
 
@@ -58,7 +58,7 @@ class ManageActivity{
             where,
             registry,
             response => {
-                callback(response);
+                return callback(response);
             });
     }
 }
