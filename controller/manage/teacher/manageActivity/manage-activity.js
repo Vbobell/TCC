@@ -61,6 +61,14 @@ class ManageActivity{
                 return callback(response);
             });
     }
+
+    removeDataActivity(parameters, callback){
+        this.crudActivity.executeDelete(
+        "activity", "id_activity = $1", [parameters.idActivity],
+        (response) => {
+            return callback(response);
+        });
+    }
 }
 
 module.exports = ManageActivity;

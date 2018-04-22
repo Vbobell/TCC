@@ -13,11 +13,8 @@ class ManageRewardActivity{
         });
 
         this.crudRewardActivity.executeInsert(
-            'activity_reward', 
-            '(id_activity, id_reward)',
-            '($1, $2)',
-            registers,
-            response => {
+            'activity_reward', '(id_activity, id_reward)', '($1, $2)',
+            registers, response => {
                 return callback(response);
             });
     }
@@ -30,6 +27,14 @@ class ManageRewardActivity{
     getRewardInActivity(parameters, callback){
         this.crudRewardActivity.selectRewardInActivity(parameters.idActivity, (data) =>{
             return callback(data);
+        });
+    }
+
+    removeRewardActivity(parameters, callback){
+        this.crudRewardActivity.executeDelete(
+        "activity_reward", "id_activity = $1", [parameters.idActivity],
+        (response) => {
+            return callback(response);
         });
     }
 }

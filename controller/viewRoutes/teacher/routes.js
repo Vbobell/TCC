@@ -1,6 +1,7 @@
 const ManageSearch = require('../../manage/teacher/manageData/manage-search');
 const ManageInsert = require('../../manage/teacher/manageData/manage-insert');
 const ManageUpdate = require('../../manage/teacher/manageData/manage-update');
+const ManageDelete = require('../../manage/teacher/manageData/manage-delete');
 
 class RouteTeacher{
     constructor(controller){
@@ -23,6 +24,12 @@ class RouteTeacher{
             case 'update':
             let manageUpdate = new ManageUpdate(this.controller.entity, this.controller.parameters);
             manageUpdate.getUpdate((data) => {
+                return callback(data);
+            });
+            break;
+            case 'delete':
+            let manageDelete = new ManageDelete(this.controller.entity, this.controller.parameters);
+            manageDelete.getDelete((data) => {
                 return callback(data);
             });
             break;

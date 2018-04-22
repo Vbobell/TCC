@@ -32,7 +32,7 @@
                         </td>
                         <td class="col-lg-3 content-tools" data-path="activity">
                             <div class="tool open-edit" data-item="activity" data-id="<%= activity.id_activity %>"></div>
-                            <div class="tool remove" data-id="<%= activity.id_activity %>"></div>
+                            <div class="tool remove" data-item="discipline-activity" data-id="<%= activity.id_activity %>"></div>
                         </td>
                     </tr>
                 <% }); %>
@@ -77,6 +77,69 @@
                     key = true;
                 }
             });
+        });
+    });
+
+    $('.remove').on('click', function(){
+        var user = JSON.parse(localStorage.getItem('user'));
+        var that = $(this);
+
+        var dataRemove = { 
+            'path' : $(this).parent().attr('data-path'),  
+            'file' : $(this).attr('data-item'),
+            'controller' : {
+                'type': 'delete',
+                'entity': 'activity',
+                'parameters': {
+                    'idTeacher': user.id,
+                    'idActivity' : $(this).attr('data-id')
+                }
+            }
+        }
+
+        $.ajax({
+            url : '/teacher/post/delete',
+            data : JSON.stringify(dataRemove),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async : false,
+            type: 'POST'
+        }).done(function(data){
+            if(data){
+                var dataSearch = { 
+                    'path' : that.parent().attr('data-path'),  
+                    'file' : that.attr('data-item'),
+                    'controller' : {
+                        'type': 'search',
+                        'entity': 'disciplineActivity',
+                        'parameters': {
+                            'idDiscipline': $('.page-content[data-content="generic"]').attr('data-id'),
+                            'idTeacher': user.id
+                        }
+                    }
+                };
+
+                var key = false;
+
+                $('[data-content="generic"]').remove();
+                $.ajax({
+                    url : '/teacher/route/',
+                    data : dataSearch,
+                    dataType : 'html',
+                    async : false,
+                    type: 'GET'
+                }).done(function(data){
+                    if($('[data-content="generic"]').length == 0){
+                        $('body').append($(data)[1]);
+                        $('body').append($(data)[3]);
+                        $('.page-content[data-content="generic"]').attr("data-id", dataSearch.controller.parameters.idDiscipline);
+                        $('.page-content[data-content="generic"]').fadeIn(200);
+                        if(!key){
+                            key = true;
+                        }
+                    }
+                });
+            }
         });
     });
     </script>

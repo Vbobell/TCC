@@ -56,8 +56,8 @@ $(document).ready(function(){
     $('.item.discipline.activity').on('click', function(){
         $('.item').addClass('inactive');
         var user = JSON.parse(localStorage.getItem('user'));
-        var data = { 
-            'path' : $(this).parent().attr('data-path') ,  
+        var dataSearch = { 
+            'path' : $(this).parent().attr('data-path'),  
             'file' : $(this).attr('data-item'),
             'controller' : {
                 'type': 'search',
@@ -68,13 +68,14 @@ $(document).ready(function(){
                 }
             }
         };
+
         var disciplineText = $(this).find('h2').text();
         var key = false;
         $('.page-content').fadeOut(200, function(){
             $('[data-content="generic"]').remove();
             $.ajax({
                 url : '/teacher/route/',
-                data : data,
+                data : dataSearch,
                 dataType : 'html',
                 async : true,
                 type: 'GET'
@@ -83,6 +84,7 @@ $(document).ready(function(){
                     $('body').append($(data)[1]);
                     $('body').append($(data)[3]);
                     setTimeout(function(){
+                        $('.page-content[data-content="generic"]').attr("data-id", dataSearch.controller.parameters.idDiscipline);
                         $('.page-content[data-content="generic"]').fadeIn(200);
                     },200);
                     if(!key){
