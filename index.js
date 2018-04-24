@@ -11,6 +11,7 @@ const ManageSearch = require('./controller/manage/admin/manageData/manage-search
 const ManageEdit = require('./controller/manage/admin/manageData/manage-edit');
 const ManageRemove = require('./controller/manage/admin/manageData/manage-remove');
 const ManageInsert = require('./controller/manage/admin/manageData/manage-insert');
+const RouteAdmin = require('./controller/viewRoutes/admin/route-admin');
 //Teacher manage
 const RouteTeacher = require('./controller/viewRoutes/teacher/routes');
 
@@ -182,6 +183,72 @@ app.post('/admin/insert', (request, response) => {
     response.redirect('/');
   }
 });
+
+app.get('/admin/newRoute/*', function (request, response) {
+  if (request.session.user && request.session.user.type == 'admin'){  
+  let route = new Route(app.get('views') + '/pages/admin/' + request.query.path + '/', request.query.file, '.ejs');
+  
+  route.getRoute(routeData => {
+    if (routeData){
+      let routeAdmin = new RouteAdmin(request.query.controller);
+      
+      routeAdmin.getRouteData((data) => {
+        if(data){
+          response.render('pages/admin/' + request.query.path + '/' + request.query.file, { data : data , user : request.session.user});
+        }else{
+          response.redirect('/error');
+        }
+      })
+    }
+    else{
+      response.redirect('/error');
+    }
+  });
+  }else if(request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
+  response.redirect('/');
+  }
+});
+
+app.get('/admin/dataRoute/*', function (request, response) {
+  if (request.session.user && request.session.user.type == 'admin'){  
+      let routeAdmin = new RouteAdmin(request.query.controller);
+      
+      routeAdmin.getRouteData((data) => {
+        if(data){
+          response.write(JSON.stringify(data));
+          response.end();
+        }else{
+          response.redirect('/error');
+        }
+      })
+    }
+    else{
+      response.redirect('/error');
+    }
+});
+
+app.post('/admin/post/*', (request, response) => {
+  if (request.session.user && request.session.user.type == 'admin'){
+        let routeAdmin = new RouteAdmin(request.body.controller);
+        
+        routeAdmin.getRouteData((data) => {
+          if(data){
+            if(request.body.controller.entity == "editAdminUser"){
+              request.session.user.name = request.body.controller.parameters.nameUser;
+              request.session.user.identity = request.body.controller.parameters.avatar;
+            }
+            response.write(JSON.stringify(data));
+            response.end();
+          }else{
+            response.redirect('/error');
+          }
+        })
+      }else{
+        response.redirect('/error');
+      }
+});
 /*admin functions*/
 
 /*teacher functions*/
@@ -212,12 +279,34 @@ app.get('/teacher/route/*', function (request, response) {
   }
 });
 
+app.get('/teacher/dataRoute/*', function (request, response) {
+  if (request.session.user && request.session.user.type == 'teacher'){  
+      let routeTeacher = new RouteTeacher(request.query.controller);
+      
+      routeTeacher.getRouteData((data) => {
+        if(data){
+          response.write(JSON.stringify(data));
+          response.end();
+        }else{
+          response.redirect('/error');
+        }
+      })
+    }
+    else{
+      response.redirect('/error');
+    }
+});
+
 app.post('/teacher/post/*', (request, response) => {
   if (request.session.user && request.session.user.type == 'teacher'){
         let routeTeacher = new RouteTeacher(request.body.controller);
         
         routeTeacher.getRouteData((data) => {
           if(data){
+            if(request.body.controller.entity == "editTeacherUser"){
+              request.session.user.name = request.body.controller.parameters.nameUser;
+              request.session.user.identity = request.body.controller.parameters.avatar;
+            }
             response.write(JSON.stringify(data));
             response.end();
           }else{

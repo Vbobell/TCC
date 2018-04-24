@@ -25,14 +25,28 @@ class ManageAdmin{
             return callback(data);
         });
     }
+    editAdminUser(parameters, callback){
+        let values = '($1, $2, $3, $4)';
+        let password = crypto.createHash('md5').update(String(parameters.newPassword)).digest('hex');
+        let registry = [parameters.nameUser, parameters.email, password, parameters.avatar, parameters.registry];
+        let where = 'registry = $5';
+        this.crudAdmin.executeUpdate('admin', '(name_admin, email, password, user_identity)', values, where, registry, data => {
+            return callback(data);
+        });
+    }
     loginValidation(parameters, callback){
         let hash = crypto.createHash('md5').update(parameters.password).digest('hex');
         this.crudAdmin.selectUser(parameters.user, hash, data => {
-            if(data.length == 0){
+            if(!data || data.length == 0){
                 return callback(false);
             }else{
                 return callback(data);
             }
+        });
+    }
+    getDataAdminEdit(parameters, callback){
+        this.crudAdmin.selectUserEdit(parameters.idAdmin, data =>{
+            return callback(data);
         });
     }
 }

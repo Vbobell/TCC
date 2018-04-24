@@ -4,6 +4,7 @@ const ManageRewardActivity = require('../manageRewardActivity/manage-reward-acti
 const ManageActivity = require('../manageActivity/manage-activity');
 const ManageQuestionActivity = require('../manageQuestionActivity/manage-question-activity');
 const ManageAlternativeQuestion = require('../manageAlternativeQuestion/ManageAlternativeQuestion');
+const ManageTeacher = require('../../admin/manageTeacher/manage-teacher');
 
 class ManageSearch{
     constructor(entity, parameters){
@@ -92,6 +93,22 @@ class ManageSearch{
                             });
                         });
                     });
+                });
+            break;
+            case 'teacherUser':
+                let manageTeacherSearchEdit = new ManageTeacher();
+                let dataEdit = {
+                    user: ""
+                }
+                manageTeacherSearchEdit.getDataAdminEdit(this.parameters, data => {
+                    dataEdit.user = data;
+                    return callback(dataEdit);
+                });
+            break;
+            case 'teacherCheck':
+                let manageTeacherCheck = new ManageTeacher();
+                manageTeacherCheck.loginValidation(this.parameters, (valid) =>{
+                    return callback({"valid": valid});
                 });
             break;
             default:

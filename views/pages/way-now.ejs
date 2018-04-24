@@ -6,10 +6,10 @@
         </span>
     </h1>
     <section class="identify-user">
-        <figure>
-            <img src="/images/header/user.png"/>
+        <figure class="">
         </figure>
-        <div>
+        <div class="config-user">
+            <a class="acount-edit" href="javascript:void(0)">Editar conta</a>
             <a href="/logout">Desconectar</a>
         </div>
     </section>
@@ -18,8 +18,10 @@
         var user = {
             name: '<%= user.name %>',
             id: '<%= user.id %>',
-            registry: '<%= user.user %>'
+            registry: '<%= user.user %>',
+            identity: '<%= user.identity %>'
         }
+        
         localStorage.setItem('user', JSON.stringify(user));
     })();
     </script>

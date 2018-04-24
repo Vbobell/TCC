@@ -3,7 +3,8 @@ CREATE TABLE admin(
     name_admin VARCHAR(70) DEFAULT NULL, 
     registry VARCHAR(30) DEFAULT NULL,
     email VARCHAR (100) NOT NULL,
-    password TEXT DEFAULT NULL
+    password TEXT DEFAULT NULL,
+    user_identity VARCHAR (100) DEFAULT 'default-user.svg'
 );
 
 CREATE TABLE course(
@@ -31,7 +32,8 @@ CREATE TABLE teacher(
     name_teacher VARCHAR (70) NOT NULL,
     registry VARCHAR(30) DEFAULT NULL,
     email VARCHAR (100) NOT NULL,
-    password TEXT DEFAULT NULL
+    password TEXT DEFAULT NULL,
+    user_identity VARCHAR (100) DEFAULT 'default-user.svg'
 );
 
 CREATE TABLE teacher_discipline(
@@ -47,7 +49,8 @@ CREATE TABLE student(
     name_student VARCHAR (70) NOT NULL,
     registry VARCHAR(30) DEFAULT NULL,
     email VARCHAR (100) NOT NULL,
-    password TEXT DEFAULT NULL
+    password TEXT DEFAULT NULL,
+    user_identity VARCHAR (100) DEFAULT 'default-user.svg'
 );
 
 CREATE TABLE student_discipline(

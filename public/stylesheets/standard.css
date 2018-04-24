@@ -248,6 +248,108 @@ figure.enable img {
 }
 /*rewards*/
 
+/*User edit*/
+.user-edit{
+    flex-wrap: wrap;
+    overflow-y: hidden;
+}
+.user-edit header{
+display: flex;
+justify-content: space-between;
+padding: 0.5em 0;
+}
+.user-edit .content-edit{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    padding: 1em;
+    margin: 0 0 1em 0;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+}
+.user-edit .user-content {
+    overflow-y: auto;
+}
+.user-edit .field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0;
+}
+.user-edit .user-content .section-edit:not(:first-child){
+    display: none;
+}
+.user-edit .user-content .edit-item{
+    padding: 0;
+}
+.user-edit .section-avatar{
+    padding: 0;
+}
+.user-edit .type-avatar {
+    display: flex;
+    padding: 0;
+}
+.user-edit .type-avatar div {
+    display: flex;
+    align-items: center;
+    background-color: #17b377;
+    width: 10%;
+    padding: 0.2em;
+    margin: 0 1em 0 0;
+    text-align: center;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2),
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+    cursor: pointer;
+}
+.user-edit .type-avatar div.active {
+    background-color:#2c2b2e;
+    border: 2px solid rgb(23, 179, 119);
+}
+.user-edit .type-avatar div.active svg path {
+    fill: #17b377;
+}
+.user-edit .user-content .content-avatar:not(:first-child) {
+    display: none;
+}
+.user-edit .content-avatar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 1em 0;
+    margin: 1em 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+}
+
+.user-edit .content-avatar .avatar {
+    width: 100%;
+    background-color: #17b377;
+    border-radius: 50%;
+    padding: 1em;
+    margin: 0 1em 1em 0;
+    cursor: pointer;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+}
+
+.user-edit .content-avatar .avatar.active {
+    border: 2px solid #2c2b2e;
+    box-shadow: inset 5px 5px 5px 1px rgba(0,0,0,.1), 
+    0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+}
+/**/
+
 /*utils*/
 .inactive{
     opacity: 0.6 !important;

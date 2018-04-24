@@ -14,6 +14,7 @@ class ManageLogin{
                 this.user.name = valid[0].name_admin;
                 this.user.route = '/admin';
                 this.user.type = 'admin';
+                this.user.identity = valid[0].user_identity;
                 return callback(this.user);
             }
             this.manageTeacher.loginValidation(this.user, (valid) =>{
@@ -22,6 +23,7 @@ class ManageLogin{
                     this.user.name = valid[0].name_teacher;
                     this.user.route = '/teacher';
                     this.user.type = 'teacher';
+                    this.user.identity = valid[0].user_identity;
                     return callback(this.user);
                 }else{
                     return callback(false);

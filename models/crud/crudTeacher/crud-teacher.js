@@ -7,7 +7,7 @@ class CrudTeacher extends Crud{
                 if (err) {
                     return json(JSON.stringify(err));
                 }
-                client.query('SELECT id_teacher, name_teacher from teacher where registry = $1 and password = $2;', [user,password] , function (err, result) {
+                client.query('SELECT id_teacher, name_teacher, user_identity from teacher where registry = $1 and password = $2;', [user,password] , function (err, result) {
                     done();
                     if (err) {
                         return json(JSON.stringify(err));
@@ -30,6 +30,22 @@ class CrudTeacher extends Crud{
                         return json(JSON.stringify(err));
                     }
                     return json(JSON.stringify(result.rows));
+                });
+            });
+        });
+    }
+    selectUserEdit(user, json){
+        this.getPool((data) =>{ 
+            data.connect(function (err, client, done) {
+                if (err) {
+                    return json(false);
+                }
+                client.query('SELECT registry, name_teacher, user_identity, email FROM teacher WHERE id_teacher = $1', [user] , function (err, result) {
+                    done();
+                    if (err) {
+                        return json(false);
+                    }
+                    return json(result.rows);
                 });
             });
         });

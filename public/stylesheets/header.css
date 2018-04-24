@@ -27,13 +27,29 @@
 }
 .identify-user {
     background-color: #2c2b2e;
-    padding: 1.2em 0.8em;
+    width: 6.8%;
+    padding: 1em;
     text-align: center;
     font-size: 0.8em;
-    float: right;
 }
-.identify-user img {
-    width: 75%;
+.identify-user figure {
+    background-color: #17b377;
+    width: 100%;
+    padding: 0.4em;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.config-user {
+    display: none;
+    background-color: #17b377;
+    width: 10%;
+    padding: 1em;
+    position: absolute;
+    top: 15%;
+    right: 0;
+    box-shadow: inset 1px 5px 5px 1px rgba(0,0,0,.1), 
+    inset 0 -1px 0 rgba(0,0,0,.07), 
+    1px 1px 2px 1px rgba(0,0,0,0.4);
 }
 a {
     color: #ffffff;

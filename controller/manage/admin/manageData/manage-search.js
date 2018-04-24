@@ -76,6 +76,22 @@ class ManageSearch{
                     return callback(data);
                 });
             break;
+            case 'adminUser':
+                let manageAdminSearchEdit = new ManageAdmin();
+                let dataEdit = {
+                    user: ""
+                }
+                manageAdminSearchEdit.getDataAdminEdit(this.parameters, data => {
+                    dataEdit.user = data;
+                    return callback(dataEdit);
+                });
+            break;
+            case 'adminCheck':
+                let manageAdminCheck = new ManageAdmin();
+                manageAdminCheck.loginValidation(this.parameters, (valid) =>{
+                    return callback({"valid": valid});
+                });
+            break;
             default:
                 return callback("error"); 
         }

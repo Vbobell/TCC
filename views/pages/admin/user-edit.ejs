@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/file.png"/>
+                <h2>Editar conta</h2>
+        </figure>
+        <section class="big-inner-content table-content user-edit">
+            <section class="col-xl-2 edit-menu">
+                <ul>
+                    <li class="item-menu-list active" data-menu="data">Dados</li>
+                    <li class="item-menu-list" data-menu="avatar">Avatar</li>
+                </ul>
+                <div class="edit-action">
+                    <button id="edit-user" class="tool edit"></button>
+                    <label for="edit-user">Atualizar dados</label>
+                </div>
+            </section>
+            <section class="col-xl-10 user-content">
+                <section class="col-xl-12 section-edit" data-section="data">
+                    <header class="col-xl-12">
+                        <h3>Dados</h3>
+                    </header>
+                    <section class="col-xl-12 content-edit">
+                        <div class="col-xl-4 edit-item">
+                            <input type="hidden" name="id-user" value="<%= data.user[0].registry %>"/>
+                            <h4>Nome</h4>
+                            <input type="text" name="name-user" value="<%= data.user[0].name_admin %>"/>
+                        </div>
+                        <div class="col-xl-4 edit-item">
+                            <h4>Email</h4>
+                            <input type="text" name="email-user" value="<%= data.user[0].email %>"/>
+                        </div>
+                        <div class="col-xl-4 edit-item">
+                            <h4>Senha</h4>
+                            <div class="col-xl-12 field">
+                                <label>Senha atual</label>
+                                <input name="old-password" type="password" value=""/>
+                            </div>
+                            <div class="col-xl-12 field">
+                                <label>Nova senha</label>
+                                <input name="new-password" type="password" value=""/>
+                            </div>
+                            <div class="col-xl-12 field">
+                                <label>Confirmar senha</label>
+                                <input name="confirm-password" type="password" value=""/>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <section class="col-xl-12 section-edit" data-section="avatar">
+                    <header class="col-xl-12">
+                        <h3>Avatar</h3>
+                    </header>
+                    <section class="col-xl-12 section-avatar">
+                        <div class="col-xl-8 type-avatar">
+                            <div class="item-type active" data-tool="man">
+                                <% include ../../../public/svg/users/man/000-man.svg %>
+                            </div>
+                            <div class="item-type" data-tool="woman">
+                                <% include ../../../public/svg/users/woman/000-woman.svg %>
+                            </div>
+                        </div>
+                    </section>
+                <div class="col-xl-12 edit-item">
+                    <% include ../users-charts.ejs %>
+                </div>
+                </section>
+            </section>
+        </section>
+    </section>
+    <script class="script-edit" data-content="generic">
+    (function() {
+        $(`.avatar[data-avatar="${user.identity}"]`).addClass('active');
+
+        $('.type-avatar .item-type').on('click', function(){
+            var _this = $(this);
+            if(!_this.hasClass('active')){
+                $('.type-avatar .item-type').removeClass('active').addClass('inactive');
+                $('.content-avatar').fadeOut(400, function(){
+                    setTimeout(function(){
+                        $('.content-avatar[data-content="'+_this.attr('data-tool')+'"]').fadeIn(200, function(){
+                            $('.type-avatar .item-type').removeClass('inactive');
+                            _this.addClass('active');
+                        }).css('display','flex');
+                    }, 400);
+                });
+            }
+        });
+
+        $('.edit-menu .item-menu-list').on('click', function(){
+            var _this = $(this);
+            if(!_this.hasClass('active')){
+                $('.edit-menu .item-menu-list').removeClass('active').addClass('inactive');
+                $('.table-content [data-section]').fadeOut(400, function(){
+                    setTimeout(function(){
+                        $('.table-content [data-section="'+_this.attr('data-menu')+'"]').fadeIn(200, function(){
+                            $('.edit-menu .item-menu-list').removeClass('inactive');
+                            _this.addClass('active');
+                        });
+                    }, 400);
+                });
+            }
+        });
+
+        $('.user-edit .content-avatar .avatar').on('click', function(){
+            $('.user-edit .content-avatar .avatar').removeClass('active');
+            $(this).addClass('active');
+        });
+
+        $('#edit-user').on('click', function(){
+            try{
+                var that = $(this);
+                var valid = false;
+
+                var nameUser = $('[name="name-user"]');
+                var emailUser = $('[name="email-user"]');
+                var oldPassword = $('[name="old-password"]');
+                var newPassword = $('[name="new-password"]');
+                var confirmPassword = $('[name="confirm-password"]');
+                var registry =  $('[name="id-user"]');
+                var avatar = $('.avatar.active').length > 0 ? $('.avatar.active').attr('data-avatar') : 'default-user.svg';
+
+                if(nameUser.val().replace(' ', '').length == 0 || 
+                emailUser.val().replace(' ', '').length == 0 || 
+                oldPassword.val().replace(' ', '').length == 0 || 
+                newPassword.val().replace(' ', '').length == 0 || 
+                confirmPassword.val().replace(' ', '').length == 0){
+                    throw "empty";
+                }else if(newPassword.val() != confirmPassword.val()){
+                    throw "not equal";
+                }else{
+                    var dataSearch = {
+                        'controller' : {
+                            'type': 'search',
+                            'entity': 'adminCheck',
+                            'parameters': {
+                                'password': oldPassword.val(),
+                                'user': registry.val()
+                            }
+                        }
+                    };
+
+                    $.ajax({
+                        url : '/admin/dataRoute/',
+                        data : dataSearch,
+                        dataType : 'json',
+                        async : false,
+                        type: 'GET'
+                    }).done(function(data){
+                        if(data.valid){
+                            valid = true;
+                        }else{
+                            throw "password not equal";
+                        }
+                    });
+                }
+            }catch(e){
+                if(e == "empty"){
+                    alert('preencha todos os campos!');
+                }else if(e == "not equal"){
+                    alert("A senha nova não é igual a de confirmação!");
+                }else if(e == "password not equal"){
+                    alert('A senha atual não está correta!');
+                }
+            }finally {
+                if(valid){
+                    that.addClass('inactive');
+
+                    var data = { 
+                        'controller' : {
+                            'type': 'edit',
+                            'entity': 'editAdminUser',
+                            'parameters': {
+                                'registry': registry.val(),
+                                'nameUser': nameUser.val(),
+                                'email': emailUser.val(),
+                                'newPassword': newPassword.val(),
+                                'avatar': avatar
+                            }
+                        }
+                    };
+                    var key = false;
+                    
+                    $.ajax({
+                        url : '/admin/post/edit',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data : JSON.stringify(data),
+                        async : false,
+                        type: 'POST'
+                    }).done(function(data){
+                        try{
+                            if(!data){
+                                throw "error";
+                            }
+                        }catch(e){
+                            that.removeClass('inactive');
+                            alert('ocorreu um erro!');
+                        }finally{
+                            that.removeClass('inactive');
+                            alert('dados alterados!');
+                        }
+                    });
+                }
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

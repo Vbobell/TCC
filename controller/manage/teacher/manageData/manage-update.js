@@ -2,6 +2,7 @@ const ManageActivity = require('../manageActivity/manage-activity');
 const ManageRewardActivity = require('../manageRewardActivity/manage-reward-activity');
 const ManageQuestionActivity = require('../manageQuestionActivity/manage-question-activity');
 const ManageAlternativeQuestion = require('../manageAlternativeQuestion/ManageAlternativeQuestion');
+const ManageTeacher = require('../../admin/manageTeacher/manage-teacher');
 
 class ManageUpdate{
     constructor(entity, parameters){
@@ -63,6 +64,15 @@ class ManageUpdate{
                     });
                 });
             break;
+            case 'editTeacherUser':
+                let manageTeacherEdit = new ManageTeacher();
+                manageTeacherEdit.editTeacherUser(this.parameters, data => {
+                    return callback(data);
+                });
+            break;
+            default:
+                return callback("error");
+            break;  
         }
     }
 }

@@ -5,12 +5,12 @@ class CrudAdmin extends Crud{
         this.getPool((data) =>{ 
             data.connect(function (err, client, done) {
                 if (err) {
-                    return json(JSON.stringify(err));
+                    return json(false);
                 }
-                client.query('SELECT id_admin, name_admin from admin where registry = $1 and password = $2;', [user,password] , function (err, result) {
+                client.query('SELECT id_admin, name_admin, user_identity from admin where registry = $1 and password = $2;', [user,password] , function (err, result) {
                     done();
                     if (err) {
-                        return json(JSON.stringify(err));
+                        return json(false);
                     }
                     return json(result.rows);
                 });
@@ -30,6 +30,22 @@ class CrudAdmin extends Crud{
                         return json(JSON.stringify(err));
                     }
                     return json(JSON.stringify(result.rows));
+                });
+            });
+        });
+    }
+    selectUserEdit(user, json){
+        this.getPool((data) =>{ 
+            data.connect(function (err, client, done) {
+                if (err) {
+                    return json(false);
+                }
+                client.query('SELECT registry, name_admin, user_identity, email FROM admin WHERE id_admin = $1', [user] , function (err, result) {
+                    done();
+                    if (err) {
+                        return json(false);
+                    }
+                    return json(result.rows);
                 });
             });
         });

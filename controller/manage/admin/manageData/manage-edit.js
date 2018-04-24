@@ -55,8 +55,15 @@ class ManageEdit{
                     return callback(data);
                 });
             break;
+            case 'editAdminUser':
+                let manageAdminEdit = new ManageAdmin();
+                manageAdminEdit.editAdminUser(this.parameters, data => {
+                    return callback(data);
+                });
+            break;
             default:
-                return callback("error");            
+                return callback("error");
+            break;       
         }
     }
 }

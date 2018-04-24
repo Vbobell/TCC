@@ -1,3 +1,5 @@
+var user = null;
+
 $(document).ready(function(){
     var width = $(window).width();
 
