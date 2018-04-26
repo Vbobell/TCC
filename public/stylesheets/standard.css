@@ -238,10 +238,41 @@ figure.enable img {
     width: 100%;
 }
 /*rewards*/
+.reward.background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgba(44, 43, 46, 0.4);
+    z-index: 10;
+}
+.reward.background .close {
+    float: none;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    color: #ffffff;
+    text-shadow: none;
+    opacity: 1;
+}
+.reward.background .close:hover{
+    color: #ffffff;
+    cursor:pointer;
+}
 .reward figure {
     background-color: #17b377;
     border-radius: 100%;
     padding: 1em;
+}
+.reward.background figure{
+    width: 30%;
+    padding: 4em;
+}
+.reward.background .animated{
+    animation: rotate 1s;
 }
 .reward img{
     width:100%;
@@ -365,6 +396,14 @@ button:focus {
 .opacity{
     opacity: 0.6 !important;
 }
+.scaleMin{
+    transition: transform 1s linear;
+    transform: scale(0);
+}
+
+.scaleMax{
+    transform: scale(1);
+}
 /*utils*/
 
 /*subscript bootstrap*/
@@ -377,6 +416,21 @@ button:focus {
 .toggle-handle {
     background-color: #dae0da;
 }
+
+/*keyframes*/
+@keyframes rotate{
+    10% {transform: rotate3d(0, 20, 0, 36deg); }
+    20% {transform: rotate3d(0, 20, 0, 72deg); }
+    30% {transform: rotate3d(0, 20, 0, 108deg); }
+    40% {transform: rotate3d(0, 20, 0, 144deg); }
+    50% {transform: rotate3d(0, 20, 0, 180deg); }
+    60% {transform: rotate3d(0, 20, 0, 216deg); }
+    70% {transform: rotate3d(0, 20, 0, 252deg); }
+    80% {transform: rotate3d(0, 20, 0, 288deg); }
+    90% {transform: rotate3d(0, 20, 0, 324deg); }
+    100% {transform: rotate3d(0, 20, 0, 360deg); }
+}
+/*keyframes*/
 
 @media all and (max-width: 1023px){
     body {

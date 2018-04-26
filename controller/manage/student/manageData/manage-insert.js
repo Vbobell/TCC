@@ -1,4 +1,5 @@
 const ManageStudentActivity = require('../manageStudentActivity/manage-student-activity');
+const ManageStudentReward = require('../manageStudentReward/manage-student-reward');
 
 class ManageInsert{
     constructor(entity, parameters){
@@ -9,15 +10,15 @@ class ManageInsert{
         switch(this.entity){
             case 'studentActivity':
                 let manageStudentActivity = new ManageStudentActivity();
+                let manageStudentReward = new ManageStudentReward();
                 let that = this;
 
-                manageStudentActivity.checkQuestions(this.parameters.activity, corrects =>{
-                    let pointQuestion = this.parameters.activity.points / this.parameters.activity.questions.length;
-                    this.parameters.activity.points = corrects.length * pointQuestion;
-
-                    manageStudentActivity.insertDataActivity(that.parameters, activity => {
-                        manageStudentActivity.insertQuestions(that.parameters, result => {
-                            return callback(result);
+                manageStudentActivity.checkQuestions(this.parameters.activity, (corrects) => {
+                    manageStudentActivity.insertDataActivity(corrects, that.parameters, (activity) => {
+                        manageStudentActivity.insertQuestions(that.parameters, (result) => {
+                            manageStudentReward.getRewards(that.parameters, (rewards) => {
+                                return callback(rewards);
+                            });
                         });
                     });
                 });

@@ -31,7 +31,8 @@ $(document).ready(function(){
                 'type': 'search',
                 'entity': 'studentDisciplineActivity',
                 'parameters': {
-                    'idDiscipline': $(this).attr('data-id')
+                    'idDiscipline': $(this).attr('data-id'),
+                    'idStudent': user.id
                 }
             }
         };

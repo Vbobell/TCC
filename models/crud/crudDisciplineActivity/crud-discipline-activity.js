@@ -39,6 +39,8 @@ class CrudDisciplineActivity extends Crud{
                 FROM activity, discipline WHERE
                 activity.id_discipline =  discipline.id_discipline
                 AND discipline.id_discipline = $1
+                AND id_activity NOT IN
+                (SELECT id_activity FROM student_activity WHERE id_student = $2)
                 ORDER BY name_activity ASC`, registry, function (err, result) {
                 done();
                     if (err) {

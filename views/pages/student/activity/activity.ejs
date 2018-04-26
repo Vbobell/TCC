@@ -86,12 +86,14 @@
             var realizeActivity = JSON.parse('<%- JSON.stringify(data) %>');
             var activity = new Activity();
             var mountStructure = new StructureActivity();
-
+            var rewardStudent = new Reward();
+        
             activity.id = realizeActivity.id;
+            activity.discipline = realizeActivity.config[0].iddiscipline;
             activity.points = realizeActivity.config[0].pointactivity;
             activity.config = null;
             activity.questions = realizeActivity.questions;
-            
+
         }
 
         $('.item-menu-list[data-menu="question"]').on('click', function(){
@@ -167,8 +169,12 @@
                         data : JSON.stringify(data),
                         async : false,
                         type: 'POST'
-                    }).done(function(data){
-                        console.log(data);
+                    }).done(function(rewards){
+                        if(rewards.length > 0){
+                            rewards.forEach(function(reward){
+                                rewardStudent.getReward(reward);
+                            });
+                        }
                     });
 
                 }

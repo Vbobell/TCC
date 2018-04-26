@@ -31,7 +31,7 @@ class CrudStudentDiscipline extends Crud{
         this.getPool((data) =>{
             data.connect(function (err, client, done) {
                 if (err) {
-                    return json(JSON.stringify(err));
+                    return json(false);
                 }
                 client.query(`SELECT student.id_student, student.name_student, 
                             discipline.id_discipline, discipline.name_discipline 
@@ -40,7 +40,7 @@ class CrudStudentDiscipline extends Crud{
                             discipline.id_discipline = student_discipline.id_discipline AND student.registry = $1`, [registry], function (err, result) {
                     done();
                     if (err) {
-                        return json(JSON.stringify(err));
+                        return json(false);
                     }
                     return json(result.rows);
                 });

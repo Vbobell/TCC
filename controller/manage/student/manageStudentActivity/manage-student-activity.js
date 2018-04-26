@@ -7,7 +7,10 @@ class ManageStudentActivity{
         this.data = ''; 
     }
 
-    insertDataActivity(parameters, callback){
+    insertDataActivity(corrects, parameters, callback){
+        let pointQuestion = parameters.activity.points / parameters.activity.questions.length;
+        parameters.activity.points = corrects.length * pointQuestion;
+
         let registry = [
             parameters.idStudent,
             parameters.activity.id,
