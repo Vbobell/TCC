@@ -20,6 +20,7 @@ class Reward{
         $('.reward.background .close').on('click', function(){
             $(this).parents('.reward.background').fadeOut(200, function(){
                 $(this).remove();
+                window.location.reload();
             });
         });
     }
