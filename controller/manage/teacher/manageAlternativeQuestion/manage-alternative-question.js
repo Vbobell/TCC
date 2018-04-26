@@ -42,6 +42,37 @@ class ManageAlternativeQuestion{
             return callback(alternative);
         });
     }
+
+    getAlternativeQuestionRA(idQuestion, callback){
+        this.crudAlternativeQuestion.selectAlternativeQuestionRA(idQuestion, alternative => {
+            return callback(alternative);
+        });
+    }
+
+    getAlternativeQuestionCorrect(question, callback){
+        let that = this;
+        let correct = false;
+        let count = 0;
+
+        if(typeof question.alternatives == "string"){
+            return callback(true);
+        }else{
+            this.crudAlternativeQuestion.selectAlternativeQuestion(question.id, alternatives => {
+                question.alternatives.forEach((alternative, index) => {
+                    if(alternative.correct == alternatives[index].correct){
+                        correct = true;
+                    }else{
+                        return callback(false);
+                    }
+
+                    if(count == (question.alternatives.length-1)){
+                        return callback(correct);
+                    }
+                    count++;
+                });
+            });
+        }
+    }
 }
 
 module.exports = ManageAlternativeQuestion;

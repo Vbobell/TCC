@@ -112,3 +112,29 @@ CREATE TABLE activity_reward(
     FOREIGN KEY (id_activity) REFERENCES activity (id_activity),
     FOREIGN KEY (id_reward) REFERENCES reward (id_reward)
 );
+
+CREATE TABLE student_activity(
+    id_student_activity SERIAL NOT NULL PRIMARY KEY,
+    id_student INT NOT NULL,
+    id_activity INT NOT NULL,
+    point_rechead DOUBLE PRECISION NOT NULL,
+    FOREIGN KEY (id_student) REFERENCES student (id_student),
+    FOREIGN KEY (id_activity) REFERENCES activity (id_activity)
+);
+
+CREATE TABLE student_question_answer(
+    id_student_question_answer SERIAL NOT NULL PRIMARY KEY,
+    id_activity INT NOT NULL,
+    id_question INT NOT NULL,
+    answer TEXT NOT NULL,
+    FOREIGN KEY (id_activity) REFERENCES activity (id_activity),
+    FOREIGN KEY (id_question) REFERENCES activity_question (id_question)
+);
+
+CREATE TABLE student_reward(
+    id_student_reward SERIAL NOT NULL PRIMARY KEY,
+    id_student INT NOT NULL,
+    id_reward INT NOT NULL,
+    FOREIGN KEY (id_student) REFERENCES student (id_student),
+    FOREIGN KEY (id_reward) REFERENCES reward (id_reward)
+);

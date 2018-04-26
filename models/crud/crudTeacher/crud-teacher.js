@@ -5,12 +5,12 @@ class CrudTeacher extends Crud{
         this.getPool((data) =>{ 
             data.connect(function (err, client, done) {
                 if (err) {
-                    return json(JSON.stringify(err));
+                    return json(false);
                 }
                 client.query('SELECT id_teacher, name_teacher, user_identity from teacher where registry = $1 and password = $2;', [user,password] , function (err, result) {
                     done();
                     if (err) {
-                        return json(JSON.stringify(err));
+                        return json(false);
                     }
                     return json(result.rows);
                 });
@@ -21,13 +21,13 @@ class CrudTeacher extends Crud{
         this.getPool((data) =>{
             data.connect(function (err, client, done) {
                 if (err) {
-                    return json(JSON.stringify(err));
+                    return json(false);
                 }
                 //client.query('SELECT id_teacher, name_teacher, registry from teacher limit $1 offset $2;', [limit, offset] , function (err, result) {
                 client.query('SELECT id_teacher, name_teacher, registry FROM teacher ORDER BY name_teacher', function (err, result) {
                     done();
                     if (err) {
-                        return json(JSON.stringify(err));
+                        return json(false);
                     }
                     return json(JSON.stringify(result.rows));
                 });

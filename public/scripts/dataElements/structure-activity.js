@@ -10,7 +10,7 @@ class StructureActivity{
             $(`.elements-question[data-content="${question.type}"] .alternative table tbody`).append(
                 $('<tr>').append(
                     $('<td>').append(
-                        $('<input>').attr({'type': type, 'name':'correct-'+ type,}).prop({'checked': alternative.correct}).addClass('correct')
+                        $('<input>').attr({'type': type, 'name':'correct-'+ type}).prop({'checked': alternative.correct}).addClass('correct')
                     ).addClass('col-xl-1 content-tool')
                 ).append(
                     $('<td>').append(
@@ -26,6 +26,25 @@ class StructureActivity{
         });
     }
 
+    mountStructureRA(position, question){
+        var type = question.type == 'unique' ? 'radio' : 'checkbox';
+
+        question.alternatives.forEach(function(alternative, index) {
+            $(`.elements-question[data-content="${question.type}"] .alternative table tbody`).append(
+                $('<tr>').append(
+                    $('<td>').append(
+                        $('<input>').attr({'type': type, 'name':'correct-'+ type, 'data-alternative':index})
+                        .prop({'checked': alternative.correct}).addClass('correct')
+                    ).addClass('col-xl-1 content-tool')
+                ).append(
+                    $('<td>').append(
+                        $('<p>').addClass('description').text(alternative.description)
+                    ).addClass('col-xl-11')
+                ).attr({'data-question': position}).addClass('row-data')
+            );
+        });
+    }
+
     setElements(position, question){
         switch(question.type){
             case 'unique':
@@ -34,13 +53,11 @@ class StructureActivity{
                 this.mountStructure(question);
             break;
             case 'multiple':
-                $(`.type-question div[data-tool="${question.type}"]`).click();
                 $(`.elements-question[data-content="${question.type}"] .question .description`).text(question.description);
                 $(`.elements-question[data-content="${question.type}"] .alternative table tbody tr:not(.not-alternative)`).remove();
                 this.mountStructure(question);
             break;
             case 'draw':
-                $(`.type-question div[data-tool="${question.type}"]`).click();
                 $(`.elements-question[data-content="${question.type}"] .question .description`).text(question.description);
             break;
             default:
@@ -48,7 +65,32 @@ class StructureActivity{
         }
         $('#save-question').attr({'data-save':'edit', 'data-edit': position});
         $('.question-action label').text('Editar questão');
+        $(`.elements-question[data-content="${question.type}"] .alternative table tbody tr.not-alternative`).hide();
         $(`.type-question figure[data-tool="${question.type}"]`).click();
+    }
+
+    setElementsRA(position, question){
+        switch(question.type){
+            case 'unique':
+                $(`.elements-question[data-content="${question.type}"] .question .description`).text(question.description);
+                $(`.elements-question[data-content="${question.type}"] .alternative table tbody tr:not(.not-alternative)`).remove();
+                this.mountStructureRA(position, question);
+            break;
+            case 'multiple':
+                $(`.elements-question[data-content="${question.type}"] .question .description`).text(question.description);
+                $(`.elements-question[data-content="${question.type}"] .alternative table tbody tr:not(.not-alternative)`).remove();
+                this.mountStructureRA(position, question);
+            break;
+            case 'draw':
+                $(`.elements-question[data-content="${question.type}"] .question .description`).text(question.description);
+                $(`.elements-question[data-content="${question.type}"] .question .answer`).attr({'data-question': position});
+            break;
+            default:
+            break;
+        }
+
+        $('.elements-question').hide();
+        $(`.elements-question[data-content="${question.type}"]`).fadeIn(200);
     }
 
     mountListQuestion(questions, callback){

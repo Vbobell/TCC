@@ -1,11 +1,13 @@
 const ManageAdmin = require('../admin/manageAdmin/manage-admin');
 const ManageTeacher = require('../admin/manageTeacher/manage-teacher');
+const ManageStudent = require('../admin/manageStudent/manage-student');
 
 class ManageLogin{
     constructor(user){
         this.user = user;
         this.manageAdmin = new ManageAdmin();
         this.manageTeacher = new ManageTeacher();
+        this.manageStudent = new ManageStudent();
     }
     login(callback){
         this.manageAdmin.loginValidation(this.user, (valid) =>{
@@ -25,9 +27,19 @@ class ManageLogin{
                     this.user.type = 'teacher';
                     this.user.identity = valid[0].user_identity;
                     return callback(this.user);
-                }else{
-                    return callback(false);
                 }
+                this.manageStudent.loginValidation(this.user, (valid) =>{
+                    if(valid){
+                        this.user.id = valid[0].id_student;
+                        this.user.name = valid[0].name_student;
+                        this.user.route = '/student';
+                        this.user.type = 'student';
+                        this.user.identity = valid[0].user_identity;
+                        return callback(this.user);
+                    }else{
+                        return callback(false);
+                    }
+                });
             });
         });
         

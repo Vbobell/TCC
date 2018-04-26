@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/file.png"/>
+            <h2>Atividades da disciplina</h2>
+        </figure>
+        <section class="big-inner-content table-content">
+            <table class="registers">
+                <thead>
+                    <tr class="row">
+                        <td class="col-lg-5">
+                            Nome
+                        </td>
+                        <td class="col-lg-4">
+                            Descrição
+                        </td>
+                        <td class="col-lg-3">
+                            Ação
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                <% data.forEach(function(activity) { %>
+                    <tr class="row">
+                        <td class="col-lg-5">
+                        <%= activity.name_activity %>
+                        </td>
+                        <td class="col-lg-4">
+                            <%= activity.description_activity %>
+                        </td>
+                        <td class="col-lg-3 content-tools" data-path="activity">
+                            <div class="tool open-edit" data-item="activity" data-id="<%= activity.id_activity %>"></div>
+                        </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </section>
+    </section>
+    <script class="script-edit-activity" data-content="generic">
+    $('.open-edit').on('click', function(){
+        var user = JSON.parse(localStorage.getItem('user'));
+        var data = { 
+            'path' : $(this).parent().attr('data-path'),  
+            'file' : $(this).attr('data-item'),
+            'controller' : {
+                'type': 'search',
+                'entity': 'studentActivity',
+                'parameters': {
+                    'idActivity' : $(this).attr('data-id')
+                }
+            }
+        }
+        var key = false;
+        $('.page-content').fadeOut(200, function(){
+            $('[data-content="generic"]').remove();
+            $.ajax({
+                url : '/student/route/',
+                data : data,
+                dataType : 'html',
+                async : false,
+                type: 'GET'
+            }).done(function(data){
+                $('body').append($(data)[1]);
+                $('body').append($(data)[3]);
+                setTimeout(function(){
+                    $('.page-content[data-content="generic"]').fadeIn(200);
+                },200);
+                if(!key){
+                    $('.inner-header h1').append('<span> > '+$('.title-content h2').text() +'</span>');
+                    key = true;
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

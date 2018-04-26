@@ -27,6 +27,26 @@ class CrudStudentDiscipline extends Crud{
             });
         });
     }
+    selectStudentDiscipline(registry, limit, offset, json){
+        this.getPool((data) =>{
+            data.connect(function (err, client, done) {
+                if (err) {
+                    return json(JSON.stringify(err));
+                }
+                client.query(`SELECT student.id_student, student.name_student, 
+                            discipline.id_discipline, discipline.name_discipline 
+                            FROM student, discipline, student_discipline 
+                            WHERE student_discipline.id_student = student.id_student AND 
+                            discipline.id_discipline = student_discipline.id_discipline AND student.registry = $1`, [registry], function (err, result) {
+                    done();
+                    if (err) {
+                        return json(JSON.stringify(err));
+                    }
+                    return json(result.rows);
+                });
+            });
+        });
+    }
 }
 
 module.exports = CrudStudentDiscipline;

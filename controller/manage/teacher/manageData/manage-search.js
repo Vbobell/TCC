@@ -3,7 +3,7 @@ const ManageDisciplineActivity = require('../manageDisciplineActivity/manage-dis
 const ManageRewardActivity = require('../manageRewardActivity/manage-reward-activity');
 const ManageActivity = require('../manageActivity/manage-activity');
 const ManageQuestionActivity = require('../manageQuestionActivity/manage-question-activity');
-const ManageAlternativeQuestion = require('../manageAlternativeQuestion/ManageAlternativeQuestion');
+const ManageAlternativeQuestion = require('../manageAlternativeQuestion/manage-alternative-question');
 const ManageTeacher = require('../../admin/manageTeacher/manage-teacher');
 
 class ManageSearch{

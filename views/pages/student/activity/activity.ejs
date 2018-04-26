@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/new-file.png"/>
+            <h2>Realizar atividade</h2>
+        </figure>
+        <section class="big-inner-content table-content">
+            <section class="col-xl-2 activity-menu">
+                <ul>
+                    <li class="item-menu-list active" data-menu="question">Questões</li>
+                    <li class="item-menu-list questions">
+                    <ul>
+                    <% data.questions.forEach(function(question, index) { %>
+                        <li class="item-question" data-question="<%= index %>"> 
+                            <label><%= question.description.substr(0, 10) %></label>
+                        </li>
+                    <% }); %>
+                    </ul>
+                    </li>
+                </ul>
+                <div class="activity-action">
+                    <button id="save-activity" class="tool edit"></button>
+                    <label for="save-activity">Enviar atividade</label>
+                </div>
+            </section>
+            <section class="col-xl-10 activity-content">
+                <section class="col-xl-12 section-question" data-section="question">
+                    <header class="col-xl-12">
+                        <h3><%= data.config[0].nameactivity %></h3>
+                    </header>
+                    <article class="content-question" data-section="question">
+                        <article class="elements-question" data-section="description">
+                            <p><%= data.config[0].descriptionactivity %></p>
+                            <p> Pontos possíveis: <%= data.config[0].pointactivity %> </p>
+                        </article>
+                        <div class="elements-question" data-content="unique">
+                            <div class="question">
+                                <p class="description"></p>
+                            </div>
+                            <div class="alternative">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class="col-xl-1 content-tool"></td>
+                                            <td class="col-xl-11"></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="elements-question" data-content="multiple">
+                            <div class="question">
+                                <p class="description"></p>
+                            </div>
+                            <div class="alternative">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class="col-xl-1 content-tool"></td>
+                                            <td class="col-xl-11"></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="elements-question" data-content="draw">
+                            <div class="question">
+                                <p class="description"></p>
+                                <p class="answer" contenteditable="true"></p>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </section>
+        </section>
+    </section>
+    <script class="script-realize-activity" data-content="generic">
+        if(typeof execute == "undefined"){
+            var execute = true;
+            var realizeActivity = JSON.parse('<%- JSON.stringify(data) %>');
+            var activity = new Activity();
+            var mountStructure = new StructureActivity();
+
+            activity.id = realizeActivity.id;
+            activity.points = realizeActivity.config[0].pointactivity;
+            activity.config = null;
+            activity.questions = realizeActivity.questions;
+            
+        }
+
+        $('.item-menu-list[data-menu="question"]').on('click', function(){
+            $('.elements-question').hide();
+            $('.elements-question[data-section="description"]').fadeIn(200);
+        });
+
+        $('.questions .item-question').on('click', function(){
+            $('.questions .item-question').removeClass('active');
+            $(this).addClass('active');
+            mountStructure.setElementsRA($(this).attr('data-question'), activity.questions[parseInt($(this).attr('data-question'))]);
+            
+            $('.elements-question:visible .correct').change(function(){
+                var indexQuestion = parseInt($(this).parents('tr').attr('data-question'));
+                var indexAlternative = parseInt($(this).attr('data-alternative'));
+
+                if($('.elements-question:visible .correct:checked').length > 0){
+                    $('.questions .item-question.active').addClass('opacity');
+                }else{
+                    $('.questions .item-question.active').removeClass('opacity');
+                }
+
+                activity.questions[indexQuestion].alternatives[indexAlternative].correct = $(this).is(':checked');
+            });
+
+            $('.elements-question:visible .answer').on('keyup', function(){
+                var indexQuestion = parseInt($(this).attr('data-question'));
+
+                if($(this).length > 0){
+                    $('.questions .item-question.active').addClass('opacity');
+                }else{
+                    $('.questions .item-question.active').removeClass('opacity');
+                }
+
+                activity.questions[indexQuestion].alternatives = $(this).text();
+            });
+        });
+
+        $('#save-activity').on('click', function(){
+            var valid = false;
+
+            try{
+                if($('.item-question:not(.opacity)').length > 0){
+                    throw "alternatives";
+                }else{
+                    valid = true;
+                }
+            }catch(e){
+                if(e == 'alternatives'){
+                    alert('Há questões em branco!');
+                }
+            }finally{
+                if(valid){
+                    var user = JSON.parse(localStorage.getItem('user'));
+
+                    var data = { 
+                        'controller' : {
+                            'type': 'insert',
+                            'entity': 'studentActivity',
+                            'parameters': {
+                                'activity' : activity,
+                                'idStudent' :  user.id
+                            }
+                        }
+                    };
+
+                    var key = false;
+                        
+                    $.ajax({
+                        url : '/student/post/insert',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data : JSON.stringify(data),
+                        async : false,
+                        type: 'POST'
+                    }).done(function(data){
+                        console.log(data);
+                    });
+
+                }
+            }
+        });
+
+        $('.activity-menu li.questions').show();
+    </script>
+</body>
+</html>

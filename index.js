@@ -14,6 +14,8 @@ const ManageInsert = require('./controller/manage/admin/manageData/manage-insert
 const RouteAdmin = require('./controller/viewRoutes/admin/route-admin');
 //Teacher manage
 const RouteTeacher = require('./controller/viewRoutes/teacher/routes');
+//Student manage
+const RouteStudent = require('./controller/viewRoutes/student/routes');
 
 app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');
@@ -73,6 +75,33 @@ app.get('/teacher', function (request, response) {
     routeTeacher.getRouteData((data) =>{
       if(data){
         response.render('pages/teacher/index', {disciplines : data , user : request.session.user, way : 'atividades'});
+      }else{
+        response.redirect('/error');
+      }
+    });
+  }else if(request.session.user){
+      response.redirect(request.session.user.route);
+  }else{
+    response.redirect('/');
+  }
+});
+
+app.get('/student', function (request, response) {
+  if (request.session.user && request.session.user.type == 'student'){
+    controller = {
+      type: 'search',
+      entity: 'studentDiscipline',
+      parameters: {
+        'registry': request.session.user.user,
+        'limit' : 9,
+        'offset' : 0
+      }
+    };
+
+    let routeStudent = new RouteStudent(controller);
+    routeStudent.getRouteData((data) =>{
+      if(data){
+        response.render('pages/student/index', {disciplines : data , user : request.session.user, way : 'atividades'});
       }else{
         response.redirect('/error');
       }
@@ -317,7 +346,75 @@ app.post('/teacher/post/*', (request, response) => {
         response.redirect('/error');
       }
 });
+/*teacher functions*/
 
+/*student functions*/
+app.get('/student/route/*', function (request, response) {
+  if (request.session.user && request.session.user.type == 'student'){  
+  let route = new Route(app.get('views') + '/pages/student/' + request.query.path + '/', request.query.file, '.ejs');
+  
+  route.getRoute(routeData => {
+    if (routeData){
+      let routeStudent = new RouteStudent(request.query.controller);
+      
+      routeStudent.getRouteData((data) => {
+        if(data){
+          response.render('pages/student/' + request.query.path + '/' + request.query.file, { data : data , user : request.session.user});
+        }else{
+          response.redirect('/error');
+        }
+      })
+    }
+    else{
+      response.redirect('/error');
+    }
+  });
+  }else if(request.session.user){
+    response.redirect(request.session.user.route);
+  }else{
+  response.redirect('/');
+  }
+});
+
+app.get('/student/dataRoute/*', function (request, response) {
+  if (request.session.user && request.session.user.type == 'student'){  
+      let routeStudent = new RouteStudent(request.query.controller);
+      
+      routeStudent.getRouteData((data) => {
+        if(data){
+          response.write(JSON.stringify(data));
+          response.end();
+        }else{
+          response.redirect('/error');
+        }
+      })
+    }
+    else{
+      response.redirect('/error');
+    }
+});
+
+app.post('/student/post/*', (request, response) => {
+  if (request.session.user && request.session.user.type == 'student'){
+        let routeStudent = new RouteStudent(request.body.controller);
+        
+        routeStudent.getRouteData((data) => {
+          if(data){
+            if(request.body.controller.entity == "editStudentUser"){
+              request.session.user.name = request.body.controller.parameters.nameUser;
+              request.session.user.identity = request.body.controller.parameters.avatar;
+            }
+            response.write(JSON.stringify(data));
+            response.end();
+          }else{
+            response.redirect('/error');
+          }
+        })
+      }else{
+        response.redirect('/error');
+      }
+});
+/*student functions*/
 app.get('/error', function (request, response){
   response.render('pages/error');
 });

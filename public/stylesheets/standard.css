@@ -359,6 +359,12 @@ button:focus {
     outline: 0;
     outline: 0;
 }
+.hidden{
+    display: none !important;
+}
+.opacity{
+    opacity: 0.6 !important;
+}
 /*utils*/
 
 /*subscript bootstrap*/

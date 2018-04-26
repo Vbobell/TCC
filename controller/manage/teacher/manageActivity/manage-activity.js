@@ -19,6 +19,19 @@ class ManageActivity{
         );
     }
 
+    getRealizeActivity(parameters, callback){
+        let registry = [
+            parameters.idActivity
+        ]
+
+        this.crudActivity.selectActivity(
+            registry,
+            (data) =>{
+                return callback(data);
+            }
+        );
+    }
+
     insertDataActivity(parameters, callback){
         let registry = [
             parameters.config.nameActivity,

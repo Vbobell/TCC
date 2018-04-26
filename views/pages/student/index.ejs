@@ -11,26 +11,19 @@
 <% include ../way-now.ejs %>
 <% include menu.ejs %>
 <section class="page-content" data-content="viewData" data-path="activity">
-    <article class="item add activity" data-item="activity">
-            <figure>
-            <h2>Nova atividade</h2>
-            </figure>
-            <img class="add-activity" src="images/content/itens/new-file.png"/>
-            <p>Inserir nova atividade para disciplinas</p>
-    </article>
     <% disciplines.forEach(function(discipline) { %>
-    <article class="item discipline activity" data-item="discipline-activity" data-id="<%= discipline.id_discipline %>">
-        <figure>
-        <img src=""/>
-        <h2><%= discipline.name_discipline %></h2>
-        </figure>
-        <p>Manipule as atividades da disciplina</p>
-    </article>
-    <% }); %>
+        <article class="item discipline activity" data-item="discipline-activity" data-id="<%= discipline.id_discipline %>">
+            <figure>
+            <img src=""/>
+            <h2><%= discipline.name_discipline %></h2>
+            </figure>
+            <p>Realize as atividade da disciplina</p>
+        </article>
+        <% }); %>
 </section>
 
 <% include ../../../public/scripts/standard-scripts.ejs %>
-<script src="/scripts/routes/teacher/teacher.js"></script>
+<script src="/scripts/routes/student/student.js"></script>
 <script src="/scripts/dataElements/alternative-question.js"></script>
 <script src="/scripts/dataElements/question.js"></script>
 <script src="/scripts/dataElements/activity.js"></script>

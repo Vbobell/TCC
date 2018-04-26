@@ -11,6 +11,12 @@ class ManageDisciplineActivity{
             return callback(data);
         });
     }
+    getDataStudentDisciplineActivity(parameters, callback){
+        let registers = [parameters.idDiscipline];
+        this.crudDisciplineActivity.selectDisciplineAcivity(registers, parameters.limit, parameters.offset , data =>{
+            return callback(data);
+        });
+    }
 }
 
 module.exports = ManageDisciplineActivity;

@@ -63,9 +63,11 @@
 .activity-action button#save-activity {
     margin: 0 0.4em 0 0;
 }
-.activity-action label {
+.activity-action label,
+.item-question label {
     margin: 0;
 }
+
 /*Menu activity*/
 
 /*Menu edit*/

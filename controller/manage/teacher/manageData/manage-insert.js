@@ -1,7 +1,7 @@
 const ManageActivity = require('../manageActivity/manage-activity');
 const ManageRewardActivity = require('../manageRewardActivity/manage-reward-activity');
 const ManageQuestionActivity = require('../manageQuestionActivity/manage-question-activity');
-const ManageAlternativeQuestion = require('../manageAlternativeQuestion/ManageAlternativeQuestion');
+const ManageAlternativeQuestion = require('../manageAlternativeQuestion/manage-alternative-question');
 
 class ManageInsert{
     constructor(entity, parameters){
