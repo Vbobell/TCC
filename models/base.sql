@@ -9,13 +9,13 @@ CREATE TABLE admin(
 
 CREATE TABLE course(
     id_course SERIAL NOT NULL PRIMARY KEY,
-    name_course VARCHAR(100) NOT NULL,
+    name_course TEXT NOT NULL,
     description_course TEXT NOT NULL
 );
 
 CREATE TABLE discipline(
     id_discipline SERIAL NOT NULL PRIMARY KEY,
-    name_discipline VARCHAR(100) NOT NULL,
+    name_discipline TEXT NOT NULL,
     description_discipline TEXT NOT NULL
 );
 
