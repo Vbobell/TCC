@@ -27,12 +27,19 @@ class CrudRewardConfig extends Crud{
                     return json(false);
                 }
                client.query(`SELECT reward.id_reward AS id, 
-               reward.file_reward AS name
-               FROM reward, reward_configuration 
-               WHERE reward.enable_reward = true AND
-               reward.id_reward  NOT IN(SELECT reward.id_reward
-               FROM reward, reward_configuration 
-               WHERE reward.id_reward = reward_configuration.id_reward) GROUP BY reward.id_reward`, function (err, result) {
+                reward.file_reward AS file,
+                reward.name_reward AS name,
+                reward.description_reward AS description
+                FROM reward, reward_configuration 
+                WHERE reward.enable_reward = true 
+                AND reward.id_reward  NOT IN(SELECT reward.id_reward
+                FROM reward, reward_configuration 
+                WHERE reward.id_reward = reward_configuration.id_reward)
+                AND reward.id_reward <> 9
+                AND reward.id_reward <> 10
+                AND reward.id_reward <> 11
+                GROUP BY reward.id_reward
+                ORDER BY reward.id_reward`, function (err, result) {
                     done();
                     if (err) {
                         return json(false);
@@ -49,12 +56,14 @@ class CrudRewardConfig extends Crud{
                     return json(false);
                 }
                client.query(`SELECT reward.id_reward AS id, 
-                reward.file_reward AS name, 
-                reward_configuration.config
-                FROM reward, reward_configuration 
-                WHERE reward.id_reward = reward_configuration.id_reward
-                AND reward.enable_reward = true 
-                ORDER BY id_reward_config ASC`, function (err, result) {
+               reward.file_reward AS file,
+               reward.name_reward AS name,
+               reward.description_reward AS description, 
+               reward_configuration.config
+               FROM reward, reward_configuration 
+               WHERE reward.id_reward = reward_configuration.id_reward
+               AND reward.enable_reward = true 
+               ORDER BY id_reward_config ASC`, function (err, result) {
                     done();
                     if (err) {
                         return json(false);

@@ -9,12 +9,14 @@ class ManageStudentActivity{
 
     insertDataActivity(corrects, parameters, callback){
         let pointQuestion = parameters.activity.points / parameters.activity.questions.length;
-        parameters.activity.points = corrects.length * pointQuestion;
+        let pointsNow = corrects.length * pointQuestion;
+        let correct = pointsNow == parameters.activity.points;
+
 
         let registry = [
             parameters.idStudent,
             parameters.activity.id,
-            parameters.activity.points
+            pointsNow
         ] 
 
         this.crudStudentActivity.executeUniqueInsert(
@@ -24,7 +26,7 @@ class ManageStudentActivity{
             'id_student_activity',
             registry,
             response => {
-                return callback(response);
+                return callback(correct);
             });
     }
 

@@ -82,7 +82,7 @@ CREATE TABLE activity(
     id_activity SERIAL NOT NULL PRIMARY KEY,
     name_activity VARCHAR (100) NOT NULL,
     description_activity TEXT NOT NULL,
-    point_activity INT NOT NULL,
+    point_activity DOUBLE PRECISION NOT NULL,
     id_discipline INT NOT NULL,
     id_teacher INT NOT NULL,
     FOREIGN KEY (id_discipline) REFERENCES discipline (id_discipline),

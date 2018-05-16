@@ -45,22 +45,29 @@ VALUES ('Sequência de atividades bronze', 'Sequência de atividades bronze real
 ---------------- configuração de bonificação ----------------
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
-VALUES ('porcentagem de acertos atividade ouro', 'porcentagem de acertos para ser uma atividade ouro', '', 6);
+VALUES ('porcentagem de acertos atividade ouro', 'porcentagem de acertos para ser uma atividade ouro', 
+'{"name" : "percentageToComplete", "percentageToComplete" : 0}', 6);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
-VALUES ('porcentagem de acertos atividade prata', 'porcentagem de acertos para ser uma atividade prata', '', 7);
+VALUES ('porcentagem de acertos atividade prata', 'porcentagem de acertos para ser uma atividade prata', 
+'{"name" : "percentageToComplete", "percentageToComplete" : 0}', 7);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
-VALUES ('porcentagem de acertos atividade bronze', 'porcentagem de acertos para ser uma atividade bronze', '', 8);
+VALUES ('porcentagem de acertos atividade bronze', 'porcentagem de acertos para ser uma atividade bronze', 
+'{"name" : "percentageToComplete", "percentageToComplete" : 0}', 8);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
-VALUES ('sequência de atividades realizas corretas', 'sequência de atividades realizas corretas', '', 4);
+VALUES ('sequência de atividades realizas corretas', 'sequência de atividades realizas corretas', 
+'{"name" : "amount", "amount": 0}', 4);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
-VALUES ('sequência de atividades ouro', 'sequência de atividades ouro realizas corretas', '', 12);
+VALUES ('sequência de atividades ouro', 'sequência de atividades ouro realizas corretas', 
+'{"name" : "amount", "amount": 0}', 12);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
-VALUES ('sequência de atividades prata', 'sequência de atividades prata realizas corretas', '', 13);
+VALUES ('sequência de atividades prata', 'sequência de atividades prata realizas corretas', 
+'{"name" : "amount", "amount": 0}', 13);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
-VALUES ('sequência de atividades bronze', 'sequência de atividades bronze realizas corretas', '', 14);
+VALUES ('sequência de atividades bronze', 'sequência de atividades bronze realizas corretas', 
+'{"name" : "amount", "amount": 0}', 14);

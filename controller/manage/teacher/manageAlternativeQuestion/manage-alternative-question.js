@@ -56,16 +56,32 @@ class ManageAlternativeQuestion{
 
         if(typeof question.alternatives == "string"){
             return callback(true);
-        }else{
+        }else if(question.type == "unique"){
             this.crudAlternativeQuestion.selectAlternativeQuestion(question.id, alternatives => {
                 question.alternatives.forEach((alternative, index) => {
-                    if(alternative.correct == alternatives[index].correct){
+                    if(alternatives[index].correct && alternative.correct == alternatives[index].correct){
                         correct = true;
-                    }else{
-                        return callback(false);
                     }
 
                     if(count == (question.alternatives.length-1)){
+                        return callback(correct);
+                    }
+                    count++;
+                });
+            });
+        }else{
+            this.crudAlternativeQuestion.selectAlternativeQuestion(question.id, alternatives => {
+                let amountCorrect = 0;
+                question.alternatives.forEach((alternative, index) => {
+                    
+                    amountCorrect += alternatives[index].correct == true ? 1 : 0;
+
+                    if(alternatives[index].correct && alternative.correct == alternatives[index].correct){
+                        correct += 1;
+                    }
+
+                    if(count == (question.alternatives.length-1)){
+                        correct = correct / amountCorrect * 100 >= 70;
                         return callback(correct);
                     }
                     count++;

@@ -13,10 +13,11 @@ class ManageInsert{
                 let manageStudentReward = new ManageStudentReward();
                 let that = this;
 
-                manageStudentActivity.checkQuestions(this.parameters.activity, (corrects) => {
-                    manageStudentActivity.insertDataActivity(corrects, that.parameters, (activity) => {
+                manageStudentActivity.checkQuestions(that.parameters.activity, (corrects) => {
+                    manageStudentActivity.insertDataActivity(corrects, that.parameters, (correct) => {
+                        that.parameters.activity.correct = correct;
                         manageStudentActivity.insertQuestions(that.parameters, (result) => {
-                            manageStudentReward.getRewards(that.parameters, (rewards) => {
+                            manageStudentReward.getRewardsNotConfig(that.parameters, (rewards) => {
                                 return callback(rewards);
                             });
                         });

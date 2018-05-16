@@ -86,7 +86,6 @@
             var realizeActivity = JSON.parse('<%- JSON.stringify(data) %>');
             var activity = new Activity();
             var mountStructure = new StructureActivity();
-            var rewardStudent = new Reward();
         
             activity.id = realizeActivity.id;
             activity.discipline = realizeActivity.config[0].iddiscipline;
@@ -170,14 +169,15 @@
                         async : false,
                         type: 'POST'
                     }).done(function(rewards){
+                        alert("Atividade realizada!");
+
                         if(rewards.length > 0){
-                            rewards.forEach(function(reward){
-                                rewardStudent.getReward(reward);
-                            });
+                            var rewardStudent = new Reward(rewards);
+                            rewardStudent.getReward(rewards);
                         }else{
                             window.location.reload();
                         }
-                        alert("Atividade realizada!");
+                       
                     });
 
                 }
