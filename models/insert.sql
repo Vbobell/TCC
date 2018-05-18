@@ -46,28 +46,28 @@ VALUES ('Sequência de atividades bronze', 'Sequência de atividades bronze real
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
 VALUES ('porcentagem de acertos atividade ouro', 'porcentagem de acertos para ser uma atividade ouro', 
-'{"name" : "percentageToComplete", "percentageToComplete" : 0}', 6);
+'{"name" : "percentageToComplete", "percentageToComplete" : 1}', 6);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
 VALUES ('porcentagem de acertos atividade prata', 'porcentagem de acertos para ser uma atividade prata', 
-'{"name" : "percentageToComplete", "percentageToComplete" : 0}', 7);
+'{"name" : "percentageToComplete", "percentageToComplete" : 1}', 7);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
 VALUES ('porcentagem de acertos atividade bronze', 'porcentagem de acertos para ser uma atividade bronze', 
-'{"name" : "percentageToComplete", "percentageToComplete" : 0}', 8);
+'{"name" : "percentageToComplete", "percentageToComplete" : 1}', 8);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
 VALUES ('sequência de atividades realizas corretas', 'sequência de atividades realizas corretas', 
-'{"name" : "amount", "amount": 0}', 4);
+'{"name" : "amount", "amount": 1}', 4);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
 VALUES ('sequência de atividades ouro', 'sequência de atividades ouro realizas corretas', 
-'{"name" : "amount", "amount": 0}', 12);
+'{"name" : "amount", "amount": 1}', 12);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
 VALUES ('sequência de atividades prata', 'sequência de atividades prata realizas corretas', 
-'{"name" : "amount", "amount": 0}', 13);
+'{"name" : "amount", "amount": 1}', 13);
 
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
 VALUES ('sequência de atividades bronze', 'sequência de atividades bronze realizas corretas', 
-'{"name" : "amount", "amount": 0}', 14);
+'{"name" : "amount", "amount": 1}', 14);

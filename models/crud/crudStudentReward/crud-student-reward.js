@@ -102,6 +102,26 @@ class CrudStudentReward extends Crud{
             });
         });
     }
+    selectCheckActivitySequence(registry, json){
+        this.getPool((data) =>{
+            data.connect(function (err, client, done) {
+                if (err) {
+                    return json(false);
+                }
+                client.query(`SELECT count(*) 
+                FROM activity, student_activity
+                WHERE activity.id_activity = student_activity.id_activity
+                AND activity.id_discipline = $1
+                AND student_activity.id_student = $2`, registry, function (err, result) {
+                    done();
+                    if (err) {
+                        return json(false);
+                    }
+                    return json(result.rows);
+                });
+            });
+        });
+    }
 
     selectCheckActivityGold(registry, json){
         this.getPool((data) =>{
@@ -123,6 +143,7 @@ class CrudStudentReward extends Crud{
             });
         });
     }
+
     selectCheckActivitySilver(registry, json){
         this.getPool((data) =>{
             data.connect(function (err, client, done) {

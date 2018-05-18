@@ -73,6 +73,7 @@ class CrudRewardConfig extends Crud{
             });
         });
     }
+    
 }
 
 module.exports = CrudRewardConfig;

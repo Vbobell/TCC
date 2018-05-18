@@ -18,6 +18,12 @@ class ManageStudentActivity{
             parameters.activity.id,
             pointsNow
         ] 
+        
+        let activityData = {
+            "correct": correct,
+            "pointsReached": pointsNow,
+            "points": parameters.activity.points
+        }
 
         this.crudStudentActivity.executeUniqueInsert(
             'student_activity', 
@@ -26,7 +32,7 @@ class ManageStudentActivity{
             'id_student_activity',
             registry,
             response => {
-                return callback(correct);
+                return callback(activityData);
             });
     }
 
