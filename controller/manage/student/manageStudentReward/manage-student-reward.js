@@ -201,19 +201,31 @@ class ManageStudentReward {
                         });
                         break;
                     case 12:
-                        that.checkReturnReward(count, rewardLength, rewardsInsert, (isReturn) => {
-                            if (isReturn) {
-                                return callback(rewards);
+                        that.getActivityGoldSequence(registry, reward, (isSequenceGold) => {
+                            if(isSequenceGold){
+                                rewardsInsert.gold.registers.push([parseInt(registry.idStudent), reward.id]);
+                                rewardsInsert.gold.rewards.push(reward);
                             }
-                            count++;
+                            that.checkReturnReward(count, rewardLength, rewardsInsert, (isReturn) => {
+                                if (isReturn) {
+                                    return callback(rewards);
+                                }
+                                count++;
+                            });
                         });
                         break;
                     case 13:
-                        that.checkReturnReward(count, rewardLength, rewardsInsert, (isReturn) => {
-                            if (isReturn) {
-                                return callback(rewards);
+                        that.getActivitySilver(registry, reward, (isSequenceSilver) => {
+                            if(isSequenceSilver){
+                                rewardsInsert.silver.registers.push([parseInt(registry.idStudent), reward.id]);
+                                rewardsInsert.silver.rewards.push(reward);
                             }
-                            count++;
+                            that.checkReturnReward(count, rewardLength, rewardsInsert, (isReturn) => {
+                                if (isReturn) {
+                                    return callback(rewards);
+                                }
+                                count++;
+                            });
                         });
                         break;
                     case 14:
@@ -553,10 +565,61 @@ class ManageStudentReward {
     }
 
     checkActivityGoldSequence(parameters, config, callback) {
-        let selectParameters = [
-            parameters.idActivity
+        this.crudStudentReward.selectCheckActivityGoldSequence(parameters, data => {
+            let amount = Math.ceil(parseInt(data[0].count) / config.amount);
+            if (data[0].count >= (amount * config.amount)) {
+                return callback(true);
+            } else {
+                return callback(false);
+            }
+        });
+    }
+
+    getActivitySilverSequence(parameters, reward, callback) {
+        let that = this;
+        let getRegistry = [
+            parameters.idDiscipline,
+            parameters.idStudent
         ]
-        this.crudStudentReward.selectCheckActivitySequence(selectParameters, data => {
+
+        this.checkActivitySilverSequence(getRegistry, JSON.parse(reward.config), (asSilverSequence) => {
+            if (asSilverSequence) {
+                return callback(true);
+            } else {
+                return callback(false);
+            }
+        });
+    }
+
+    checkActivitySilverSequence(parameters, config, callback) {
+        this.crudStudentReward.selectCheckActivitySilverSequence(parameters, data => {
+            let amount = Math.ceil(parseInt(data[0].count) / config.amount);
+            if (data[0].count >= (amount * config.amount)) {
+                return callback(true);
+            } else {
+                return callback(false);
+            }
+        });
+    }
+
+    getActivityBronzeSequence(parameters, reward, callback) {
+        let that = this;
+        let getRegistry = [
+            parameters.idDiscipline,
+            parameters.idStudent
+        ]
+
+        this.checkActivityBronzeSequence(getRegistry, JSON.parse(reward.config), (asBronzeSequence) => {
+            if (asBronzeSequence) {
+                return callback(true);
+            } else {
+                return callback(false);
+            }
+        });
+    }
+
+    checkActivityBronzeSequence(parameters, config, callback) {
+        this.crudStudentReward.selectCheckActivityBronzeSequence(parameters, data => {
             let amount = Math.ceil(parseInt(data[0].count) / config.amount);
             if (data[0].count >= (amount * config.amount)) {
                 return callback(true);
