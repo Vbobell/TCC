@@ -90,7 +90,7 @@ app.get('/student', function (request, response) {
   if (request.session.user && request.session.user.type == 'student'){
     controller = {
       type: 'search',
-      entity: 'studentDiscipline',
+      entity: 'studentInit',
       parameters: {
         'registry': request.session.user.user,
         'limit' : 9,
@@ -101,7 +101,7 @@ app.get('/student', function (request, response) {
     let routeStudent = new RouteStudent(controller);
     routeStudent.getRouteData((data) =>{
       if(data){
-        response.render('pages/student/index', {disciplines : data , user : request.session.user, way : 'atividades'});
+        response.render('pages/student/index', {data : data , user : request.session.user, way : 'atividades'});
       }else{
         response.redirect('/error');
       }

@@ -1,0 +1,41 @@
+<section class="page-content big-content" data-content="viewReward" data-path="reward">
+    <figure class="title-content">
+        <img src="images/content/itens/rewards.png"/>
+        <h2>Bonificações</h2>
+    </figure>
+    <section class="big-inner-content table-content">
+        <section class="col-xl-2 reward-menu">
+            <ul>
+                <li class="item-discipline active" data-menu="reward">Disiciplinas</li>
+                <% data.disciplines.forEach(function(discipline, index) { %>
+                    <li class="item-discipline" data-discipline="<%= discipline.id_discipline %>"> 
+                        <label><%= discipline.name_discipline.substr(0, 30) %></label>
+                    </li>
+                <% }); %>
+            </ul>
+        </section>
+        <section class="col-xl-10 reward-content">
+            <section class="col-xl-12 section-reward" data-section="reward">
+                <header class="col-xl-12">
+                        <div class="col-xl-3 icon-discipline">
+                            <% include ../../../public/svg/itens/discipline-reward.svg %>
+                        </div>
+                        <article class="col-xl-9">
+                            <h3>Escolha a disciplina</h3>
+                            <p>Ao escolher a disciplina você irá visualizar as bonificações conquistadas a cada atividade realizada.</p>
+                        </article>
+                </header>
+                <section class="col-xl-12 rewards">
+                <% data.rewards.all.forEach(function(reward) { %>
+                    <div class="col-xl-3 reward">
+                        <figure class="inactive" name="reward-activity" data-id="<%= reward.id_reward %>">
+                            <img src="images/reward/<%=reward.file_reward%>.png"/>
+                        </figure>
+                        <label><%= reward.name_reward %></label>
+                    </div>
+                <% }); %> 
+                </section> 
+            </section>
+        </section>
+    </section>
+</section>

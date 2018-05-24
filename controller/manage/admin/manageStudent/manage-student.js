@@ -44,8 +44,8 @@ class ManageStudent{
             }
         });
     }
-    getDataAdminEdit(parameters, callback){
-        this.crudStudent.selectUserEdit(parameters.idAdmin, data =>{
+    getDataStudentEdit(parameters, callback){
+        this.crudStudent.selectUserEdit(parameters.idStudent, data =>{
             return callback(data);
         });
     }

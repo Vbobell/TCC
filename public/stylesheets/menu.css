@@ -105,6 +105,28 @@
 }
 /*Menu edit*/
 
+/*Menu students rewards */
+.reward-menu {
+    background-color: #2c2b2e;
+    padding: 0;
+    color: white;
+}
+.reward-menu li {
+    padding: 0.2em 0.4em;
+    cursor: pointer;
+}
+.reward-menu li label{
+    margin: 0;
+}
+.reward-menu .active{
+    background-color: #dae0da;
+    color: #2c2b2e;
+    box-shadow: inset 5px 5px 5px 1px rgba(0,0,0,.1), 
+    inset 0 -1px 0 rgba(0,0,0,.07), 
+    1px 1px 2px 1px rgba(0,0,0,0.4);
+}
+
+/*Menu students rewards */
 @media all and (max-width: 1023px){
     .menu {
         display: flex;

@@ -253,6 +253,36 @@ class CrudStudentReward extends Crud{
             });
         });
     }
+
+    selectRewards(registry, json){
+        this.getPool((data) =>{
+            data.connect(function (err, client, done) {
+                if (err) {
+                    return json(false);
+                }
+                client.query(`SELECT
+                    discipline.id_discipline AS disciplineId,
+                    discipline.name_discipline AS disciplineName,
+                    reward.id_reward AS id, 
+                    reward.file_reward AS file,
+                    reward.name_reward AS name,
+                    reward.description_reward AS description
+                    FROM reward, student_reward, discipline, student, student_discipline
+                    WHERE reward.id_reward = student_reward.id_reward
+                    AND discipline.id_discipline = student_discipline.id_discipline
+                    AND student.id_student = student_discipline.id_student
+                    AND student.registry = $1
+                    GROUP BY reward.id_reward, discipline.id_discipline
+                    ORDER BY reward.id_reward`, registry, function (err, result) {
+                    done();
+                    if (err) {
+                        return json(false);
+                    }
+                    return json(result.rows);
+                });
+            });
+        });
+    }
 }
 
 module.exports = CrudStudentReward;

@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <% include ../../../public/stylesheets/standard-css.ejs %>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/teacher-content.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/student-content.css"/>
 </head>
 
 <body>
 <% include ../way-now.ejs %>
 <% include menu.ejs %>
 <section class="page-content" data-content="viewData" data-path="activity">
-    <% disciplines.forEach(function(discipline) { %>
+    <% data.disciplines.forEach(function(discipline) { %>
         <article class="item discipline activity" data-item="discipline-activity" data-id="<%= discipline.id_discipline %>">
             <figure>
             <img src=""/>
@@ -22,6 +22,8 @@
         <% }); %>
 </section>
 
+<% include rewards.ejs %>
+
 <% include ../../../public/scripts/standard-scripts.ejs %>
 <script src="/scripts/routes/student/student.js"></script>
 <script src="/scripts/dataElements/alternative-question.js"></script>
@@ -29,6 +31,15 @@
 <script src="/scripts/dataElements/activity.js"></script>
 <script src="/scripts/dataElements/reward.js"></script>
 <script src="/scripts/dataElements/structure-activity.js"></script>
+<script src="/scripts/dataElements/student/view-rewards.js"></script>
+<script>
+    var viewReward = new ViewReward(JSON.parse('<%- JSON.stringify(data.rewards.student) %>'));
+
+    $(document).ready(function(){
+        viewReward.domEvents();
+        console.log(viewReward);
+    });
+</script>
 </body>
 
 </html>

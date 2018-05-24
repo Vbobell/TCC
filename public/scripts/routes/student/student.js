@@ -93,7 +93,7 @@ $(document).ready(function(){
                 'type': 'search',
                 'entity': 'studentUser',
                 'parameters': {
-                    'idTeacher': user.id
+                    'idStudent': user.id
                 }
             }
         };

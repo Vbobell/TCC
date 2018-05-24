@@ -652,6 +652,15 @@ class ManageStudentReward {
                 return callback(response);
             });
     }
+
+    /* Select rewards */
+    selectRewards(parameters, callback) {
+        let that = this;
+        this.crudStudentReward.selectRewards([parameters.registry], (rewards) => {
+            return callback(rewards);
+        });
+    }
+    /* Select rewards */
 }
 
 module.exports = ManageStudentReward;
