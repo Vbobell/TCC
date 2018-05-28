@@ -440,13 +440,14 @@ button:focus {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-        padding: 140px 0 1em 0;
+        padding: 150px 0 1em 0;
         margin: 0;
     }
     .big-inner-content {
         flex-wrap: wrap;
         width: 100%;
         padding: 0;
+        margin: 70px 0 0 0;
     }
     .item,
     .item:not(:nth-child(3n+3)) {
@@ -455,6 +456,10 @@ button:focus {
     }
     .title-content{
         justify-content: center;
+        width: 100%;
+        position: fixed;
+        z-index: 3;
+        background-color: #2c2b2e;
     }
     .title-content img {
         width: 15%;
@@ -463,8 +468,11 @@ button:focus {
         font-size: 1.5em;
     }
     .table-content{
-        max-height: 500px;
+        max-height: 100%;
         margin: 0;
+    }
+    .table-content table{
+        margin: 60px 0 0 0;
     }
     .table-content thead tr.row{
         width: 100%;
@@ -479,5 +487,15 @@ button:focus {
     .reward figure {
         width: 50%;
         border-radius: 50%;
+    }
+    .content .reward figure {
+        width: 100%;
+    }
+    .section-edit {
+        padding: 1em 0;
+    }
+    .tool{
+        width: 2.5em;
+        height: 2.5em;
     }
 }

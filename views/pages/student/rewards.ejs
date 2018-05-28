@@ -3,8 +3,8 @@
         <img src="images/content/itens/rewards.png"/>
         <h2>Bonificações</h2>
     </figure>
-    <section class="big-inner-content table-content">
-        <section class="col-xl-2 reward-menu">
+    <section class="big-inner-content table-content content-menu">
+        <section class="col-xl-2 reward-menu inner-menu">
             <ul>
                 <li class="item-discipline active" data-menu="reward">Disiciplinas</li>
                 <% data.disciplines.forEach(function(discipline, index) { %>
@@ -14,7 +14,7 @@
                 <% }); %>
             </ul>
         </section>
-        <section class="col-xl-10 reward-content">
+        <section class="col-xl-10 reward-content content">
             <section class="col-xl-12 section-reward" data-section="reward">
                 <header class="col-xl-12">
                         <div class="col-xl-3 icon-discipline">
@@ -27,7 +27,7 @@
                 </header>
                 <section class="col-xl-12 rewards">
                 <% data.rewards.all.forEach(function(reward) { %>
-                    <div class="col-xl-3 reward">
+                    <div class="col-6 col-sm-6 col-sm-6 col-xl-3 reward">
                         <figure class="inactive" name="reward-activity" data-id="<%= reward.id_reward %>">
                             <img src="images/reward/<%=reward.file_reward%>.png"/>
                         </figure>

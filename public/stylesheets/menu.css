@@ -149,6 +149,47 @@
         font-size: 0.8em;
     }
     .menu figure img {
-        width: 25%;
+        width: 60%;
     }
+
+    /*content menu*/
+    .content-menu .inner-menu{
+        position: fixed;
+        bottom: 0;
+        z-index: 1;
+    }
+    .content-menu .inner-menu ul {
+        display: flex;
+        justify-content: center;
+    }
+    .content-menu .inner-menu .edit-action{
+        position: relative;
+    }
+    .content-menu .content{
+        padding:0;
+    }
+    .content-menu .content .edit-item {
+        padding: 1em;
+    }
+    .content-menu .content .edit-item h4{
+        margin: 0 0 0.2em 0;
+    }
+    .content-menu .content label{
+        margin: 0;
+    }
+    .content-menu .content input,
+    .content-menu .content select {
+        width: 100%;
+        margin: 0.2em 0 0 0;
+    }
+    .content-menu .content .type-avatar{
+        justify-content: center;
+    }
+    .content-menu .content .type-avatar div{
+        width: 20%;
+    }
+    .content-menu .content .avatar {
+        width: 40%;
+    }
+    /*content menu*/
 }

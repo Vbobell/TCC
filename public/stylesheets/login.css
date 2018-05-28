@@ -115,4 +115,7 @@ header{
     .item-access input[type="text"], .item-access input[type="password"] {
         width: 83.5%;
     }
+    .submit{
+        width: 100%;
+    }
 }
