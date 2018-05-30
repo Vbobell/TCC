@@ -1,103 +1,111 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <% include ../../../public/stylesheets/standard-css.ejs %>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css"/>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css" />
 </head>
 
 <body>
-<% include ../way-now.ejs %>
-<% include menu.ejs %>
-<section class="page-content" data-content="viewData">
-    <article class="item" data-item="admin">
-        <figure>
-        <img src=""/>
-        <h2>Administrador</h2>
-        </figure>
-        <p>Visualize os dados dos administradores onde você pode edita-los e remove-los.</p>
-    </article>
-    <article class="item" data-item="course">
-        <figure>
-        <img src=""/>
-        <h2>Curso</h2>
-        </figure>
-        <p>Visualize os dados dos cursos onde você pode edita-los e remove-los.</p>
-    </article>
-    <article class="item" data-item="discipline">
-        <figure>
-        <img src=""/>
-        <h2>Disciplina</h2>
-        </figure>
-        <p>Visualize os dados das disciplinas onde você pode edita-los e remove-los.</p>
-    </article>
-    <article class="item" data-item="teacher">
-        <figure>
-        <img src=""/>
-        <h2>Professor</h2>
-        </figure>
-        <p>Visualize os dados dos professores onde você pode edita-los e remove-los.</p>
-    </article>
-    <article class="item" data-item="student">
-        <figure>
-        <img src=""/>
-        <h2>Aluno</h2>
-        </figure>
-        <p>Visualize os dados dos alunos onde você pode edita-los e remove-los.</p>
-    </article>
-    <article class="item" data-item="reward">
-            <figure>
-            <img src=""/>
-            <h2>Bonificação</h2>
-            </figure>
-            <p>Visualize os dados das bonificações onde você pode configura-las.</p>
-        </article>
-</section>
-<section class="page-content" data-content="import">
-    <article class="item" data-item="admin">
-        <figure>
-        <img src =""/>
-        <h2>Administrador</h2>
-        </figure>
-        <p>Faça importação dos administradores do sistema.</p>
-    </article>
-    <article class="item" data-item="course">
-        <figure>
-        <img src =""/>
-        <h2>Curso</h2>
-        </figure>
-        <p>Faça importação dos cursos da instituição.</p>
-    </article>
-    <article class="item" data-item="discipline">
-        <figure>
-        <img src =""/>
-        <h2>Disciplina</h2>
-        </figure>
-        <p>Faça importação das disciplinas da instituição.</p>
-    </article>
-    <article class="item" data-item="teacher">
-        <figure>
-        <img src =""/>
-        <h2>Professor</h2>
-        </figure>
-        <p>Faça importação dos professores que lecionam na instituição.</p>
-    </article>
-    <article class="item" data-item="student">
-        <figure>
-        <img src =""/>
-        <h2>Aluno</h2>
-        </figure>
-        <p>Faça importação dos alunos que pertencem a instituição.</p>
-    </article>
-</section>
-<% include ../../../public/scripts/standard-scripts.ejs %>
-<script src="/scripts/routes/admin/admin.js"></script>
-<script src="/scripts/searchData/admin/searchRegisters.js"></script>
-<script src="/scripts/insertData/admin/insertRegisters.js"></script>
-<script src="/scripts/structuresData/admin/genericStructure.js"></script>
-<script src="/scripts/dataElements/admin/rewards/config.js"></script>
-<script src="/scripts/dataElements/admin/rewards/create-structure.js"></script>
+    <% include ../way-now.ejs %>
+        <% include menu.ejs %>
+            <section class="page-content" data-content="viewData">
+                <article class="item" data-item="admin">
+                    <figure>
+                        <img src="" />
+                        <h2>Administrador</h2>
+                    </figure>
+                    <p>Visualize os dados dos administradores onde você pode edita-los e remove-los.</p>
+                </article>
+                <article class="item" data-item="course">
+                    <figure>
+                        <img src="" />
+                        <h2>Curso</h2>
+                    </figure>
+                    <p>Visualize os dados dos cursos onde você pode edita-los e remove-los.</p>
+                </article>
+                <article class="item" data-item="discipline">
+                    <figure>
+                        <img src="" />
+                        <h2>Disciplina</h2>
+                    </figure>
+                    <p>Visualize os dados das disciplinas onde você pode edita-los e remove-los.</p>
+                </article>
+                <article class="item" data-item="teacher">
+                    <figure>
+                        <img src="" />
+                        <h2>Professor</h2>
+                    </figure>
+                    <p>Visualize os dados dos professores onde você pode edita-los e remove-los.</p>
+                </article>
+                <article class="item" data-item="student">
+                    <figure>
+                        <img src="" />
+                        <h2>Aluno</h2>
+                    </figure>
+                    <p>Visualize os dados dos alunos onde você pode edita-los e remove-los.</p>
+                </article>
+                <article class="item" data-item="reward">
+                    <figure>
+                        <img src="" />
+                        <h2>Bonificação</h2>
+                    </figure>
+                    <p>Visualize os dados das bonificações onde você pode configura-las.</p>
+                </article>
+                <article class="item" data-item="type-topic">
+                    <figure>
+                        <img src="" />
+                        <h2>Tipo tópico colaborativo</h2>
+                    </figure>
+                    <p>Visualize o tipo de cada tópico colaborativo onde você pode configura-lo.</p>
+                </article>
+            </section>
+            <section class="page-content" data-content="import">
+                <article class="item" data-item="admin">
+                    <figure>
+                        <img src="" />
+                        <h2>Administrador</h2>
+                    </figure>
+                    <p>Faça importação dos administradores do sistema.</p>
+                </article>
+                <article class="item" data-item="course">
+                    <figure>
+                        <img src="" />
+                        <h2>Curso</h2>
+                    </figure>
+                    <p>Faça importação dos cursos da instituição.</p>
+                </article>
+                <article class="item" data-item="discipline">
+                    <figure>
+                        <img src="" />
+                        <h2>Disciplina</h2>
+                    </figure>
+                    <p>Faça importação das disciplinas da instituição.</p>
+                </article>
+                <article class="item" data-item="teacher">
+                    <figure>
+                        <img src="" />
+                        <h2>Professor</h2>
+                    </figure>
+                    <p>Faça importação dos professores que lecionam na instituição.</p>
+                </article>
+                <article class="item" data-item="student">
+                    <figure>
+                        <img src="" />
+                        <h2>Aluno</h2>
+                    </figure>
+                    <p>Faça importação dos alunos que pertencem a instituição.</p>
+                </article>
+            </section>
+            <% include ../../../public/scripts/standard-scripts.ejs %>
+                <script src="/scripts/routes/admin/admin.js"></script>
+                <script src="/scripts/searchData/admin/searchRegisters.js"></script>
+                <script src="/scripts/insertData/admin/insertRegisters.js"></script>
+                <script src="/scripts/structuresData/admin/genericStructure.js"></script>
+                <script src="/scripts/dataElements/admin/rewards/config.js"></script>
+                <script src="/scripts/dataElements/admin/rewards/create-structure.js"></script>
 </body>
 
 </html>

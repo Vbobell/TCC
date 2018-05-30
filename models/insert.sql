@@ -71,3 +71,18 @@ VALUES ('sequência de atividades prata', 'sequência de atividades prata realiz
 INSERT INTO reward_configuration(name_config, description_config, config, id_reward)
 VALUES ('sequência de atividades bronze', 'sequência de atividades bronze realizas corretas', 
 '{"name" : "amount", "amount": 1}', 14);
+
+---------------- configuração de bonificação ----------------
+
+---------------- tipo tópico colaborativo ----------------
+
+INSERT INTO type_topic(name_type_topic, description_type_topic, point_type_topic, file_type_topic)
+VALUES ('ideia', 'este tópico tem como objetivo sugerir uma ideia para a disciplina.', 1, 'idea');
+
+INSERT INTO type_topic(name_type_topic, description_type_topic, point_type_topic, file_type_topic)
+VALUES ('ajuda', 'este tópico tem como objetivo ajudar os colegas.', 1, 'help');
+
+INSERT INTO type_topic(name_type_topic, description_type_topic, point_type_topic, file_type_topic)
+VALUES ('dúvida', 'este tópico tem como objetivo esclarecer alguma dúvida que o aluno possui.', 1, 'doubt');
+
+---------------- tipo tópico colaborativo ----------------

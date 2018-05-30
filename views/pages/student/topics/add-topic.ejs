@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/creativity.png" />
+            <% if (data.topic) { %>
+                <h2>Editar tópico</h2>
+                <% } else { %>
+                    <h2>Criar tópico</h2>
+                    <% } %>
+        </figure>
+        <section class="big-inner-content table-content content-menu">
+            <section class="col-xl-2 topic-menu inner-menu">
+                <ul>
+                    <li class="item-menu-list active" data-menu="question">Dados</li>
+                </ul>
+                <div class="topic-action action-menu">
+                    <button id="save-topic" class="tool edit"></button>
+                    <% if (data.topic) { %>
+                        <label for="save-topic">Atualizar tópico</label>
+                        <% } else { %>
+                            <label for="save-topic">Salvar tópico</label>
+                            <% } %>
+                </div>
+            </section>
+            <section class="col-xl-10 topic-content content">
+                <section class="col-xl-12 topic-config" data-section="config">
+                    <header class="col-xl-12">
+                        <h3>Dados do tópico</h3>
+                    </header>
+                    <section class="col-xl-12 content-config">
+                        <div class="col-xl-12 config-item type-topic">
+                            <h4 class="col-xl-12">Tipo</h4>
+                            <% data.typeTopics.forEach(function(typeTopic) { %>
+                                <div class="col-xl-4">
+                                    <figure name="type-topic" data-id="<%= typeTopic.id_type_topic %>">
+                                        <img src="svg/itens/<%=typeTopic.file_type_topic%>.svg"/>
+                                    </figure>
+                                    <label><%= typeTopic.name_type_topic %></label>
+                                </div>
+                            <% }); %>  
+                        </div>
+                        <div class="col-xl-2 config-item">
+                            <h4>Nome do tópico</h4>
+                            <input name="name-topic" type="text" />
+                        </div>
+                        <div class="col-xl-4 config-item">
+                            <h4>Descrição do tópico</h4>
+                            <textarea name="description-topic"></textarea>
+                        </div>
+                        <div class="col-xl-4 config-item">
+                            <h4>Disciplina</h4>
+                            <ul>
+                                <% data.disciplines.forEach(function(discipline) { %>
+                                    <li>
+                                        <input type="radio" name="discipline-topic" id="discipline-<%= discipline.id_discipline %>" data-id="<%= discipline.id_discipline %>"
+                                        />
+                                        <label for="#discipline-<%= discipline.id_discipline %>">
+                                            <%= discipline.name_discipline %>
+                                        </label>
+                                    </li>
+                                    <% }); %>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <script class="script-add-topic" data-content="generic">
+
+    </script>
+</body>
+
+</html>

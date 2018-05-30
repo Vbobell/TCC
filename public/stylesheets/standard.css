@@ -30,7 +30,7 @@ body h5{
 .item{
     display: inline-block;
     background-color: #dae0da;
-    width: 28%;
+    width: 22%;
     cursor: pointer;
     vertical-align: top;
     text-align: center;
@@ -38,8 +38,8 @@ body h5{
     0 3px 1px -2px rgba(44, 43, 46, 0.2), 
     5px 5px 5px 0 rgba(44, 43, 46, 0.2);
 }
-.item:not(:nth-child(3n+3)) {
-    margin: 0 5% 5% 0;
+.item:not(:nth-child(4n+4)) {
+    margin: 0 2% 2% 0;
 }
 .item figure {
     display: inline-block;
@@ -54,8 +54,10 @@ body h5{
 }
 .item h2 {
     display: inline-block;
-    font-size: 1.5em;
+    padding: 0.2em;
+    font-size: 1.2em;
     text-align: center;
+    vertical-align: top;
 }
 .item img + p {
     color: #ffffff;
@@ -168,7 +170,23 @@ body h5{
 .view-row:nth-child(4n+3) {
     background-color: #dae0da;
 }
-
+.content-config {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: 300px;
+    background-color: #ffffff;
+    padding: 1em;
+    margin: 1em 0;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+}
+.config-item {
+    display: flex;
+    flex-wrap: wrap;
+}
 .edit-select{
     background-color: #17b377 !important;
 }
@@ -191,8 +209,8 @@ body h5{
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    width: 1.5em;
-    height: 1.5em;
+    width: 2em;
+    height: 2em;
     vertical-align: middle;
     cursor: pointer;
 }
@@ -380,7 +398,24 @@ padding: 0.5em 0;
     5px 5px 5px 0 rgba(44, 43, 46, 0.2);
 }
 /**/
-
+.type-topic figure {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.type-topic figure img{
+    width: 30%;
+    height: 100%;
+}
+.type-topic figure label{
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+.points label {
+    margin: 0;
+}
 /*utils*/
 .inactive{
     opacity: 0.6 !important;

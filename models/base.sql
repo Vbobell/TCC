@@ -138,3 +138,43 @@ CREATE TABLE student_reward(
     FOREIGN KEY (id_student) REFERENCES student (id_student),
     FOREIGN KEY (id_reward) REFERENCES reward (id_reward)
 );
+
+CREATE TABLE topic(
+    id_topic SERIAL NOT NULL PRIMARY KEY,
+    name_topic VARCHAR(100) NOT NULL,
+    description_topic TEXT NOT NULL
+);
+
+CREATE TABLE type_topic(
+    id_type_topic SERIAL NOT NULL PRIMARY KEY,
+    name_type_topic VARCHAR(100) NOT NULL,
+    description_type_topic TEXT NOT NULL,
+    point_type_topic DOUBLE PRECISION NOT NULL,
+    file_type_topic VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE colaboration_topic(
+    id_colaboration_topic SERIAL NOT NULL PRIMARY KEY,
+    id_topic INT NOT NULL,
+    id_type_topic INT NOT NULL,
+    id_discipline INT NOT NULL,
+    FOREIGN KEY (id_topic) REFERENCES topic (id_topic),
+    FOREIGN KEY (id_type_topic) REFERENCES type_topic (id_type_topic),
+    FOREIGN KEY (id_discipline) REFERENCES discipline (id_discipline)
+);
+
+CREATE TABLE student_topic(
+    id_student_topic SERIAL NOT NULL PRIMARY KEY,
+    id_colaboration_topic INT NOT NULL,
+    id_student INT NOT NULL,
+    FOREIGN KEY (id_colaboration_topic) REFERENCES colaboration_topic (id_colaboration_topic),
+    FOREIGN KEY (id_student) REFERENCES student (id_student)
+);
+
+CREATE TABLE teacher_topic(
+    id_teacher_topic SERIAL NOT NULL PRIMARY KEY,
+    id_colaboration_topic INT NOT NULL,
+    id_teacher INT NOT NULL,
+    FOREIGN KEY (id_colaboration_topic) REFERENCES colaboration_topic (id_colaboration_topic),
+    FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher)
+);

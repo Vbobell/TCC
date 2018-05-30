@@ -8,6 +8,7 @@ const ManageStudent = require('../manageStudent/manage-student');
 const ManageStudentDiscipline = require('../manageStudentDiscipline/manage-student-discipline');
 const ManageReward = require('../manageReward/manage-reward');
 const ManageRewardConfig = require('../manageRewardConfig/manage-reward-config');
+const ManageTypeTopic = require('../manageTypeTopic/manage-type-topic');
 
 class ManageSearch{
     constructor(entity, parameters){
@@ -92,8 +93,15 @@ class ManageSearch{
                     return callback({"valid": valid});
                 });
             break;
+            case 'typeTopic':
+                let manageTypeTopic = new ManageTypeTopic();
+                manageTypeTopic.getDataTypeTopic(this.parameters, (data) =>{
+                    return callback(data);
+                });
+            break;
             default:
-                return callback("error"); 
+                return callback("error");
+            break;
         }
     }
 }

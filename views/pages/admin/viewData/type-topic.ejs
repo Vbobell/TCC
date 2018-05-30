@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/file.png"/>
+            <h2>Tipo tópico colaborativo</h2>
+        </figure>
+        <section class="big-inner-content table-content">
+        <table class="registers">
+            <thead>
+                <tr class="row">
+                    <td class="col-lg-3">
+                        Nome
+                    </td>
+                    <td class="col-lg-5">
+                        Descrição
+                    </td>
+                    <td class="col-lg-2">
+                        Pontos
+                    </td>
+                    <td class="col-lg-2">
+                        Configuração
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        </section>
+    </section>
+    
+    <script class="script-type-topic" data-content="generic">
+        (function () {
+            var getData = function(parameters, callback){
+                var tableHead = ['name_type_topic', 'description_type_topic', 'point_type_topic'];
+                $.ajax({
+                    url: '/admin/getData',
+                    type: 'GET',
+                    data: parameters,
+                    async : false,
+                }).done(function (data) {
+                    var registers = JSON.parse(data);
+                    
+                    $('table.registers tbody').html('');
+                    
+                    registers.forEach(function (item, i) {             
+                        $('table.registers tbody').append('<tr class="row view-row" id="row' + i + '" data-id="'+item.id_type_topic +'"></tr>');
+                        $('table.registers tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '" data-id="'+item.id_type_topic +'"></tr>');
+
+                        $('table.registers tbody tr#row' + i).append(
+                            '<td class="col-lg-3 type-topic"><figure><img src="svg/itens/'+ item.file_type_topic +'.svg" /><label>'+item.name_type_topic+'</label></figure></td>' +
+                            '<td class="col-lg-5">' + item.description_type_topic +'</td>' +
+                            '<td class="col-lg-2">'+ item.point_type_topic +'</td>' +
+                            '<td class="col-lg-2 content-tools"><div class="tool open-config" data-id="tr#editRow'+i+'"></div>' +
+                            '</td>'
+                        );
+                        
+                        $('table.registers tbody tr.edit-row[data-id="'+ item.id_type_topic + '"]').append(
+                            '<td class="col-lg-3"></td>'+
+                            '<td class="col-lg-5 points"><label>Pontuação</label></td>'+
+                            '<td class="col-lg-2 points"><input type="number" class="point" value="'+item.point_type_topic+'" min="1" max="100"/> </td>' +
+                            '<td class="col-lg-2"><div class="tool edit" data-id-name="" data-id-edit="'+item.id_type_topic+'"></div>' +
+                            '<div class="tool cancel"></div></td>'
+                        );
+                    });
+
+                    $('.open-config').on('click', function(){
+                        $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                        $($(this).attr('data-id')).removeClass('hidden').slideDown();
+                        
+                        $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+
+                        $(this).parents('.view-row').addClass('border-top-right-left edit-select');
+                        $($(this).attr('data-id')).addClass('border-right-bottom-left');
+                    });
+
+                    return callback();
+                });
+            };
+            var mountStructure = function(callback){
+                getData({'entity':'typeTopic', 'limit': 9, 'offset': 0 }, function(){
+                        $('.edit').on('click', function(){
+                            var data = {
+                                'entity': 'typeTopic',
+                                'id': $(this).attr('data-id-edit'),
+                                'point': $(this).parents('.edit-row').find('.points .point').val()
+                            };
+
+                                $.ajax({
+                                    url : 'admin/edit',
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    data : JSON.stringify(data),
+                                    async : false,
+                                    type: 'POST'
+                                }).done(function(data){
+                                    mountStructure(function(){
+                                        alert('dados alterados!');
+                                    });
+                                });
+                        });
+
+                        $('.cancel').on('click', function(){
+                            $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                            $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+                    });
+                return callback();
+                });
+            };
+            var key = true;
+            
+            if(key){
+                mountStructure(function(){
+                    key = false;
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>

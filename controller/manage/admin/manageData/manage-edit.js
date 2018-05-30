@@ -5,6 +5,7 @@ const ManageTeacher = require('../manageTeacher/manage-teacher');
 const ManageStudent = require('../manageStudent/manage-student');
 const ManageReward = require('../manageReward/manage-reward');
 const ManageRewardConfig = require('../manageRewardConfig/manage-reward-config');
+const ManageTypeTopic = require('../manageTypeTopic/manage-type-topic');
 
 class ManageEdit{
     constructor(entity, parameters){
@@ -58,6 +59,12 @@ class ManageEdit{
             case 'editAdminUser':
                 let manageAdminEdit = new ManageAdmin();
                 manageAdminEdit.editAdminUser(this.parameters, data => {
+                    return callback(data);
+                });
+            break;
+            case 'typeTopic':
+                let manageTypeTopic = new ManageTypeTopic();
+                manageTypeTopic.editTypeTopic(this.parameters, data => {
                     return callback(data);
                 });
             break;

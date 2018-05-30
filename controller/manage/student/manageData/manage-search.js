@@ -6,6 +6,7 @@ const ManageQuestionActivity = require('../../teacher/manageQuestionActivity/man
 const ManageAlternativeQuestion = require('../../teacher/manageAlternativeQuestion/manage-alternative-question');
 const ManageStudentReward = require('../manageStudentReward/manage-student-reward');
 const ManageStudent = require('../../admin/manageStudent/manage-student');
+const ManageColaborationTopic = require('../manageColaborationTopic/manage-colaboration-topic');
 
 class ManageSearch {
     constructor(entity, parameters) {
@@ -88,7 +89,7 @@ class ManageSearch {
                     });
                 });
                 break;
-                case 'studentUser':
+            case 'studentUser':
                 let manageStudentSearchEdit = new ManageStudent();
                 let dataEdit = {
                     user: ""
@@ -98,12 +99,31 @@ class ManageSearch {
                     return callback(dataEdit);
                 });
                 break;
-                case 'studentCheck':
+            case 'studentCheck':
                 let manageStudentCheck = new ManageStudent();
-                manageStudentCheck.loginValidation(this.parameters, (valid) =>{
-                    return callback({"valid": valid});
+                manageStudentCheck.loginValidation(this.parameters, (valid) => {
+                    return callback({ "valid": valid });
                 });
-            break;
+                break;
+            case 'newTopic':
+                let manageTopicDiscipline = new ManageStudentDiscipline();
+                let manageColaborationTopic = new ManageColaborationTopic();
+                
+                let dataTopics = {
+                    "disciplines": "",
+                    "typeTopics": ""
+                };
+
+                manageTopicDiscipline.getDataStudentDiscipline(this.parameters, (disciplines) => {
+                    dataTopics.disciplines = disciplines;
+
+                    manageColaborationTopic.getDataTypeTopic((typeTopics) =>{
+                        dataTopics.typeTopics = JSON.parse(typeTopics);
+
+                        return callback(dataTopics);
+                    });
+                });
+                break;
             default:
                 return callback(false);
                 break;

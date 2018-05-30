@@ -14,7 +14,7 @@ $(document).ready(function(){
                 $('.page-content[data-content="' +element.attr('data-menu') + '"]').fadeIn(400, function(){
                     element.addClass('selected');
                     $('header h1 span').remove();
-                    $('header h1').append('<span> > atividades</span>');
+                    $('header h1').append(`<span> > ${element.find('p').text()} </span>`);
                 });
             }, 200);
         }
@@ -57,6 +57,48 @@ $(document).ready(function(){
                     if(!key){
                         $('.item').removeClass('inactive');
                         $('.inner-header h1').append('<span> > '+disciplineText+'</span><span> > '+$('.title-content h2').text()+'</span>');
+                        key = true;
+                    }
+                }
+            });
+        });
+    });
+
+    $('.item.add.topic').on('click', function(){
+        $('.item').addClass('inactive');
+        var user = JSON.parse(localStorage.getItem('user'));
+        var dataSearch = { 
+            'path' : $(this).parent().attr('data-path'),  
+            'file' : $(this).attr('data-item'),
+            'controller' : {
+                'type': 'search',
+                'entity': 'newTopic',
+                'parameters': {
+                    'registry': user.registry,
+                }
+            }
+        };
+
+        var topicText = $(this).find('h2').text();
+
+        var key = false;
+        $('.page-content').fadeOut(200, function(){
+            $('[data-content="generic"]').remove();
+            $.ajax({
+                url : '/student/route/',
+                data : dataSearch,
+                dataType : 'html',
+                async : true,
+                type: 'GET'
+            }).done(function(data){
+                if($('[data-content="generic"]').length == 0){
+                    $('body').append(data);
+                    setTimeout(function(){
+                        $('.page-content[data-content="generic"]').fadeIn(200);
+                    },200);
+                    if(!key){
+                        $('.item').removeClass('inactive');
+                        $('.inner-header h1').append('<span> > '+topicText+'</span><span> > '+$('.page-content[data-content="generic"] .title-content h2').text()+'</span>');
                         key = true;
                     }
                 }
