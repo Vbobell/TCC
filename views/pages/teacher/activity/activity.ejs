@@ -10,14 +10,14 @@
                 <h2>Criar atividade</h2>
             <% } %>
         </figure>
-        <section class="big-inner-content table-content">
-            <section class="col-xl-2 activity-menu">
+        <section class="big-inner-content table-content content-menu">
+            <section class="col-12 col-xl-2 activity-menu inner-menu">
                 <ul>
                     <li class="item-menu-list active" data-menu="question">Questão</li>
-                    <li class="item-menu-list questions"><ul></ul></li>
+                    <li class="item-menu-list questions"><ul class="inner-list-menu"></ul></li>
                     <li class="item-menu-list" data-menu="config">Configurações</li>
                 </ul>
-                <div class="activity-action">
+                <div class="activity-action action-menu">
                     <button id="save-activity" class="tool edit"></button>
                     <% if (data.activity) { %>
                         <label for="save-activity">Atualizar atividade</label>
@@ -27,12 +27,12 @@
                 </div>
             </section>
             <section class="col-xl-10 activity-content">
-                <section class="col-xl-12 section-question" data-section="question">
-                    <header class="col-xl-12">
+                <section class="col-12 col-xl-12 section-question" data-section="question">
+                    <header class="col-12 col-xl-12">
                         <h3>Inserir questão</h3>
                     </header>
-                    <section class="col-xl-12 question-tools">
-                        <div class="col-xl-8 type-question">
+                    <section class="col-12 col-xl-12 question-tools">
+                        <div class="col-12 col-xl-8 type-question">
                             <figure class="active" data-tool="unique">
                                 <img src="images/content/tools/unique.png"/>
                             </figure>
@@ -43,7 +43,7 @@
                                 <img src="images/content/tools/draw.png"/>
                             </figure>
                         </div>
-                        <div class="col-xl-4 question-action">
+                        <div class="col-12 col-xl-4 question-action">
                                 <button id="save-question" data-save="insert" class="tool btn-correct"></button>
                                 <label for="save-question">Adicionar questão</label>
                         </div>
@@ -59,9 +59,9 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <td class="col-xl-1 content-tool"><h5>Correta</h5></td>
-                                            <td class="col-xl-10"><h5>Descrição</h5></td>
-                                            <td class="col-xl-1 content-tool"></td>
+                                            <td class="col-2 col-xl-1 content-tool"><h5>Correta</h5></td>
+                                            <td class="col-8 col-xl-10"><h5>Descrição</h5></td>
+                                            <td class="col-2 col-xl-1 content-tool"></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -86,9 +86,9 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <td class="col-xl-1 content-tool"><h5>Correta</h5></td>
-                                            <td class="col-xl-10"><h5>Descrição</h5></td>
-                                            <td class="col-xl-1 content-tool"></td>
+                                            <td class="col-2 col-xl-1 content-tool"><h5>Correta</h5></td>
+                                            <td class="col-8 col-xl-10"><h5>Descrição</h5></td>
+                                            <td class="col-2 col-xl-1 content-tool"></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -112,11 +112,11 @@
                         </div>
                     </article>
                 </section>
-                <section class="col-xl-12 activity-config" data-section="config" style="display:none;">
-                    <header class="col-xl-12">
+                <section class="col-12 col-xl-12 activity-config" data-section="config" style="display:none;">
+                    <header class="col-12 col-xl-12">
                         <h3>Configuração</h3>
                     </header>
-                    <section class="col-xl-12 content-config">
+                    <section class="col-12 col-xl-12 content-config">
                     <div class="col-xl-4 config-item">
                         <h4>Nome da atividade</h4>
                         <input name="name-activity" type="text"/>
@@ -237,9 +237,9 @@
 
                 _this.parents('.elements-question').find('.alternative table').append(
                         `<tr class="row-data">
-                            <td class="col-xl-1 content-tool"><input class="correct" name="correct-${ _this.attr('data-type') }" type="${ _this.attr('data-type') }"/></td>
-                            <td class="col-xl-10"><p class="description" contenteditable="true"></p></td>
-                            <td class="col-xl-1 content-tool"><button class="tool remove"></button></td>
+                            <td class="col-2 col-xl-1 content-tool"><input class="correct" name="correct-${ _this.attr('data-type') }" type="${ _this.attr('data-type') }"/></td>
+                            <td class="col-8 col-xl-10"><p class="description" contenteditable="true"></p></td>
+                            <td class="col-2 col-xl-1 content-tool"><button class="tool remove"></button></td>
                         </tr>`
                 );
                 $('.elements-question .tool.btn-add').removeClass('inactive');
@@ -415,6 +415,23 @@
             $(this).toggleClass('active');
         });
 
+        if(mobile){
+            $('.content-menu .inner-menu .item-menu-list .inner-list-menu').hide();
+            $('.activity-menu li.questions').prepend('<div class="arrow top"></div>');
+            $('.activity-menu li.questions').css('bottom', $('.inner-menu').height());
+
+            $('.arrow').on('click', function(){
+                if($(this).hasClass('top')){
+                    $(this).removeClass('top');
+                    $(this).addClass('bottom');
+                    $('.content-menu .inner-menu .item-menu-list .inner-list-menu').slideDown();
+                }else{
+                    $(this).removeClass('bottom');
+                    $(this).addClass('top');
+                    $('.content-menu .inner-menu .item-menu-list .inner-list-menu').slideUp();
+                }
+            });
+        }
     })();
     </script>
 </body>

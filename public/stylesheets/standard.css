@@ -18,7 +18,9 @@ body h4{
 body h5{
     font-size: 1em;
 }
-
+label{
+    margin: 0;
+}
 .page-content:not([data-content="viewData"]){
     display: none;
 }
@@ -439,6 +441,23 @@ button:focus {
 .scaleMax{
     transform: scale(1);
 }
+.arrow.top {
+    width: 10px;
+    height: 10px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid white;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+
+.arrow.bottom {
+    width: 10px;
+    height: 10px;
+    border-top: 5px solid white;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
 /*utils*/
 
 /*subscript bootstrap*/
@@ -471,25 +490,34 @@ button:focus {
     body {
         overflow: auto;
     }
+    input[type=checkbox], 
+    input[type=radio]{
+        width: 50%;
+        height: 1.5em;
+    }
     .page-content {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-        padding: 150px 0 1em 0;
+        padding: 0 0 1em 0;
         margin: 0;
     }
     .big-inner-content {
         flex-wrap: wrap;
         width: 100%;
         padding: 0;
-        margin: 70px 0 0 0;
+        margin: 70px 0 100px 0;
     }
     .item,
-    .item:not(:nth-child(3n+3)) {
+    .item:not(:nth-child(4n+4)) {
         width: 90%;
         margin:0 auto 1em;
     }
+    article.item:first-child {
+        margin: 90px auto 1em;
+    }
     .title-content{
+        display: none;
         justify-content: center;
         width: 100%;
         position: fixed;
@@ -504,10 +532,6 @@ button:focus {
     }
     .table-content{
         max-height: 100%;
-        margin: 0;
-    }
-    .table-content table{
-        margin: 60px 0 0 0;
     }
     .table-content thead tr.row{
         width: 100%;
@@ -527,7 +551,7 @@ button:focus {
         width: 100%;
     }
     .section-edit {
-        padding: 1em 0;
+        padding: 0 1em;
     }
     .tool{
         width: 2.5em;

@@ -67,12 +67,13 @@ a {
         position: fixed;
         float: none;
         box-shadow: none;
-        z-index: 2;
+        z-index: 4;
     }
     .inner-header h1 {
         padding:0;
         font-size: 1em;
         color: #ffffff;
+        text-align: center;
     }
     .identify-user{
         width: 15.8%;
@@ -84,7 +85,7 @@ a {
         display: none;
         background-color: #17b377;
         width: 100%;
-        padding: 3em;
+        padding: 2em;
         position: absolute;
         top: 70px;
         left: 0;

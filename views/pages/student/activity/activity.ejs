@@ -6,12 +6,12 @@
             <img src="images/content/itens/new-file.png"/>
             <h2>Realizar atividade</h2>
         </figure>
-        <section class="big-inner-content table-content">
-            <section class="col-xl-2 activity-menu">
+        <section class="big-inner-content table-content content-menu">
+            <section class="col-xl-2 activity-menu inner-menu">
                 <ul>
                     <li class="item-menu-list active" data-menu="question">Questões</li>
                     <li class="item-menu-list questions">
-                    <ul>
+                    <ul class="inner-list-menu">
                     <% data.questions.forEach(function(question, index) { %>
                         <li class="item-question" data-question="<%= index %>"> 
                             <label><%= question.description.substr(0, 10) %></label>
@@ -20,7 +20,7 @@
                     </ul>
                     </li>
                 </ul>
-                <div class="activity-action">
+                <div class="activity-action action-menu">
                     <button id="save-activity" class="tool edit"></button>
                     <label for="save-activity">Enviar atividade</label>
                 </div>
@@ -43,8 +43,8 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <td class="col-xl-1 content-tool"></td>
-                                            <td class="col-xl-11"></td>
+                                            <td class="col-2 col-xl-1 content-tool"></td>
+                                            <td class="col-10 col-xl-11"></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,8 +60,8 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <td class="col-xl-1 content-tool"></td>
-                                            <td class="col-xl-11"></td>
+                                            <td class="col-2 col-xl-1 content-tool"></td>
+                                            <td class="col-10 col-xl-11"></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -183,8 +183,26 @@
                 }
             }
         });
+        if(mobile){
+            $('.content-menu .inner-menu .item-menu-list .inner-list-menu').hide();
+            $('.activity-menu li.questions').prepend('<div class="arrow top"></div>');
+            $('.activity-menu li.questions').css('bottom', $('.inner-menu').height());
+
+            $('.arrow').on('click', function(){
+                if($(this).hasClass('top')){
+                    $(this).removeClass('top');
+                    $(this).addClass('bottom');
+                    $('.content-menu .inner-menu .item-menu-list .inner-list-menu').slideDown();
+                }else{
+                    $(this).removeClass('bottom');
+                    $(this).addClass('top');
+                    $('.content-menu .inner-menu .item-menu-list .inner-list-menu').slideUp();
+                }
+            });
+        }
 
         $('.activity-menu li.questions').show();
+        
     </script>
 </body>
 </html>

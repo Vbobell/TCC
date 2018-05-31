@@ -158,6 +158,15 @@
 
 /*Menu students rewards */
 @media all and (max-width: 1023px){
+    .button-menu {
+        width: 10%;
+    }
+    .button-menu .line {
+        width: 100%;
+        background-color: white;
+        height: 0.3em;
+        margin: 0.4em 0 0 0;
+    }
     .menu {
         display: flex;
         vertical-align: top;
@@ -168,7 +177,7 @@
         top: 70px;
         float: none;
         box-shadow: none;
-        z-index: 1;
+        z-index: 3;
     }
     .menu .menu-identify {
         display: none;
@@ -199,7 +208,7 @@
         padding:0;
     }
     .content-menu .content .edit-item {
-        padding: 1em;
+        padding: 0.5em 1em;
     }
     .content-menu .content .edit-item h4{
         margin: 0 0 0.2em 0;
@@ -210,6 +219,7 @@
     .content-menu .content input,
     .content-menu .content select {
         width: 100%;
+        padding: 0.4em 0;
         margin: 0.2em 0 0 0;
     }
     .content-menu .content .type-avatar{
@@ -221,5 +231,24 @@
     .content-menu .content .avatar {
         width: 40%;
     }
-    /*content menu*/
+    .content-menu .action-menu {
+        position: relative;
+    }
+    .content-menu .inner-menu .item-menu-list .inner-list-menu{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        position: absolute;
+        bottom: 80px;
+        left: 0;
+        background-color: #2c2b2e;
+    } 
+    .content-menu .inner-menu .item-menu-list .inner-list-menu li{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
 }

@@ -50,3 +50,19 @@
 .section-reward .reward figure.inactive{
     filter: grayscale(1);
 }
+@media all and (max-width:1024px){
+    .section-question {
+        padding: 1em;
+    }
+    .section-question header {
+        padding: 1em 0;
+    }
+    .elements-question table tbody tr {
+        display: flex;
+    }
+    .elements-question table tbody tr td {
+        justify-content: left;
+        text-align: left;
+        padding: 1em 0;
+    }
+}

@@ -15,5 +15,34 @@ $(document).ready(function(){
         $(window,document).resize(function(){
             $('.menu').height($(window,document).height());
         });
-    }
+
+        $('.identify-user').on('click', function(){
+            if($('.config-user').is(':visible')){
+                $('.config-user').slideUp(200);
+            }else{
+                $('.config-user').slideDown(200);
+            }
+        });
+    }else{
+        $('.menu').hide();
+        $('.button-menu').removeClass('hidden');
+
+        $('.button-menu').on('click', function(){
+            if($('.menu').is(':visible')){
+                $('.menu').slideUp(200);
+            }else{
+                $('.config-user').slideUp(200);
+                $('.menu').slideDown(200);
+            }
+        });
+
+        $('.identify-user').on('click', function(){
+            if($('.config-user').is(':visible')){
+                $('.config-user').slideUp(200);
+            }else{
+                $('.menu').slideUp(200);
+                $('.config-user').slideDown(200);
+            }
+        });
+    }    
 });

@@ -69,7 +69,9 @@
                     $('.page-content[data-content="generic"]').fadeIn(200);
                 },200);
                 if(!key){
-                    $('.inner-header h1').append('<span> > '+$('.title-content h2').text() +'</span>');
+                    if(!mobile){
+                        $('.inner-header h1').append('<span> > '+$('.title-content h2').text() +'</span>');
+                    }
                     key = true;
                 }
             });

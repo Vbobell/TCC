@@ -4,6 +4,9 @@
 .activity-content{
     overflow-y: auto;
 }
+.activity-content h4{
+    width: 100%;
+}
 .activity-content header {
     display: flex;
     justify-content: space-between;
@@ -88,6 +91,7 @@ p[contenteditable] {
 .activity-config .content-config{
     display: flex;
     align-content: center;
+    align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
     background-color: #ffffff;
@@ -132,4 +136,32 @@ p[contenteditable] {
 }
 .activity-config .config-item.reward img {
     width: 100%;
+}
+
+@media all and (max-width:1024px){
+    .section-question .question-tools {
+        flex-wrap: wrap;
+    }
+    .section-question .type-question{
+        justify-content: center;
+    }
+    .section-question .question-action{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1em 0 0 0;
+    }
+    .activity-config .config-item.reward {
+        margin: 1em 0 0 0;
+    }
+    .activity-content h4 {
+        width: 100%;
+        margin: 0 0 0.2em 0;
+    }
+    .activity-config .config-item.reward h4{
+        padding: 0;
+    }
+    .activity-config .config-item input[type="text"]{
+        padding: 0.5em 0;
+    }
 }
