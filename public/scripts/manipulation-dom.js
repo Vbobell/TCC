@@ -44,5 +44,10 @@ $(document).ready(function(){
                 $('.config-user').slideDown(200);
             }
         });
+
+        $(window, document).on('load', function(){
+            var heightHeader = $('.inner-header').height()+20;
+            $('.menu, .config-user').css('top', heightHeader);
+        });
     }    
 });

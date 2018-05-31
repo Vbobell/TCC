@@ -550,6 +550,9 @@ button:focus {
     .content .reward figure {
         width: 100%;
     }
+    .reward.background figure {
+        width: 90%;
+    }
     .section-edit {
         padding: 0 1em;
     }
