@@ -118,6 +118,53 @@ $(document).ready(function(){
         });
     });
     
+    $('.item.add.topic').on('click', function(){
+        $('.item').addClass('inactive');
+        var user = JSON.parse(localStorage.getItem('user'));
+        var dataSearch = { 
+            'path' : $(this).parent().attr('data-path'),  
+            'file' : $(this).attr('data-item'),
+            'controller' : {
+                'type': 'search',
+                'entity': 'newTopic',
+                'parameters': {
+                    'registry': user.registry,
+                }
+            }
+        };
+
+        var topicText = $(this).find('h2').text();
+
+        var key = false;
+        $('.page-content').fadeOut(200, function(){
+            $('[data-content="generic"]').remove();
+            $.ajax({
+                url : '/teacher/route/',
+                data : dataSearch,
+                dataType : 'html',
+                async : true,
+                type: 'GET'
+            }).done(function(data){
+                if($('[data-content="generic"]').length == 0){
+                    $('body').append(data);
+                    setTimeout(function(){
+                        $('.page-content[data-content="generic"]').fadeIn(200);
+                    },200);
+                    if(!key){
+                        $('.item').removeClass('inactive');
+                        if(!mobile){                        
+                            $('.inner-header h1').append('<span> > '+topicText+'</span><span> > '+$('.page-content[data-content="generic"] .title-content h2').text()+'</span>');
+                        }else{
+                            $('.inner-header h1').text($('.page-content[data-content="generic"] .title-content h2').text());
+                        }
+
+                        key = true;
+                    }
+                }
+            });
+        });
+    });
+
     if(user){
         $.ajax({
             url : 'svg/users/'+user.identity,

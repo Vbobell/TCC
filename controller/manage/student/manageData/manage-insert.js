@@ -34,7 +34,7 @@ class ManageInsert {
             case 'topic':
                 let manageColaborationTopic = new ManageColaborationTopic();
 
-                manageColaborationTopic.insertTopic.insertTopicProperties(this.parameters, (idsTopic) => {
+                manageColaborationTopic.insertTopicProperties(this.parameters, (idsTopic) => {
                     return callback(idsTopic);
                 });
                 break;

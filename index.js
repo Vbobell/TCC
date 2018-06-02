@@ -74,7 +74,7 @@ app.get('/teacher', function (request, response) {
     let routeTeacher = new RouteTeacher(controller);
     routeTeacher.getRouteData((data) =>{
       if(data){
-        response.render('pages/teacher/index', {disciplines : data , user : request.session.user, way : 'atividades'});
+        response.render('pages/teacher/index', {data : data , user : request.session.user, way : 'atividades'});
       }else{
         response.redirect('/error');
       }

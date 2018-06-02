@@ -18,7 +18,7 @@
             <img class="add-activity" src="images/content/itens/new-file.png"/>
             <p>Inserir nova atividade para disciplinas</p>
     </article>
-    <% disciplines.forEach(function(discipline) { %>
+    <% data.disciplines.forEach(function(discipline) { %>
     <article class="item discipline activity" data-item="discipline-activity" data-id="<%= discipline.id_discipline %>">
         <figure>
         <img src=""/>
@@ -28,6 +28,7 @@
     </article>
     <% }); %>
 </section>
+<% include ./topics/discipline-topic.ejs %>
 
 <% include ../../../public/scripts/standard-scripts.ejs %>
 <script src="/scripts/routes/teacher/teacher.js"></script>

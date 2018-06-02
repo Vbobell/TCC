@@ -5,26 +5,31 @@ const ManageActivity = require('../manageActivity/manage-activity');
 const ManageQuestionActivity = require('../manageQuestionActivity/manage-question-activity');
 const ManageAlternativeQuestion = require('../manageAlternativeQuestion/manage-alternative-question');
 const ManageTeacher = require('../../admin/manageTeacher/manage-teacher');
+const ManageColaborationTopic = require('../manageColaborationTopic/manage-colaboration-topic');
 
-class ManageSearch{
-    constructor(entity, parameters){
+class ManageSearch {
+    constructor(entity, parameters) {
         this.entity = entity;
         this.parameters = parameters;
     }
-    getData(callback){
-        switch(this.entity){
+    getData(callback) {
+        switch (this.entity) {
             case 'teacherDiscipline':
+                let data = {
+                    "disciplines": ""
+                };
                 let manageTeacherDiscipline = new ManageTeacherDiscipline();
-                manageTeacherDiscipline.getDataTeacherDiscipline(this.parameters, data =>{
+                manageTeacherDiscipline.getDataTeacherDiscipline(this.parameters, (disciplines) => {
+                    data.disciplines = disciplines;
                     return callback(data);
                 });
-            break;
+                break;
             case 'disciplineActivity':
                 let manageDisciplineActivity = new ManageDisciplineActivity();
-                manageDisciplineActivity.getDataDisciplineActivity(this.parameters, data =>{
+                manageDisciplineActivity.getDataDisciplineActivity(this.parameters, data => {
                     return callback(data);
                 });
-            break;
+                break;
             case 'newActivity':
                 let manageActivityDiscipline = new ManageTeacherDiscipline();
                 let manageRewardActivity = new ManageRewardActivity();
@@ -32,23 +37,23 @@ class ManageSearch{
                     disciplines: "",
                     rewards: ""
                 };
-                manageActivityDiscipline.getDataTeacherDiscipline(this.parameters, dataDiscipline =>{
+                manageActivityDiscipline.getDataTeacherDiscipline(this.parameters, dataDiscipline => {
                     returnData.disciplines = dataDiscipline;
-                    manageRewardActivity.getDataRewardActivity(this.parameters, dataReward =>{
-                        returnData.rewards = dataReward;                       
+                    manageRewardActivity.getDataRewardActivity(this.parameters, dataReward => {
+                        returnData.rewards = dataReward;
                         return callback(returnData);
                     });
                 });
-            break;
+                break;
             case 'editActivity':
                 let that = this;
-                
+
                 let manageEditActivityDiscipline = new ManageTeacherDiscipline();
                 let manageEditRewardActivity = new ManageRewardActivity();
                 let manageActivity = new ManageActivity();
                 let manageQuestionActivity = new ManageQuestionActivity();
                 let manageAlternativeQuestion = new ManageAlternativeQuestion();
-                
+
                 let returnEditData = {
                     disciplines: "",
                     rewards: "",
@@ -59,32 +64,32 @@ class ManageSearch{
                         rewards: ""
                     }
                 };
-                
-                manageEditActivityDiscipline.getDataTeacherDiscipline(that.parameters, dataDiscipline =>{
+
+                manageEditActivityDiscipline.getDataTeacherDiscipline(that.parameters, dataDiscipline => {
                     returnEditData.disciplines = dataDiscipline;
-                    
-                    manageEditRewardActivity.getDataRewardActivity(that.parameters, dataReward =>{
+
+                    manageEditRewardActivity.getDataRewardActivity(that.parameters, dataReward => {
                         returnEditData.rewards = dataReward;
-                        
-                        manageActivity.getDataActivity(that.parameters, dataActivity =>{
+
+                        manageActivity.getDataActivity(that.parameters, dataActivity => {
                             returnEditData.activity.config = dataActivity;
-                            
-                            manageEditRewardActivity.getRewardInActivity(that.parameters, dataRewardActivity =>{
+
+                            manageEditRewardActivity.getRewardInActivity(that.parameters, dataRewardActivity => {
                                 returnEditData.activity.rewards = dataRewardActivity;
 
-                                manageQuestionActivity.getQuestionObject(that.parameters.idActivity, dataQuestion =>{
+                                manageQuestionActivity.getQuestionObject(that.parameters.idActivity, dataQuestion => {
                                     returnEditData.activity.questions = dataQuestion;
-                                    
+
                                     returnEditData.activity.questions.forEach((question, index) => {
-                                        
-                                        manageAlternativeQuestion.getAlternativeQuestion(question.id, (alternative, indexAlternative) =>{
-                                            if(alternative.length == 0){
+
+                                        manageAlternativeQuestion.getAlternativeQuestion(question.id, (alternative, indexAlternative) => {
+                                            if (alternative.length == 0) {
                                                 returnEditData.activity.questions[index].alternatives = null;
-                                            }else{
+                                            } else {
                                                 returnEditData.activity.questions[index].alternatives = alternative;
                                             }
 
-                                            if(index == returnEditData.activity.questions.length-1){
+                                            if (index == returnEditData.activity.questions.length - 1) {
                                                 return callback(returnEditData);
                                             }
                                         });
@@ -94,7 +99,7 @@ class ManageSearch{
                         });
                     });
                 });
-            break;
+                break;
             case 'teacherUser':
                 let manageTeacherSearchEdit = new ManageTeacher();
                 let dataEdit = {
@@ -104,16 +109,35 @@ class ManageSearch{
                     dataEdit.user = data;
                     return callback(dataEdit);
                 });
-            break;
+                break;
             case 'teacherCheck':
                 let manageTeacherCheck = new ManageTeacher();
-                manageTeacherCheck.loginValidation(this.parameters, (valid) =>{
-                    return callback({"valid": valid});
+                manageTeacherCheck.loginValidation(this.parameters, (valid) => {
+                    return callback({ "valid": valid });
                 });
-            break;
+                break;
+            case 'newTopic':
+                let manageTopicDiscipline = new ManageTeacherDiscipline();
+                let manageColaborationTopic = new ManageColaborationTopic();
+
+                let dataTopics = {
+                    "disciplines": "",
+                    "typeTopics": ""
+                };
+
+                manageTopicDiscipline.getDataTeacherDiscipline(this.parameters, (disciplines) => {
+                    dataTopics.disciplines = disciplines;
+
+                    manageColaborationTopic.getDataTypeTopic((typeTopics) => {
+                        dataTopics.typeTopics = JSON.parse(typeTopics);
+
+                        return callback(dataTopics);
+                    });
+                });
+                break;
             default:
                 return callback(false);
-            break;
+                break;
         }
     }
 }
