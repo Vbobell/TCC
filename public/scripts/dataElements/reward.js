@@ -7,8 +7,8 @@ class Reward{
         var that = this;
 
         $('body').append(`<div class="reward background">
-        <div class="close">X</div>
         <figure class="scaleMin">
+        <div class="close">X</div>
         <img class="reward" src="images/reward/${this.rewards[0].file}.png"/>
         <figcaption>${this.rewards[0].name}</figcaption>
         </figure>

@@ -276,6 +276,9 @@ figure.enable {
 figure.enable img {
     width: 100%;
 }
+p.answer {
+    border: 1px solid #17b377;
+}
 /*rewards*/
 .reward.background {
     display: flex;
@@ -291,8 +294,8 @@ figure.enable img {
 .reward.background .close {
     float: none;
     position: absolute;
-    top: 1em;
-    right: 1em;
+    top: 0;
+    right: 0;
     color: #ffffff;
     text-shadow: none;
     opacity: 1;
@@ -315,6 +318,10 @@ figure.enable img {
 }
 .reward img{
     width:100%;
+}
+.reward.background figcaption {
+    text-align: center;
+    color: white;
 }
 /*rewards*/
 

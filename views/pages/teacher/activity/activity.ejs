@@ -214,8 +214,10 @@
             }
         });
 
+
         $('.activity-menu .item-menu-list:not(.questions)').on('click', function(){
             var _this = $(this);
+
             if(!_this.hasClass('active')){
                 $('.activity-menu .item-menu-list').removeClass('active').addClass('inactive');
                 $('.table-content [data-section]').fadeOut(400, function(){
@@ -223,6 +225,12 @@
                         $('.table-content [data-section="'+_this.attr('data-menu')+'"]').fadeIn(200, function(){
                             $('.activity-menu .item-menu-list').removeClass('inactive');
                             _this.addClass('active');
+                            $('.activity-menu li.question').removeClass('active');
+                            $('.content-question .question .description').text('');
+                            $('.content-question .alternative .row-data').remove();
+                            $('.content-question .alternative .not-alternative').show();
+                            $('#save-question').removeAttr('data-edit').attr('data-save','insert');
+                            $('.question-action label').text('Adicionar questão');
                         });
                     }, 400);
                 });
@@ -300,6 +308,7 @@
                     if(that.attr('data-save') == 'edit'){
                         $(`li.question[data-question="${that.attr('data-edit')}"] label`)
                         .text(question.description.substr(0, 10));
+                        that.attr('data-save', 'insert');
                     }else{
                         $('li.questions ul').append(
                             $('<li class="question">')
@@ -317,8 +326,25 @@
                     $('.questions .open-edit, .questions .remove').off('click');
                     
                     $('.questions .open-edit').on('click', function(){
-                        mountStructure.setElements($(this).parents('li.question').attr('data-question'), activity.questions[parseInt($(this).parents('li.question').attr('data-question'))]);
+                        var _this = $(this);
+
+                        if(!$(this).parents('li.question').hasClass('active')){
+                            $('.activity-menu .item-menu-list').removeClass('active').addClass('inactive');
+                            $('.table-content [data-section]').fadeOut(400, function(){
+                                setTimeout(function(){
+                                    $('.table-content [data-section="question"]').fadeIn(200, function(){
+                                        $('.activity-menu .item-menu-list').removeClass('inactive');
+                                        $('.item-menu-list').removeClass('active');
+                                        _this.parents('li.question').addClass('active');
+                                        mountStructure.setElements(_this.parents('li.question').attr('data-question'), activity.questions[parseInt(_this.parents('li.question').attr('data-question'))]);
+                                    });
+                                }, 400);
+                            });
+                    
+                            
+                        }
                     });
+
                     $('.questions .remove').on('click', function(){
                         activity.removeQuestion(parseInt($(this).parents('li.question').attr('data-question')));
                         $(this).parents('li.question').remove();
