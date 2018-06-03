@@ -1,11 +1,11 @@
 const CrudActivity = require('../../../../models/crud/crudActivity/crud-activity');
 
-class ManageActivity{
-    constructor(){
+class ManageActivity {
+    constructor() {
         this.crudActivity = new CrudActivity();
-        this.data = ''; 
+        this.data = '';
     }
-    getDataActivity(parameters, callback){
+    getDataActivity(parameters, callback) {
         let registry = [
             parameters.idActivity,
             parameters.idTeacher
@@ -13,36 +13,36 @@ class ManageActivity{
 
         this.crudActivity.selectActivityObject(
             registry,
-            (data) =>{
+            (data) => {
                 return callback(data);
             }
         );
     }
 
-    getRealizeActivity(parameters, callback){
+    getRealizeActivity(parameters, callback) {
         let registry = [
             parameters.idActivity
         ]
 
         this.crudActivity.selectActivity(
             registry,
-            (data) =>{
+            (data) => {
                 return callback(data);
             }
         );
     }
 
-    insertDataActivity(parameters, callback){
+    insertDataActivity(parameters, callback) {
         let registry = [
             parameters.config.nameActivity,
             parameters.config.descriptionActivity,
             parameters.config.pointActivity,
             parameters.config.idDiscipline,
             parameters.config.idTeacher
-        ] 
+        ]
 
         this.crudActivity.executeUniqueInsert(
-            'activity', 
+            'activity',
             '(name_activity, description_activity, point_activity, id_discipline, id_teacher)',
             '($1, $2, $3, $4, $5)',
             'id_activity',
@@ -52,7 +52,7 @@ class ManageActivity{
             });
     }
 
-    updateDataActivity(parameters, callback){
+    updateDataActivity(parameters, callback) {
         let registry = [
             parameters.config.nameActivity,
             parameters.config.descriptionActivity,
@@ -65,7 +65,7 @@ class ManageActivity{
         let where = 'id_activity = $6';
 
         this.crudActivity.executeUpdate(
-            'activity', 
+            'activity',
             '(name_activity, description_activity, point_activity, id_discipline, id_teacher)',
             '($1, $2, $3, $4, $5)',
             where,
@@ -75,12 +75,16 @@ class ManageActivity{
             });
     }
 
-    removeDataActivity(parameters, callback){
+    removeDataActivity(parameters, callback) {
         this.crudActivity.executeDelete(
-        "activity", "id_activity = $1", [parameters.idActivity],
-        (response) => {
-            return callback(response);
-        });
+            "student_activity", "id_activity = $1", [parameters.idActivity],
+            (response) => {
+                this.crudActivity.executeDelete(
+                    "activity", "id_activity = $1", [parameters.idActivity],
+                    (response) => {
+                        return callback(response);
+                    });
+            });
     }
 }
 

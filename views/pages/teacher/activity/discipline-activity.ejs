@@ -73,7 +73,9 @@
                     $('.page-content[data-content="generic"]').fadeIn(200);
                 },200);
                 if(!key){
-                    $('.inner-header h1').append('<span> > '+$('.title-content h2').text() +'</span>');
+                    if (!mobile) {
+                        $('.inner-header h1').append('<span> > '+$('.page-content[data-content="generic"] .title-content h2').text() +'</span>');
+                    }
                     key = true;
                 }
             });
@@ -106,6 +108,8 @@
             type: 'POST'
         }).done(function(data){
             if(data){
+                alert('Atividade removida!');
+                
                 var dataSearch = { 
                     'path' : that.parent().attr('data-path'),  
                     'file' : that.attr('data-item'),
