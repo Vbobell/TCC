@@ -7,6 +7,7 @@ const ManageAlternativeQuestion = require('../../teacher/manageAlternativeQuesti
 const ManageStudentReward = require('../manageStudentReward/manage-student-reward');
 const ManageStudent = require('../../admin/manageStudent/manage-student');
 const ManageColaborationTopic = require('../manageColaborationTopic/manage-colaboration-topic');
+const ManageDisciplineTopic = require('../manageDisciplineTopic/manage-discipline-topic');
 
 class ManageSearch {
     constructor(entity, parameters) {
@@ -108,7 +109,7 @@ class ManageSearch {
             case 'newTopic':
                 let manageTopicDiscipline = new ManageStudentDiscipline();
                 let manageColaborationTopic = new ManageColaborationTopic();
-                
+
                 let dataTopics = {
                     "disciplines": "",
                     "typeTopics": ""
@@ -117,12 +118,58 @@ class ManageSearch {
                 manageTopicDiscipline.getDataStudentDiscipline(this.parameters, (disciplines) => {
                     dataTopics.disciplines = disciplines;
 
-                    manageColaborationTopic.getDataTypeTopic((typeTopics) =>{
+                    manageColaborationTopic.getDataTypeTopic((typeTopics) => {
                         dataTopics.typeTopics = JSON.parse(typeTopics);
 
                         return callback(dataTopics);
                     });
                 });
+                break;
+            case 'disciplineTopic':
+                let manageDisciplineTopic = new ManageDisciplineTopic();
+                let dataDisciplineTopics = {
+                    "alltopics": true,
+                    "topics": ""
+                };
+                manageDisciplineTopic.getDisciplineTopic(this.parameters, (disciplineTopics) => {
+                    dataDisciplineTopics.topics = disciplineTopics;
+                    return callback(dataDisciplineTopics);
+                });
+                break;
+            case 'myDisciplineTopic':
+                let manageMyDisciplineTopic = new ManageDisciplineTopic();
+                let dataMyDisciplineTopics = {
+                    "alltopics": false,
+                    "topics": ""
+                };
+                manageMyDisciplineTopic.getMyDisciplineTopic(this.parameters, (disciplineTopics) => {
+                    dataMyDisciplineTopics.topics = disciplineTopics;
+                    return callback(dataMyDisciplineTopics);
+                });
+                break;
+            case 'editTopic':
+                let manageEditColaborationTopic = new ManageColaborationTopic();
+                let manageEditTopicDiscipline = new ManageStudentDiscipline();
+
+                let dataEditTopic = {
+                    "disciplines": "",
+                    "typeTopics": "",
+                    "topic": ""
+                };
+
+                manageEditTopicDiscipline.getDataStudentDiscipline(this.parameters, (disciplines) => {
+                    dataEditTopic.disciplines = disciplines;
+
+                    manageEditColaborationTopic.getDataTypeTopic((typeTopics) => {
+                        dataEditTopic.typeTopics = JSON.parse(typeTopics);
+
+                        manageEditColaborationTopic.getDataTopic(that.parameters, (topicData) => {
+                            dataEditTopic.topic = topicData[0];
+                            return callback(dataEditTopic);
+                        });
+                    });
+                });
+
                 break;
             default:
                 return callback(false);

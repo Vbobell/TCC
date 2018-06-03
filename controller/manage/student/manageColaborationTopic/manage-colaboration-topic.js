@@ -69,7 +69,7 @@ class ManageColaborationTopic{
     insertStudentTopic(parameters, callback){
         let registry = [
             parameters.idTopic,
-            parameters.idTypeTopic
+            parameters.idStudent
         ];
 
         this.crudStudentTopic.executeUniqueInsert(
@@ -143,6 +143,16 @@ class ManageColaborationTopic{
 
     getDataTypeTopic(callback){
         this.crudTypeTopic.selectTypeTopic(data =>{
+            return callback(data);
+        });
+    }
+
+    getDataTopic(parameters, callback){
+        let registry = [
+            parameters.idTopic
+        ];
+
+        this.crudTopic.selectTopicEdit(registry, (data) =>{
             return callback(data);
         });
     }

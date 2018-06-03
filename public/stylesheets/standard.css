@@ -172,6 +172,12 @@ label{
 .view-row:nth-child(4n+3) {
     background-color: #dae0da;
 }
+.view-row.not-edit{
+    background-color:#ffffff;
+}
+.view-row.not-edit:nth-child(even){ 
+    background-color: #dae0da;
+}
 .content-config {
     display: flex;
     align-content: center;
@@ -413,6 +419,9 @@ padding: 0.5em 0;
     5px 5px 5px 0 rgba(44, 43, 46, 0.2);
 }
 /**/
+.all-topic{
+    background-color: #2c2b2e;
+}
 .topic-content .content-config{
     align-content: baseline;
 }
@@ -453,6 +462,22 @@ padding: 0.5em 0;
 }
 .points label {
     margin: 0;
+}
+table.registers .type-topic{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+table.registers .type-topic figure[name="type-topic"]{
+    width: 20%;
+    margin: 0
+}
+table.registers figure[name="type-topic"] img{
+    width: 100%;
+}
+table.registers figure[name="type-topic"] label{
+    width: 100%;
 }
 /*utils*/
 .inactive{

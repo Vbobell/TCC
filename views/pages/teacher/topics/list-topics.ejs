@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/creativity.png" />
+            <h2>Tópicos da disciplina</h2>
+        </figure>
+        <section class="big-inner-content table-content">
+            <table class="registers">
+                <thead>
+                    <tr class="row">
+                        <td class="col-lg-3">
+                            Tipo
+                        </td>
+                        <td class="col-lg-6">
+                            Nome
+                        </td>
+                        <td class="col-lg-3">
+                            Ação
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% data.topics.forEach(function(topic) { %>
+                        <tr class="row view-row not-edit">
+                            <td class="col-lg-3 type-topic">
+                                <figure name="type-topic" data-id="<%= topic.id_type_topic %>">
+                                    <img src="svg/itens/<%=topic.file_type_topic%>.svg" />
+                                </figure>
+                                <label>
+                                    <%= topic.name_type_topic %>
+                                </label>
+                            </td>
+                            <td class="col-lg-6">
+                                <%= topic.name_topic %>
+                            </td>
+                            <td class="col-lg-3 content-tools" data-path="topics">
+                                <% if (data.alltopics) { %>
+                                    <div class="tool open-view" data-item="view-topic" data-id="<%= topic.id_topic %>"></div>
+                                <% } else { %>
+                                    <div class="tool open-view" data-item="view-topic" data-id="<%= topic.id_topic %>"></div>
+                                    <div class="tool open-edit" data-item="add-topic" data-id="<%= topic.id_topic %>"></div>
+                                    <div class="tool remove" data-item="list-topic" data-id="<%= topic.id_topic %>"></div>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+        </section>
+    </section>
+    <script class="script-view-topic" data-content="generic">
+        $('.open-view, .open-edit').on('click', function () {
+            var user = JSON.parse(localStorage.getItem('user'));
+            var entity = "";
+            var parameters = "";
+            var idTopic = $(this).attr('data-id');
+
+
+            if($(this).hasClass('open-view')){
+                entity = "viewTopic";
+                parameters = {"idTopic" : idTopic};
+            }else{
+                entity = "editTopic";
+                parameters = {
+                    "registry": user.registry,
+                    "idTopic": idTopic
+                };
+            }
+            
+            var data = {
+                'path': $(this).parent().attr('data-path'),
+                'file': $(this).attr('data-item'),
+                'controller': {
+                    'type': 'search',
+                    'entity': entity,
+                    'parameters': parameters
+                }
+            }
+
+            var key = false;
+            $('.page-content').fadeOut(200, function () {
+                $('[data-content="generic"]').remove();
+                $.ajax({
+                    url: '/teacher/route/',
+                    data: data,
+                    dataType: 'html',
+                    async: false,
+                    type: 'GET'
+                }).done(function (data) {
+                    $('body').append($(data)[1]);
+                    $('body').append($(data)[3]);
+                    setTimeout(function () {
+                        $('.page-content[data-content="generic"]').fadeIn(200);
+                    }, 200);
+                    if (!key) {
+                        if (!mobile) {
+                            $('.inner-header h1').append('<span> > ' + $('.title-content h2').text() + '</span>');
+                        }
+                        key = true;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -23,8 +23,8 @@
                     <% } else { %>
                         <label for="save-topic">Salvar tópico</label>
                     <% } %>
-                    <input type="hidden" name="id-topic" value="<% if (data.topic) { data.topic.idTopic } %>"/>
-                    <input type="hidden" name="id-colaboration-topic" value="<% if (data.topic) { data.topic.idColaborationTopic } %>"/>
+                    <input type="hidden" name="id-topic" value="<% if (data.topic) { %> <%=data.topic.id_topic%> <% } %>"/>
+                    <input type="hidden" name="id-colaboration-topic" value="<% if (data.topic) { %> <%=data.topic.id_colaboration_topic%> <% } %>"/>
                 </div>
             </section>
             <section class="col-xl-10 topic-content content">
@@ -36,17 +36,22 @@
                         <section class="col-xl-8 content-item">
                             <div class="col-xl-6 config-item">
                                 <h4>Nome do tópico</h4>
-                                <input name="name-topic" type="text" />
+                                <input name="name-topic" type="text" value="<% if (data.topic) { %> <%=data.topic.name_topic%> <% } %>"/>
                             </div>
                             <div class="col-xl-6 config-item">
                                 <h4>Descrição do tópico</h4>
-                                <textarea name="description-topic"></textarea>
+                                <textarea name="description-topic"><% if (data.topic) { %> <%=data.topic.description_topic%> <% } %></textarea>
                             </div>
                             <div class="col-xl-12 config-item type-topic">
                                 <h4 class="col-xl-12">Tipo</h4>
                                 <% data.typeTopics.forEach(function(typeTopic) { %>
                                     <div class="col-xl-2 item-type">
-                                        <figure name="type-topic" data-id="<%= typeTopic.id_type_topic %>">
+                                        <figure name="type-topic" data-id="<%= typeTopic.id_type_topic %>"
+                                        <% if (data.topic) {  %>
+                                            <%if (data.topic.id_type_topic == typeTopic.id_type_topic) { %>
+                                                class="active"
+                                            <% } %>
+                                        <% } %>>
                                             <img src="svg/itens/<%=typeTopic.file_type_topic%>.svg"/>
                                         </figure>
                                         <label><%= typeTopic.name_type_topic %></label>
@@ -60,7 +65,14 @@
                                 <ul>
                                     <% data.disciplines.forEach(function(discipline) { %>
                                         <li>
-                                            <input type="radio" name="discipline-topic" id="discipline-<%= discipline.id_discipline %>" data-id="<%= discipline.id_discipline %>"
+                                            <input type="radio" name="discipline-topic" 
+                                            id="discipline-<%= discipline.id_discipline %>" 
+                                            data-id="<%= discipline.id_discipline %>"
+                                            <% if (data.topic) {  %>
+                                                <%if (data.topic.id_discipline == discipline.id_discipline) { %>
+                                                    checked
+                                                <% } %>
+                                            <% } %>
                                             />
                                             <label for="#discipline-<%= discipline.id_discipline %>">
                                                 <%= discipline.name_discipline %>
@@ -76,13 +88,11 @@
         </section>
     </section>
     <script class="script-add-topic" data-content="generic">
-        var editTopic = '<%- JSON.stringify(data.activity) %>';
+        var editTopic = JSON.parse('<%- JSON.stringify(data) %>');
 
-        if(editTopic.length > 0){
-
+        if(!editTopic.topic){
+            $('.config-item .item-type:nth(0) figure').addClass('active');
         }
-
-        $('.config-item .item-type:nth(0) figure').addClass('active');
 
         $('.type-topic figure').on('click', function(){
             if(!$(this).hasClass('active')){

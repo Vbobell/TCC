@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<section class="page-content" data-content="generic" data-path="topics">
+<% data.forEach(function(discipline) { %>
+    <article class="item discipline-topic" data-item="list-topic" data-id="<%= discipline.id_discipline %>">
+        <figure>
+        <img src=""/>
+        <h2><%= discipline.name_discipline %></h2>
+        </figure>
+        <p>Participe dos tópicos colaborativos da disciplina</p>
+    </article>
+    <% }); %>
+</section>
+</body>
+
+</html>

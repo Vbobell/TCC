@@ -1,18 +1,27 @@
 <section class="page-content" data-content="viewDataTopic" data-path="topics">
     <article class="item add topic" data-item="add-topic">
-            <figure>
+        <figure>
             <h2>Novo tópico</h2>
-            </figure>
-            <img class="add-topic" src="images/content/itens/creativity.png"/>
-            <p>Inserir novo tópico colaborativo</p>
+        </figure>
+        <img class="add-topic" src="images/content/itens/creativity.png" />
+        <p>Inserir novo tópico colaborativo</p>
+    </article>
+    <article class="item all-topic" data-item="list-all-topics">
+        <figure>
+            <h2>tópicos colaborativos</h2>
+        </figure>
+        <img class="all-topic" src="images/content/itens/creativity.png" />
+        <p>participe dos tópicos colaborativos</p>
     </article>
     <% data.disciplines.forEach(function(discipline) { %>
-    <article class="item discipline topic" data-item="discipline-topic" data-id="<%= discipline.id_discipline %>">
-        <figure>
-        <img src=""/>
-        <h2><%= discipline.name_discipline %></h2>
-        </figure>
-        <p>Manipule os tópicos colaborativos da disciplina</p>
-    </article>
-    <% }); %>
+        <article class="item discipline-topic" data-item="list-topics" data-id="<%= discipline.id_discipline %>">
+            <figure>
+                <img src="" />
+                <h2>
+                    <%= discipline.name_discipline %>
+                </h2>
+            </figure>
+            <p>Manipule os tópicos colaborativos da disciplina</p>
+        </article>
+        <% }); %>
 </section>
