@@ -25,6 +25,16 @@ class ManageDisciplineTopic{
             return callback(disciplineTopics);
         });
     }
+
+    getDisciplineAllTopics(parameters, callback){
+        let  registry = [
+            parameters.idDiscipline
+        ]
+
+        this.crudStudentTopic.selectViewDisciplineAllTopics(registry, (dataTopics) =>{
+            return callback(dataTopics);
+        });
+    }
 }
 
 module.exports = ManageDisciplineTopic;

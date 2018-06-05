@@ -128,13 +128,17 @@ $(document).ready(function(){
         var user = JSON.parse(localStorage.getItem('user'));
         var entity = "";
         var parameters = "";
-        
+        var disciplineText = "";
+        var that = $(this);
+
         if($(this).hasClass('discipline-topic')){
             entity = 'myDisciplineTopic';
             parameters = {
                 'idDiscipline': $(this).attr('data-id'),
                 'idStudent': user.id
             };
+            
+            disciplineText = $(this).find('h2').text();
         }else{
             entity = 'studentDiscipline';
             parameters = {
@@ -152,7 +156,6 @@ $(document).ready(function(){
             }
         };
 
-        var disciplineText = $(this).find('h2').text();
         var key = false;
         $('.page-content').fadeOut(200, function(){
             $('[data-content="generic"]').remove();
@@ -171,8 +174,16 @@ $(document).ready(function(){
                     },200);
                     if(!key){
                         $('.item').removeClass('inactive');
+                        var contextTitle = "";
+
+                        if(that.hasClass('discipline-topic')){
+                            contextTitle = '<span> > '+disciplineText+'</span><span> > '+$('.page-content[data-content="generic"] .title-content h2').text() +'</span>';
+                        }else{
+                            contextTitle = '<span> > Disciplinas </span>';
+                        }
+
                         if(!mobile){
-                            $('.inner-header h1').append('<span> > '+disciplineText+'</span><span> > '+$('.page-content[data-content="generic"] .title-content h2').text()+'</span>');
+                            $('.inner-header h1').append(contextTitle);
                         }else{
                             $('.inner-header h1').text($('.page-content[data-content="generic"] .title-content h2').text());
                         }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/push-pin-black.png" />
+                <h2>Tópicos da disciplina</h2>
+        </figure>
+        <section class="big-inner-content table-content content-menu">
+            <section class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 topic-menu inner-menu">
+                <ul>
+                    <li class="item-menu-list active" data-topic="description" data-menu="question">Tópicos</li>
+                    <% data.topics.forEach(function(topic) { %>
+                        <li class="item-menu-list" data-topic="<%= topic.id_topic %>"><%= topic.name_topic.substr(0, 20) %></li>
+                    <% }); %>
+                </ul>
+            </section>
+            <section class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 topic-content content">
+                <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 topic-colaboration" data-section="topic">
+                    <header class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <h3>Dados do tópico</h3>
+                    </header>
+                    <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 content-topic-colaboration">
+                        <article class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 item-topic description">
+                            <p>
+                                Para participar do tópico, Selecione-o na lista ao lado.
+                            </p>
+                        </article>
+                        <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 item-topic data-topic">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 content-item">
+                                <figure name="user-topic">
+                                    <img name="user-avatar" src=""/>
+                                    <figcaption name="user-name"></figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 content-item">
+                                <figure name="type-topic">
+                                    <img src="" />
+                                    <figcaption name="name-type-topic"></figcaption>
+                                </figure>
+                                <article>
+                                    <h4 name="name-topic"></h4>
+                                    <p name="description-topic"></p>
+                                </article>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <script class="script-view-topic" data-content="generic">
+        var dataValues = JSON.parse('<%- JSON.stringify(data) %>');
+        
+        var topic = new Topic(dataValues.topics, null);
+
+        console.log(topic);
+
+        $('.item-menu-list').on('click', function(){
+            if(!$(this).hasClass('active')){
+                var that = $(this);
+                $('.item-menu-list').removeClass('active');
+                that.addClass('active');
+                
+
+                if(that.attr('data-topic') == 'description'){
+                    $('.data-topic').fadeOut(200, function(){
+                        $('.description').fadeIn();
+                    });
+                }else{
+                    $('.description').fadeOut(200, function(){
+                        topic.setStructureTopic($('.data-topic'), parseInt(that.attr('data-topic')));
+                        $('.data-topic').fadeIn();
+                    });
+                }
+            }
+        });
+   </script>
+</body>
+</html>

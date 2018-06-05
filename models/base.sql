@@ -142,7 +142,8 @@ CREATE TABLE student_reward(
 CREATE TABLE topic(
     id_topic SERIAL NOT NULL PRIMARY KEY,
     name_topic VARCHAR(100) NOT NULL,
-    description_topic TEXT NOT NULL
+    description_topic TEXT NOT NULL,
+    resolved BOOLEAN DEFAULT FALSE,
 );
 
 CREATE TABLE type_topic(
@@ -177,4 +178,36 @@ CREATE TABLE teacher_topic(
     id_teacher INT NOT NULL,
     FOREIGN KEY (id_colaboration_topic) REFERENCES colaboration_topic (id_colaboration_topic),
     FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher)
+);
+
+CREATE TABLE student_topic_comments(
+    id_student_topic_comment SERIAL NOT NULL PRIMARY KEY,
+    id_colaboration_topic INT NOT NULL,
+    comment TEXT NOT NULL,
+    best_comment BOOLEAN DEFAULT false,
+    FOREIGN KEY (id_colaboration_topic) REFERENCES colaboration_topic (id_colaboration_topic)
+);
+
+CREATE TABLE student_comment_votes(
+    id_comment_votes SERIAL NOT NULL PRIMARY KEY,
+    id_student INT NOT NULL,
+    id_student_topic_comment INT NOT NULL,
+    FOREIGN KEY (id_student) REFERENCES student (id_student),
+    FOREIGN KEY (id_student_topic_comment) REFERENCES student_topic_comments (id_student_topic_comment)
+);
+
+CREATE TABLE teacher_topic_comments(
+    id_teacher_topic_comment SERIAL NOT NULL PRIMARY KEY,
+    id_colaboration_topic INT NOT NULL,
+    comment TEXT NOT NULL,
+    best_comment BOOLEAN DEFAULT false,
+    FOREIGN KEY (id_colaboration_topic) REFERENCES colaboration_topic (id_colaboration_topic)
+);
+
+CREATE TABLE teacher_comment_votes(
+    id_comment_votes SERIAL NOT NULL PRIMARY KEY,
+    id_teacher INT NOT NULL,
+    id_teacher_topic_comment INT NOT NULL,
+    FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher),
+    FOREIGN KEY (id_teacher_topic_comment) REFERENCES teacher_topic_comments (id_teacher_topic_comment)
 );

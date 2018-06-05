@@ -171,6 +171,17 @@ class ManageSearch {
                 });
 
                 break;
+                case 'viewDisciplineAllTopics':
+                let manageDisciplineAllTopics = new ManageDisciplineTopic();
+                let dataDisciplineAllTopics = {
+                    "alltopics": true,
+                    "topics": ""
+                };
+                manageDisciplineAllTopics.getDisciplineAllTopics(this.parameters, (dataTopics) => {
+                    dataDisciplineAllTopics.topics = dataTopics;
+                    return callback(dataDisciplineAllTopics);
+                });
+                break;
             default:
                 return callback(false);
                 break;

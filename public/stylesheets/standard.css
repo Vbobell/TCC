@@ -429,6 +429,9 @@ padding: 0.5em 0;
 .all-topic{
     background-color: #2c2b2e;
 }
+img.add-topic, img.all-topic {
+    padding: 10px;
+}
 .topic-content .content-config{
     align-content: baseline;
 }
@@ -484,6 +487,13 @@ table.registers figure[name="type-topic"] img{
     width: 100%;
 }
 table.registers figure[name="type-topic"] label{
+    width: 100%;
+}
+.content-topic-colaboration .item-topic.data-topic {
+    display: flex;
+    flex-wrap: wrap;
+}
+.content-topic-colaboration .content-item figure {
     width: 100%;
 }
 /*utils*/
