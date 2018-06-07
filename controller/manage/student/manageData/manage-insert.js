@@ -1,6 +1,7 @@
 const ManageStudentActivity = require('../manageStudentActivity/manage-student-activity');
 const ManageStudentReward = require('../manageStudentReward/manage-student-reward');
 const ManageColaborationTopic = require('../manageColaborationTopic/manage-colaboration-topic');
+const ManageTopicComment = require('../manageTopicComment/manage-topic-comment');
 
 class ManageInsert {
     constructor(entity, parameters) {
@@ -36,6 +37,13 @@ class ManageInsert {
 
                 manageColaborationTopic.insertTopicProperties(this.parameters, (idsTopic) => {
                     return callback(idsTopic);
+                });
+                break;
+            case 'topicComment':
+                let manageTopicComment = new ManageTopicComment();
+
+                manageTopicComment.insertComment(this.parameters, (idComment) =>{
+                    return callback(idComment);
                 });
                 break;
             default:

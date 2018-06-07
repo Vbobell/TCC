@@ -489,12 +489,79 @@ table.registers figure[name="type-topic"] img{
 table.registers figure[name="type-topic"] label{
     width: 100%;
 }
+.topic-content.content {
+    min-height: 300px;
+    max-height: 400px;
+    overflow-y: hidden;
+}
+.topic-colaboration .action-comments {
+    padding: 1em 15px;
+    background-color: white;
+}
+.topic-colaboration .action-comments .topic-comment{
+    width: 50%;
+}
+.content-topic-colaboration {
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.content-topic-colaboration .item-topic.description,
+.content-topic-colaboration .item-topic.content-data-topic {
+    padding: 15px;
+}
+.content-topic-colaboration .description p{
+    padding: 1em;
+    background-color: white;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+}
 .content-topic-colaboration .item-topic.data-topic {
     display: flex;
     flex-wrap: wrap;
+    padding: 0;
+}
+
+.content-topic-colaboration .content-item {
+    align-items: flex-start;
+    padding: 1em;
+    margin: 0 0 1em 0;
+    background-color: white;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+}
+.content-topic-colaboration .content-item h3{
+    width:100%;
+}
+.content-topic-colaboration .content-item .content-user-topic{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+.content-topic-colaboration .content-item .user-topic {
+    padding: 0.6em;
+    border-radius: 100%;
+    background-color: #17b377;
+}
+.content-topic-colaboration .content-item .type-topic {
+    display: flex;
+    align-items: flex-start;
 }
 .content-topic-colaboration .content-item figure {
+    width: 60%;
+}
+.content-topic-colaboration .content-item figure img {
     width: 100%;
+}
+.content-topic-colaboration .content-item .type-topic img {
+    width: 10%;
+}
+.content-topic-colaboration .content-item .content-user-topic figcaption {
+    width: 100%;
+    text-align: center;
 }
 /*utils*/
 .inactive{
@@ -535,6 +602,9 @@ button:focus {
     border-bottom: 5px solid transparent;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
+}
+.no-padding{
+    padding: 0;
 }
 /*utils*/
 

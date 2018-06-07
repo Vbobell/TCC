@@ -8,6 +8,7 @@ const ManageStudentReward = require('../manageStudentReward/manage-student-rewar
 const ManageStudent = require('../../admin/manageStudent/manage-student');
 const ManageColaborationTopic = require('../manageColaborationTopic/manage-colaboration-topic');
 const ManageDisciplineTopic = require('../manageDisciplineTopic/manage-discipline-topic');
+const ManageTopicComment = require('../manageTopicComment/manage-topic-comment');
 
 class ManageSearch {
     constructor(entity, parameters) {
@@ -173,13 +174,22 @@ class ManageSearch {
                 break;
                 case 'viewDisciplineAllTopics':
                 let manageDisciplineAllTopics = new ManageDisciplineTopic();
+                let manageTopicComment = new ManageTopicComment();
+
                 let dataDisciplineAllTopics = {
                     "alltopics": true,
-                    "topics": ""
+                    "topics": "",
+                    "comments":""
                 };
+
                 manageDisciplineAllTopics.getDisciplineAllTopics(this.parameters, (dataTopics) => {
                     dataDisciplineAllTopics.topics = dataTopics;
-                    return callback(dataDisciplineAllTopics);
+                    
+                    manageTopicComment.getComments(that.parameters, (dataComments) =>{
+                        dataDisciplineAllTopics.comments = dataComments;
+                        
+                        return callback(dataDisciplineAllTopics);
+                    });
                 });
                 break;
             default:
