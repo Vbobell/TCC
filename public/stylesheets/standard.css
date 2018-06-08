@@ -535,20 +535,46 @@ table.registers figure[name="type-topic"] label{
 .content-topic-colaboration .content-item h3{
     width:100%;
 }
+.content-topic-colaboration .content-data-topic .content-item:first-child{
+    background-color: #17b377;
+    color: #ffffff;
+}
+.content-topic-colaboration .data-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1em;
+    margin: 10px 0 0 0;
+    background-color: white;
+    color: #2c2b2e;
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+}
 .content-topic-colaboration .content-item .content-user-topic{
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
+    width: 15%;
+    padding: 0 10px 0 0;
+    border-right: 1px solid rgba(44, 43, 46, 0.3);
 }
 .content-topic-colaboration .content-item .user-topic {
+    width: 100%;
     padding: 0.6em;
     border-radius: 100%;
     background-color: #17b377;
 }
+.content-topic-colaboration .content-item  .data-topic {
+    align-self: baseline;
+    width: calc(85% - 10px);
+    margin: 0 0 0 10px;
+}
 .content-topic-colaboration .content-item .type-topic {
     display: flex;
     align-items: flex-start;
+    width: 100%;
 }
 .content-topic-colaboration .content-item figure {
     width: 60%;
@@ -557,11 +583,37 @@ table.registers figure[name="type-topic"] label{
     width: 100%;
 }
 .content-topic-colaboration .content-item .type-topic img {
-    width: 10%;
+    width: 5%;
+}
+.content-topic-colaboration .content-item .type-topic h4{
+    width: calc(90% - 10px);
+    margin: 0 0 0 10px;
+}
+.content-topic-colaboration .content-item .data-topic article{
+    margin: 10px 0 0 0;
 }
 .content-topic-colaboration .content-item .content-user-topic figcaption {
     width: 100%;
     text-align: center;
+}
+.content-topic-colaboration article.item-comment {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1em;
+    margin: 10px 0 0 0;
+    border: 1px solid rgba(44, 43, 46, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(44, 43, 46, 0.2), 
+    0 3px 1px -2px rgba(44, 43, 46, 0.2), 
+    5px 5px 5px 0 rgba(44, 43, 46, 0.2);
+}
+
+.content-topic-colaboration article.item-comment .user-topic {
+    width: 10%;
+}
+.content-topic-colaboration article.item-comment p {
+    width: calc(90% - 10px);
+    margin: 0 0 0 10px;
 }
 /*utils*/
 .inactive{

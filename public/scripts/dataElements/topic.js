@@ -6,6 +6,7 @@ class Topic{
 
     setStructureTopic(element, id){
         var topicData = "";
+        var comments = [];
 
         for(var topic of this.topics){
             if(topic.id_topic == id){
@@ -24,6 +25,31 @@ class Topic{
         element.find('p[name="description-topic"]').text(topicData.description_topic);
         
         element.find('.comments').attr('data-id-topic', topicData.id_topic);
+
+        for(var commentTopic of this.commentsTopics){
+            if(id == commentTopic.id_topic){
+                
+                var dataComment = {
+                    'user': {
+                        'identity': commentTopic.user_identity,
+                    },
+                    'text': commentTopic.comment,
+                    'idTopic': commentTopic.id_topic
+                };
+
+                comments.push(this.structureTopic(dataComment));
+            }
+        }
+
+        if(comments.length > 0){
+            $('.comments .not-comment').fadeOut(200, function () {
+                setTimeout(function(){
+                    element.find('.comments').append(comments);
+                }, 10);
+            });
+        }else{
+            $('.comments .not-comment').fadeIn();
+        }
     }
 
     resetStructure(element){
@@ -58,10 +84,22 @@ class Topic{
 
         this.insertTopicComment(parameters, function(data){
             if(data){
-                console.log(data);
+                var newComment = {
+                    'best_comment': false,
+                    'comment': dataComment.text,
+                    'id_student': dataComment.user.id,
+                    'id_student_topic_comment': data[0].id_student_topic_comment,
+                    'id_topic': dataComment.idTopic,
+                    'name_student': dataComment.user.name,
+                    'points': 0,
+                    'user_identity': dataComment.user.identity
+                }
+
                 dataComment.id = data[0].id_student_topic_comment;
 
+                that.commentsTopics.push(newComment);
                 element.append(that.structureTopic(dataComment));
+
                 return callback(true);
             }else{
                 return callback(false);

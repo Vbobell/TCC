@@ -33,20 +33,22 @@
                         <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 item-topic content-data-topic" style="display:none;">
                             <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 content-item">
                                 <h3>Dados do tópico</h3>
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 no-padding content-user-topic">
-                                    <figure class="user-topic" name="user-topic">
-                                        <img name="user-avatar" src="" />
-                                    </figure>
-                                    <figcaption name="user-name"></figcaption>
-                                </div>
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 no-padding data-topic">
-                                    <figure class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding type-topic" name="type-topic">
-                                        <img src="" />
-                                        <h4 name="name-topic"></h4>
-                                    </figure>
-                                    <article class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding">
-                                        <p name="description-topic"></p>
-                                    </article>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 data-item">
+                                    <div class="content-user-topic">
+                                        <figure class="user-topic" name="user-topic">
+                                            <img name="user-avatar" src="" />
+                                        </figure>
+                                        <figcaption name="user-name"></figcaption>
+                                    </div>
+                                    <div class="data-topic">
+                                        <figure class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding type-topic" name="type-topic">
+                                            <img src="" />
+                                            <h4 name="name-topic"></h4>
+                                        </figure>
+                                        <article class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding">
+                                            <p name="description-topic"></p>
+                                        </article>
+                                    </div>
                                 </div>
                             </section>
                             <article class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 content-item comments">
@@ -102,11 +104,11 @@
                     }
 
                     topic.createTopicComment($('.comments'), dataComment, function (data) {
-                        if(data){
+                        if (data) {
                             $('.comments .not-comment').fadeOut(200, function () {
                                 that.val('');
                             });
-                        }else{
+                        } else {
                             alert('ocorreu um erro!');
                         }
                     });
