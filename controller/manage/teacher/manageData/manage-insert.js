@@ -3,6 +3,7 @@ const ManageRewardActivity = require('../manageRewardActivity/manage-reward-acti
 const ManageQuestionActivity = require('../manageQuestionActivity/manage-question-activity');
 const ManageAlternativeQuestion = require('../manageAlternativeQuestion/manage-alternative-question');
 const ManageColaborationTopic = require('../manageColaborationTopic/manage-colaboration-topic');
+const ManageTopicComment = require('../manageTopicComment/manage-topic-comment');
 
 class ManageInsert {
     constructor(entity, parameters) {
@@ -57,6 +58,13 @@ class ManageInsert {
                     return callback(idsTopic);
                 });
                 break;
+            case 'topicComment':
+            let manageTopicComment = new ManageTopicComment();
+
+            manageTopicComment.insertTeacherComment(this.parameters, (idComment) =>{
+                return callback(idComment);
+            });
+            break;
             default:
                 return callback(false);
                 break;

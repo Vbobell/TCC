@@ -6,7 +6,8 @@ const ManageQuestionActivity = require('../manageQuestionActivity/manage-questio
 const ManageAlternativeQuestion = require('../manageAlternativeQuestion/manage-alternative-question');
 const ManageTeacher = require('../../admin/manageTeacher/manage-teacher');
 const ManageColaborationTopic = require('../manageColaborationTopic/manage-colaboration-topic');
-const ManageDisciplineTopic = require('../manageDisciplineTopic/manage-discipline-topics');
+const ManageDisciplineTopic = require('../manageDisciplineTopic/manage-discipline-topic');
+const ManageTopicComment = require('../manageTopicComment/manage-topic-comment');
 
 class ManageSearch {
     constructor(entity, parameters) {
@@ -182,6 +183,26 @@ class ManageSearch {
                     });
                 });
 
+                break;
+                case 'viewDisciplineAllTopics':
+                let manageDisciplineAllTopics = new ManageDisciplineTopic();
+                let manageTopicComment = new ManageTopicComment();
+
+                let dataDisciplineAllTopics = {
+                    "alltopics": true,
+                    "topics": "",
+                    "comments":""
+                };
+
+                manageDisciplineAllTopics.getDisciplineAllTopics(this.parameters, (dataTopics) => {
+                    dataDisciplineAllTopics.topics = dataTopics;
+                    
+                    manageTopicComment.getComments(that.parameters, (dataComments) =>{
+                        dataDisciplineAllTopics.comments = dataComments;
+                        
+                        return callback(dataDisciplineAllTopics);
+                    });
+                });
                 break;
             default:
                 return callback(false);

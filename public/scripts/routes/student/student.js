@@ -151,8 +151,8 @@ $(document).ready(function(){
             'file' : $(this).attr('data-item'),
             'controller' : {
                 'type': 'search',
-                'entity': entity,
-                'parameters': parameters
+                entity,
+                 parameters
             }
         };
 

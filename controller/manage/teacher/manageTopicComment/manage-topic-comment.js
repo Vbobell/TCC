@@ -21,18 +21,18 @@ class ManageTopicComment{
         });
     }
 
-    insertStudentComment(parameters, callback){
+    insertTeacherComment(parameters, callback){
         let registry = [
             parameters.idTopic,
-            parameters.idStudent,
+            parameters.idTeacher,
             parameters.comment
         ];
 
         this.crudTopicComment.executeUniqueInsert(
-            'student_topic_comments', 
-            '(id_topic, id_student, comment)',
+            'teacher_topic_comments', 
+            '(id_topic, id_teacher, comment)',
             '($1, $2, $3)',
-            'id_student_topic_comment',
+            'id_teacher_topic_comment',
             registry,
             (topicData) => {
                 return callback(topicData);

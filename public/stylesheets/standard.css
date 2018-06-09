@@ -566,10 +566,40 @@ table.registers figure[name="type-topic"] label{
     border-radius: 100%;
     background-color: #17b377;
 }
+.content-user-topic .item-identify.type-user {
+    text-align: center;
+}
 .content-topic-colaboration .content-item  .data-topic {
     align-self: baseline;
     width: calc(85% - 10px);
     margin: 0 0 0 10px;
+}
+
+.content-topic-colaboration .content-item  .data-topic .resolved-topic, 
+.content-topic-colaboration .content-item  .data-topic .data-type-topic {
+    display: flex;
+    flex-wrap: wrap;
+}
+.content-topic-colaboration .content-item  .data-topic .data-type-topic {
+    align-items: center;
+    width: 85%;
+}
+.content-topic-colaboration .content-item  .data-topic .resolved-topic {
+    justify-content: flex-end;
+    width: 15%;
+}
+.content-topic-colaboration .content-item  .data-topic .item-identify,
+.content-user-topic .item-identify.type-user {
+    width: 100%; 
+    font-weight: 600;
+}
+.content-topic-colaboration .content-item  .data-topic .resolved-topic .item-identify {
+    text-align: right;
+}
+.content-topic-colaboration .content-item  .data-topic .data-type-topic {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 .content-topic-colaboration .content-item .type-topic {
     display: flex;
@@ -588,6 +618,9 @@ table.registers figure[name="type-topic"] label{
 .content-topic-colaboration .content-item .type-topic h4{
     width: calc(90% - 10px);
     margin: 0 0 0 10px;
+}
+.content-topic-colaboration .content-item .type-topic input.switch:disabled + .toggle-group .btn {
+    filter: contrast(0.7);
 }
 .content-topic-colaboration .content-item .data-topic article{
     margin: 10px 0 0 0;
@@ -612,8 +645,20 @@ table.registers figure[name="type-topic"] label{
     width: 10%;
 }
 .content-topic-colaboration article.item-comment p {
-    width: calc(90% - 10px);
-    margin: 0 0 0 10px;
+    width: calc(75% - 20px);
+    margin: 0 10px 0 10px;
+}
+.content-topic-colaboration article.item-comment .action-comment{
+    display: flex;
+    flex-wrap: wrap;
+    width: 15%;
+}
+.content-topic-colaboration article.item-comment .action-comment .item-action-comment{
+    width: 100%;
+}
+.content-topic-colaboration article.item-comment .action-comment .tool{
+    width: 1.2em;
+    height: 1.2em;
 }
 /*utils*/
 .inactive{

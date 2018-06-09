@@ -24,8 +24,9 @@
             name: '<%= user.name %>',
             id: '<%= user.id %>',
             registry: '<%= user.user %>',
-            identity: '<%= user.identity %>'
-        }
+            identity: '<%= user.identity %>',
+            type: '<%= user.type %>'
+        };
         
         localStorage.setItem('user', JSON.stringify(user));
     })();

@@ -42,7 +42,7 @@ class ManageInsert {
             case 'topicComment':
                 let manageTopicComment = new ManageTopicComment();
 
-                manageTopicComment.insertComment(this.parameters, (idComment) =>{
+                manageTopicComment.insertStudentComment(this.parameters, (idComment) =>{
                     return callback(idComment);
                 });
                 break;

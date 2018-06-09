@@ -4,7 +4,7 @@
 <body>
 <section class="page-content" data-content="generic" data-path="topics">
 <% data.disciplines.forEach(function(discipline) { %>
-    <article class="item discipline-topic" data-item="list-topic" data-id="<%= discipline.id_discipline %>">
+    <article class="item discipline-topic" data-item="view-topic" data-id="<%= discipline.id_discipline %>">
         <figure>
         <img src=""/>
         <h2><%= discipline.name_discipline %></h2>
@@ -13,6 +13,54 @@
     </article>
     <% }); %>
 </section>
+<script class="script-all-topics" data-content="generic">
+    $('.item.discipline-topic').on('click', function(){
+        $('.item').addClass('inactive');
+        var user = JSON.parse(localStorage.getItem('user'));
+        var dataSearch = { 
+            'path' : $(this).parent().attr('data-path'),  
+            'file' : $(this).attr('data-item'),
+            'controller' : {
+                'type': 'search',
+                'entity': 'viewDisciplineAllTopics',
+                'parameters': {
+                    'idDiscipline': $(this).attr('data-id'),
+                }
+            }
+        };
+
+        var topicText = $(this).find('h2').text();
+
+        var key = false;
+        $('.page-content').fadeOut(200, function(){
+            $('[data-content="generic"]').remove();
+            $.ajax({
+                url : '/teacher/route/',
+                data : dataSearch,
+                dataType : 'html',
+                async : true,
+                type: 'GET'
+            }).done(function(data){
+                if($('[data-content="generic"]').length == 0){
+                    $('body').append(data);
+                    setTimeout(function(){
+                        $('.page-content[data-content="generic"]').fadeIn(200);
+                    },200);
+                    if(!key){
+                        $('.item').removeClass('inactive');
+                        if(!mobile){                        
+                            $('.inner-header h1').append('<span> > '+topicText+'</span><span> > '+$('.page-content[data-content="generic"] .title-content h2').text()+'</span>');
+                        }else{
+                            $('.inner-header h1').text($('.page-content[data-content="generic"] .title-content h2').text());
+                        }
+
+                        key = true;
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 
 </html>
