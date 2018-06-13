@@ -180,6 +180,24 @@ CREATE TABLE teacher_topic(
     FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher)
 );
 
+CREATE TABLE student_points(
+    id_student_point SERIAL NOT NULL PRIMARY KEY,
+    points DOUBLE PRECISION DEFAULT 0,
+    id_student INT NOT NULL,
+    id_discipline INT NOT NULL,
+    FOREIGN KEY (id_student) REFERENCES student (id_student),
+    FOREIGN KEY (id_discipline) REFERENCES discipline (id_discipline)
+);
+
+CREATE TABLE teacher_points(
+    id_student_point SERIAL NOT NULL PRIMARY KEY,
+    points DOUBLE PRECISION DEFAULT 0,
+    id_teacher INT NOT NULL,
+    id_discipline INT NOT NULL,
+    FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher),
+    FOREIGN KEY (id_discipline) REFERENCES discipline (id_discipline)
+);
+
 CREATE TABLE student_topic_comments(
     id_student_topic_comment SERIAL NOT NULL PRIMARY KEY,
     id_topic INT NOT NULL,
@@ -202,3 +220,31 @@ CREATE TABLE teacher_topic_comments(
     FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher)
 );
 
+CREATE TABLE class_(
+    id_class SERIAL NOT NULL PRIMARY KEY,
+    name_class TEXT NOT NULL
+);
+
+CREATE TABLE discipline_class(
+    id_discipline_class SERIAL NOT NULL PRIMARY KEY,
+    id_class INT NOT NULL,
+    id_discipline INT NOT NULL,
+    FOREIGN KEY (id_class) REFERENCES class_ (id_class),
+    FOREIGN KEY (id_discipline) REFERENCES discipline (id_discipline)
+);
+
+CREATE TABLE teacher_class(
+    id_teacher_class SERIAL NOT NULL PRIMARY KEY,
+    id_class INT NOT NULL,
+    id_teacher INT NOT NULL,
+    FOREIGN KEY (id_class) REFERENCES class_ (id_class),
+    FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher)
+);
+
+CREATE TABLE student_class(
+    id_student_class SERIAL NOT NULL PRIMARY KEY,
+    id_class INT NOT NULL,
+    id_student INT NOT NULL,
+    FOREIGN KEY (id_class) REFERENCES class_ (id_class),
+    FOREIGN KEY (id_student) REFERENCES student (id_student)
+);

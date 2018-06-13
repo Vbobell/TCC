@@ -22,10 +22,16 @@
                         </div>
                         <article class="col-xl-9">
                             <h3>Escolha a disciplina</h3>
-                            <p>Ao escolher a disciplina você irá visualizar as bonificações conquistadas a cada atividade realizada.</p>
+                            <p>Ao escolher a disciplina você irá visualizar as bonificações conquistadas a cada atividade realizada e o seu nível nos tópicos colaborativos.</p>
                         </article>
                 </header>
                 <section class="col-xl-12 rewards">
+                    <div class="col-xl-12">
+                        <h3>Nível</h3>
+                        <progress value="4" min="1" max="10"></progress>
+                    </div>
+                    <div class="col-xl-12 rewards">
+                    <h3>Bonificações</h3>
                 <% data.rewards.all.forEach(function(reward) { %>
                     <div class="col-6 col-sm-6 col-sm-6 col-xl-3 reward">
                         <figure class="inactive" name="reward-activity" data-id="<%= reward.id_reward %>">
@@ -34,6 +40,7 @@
                         <label><%= reward.name_reward %></label>
                     </div>
                 <% }); %> 
+                </div>
                 </section> 
             </section>
         </section>

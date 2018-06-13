@@ -5,6 +5,7 @@ class Topic{
     }
 
     setStructureTopic(element, id){
+        var that = this;
         var user = JSON.parse(localStorage.getItem('user'));
         var topicData = "";
         var comments = [];
@@ -20,6 +21,7 @@ class Topic{
         var typeUser = topicData.name_student == undefined ? "Professor" : "Aluno";
         var enableResolved = topicData.id_student == user.id ? "enable" : "disable";
         var topicResolved = topicData.resolved == true ? "on" : "off";
+        var count = 0;
 
         element.find('.comments .item-comment').remove();
         element.find('label.type-user').text(typeUser);
@@ -33,22 +35,27 @@ class Topic{
         element.find('p[name="description-topic"]').text(topicData.description_topic);
         
         element.find('.comments').attr('data-id-topic', topicData.id_topic);
-
+        
         for(var commentTopic of this.commentsTopics){
             if(id == commentTopic.id_topic){
-                
                 var userCommentId = commentTopic.id_student != undefined ? commentTopic.id_student : commentTopic.id_teacher;
-
+                var commentId = commentTopic.id_student_topic_comment != undefined ? commentTopic.id_student_topic_comment : commentTopic.id_teacher_topic_comment;
+ 
                 var dataComment = {
+                    'id': commentId,
                     'user': {
                         'identity': commentTopic.user_identity,
                         'id': userCommentId
                     },
                     'text': commentTopic.comment,
-                    'idTopic': commentTopic.id_topic
+                    'idTopic': commentTopic.id_topic,
+                    'points': commentTopic.points,
+                    'best_comment': commentTopic.best_comment,
+                    'index': count
                 };
 
                 comments.push(this.structureTopic(dataComment));
+                count++;
             }
         }
 
@@ -56,7 +63,14 @@ class Topic{
             $('.comments .not-comment').fadeOut(200, function () {
                 setTimeout(function(){
                     element.find('.comments').append(comments);
-                    element.find(`.action-comment:not(.action-comment[data-id-user="${user.id}"])`).remove();
+                    
+                    element.find(`.action-comment:not(.action-comment[data-id-user="${user.id}"])`)
+                    .find('.edit-comment, .remove-comment, .confirm-edit-comment, .cancel-edit-comment').remove();
+                    
+                    element.find(`.action-comment[data-id-user="${user.id}"]`)
+                    .find('.points-comment, .best-comment').remove();
+
+                    that.domEvents($('.item-comment'));
                 }, 10);
             });
         }else{
@@ -84,23 +98,48 @@ class Topic{
                         $('<img>').attr('src', `svg/users/${dataComment.user.identity}`)
                     ).addClass('user-topic')
                 ).append(
-                    $('<p>').text(dataComment.text)
+                    $('<p>').text(dataComment.text).addClass('text-comment')
                 ).append(
                     $('<div class="action-comment">')
                     .append(
                         $('<div>').append(
-                            $('<div>').addClass('tool open-edit')
-                        ).append(
-                            $('<label>').text('editar')
-                        ).addClass('item-action-comment')
+                            $('<div>').addClass('tool open-edit').attr('title', 'editar')
+                        ).addClass('item-action-comment edit-comment')
                     ).append(
                         $('<div>').append(
-                            $('<div>').addClass('tool remove')
-                        ).append(
-                            $('<label>').text('remover')
-                        ).addClass('item-action-comment')
+                            $('<div>').addClass('tool remove').attr('title', 'remover')
+                        ).addClass('item-action-comment remove-comment')
+                    ).append(
+                            $('<div>').append(
+                                $('<div>').addClass('tool btn-correct').attr('title', 'confirmar edição')
+                            ).addClass('item-action-comment confirm-edit-comment')
+                    ).append(
+                        $('<div>').append(
+                            $('<div>').addClass('tool cancel').attr('title', 'cancelar edição')
+                        ).addClass('item-action-comment cancel-edit-comment')
+                    ).append(
+                        $('<div>').append(
+                            $('<div>').append(
+                                $('<input>').attr({
+                                    'type':'number',
+                                    'min': 1,
+                                    'value': dataComment.points
+                                })
+                                ).append(
+                                    $('<label>').text('votos')
+                                ).addClass('points-comment')
+                            ).append(
+                                $('<div>').append(
+                                    $('<input>').attr('type','checkbox').prop('checked', dataComment.best_comment)
+                                    ).append(
+                                        $('<label>').text('Melhor resposta')
+                                    ).addClass('best-comment')
+                            ).addClass('item-action-comment')
                     ).addClass().attr('data-id-user', dataComment.user.id)
-                ).attr('data-id-comment', dataComment.id).addClass('item-comment');
+                ).attr({
+                    'data-id-comment': dataComment.id,
+                    'data-index': dataComment.index
+                }).addClass('item-comment');
     }
 
     createTopicComment(element, dataComment, callback){
@@ -152,6 +191,11 @@ class Topic{
                 that.commentsTopics.push(newComment);
                 element.append(that.structureTopic(dataComment));
 
+                element.find(`.action-comment:not(.action-comment[data-id-user="${user.id}"])`)
+                .find('.edit-comment, .remove-comment, .confirm-edit-comment, .cancel-edit-comment').remove();
+                
+                element.find(`.action-comment[data-id-user="${user.id}"]`)
+                .find('.points-comment, .best-comment').remove();
                 return callback(true);
             }else{
                 return callback(false);
@@ -177,6 +221,78 @@ class Topic{
             type: 'POST'
         }).then(function(idComment){
             return callback(idComment);
+        });
+    }
+
+    editTopicComment(parameters, callback){
+        var data = { 
+            'controller' : {
+                'type': 'update',
+                'entity': 'topicComment',
+                parameters
+            }
+        };
+
+        $.ajax({
+            url : `/${parameters.typeUser}/post/update`,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data : JSON.stringify(data),
+            async : true,
+            type: 'POST'
+        }).then(function(data){
+            return callback(data);
+        });
+    }
+
+    domEvents(element){
+        var thatObj = this;
+
+        element.find('.open-edit').on('click', function(){
+            var that = $(this);
+            $(this).parents('.item-comment').find('.edit-comment, .remove-comment').fadeOut(200, function(){
+                that.parents('.item-comment').find('.confirm-edit-comment, .cancel-edit-comment').fadeIn();
+                that.parents('.item-comment').find('p.text-comment').attr('contenteditable', true);
+            });
+        });
+        element.find('.cancel-edit-comment').on('click', function(){
+            var that = $(this);
+            $(this).parents('.item-comment').find('.confirm-edit-comment, .cancel-edit-comment').fadeOut(200, function(){
+                that.parents('.item-comment').find('.edit-comment, .remove-comment').fadeIn();
+                that.parents('.item-comment').find('p.text-comment').removeAttr('contenteditable');
+            });
+        });
+
+        element.find('.confirm-edit-comment').on('click', function(){
+            var that = $(this);
+            var parameters = {};
+            if(user.type == "teacher"){
+                parameters = {
+                    "typeUser": user.type,
+                    "idComment": that.parents('.item-comment').attr('data-id-comment'),
+                    "idTeacher": user.id,
+                    "comment": that.parents('.item-comment').find('.text-comment').text()
+                };
+            }else{
+                parameters = {
+                    "typeUser": user.type,
+                    "idComment": that.parents('.item-comment').attr('data-id-comment'),
+                    "idStudent": user.id,
+                    "comment": that.parents('.item-comment').find('.text-comment').text()
+                };
+            }
+
+            thatObj.editTopicComment(parameters, function(){
+                var index = parseInt(that.parents('.item-comment').attr('data-index'));
+                thatObj.commentsTopics[index].comment = parameters.comment;
+                console.log(thatObj.commentsTopics);
+                console.log(parameters);
+                
+                that.parents('.item-comment').find('.confirm-edit-comment, .cancel-edit-comment').fadeOut(200, function(){
+                    that.parents('.item-comment').find('.edit-comment, .remove-comment').fadeIn();
+                    that.parents('.item-comment').find('p.text-comment').removeAttr('contenteditable');
+                });
+            });
         });
     }
 }

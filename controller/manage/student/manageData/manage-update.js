@@ -1,5 +1,6 @@
 const ManageStudent = require('../../admin/manageStudent/manage-student');
 const ManageColaborationTopic = require('../manageColaborationTopic/manage-colaboration-topic');
+const ManageTopicComment = require('../manageTopicComment/manage-topic-comment');
 
 class ManageUpdate{
     constructor(entity, parameters){
@@ -18,6 +19,13 @@ class ManageUpdate{
             let manageColaborationTopic = new ManageColaborationTopic();
 
             manageColaborationTopic.updateTopicProperties(this.parameters, (data) => {
+                return callback(data);
+            });
+            break;
+            case 'topicComment':
+            let manageTopicComment = new ManageTopicComment();
+
+            manageTopicComment.updateStudentComment(this.parameters, (data) => {
                 return callback(data);
             });
             break;
