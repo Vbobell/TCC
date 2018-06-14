@@ -261,4 +261,7 @@
         justify-content: center;
         width: 100%;
     }
+    .topic-menu li.topic-list .inner-list-menu{
+        bottom: 25px !important;
+    }
 }

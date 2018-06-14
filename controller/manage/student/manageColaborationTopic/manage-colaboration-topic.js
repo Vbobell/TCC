@@ -156,6 +156,29 @@ class ManageColaborationTopic{
             return callback(data);
         });
     }
+
+    updateResolvedTopic(parameters, callback){
+        let registry = [
+            parameters.idTopic,
+            parameters.idStudent,
+            parameters.resolved
+        ];
+
+        let where = `topic.id_topic = $1 
+                     AND topic.id_topic = colaboration_topic.id_topic 
+                     AND colaboration_topic.id_colaboration_topic = student_topic.id_colaboration_topic 
+                     AND student_topic.id_student = $2`;
+
+        this.crudStudentTopic.executeUpdate(
+            'topic', 
+            '(resolved)',
+            '($3) FROM colaboration_topic, student_topic ',
+            where,
+            registry,
+            response => {
+                return callback(response);
+            });
+    }
 }
 
 module.exports = ManageColaborationTopic;

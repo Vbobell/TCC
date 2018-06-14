@@ -29,6 +29,20 @@ class ManageUpdate{
                 return callback(data);
             });
             break;
+            case 'bestComment':
+            let manageBestComment = new ManageTopicComment();
+
+            manageBestComment.updateBestComment(this.parameters, (data) => {
+                return callback(data);
+            });
+            break;
+            case 'updateResolvedTopic':
+            let manageResolvedTopic = new ManageColaborationTopic();
+
+            manageResolvedTopic.updateResolvedTopic(this.parameters, (data) => {
+                return callback(data);
+            });
+            break;
             default:
                 return callback("error");
             break;  

@@ -7,19 +7,23 @@
             <img src="images/content/itens/push-pin-black.png" />
             <h2>Tópicos da disciplina</h2>
         </figure>
-        <section class="big-inner-content table-content content-menu">
+        <section class="big-inner-content table-content content-menu content-topic-sec">
             <section class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 no-padding topic-menu inner-menu">
                 <ul>
                     <li class="item-menu-list active" data-topic="description" data-menu="question">Tópicos</li>
-                    <% data.topics.forEach(function(topic) { %>
-                        <li class="item-menu-list" data-topic="<%= topic.id_topic %>">
-                            <img class="user-topic" title="<%= topic.name_type_topic %>" name="user-topic" src="svg/itens/<%= topic.file_type_topic %>.svg"
-                            />
-                            <label>
-                                <%= topic.name_topic.substr(0, 20) %>
-                            </label>
-                        </li>
-                        <% }); %>
+                    <li class="item-menu-list topic-list">
+                        <ul class="inner-list-menu">
+                        <% data.topics.forEach(function(topic) { %>
+                            <li class="item-menu-list" data-topic="<%= topic.id_topic %>">
+                                <img class="user-topic" title="<%= topic.name_type_topic %>" name="user-topic" src="svg/itens/<%= topic.file_type_topic %>.svg"
+                                />
+                                <label>
+                                    <%= topic.name_topic.substr(0, 20) %>
+                                </label>
+                            </li>
+                            <% }); %>
+                        </ul>
+                    </li>
                 </ul>
             </section>
             <section class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 no-padding topic-content content">
@@ -27,7 +31,7 @@
                     <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding content-topic-colaboration">
                         <article class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 item-topic description">
                             <p>
-                                Para participar do tópico, Selecione-o na lista ao lado.
+                                Para participar do tópico, Selecione-o na lista.
                             </p>
                         </article>
                         <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 item-topic content-data-topic" style="display:none;">
@@ -84,7 +88,7 @@
 
         $('.switch').bootstrapToggle();
 
-        $('.item-menu-list').on('click', function () {
+        $('.inner-list-menu .item-menu-list').on('click', function () {
             if (!$(this).hasClass('active')) {
                 var that = $(this);
                 $('.item-menu-list').removeClass('active');
@@ -128,6 +132,29 @@
                 }
             }
         });
+
+        if(mobile){
+                $('.content-menu .inner-menu .item-menu-list .inner-list-menu').hide();
+                $('.topic-menu li.topic-list').prepend('<div class="arrow top"></div>');
+                $('.topic-menu li.topic-list').css('bottom', $('.inner-menu').height());
+               
+                $('.arrow').on('click', function(){
+                    if($(this).hasClass('top')){
+                        $(this).removeClass('top');
+                        $(this).addClass('bottom');
+                        $('.content-menu .inner-menu .item-menu-list .inner-list-menu').slideDown();
+                    }else{
+                        $(this).removeClass('bottom');
+                        $(this).addClass('top');
+                        $('.content-menu .inner-menu .item-menu-list .inner-list-menu').slideUp();
+                    }
+                });
+
+                $('.content-topic-colaboration').css({
+                    'min-height': Math.abs(($(window).height() - $('.topic-colaboration .action-comments').height()) - $('.content-menu .inner-menu').height()) + 'px',
+                    'max-height': Math.abs(($(window).height() - $('.topic-colaboration .action-comments').height()) - $('.content-menu .inner-menu').height()) + 'px'
+                });
+            }
     </script>
 </body>
 

@@ -1,25 +1,25 @@
-class Topic{
-    constructor(topics, commentsTopics){
+class Topic {
+    constructor(topics, commentsTopics) {
         this.topics = topics;
         this.commentsTopics = commentsTopics;
     }
 
-    setStructureTopic(element, id){
+    setStructureTopic(element, id) {
         var that = this;
         var user = JSON.parse(localStorage.getItem('user'));
         var topicData = "";
         var comments = [];
 
-        for(var topic of this.topics){
-            if(topic.id_topic == id){
+        for (var topic of this.topics) {
+            if (topic.id_topic == id) {
                 topicData = topic;
                 break;
             }
         }
-        
+        var topicIdUser = topicData.id_student != undefined ? topicData.id_student : topicData.id_teacher
         var nameUser = topicData.name_student != undefined ? topicData.name_student : topicData.name_teacher;
         var typeUser = topicData.name_student == undefined ? "Professor" : "Aluno";
-        var enableResolved = topicData.id_student == user.id ? "enable" : "disable";
+        var enableResolved = topicIdUser == user.id ? "enable" : "disable";
         var topicResolved = topicData.resolved == true ? "on" : "off";
         var count = 0;
 
@@ -32,26 +32,31 @@ class Topic{
         element.find('h4[name="name-topic"]').text(topicData.name_topic);
         element.find('input[name="resolved-topic"]').bootstrapToggle(enableResolved);
         element.find('input[name="resolved-topic"]').bootstrapToggle(topicResolved);
+        element.find('input[name="resolved-topic"]').attr('data-topic', topicData.id_topic);
         element.find('p[name="description-topic"]').text(topicData.description_topic);
-        
+
         element.find('.comments').attr('data-id-topic', topicData.id_topic);
-        
-        for(var commentTopic of this.commentsTopics){
-            if(id == commentTopic.id_topic){
+
+        that.domEventsTopic(element);
+
+        for (var commentTopic of this.commentsTopics) {
+            if (id == commentTopic.id_topic) {
+                var typeUser = commentTopic.id_student != undefined ? "student" : "teacher";
                 var userCommentId = commentTopic.id_student != undefined ? commentTopic.id_student : commentTopic.id_teacher;
                 var commentId = commentTopic.id_student_topic_comment != undefined ? commentTopic.id_student_topic_comment : commentTopic.id_teacher_topic_comment;
- 
+
                 var dataComment = {
                     'id': commentId,
                     'user': {
                         'identity': commentTopic.user_identity,
-                        'id': userCommentId
+                        'id': userCommentId,
+                        'type': typeUser
                     },
                     'text': commentTopic.comment,
                     'idTopic': commentTopic.id_topic,
                     'points': commentTopic.points,
                     'best_comment': commentTopic.best_comment,
-                    'index': count
+                    'index': count,
                 };
 
                 comments.push(this.structureTopic(dataComment));
@@ -59,26 +64,26 @@ class Topic{
             }
         }
 
-        if(comments.length > 0){
+        if (comments.length > 0) {
             $('.comments .not-comment').fadeOut(200, function () {
-                setTimeout(function(){
+                setTimeout(function () {
                     element.find('.comments').append(comments);
-                    
-                    element.find(`.action-comment:not(.action-comment[data-id-user="${user.id}"])`)
-                    .find('.edit-comment, .remove-comment, .confirm-edit-comment, .cancel-edit-comment').remove();
-                    
-                    element.find(`.action-comment[data-id-user="${user.id}"]`)
-                    .find('.points-comment, .best-comment').remove();
 
-                    that.domEvents($('.item-comment'));
+                    element.find(`.action-comment:not(.action-comment[data-id-user="${user.id}"])`)
+                        .find('.edit-comment, .remove-comment, .confirm-edit-comment, .cancel-edit-comment').remove();
+
+                    element.find(`.action-comment[data-id-user="${user.id}"]`)
+                        .find('.points-comment, .best-comment').remove();
+
+                    that.domEventsComment($('.item-comment'));
                 }, 10);
             });
-        }else{
+        } else {
             $('.comments .not-comment').fadeIn();
         }
     }
 
-    resetStructure(element){
+    resetStructure(element) {
         element.find('label.type-user').text('');
         element.find('figure[name="user-topic"] img').attr('src', '');
         element.find('figcaption[name="user-name"]').text('');
@@ -91,16 +96,16 @@ class Topic{
         element.find('.comments .item-comment').remove();
     }
 
-    structureTopic(dataComment){
+    structureTopic(dataComment) {
         return $('<article>')
-                .append(
-                    $('<figure>').append(
-                        $('<img>').attr('src', `svg/users/${dataComment.user.identity}`)
-                    ).addClass('user-topic')
-                ).append(
-                    $('<p>').text(dataComment.text).addClass('text-comment')
-                ).append(
-                    $('<div class="action-comment">')
+            .append(
+                $('<figure>').append(
+                    $('<img>').attr('src', `svg/users/${dataComment.user.identity}`)
+                ).addClass('user-topic')
+            ).append(
+                $('<p>').text(dataComment.text).addClass('text-comment')
+            ).append(
+                $('<div class="action-comment">')
                     .append(
                         $('<div>').append(
                             $('<div>').addClass('tool open-edit').attr('title', 'editar')
@@ -110,9 +115,9 @@ class Topic{
                             $('<div>').addClass('tool remove').attr('title', 'remover')
                         ).addClass('item-action-comment remove-comment')
                     ).append(
-                            $('<div>').append(
-                                $('<div>').addClass('tool btn-correct').attr('title', 'confirmar edição')
-                            ).addClass('item-action-comment confirm-edit-comment')
+                        $('<div>').append(
+                            $('<div>').addClass('tool btn-correct').attr('title', 'confirmar edição')
+                        ).addClass('item-action-comment confirm-edit-comment')
                     ).append(
                         $('<div>').append(
                             $('<div>').addClass('tool cancel').attr('title', 'cancelar edição')
@@ -121,38 +126,38 @@ class Topic{
                         $('<div>').append(
                             $('<div>').append(
                                 $('<input>').attr({
-                                    'type':'number',
+                                    'type': 'number',
                                     'min': 1,
                                     'value': dataComment.points
                                 })
-                                ).append(
-                                    $('<label>').text('votos')
-                                ).addClass('points-comment')
                             ).append(
-                                $('<div>').append(
-                                    $('<input>').attr('type','checkbox').prop('checked', dataComment.best_comment)
-                                    ).append(
-                                        $('<label>').text('Melhor resposta')
-                                    ).addClass('best-comment')
-                            ).addClass('item-action-comment')
-                    ).addClass().attr('data-id-user', dataComment.user.id)
-                ).attr({
-                    'data-id-comment': dataComment.id,
-                    'data-index': dataComment.index
-                }).addClass('item-comment');
+                                $('<label>').text('votos')
+                            ).addClass('points-comment')
+                        ).append(
+                            $('<div>').append(
+                                $('<input>').attr('type', 'checkbox').prop('checked', dataComment.best_comment)
+                            ).append(
+                                $('<label>').text('Melhor resposta')
+                            ).addClass('best-comment')
+                        ).addClass(`item-action-comment`)
+                    ).addClass().attr('data-id-user', dataComment.user.id).attr('data-type-user', dataComment.user.type)
+            ).attr({
+                'data-id-comment': dataComment.id,
+                'data-index': dataComment.index
+            }).addClass('item-comment');
     }
 
-    createTopicComment(element, dataComment, callback){
+    createTopicComment(element, dataComment, callback) {
         var that = this;
 
-        if(dataComment.user.type == "teacher"){
+        if (dataComment.user.type == "teacher") {
             var parameters = {
                 "typeUser": dataComment.user.type,
                 "idTopic": dataComment.idTopic,
                 "idTeacher": dataComment.user.id,
                 "comment": dataComment.text,
             };
-        }else{
+        } else {
             var parameters = {
                 "typeUser": dataComment.user.type,
                 "idTopic": dataComment.idTopic,
@@ -161,9 +166,9 @@ class Topic{
             };
         }
 
-        this.insertTopicComment(parameters, function(data){
-            if(data){
-                if(dataComment.user.type == "teacher"){
+        this.insertTopicComment(parameters, function (data) {
+            if (data) {
+                if (dataComment.user.type == "teacher") {
                     var newComment = {
                         'best_comment': false,
                         'comment': dataComment.text,
@@ -174,7 +179,7 @@ class Topic{
                         'points': 0,
                         'user_identity': dataComment.user.identity
                     }
-                }else{
+                } else {
                     var newComment = {
                         'best_comment': false,
                         'comment': dataComment.text,
@@ -192,20 +197,20 @@ class Topic{
                 element.append(that.structureTopic(dataComment));
 
                 element.find(`.action-comment:not(.action-comment[data-id-user="${user.id}"])`)
-                .find('.edit-comment, .remove-comment, .confirm-edit-comment, .cancel-edit-comment').remove();
-                
+                    .find('.edit-comment, .remove-comment, .confirm-edit-comment, .cancel-edit-comment').remove();
+
                 element.find(`.action-comment[data-id-user="${user.id}"]`)
-                .find('.points-comment, .best-comment').remove();
+                    .find('.points-comment, .best-comment').remove();
                 return callback(true);
-            }else{
+            } else {
                 return callback(false);
             }
         });
     }
 
-    insertTopicComment(parameters, callback){
-        var data = { 
-            'controller' : {
+    insertTopicComment(parameters, callback) {
+        var data = {
+            'controller': {
                 'type': 'insert',
                 'entity': 'topicComment',
                 parameters
@@ -213,85 +218,169 @@ class Topic{
         };
 
         $.ajax({
-            url : `/${parameters.typeUser}/post/insert`,
+            url: `/${parameters.typeUser}/post/insert`,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data : JSON.stringify(data),
-            async : true,
+            data: JSON.stringify(data),
+            async: true,
             type: 'POST'
-        }).then(function(idComment){
+        }).then(function (idComment) {
             return callback(idComment);
         });
     }
 
-    editTopicComment(parameters, callback){
-        var data = { 
-            'controller' : {
+    editTopicComment(parameters, callback) {
+        var data = {
+            'controller': {
                 'type': 'update',
-                'entity': 'topicComment',
+                'entity': parameters.entity,
                 parameters
             }
         };
 
         $.ajax({
-            url : `/${parameters.typeUser}/post/update`,
+            url: `/${parameters.typeUser}/post/update`,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data : JSON.stringify(data),
-            async : true,
+            data: JSON.stringify(data),
+            async: true,
             type: 'POST'
-        }).then(function(data){
+        }).then(function (data) {
             return callback(data);
         });
     }
 
-    domEvents(element){
+    editTopic(parameters, callback){
+        var data = {
+            'controller': {
+                'type': 'update',
+                'entity': parameters.entity,
+                parameters
+            }
+        };
+
+        $.ajax({
+            url: `/${parameters.typeUser}/post/update`,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(data),
+            async: true,
+            type: 'POST'
+        }).then(function (data) {
+            return callback(data);
+        });
+    }
+
+    domEventsTopic(element){
+        var thatObj = this;
+        var parameters = "";
+
+        element.find('input[name="resolved-topic"]').on('change', function(){
+            if (user.type == "teacher") {
+                parameters = {
+                    "typeUser": "teacher",
+                    "entity": "updateResolvedTopic",
+                    "idTopic": $(this).attr('data-topic'),
+                    "idTeacher": user.id,
+                    "resolved": $(this).is(':checked')
+                };
+            } else {
+                parameters = {
+                    "typeUser": "student",
+                    "entity": "updateResolvedTopic",
+                    "idTopic": $(this).attr('data-topic'),
+                    "idStudent": user.id,
+                    "resolved": $(this).is(':checked')
+                };
+            }
+           console.log(parameters);
+           
+           thatObj.editTopic(parameters, function(data){
+               console.log(data);
+           }) 
+        });
+    }
+
+    domEventsComment(element) {
         var thatObj = this;
 
-        element.find('.open-edit').on('click', function(){
+        element.find('.open-edit').on('click', function () {
             var that = $(this);
-            $(this).parents('.item-comment').find('.edit-comment, .remove-comment').fadeOut(200, function(){
+            $(this).parents('.item-comment').find('.edit-comment, .remove-comment').fadeOut(200, function () {
                 that.parents('.item-comment').find('.confirm-edit-comment, .cancel-edit-comment').fadeIn();
                 that.parents('.item-comment').find('p.text-comment').attr('contenteditable', true);
             });
         });
-        element.find('.cancel-edit-comment').on('click', function(){
+        element.find('.cancel-edit-comment').on('click', function () {
             var that = $(this);
-            $(this).parents('.item-comment').find('.confirm-edit-comment, .cancel-edit-comment').fadeOut(200, function(){
+            $(this).parents('.item-comment').find('.confirm-edit-comment, .cancel-edit-comment').fadeOut(200, function () {
                 that.parents('.item-comment').find('.edit-comment, .remove-comment').fadeIn();
                 that.parents('.item-comment').find('p.text-comment').removeAttr('contenteditable');
             });
         });
 
-        element.find('.confirm-edit-comment').on('click', function(){
+        element.find('.confirm-edit-comment').on('click', function () {
             var that = $(this);
             var parameters = {};
-            if(user.type == "teacher"){
+            if (user.type == "teacher") {
                 parameters = {
                     "typeUser": user.type,
                     "idComment": that.parents('.item-comment').attr('data-id-comment'),
                     "idTeacher": user.id,
-                    "comment": that.parents('.item-comment').find('.text-comment').text()
+                    "comment": that.parents('.item-comment').find('.text-comment').text(),
+                    "entity": "topicComment"
                 };
-            }else{
+            } else {
                 parameters = {
                     "typeUser": user.type,
                     "idComment": that.parents('.item-comment').attr('data-id-comment'),
                     "idStudent": user.id,
-                    "comment": that.parents('.item-comment').find('.text-comment').text()
+                    "comment": that.parents('.item-comment').find('.text-comment').text(),
+                    "entity": "topicComment"
                 };
             }
 
-            thatObj.editTopicComment(parameters, function(){
+            thatObj.editTopicComment(parameters, function () {
                 var index = parseInt(that.parents('.item-comment').attr('data-index'));
                 thatObj.commentsTopics[index].comment = parameters.comment;
-                console.log(thatObj.commentsTopics);
-                console.log(parameters);
-                
-                that.parents('.item-comment').find('.confirm-edit-comment, .cancel-edit-comment').fadeOut(200, function(){
+
+                that.parents('.item-comment').find('.confirm-edit-comment, .cancel-edit-comment').fadeOut(200, function () {
                     that.parents('.item-comment').find('.edit-comment, .remove-comment').fadeIn();
                     that.parents('.item-comment').find('p.text-comment').removeAttr('contenteditable');
                 });
+            });
+        });
+
+        element.find('.best-comment input[type="checkbox"]').on('change', function () {
+            var that = $(this);
+;
+            var parameters = {
+                "typeUser": user.type,
+                "commentTypeUser": $(this).parents('.action-comment').attr('data-type-user'),
+                "entity": "bestComment",
+                "idTopic": $(this).parents('.comments').attr('data-id-topic'),
+                "idComment": $(this).parents('.item-comment').attr('data-id-comment'),
+                "idUser": $(this).parents('.action-comment').attr('data-id-user'), 
+                "bestComment": $(this).is(':checked')
+            };
+
+            thatObj.editTopicComment(parameters, function () {
+                var index = parseInt(that.parents('.item-comment').attr('data-index'));
+
+                if(that.is(':checked')){
+                    thatObj.commentsTopics.forEach((element, index) => {
+                        if(element.id_topic == that.parents('.comments').attr('data-id-topic')){
+                            thatObj.commentsTopics[index].best_comment = false;
+                        }
+                    });
+
+                    $('.item-comment').removeClass('item-best-comment');
+                    that.parents('.item-comment').addClass('item-best-comment');
+                }else{
+                    that.parents('.item-comment').removeClass('item-best-comment');
+                }
+
+                thatObj.commentsTopics[index].best_comment = that.is(':checked');
             });
         });
     }

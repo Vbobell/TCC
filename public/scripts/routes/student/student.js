@@ -22,6 +22,7 @@ $(document).ready(function(){
                         $('header h1').append('<span> > '+element.find('p').text()+'</span>');
                     }else{
                         $('header h1').text(element.find('p').text());
+                        $(this).css('display','flex');
                     }
                 });
             }, 200);
@@ -60,7 +61,11 @@ $(document).ready(function(){
                     $('body').append($(data)[1]);
                     $('body').append($(data)[3]);
                     setTimeout(function(){
-                        $('.page-content[data-content="generic"]').fadeIn(200);
+                        $('.page-content[data-content="generic"]').fadeIn(200, function(){
+                            if(mobile){
+                                $(this).css('display', 'flex');
+                            }
+                        });
                     },200);
                     if(!key){
                         $('.item').removeClass('inactive');
@@ -106,7 +111,11 @@ $(document).ready(function(){
                 if($('[data-content="generic"]').length == 0){
                     $('body').append(data);
                     setTimeout(function(){
-                        $('.page-content[data-content="generic"]').fadeIn(200);
+                        $('.page-content[data-content="generic"]').fadeIn(200, function(){
+                            if(mobile){
+                                $(this).css('display', 'flex');
+                            }
+                        });
                     },200);
                     if(!key){
                         $('.item').removeClass('inactive');
@@ -170,7 +179,11 @@ $(document).ready(function(){
                     $('body').append($(data)[1]);
                     $('body').append($(data)[3]);
                     setTimeout(function(){
-                        $('.page-content[data-content="generic"]').fadeIn(200);
+                        $('.page-content[data-content="generic"]').fadeIn(200, function(){
+                            if(mobile){
+                                $(this).css('display', 'flex');
+                            }
+                        });
                     },200);
                     if(!key){
                         $('.item').removeClass('inactive');
@@ -234,7 +247,11 @@ $(document).ready(function(){
                     $('body').append($(data)[1]);
                     $('body').append($(data)[3]);
                     setTimeout(function(){
-                        $('.page-content[data-content="generic"]').fadeIn(200);
+                        $('.page-content[data-content="generic"]').fadeIn(200, function(){
+                            if(mobile){
+                                $(this).css('display', 'flex');
+                            }
+                        });
                     },200);
                     if(!key){
                         $('.item').removeClass('inactive');
