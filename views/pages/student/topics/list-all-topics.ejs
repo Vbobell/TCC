@@ -50,9 +50,9 @@
                         $('.item').removeClass('inactive');
                         if(!mobile){                        
                             $('.inner-header h1').append('<span> > '+topicText+'</span><span> > '+$('.page-content[data-content="generic"] .title-content h2').text()+'</span>');
-                            $('.page-content[data-content="generic"]').css('display','flex');
                         }else{
                             $('.inner-header h1').text($('.page-content[data-content="generic"] .title-content h2').text());
+                            $('.page-content[data-content="generic"]').css('display','flex');
                         }
 
                         key = true;
