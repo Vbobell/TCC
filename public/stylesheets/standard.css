@@ -147,6 +147,9 @@ label{
     padding: 0.2em 2em;
     line-height: 2em;
 }
+.table-content .edit-row input[type="text"]{
+    width: 100%;
+}
 .table-content table tbody tr:first-child{
     margin: 2.5em 0 0 0;
 }

@@ -10,6 +10,7 @@ const ManageReward = require('../manageReward/manage-reward');
 const ManageRewardConfig = require('../manageRewardConfig/manage-reward-config');
 const ManageTypeTopic = require('../manageTypeTopic/manage-type-topic');
 const ManageClass = require('../manageClass/manage-class');
+const ManageStudentClass = require('../manageStudentClass/manage-student-class');
 
 class ManageSearch{
     constructor(entity, parameters){
@@ -103,6 +104,12 @@ class ManageSearch{
             case 'class':
                 let manageClass = new ManageClass();
                 manageClass.getDataClass((data) =>{
+                    return callback(data);
+                });
+            break;
+            case 'studentClass':
+                let manageStudentClass = new ManageStudentClass();
+                manageStudentClass.getDataStudentClass(data =>{
                     return callback(data);
                 });
             break;

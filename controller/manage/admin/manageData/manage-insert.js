@@ -1,6 +1,7 @@
 const ManageCourseDiscipline = require('../manageCourseDiscipline/manage-course-discipline');
 const ManageTeacherDiscipline = require('../manageTeacherDiscipline/manage-teacher-discipline');
 const ManageStudentDiscipline = require('../manageStudentDiscipline/manage-student-discipline');
+const ManageStudentClass = require('../manageStudentClass/manage-student-class');
 
 class ManageInsert{
     constructor(entity, parameters){
@@ -24,6 +25,12 @@ class ManageInsert{
             case 'studentDiscipline':
                 let manageStudentDiscipline = new ManageStudentDiscipline();
                 manageStudentDiscipline.insertDataStudentDiscipline(this.parameters, data => {
+                    return callback(data);
+                });
+            break;
+            case 'studentClass':
+                let manageStudentClass = new ManageStudentClass();
+                manageStudentClass.insertDataStudentClass(this.parameters, data => {
                     return callback(data);
                 });
             break;
