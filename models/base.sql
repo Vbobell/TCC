@@ -143,7 +143,7 @@ CREATE TABLE topic(
     id_topic SERIAL NOT NULL PRIMARY KEY,
     name_topic VARCHAR(100) NOT NULL,
     description_topic TEXT NOT NULL,
-    resolved BOOLEAN DEFAULT FALSE,
+    resolved BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE type_topic(

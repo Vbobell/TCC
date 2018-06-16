@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/file.png"/>
+            <h2>Turmas</h2>
+        </figure>
+        <section class="big-inner-content table-content">
+        <table class="registers">
+            <thead>
+                <tr class="row">
+                    <td class="col-lg-8">
+                        Turma
+                    </td>
+                    <td class="col-lg-4">
+                        Ação
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        </section>
+    </section>
+
+    <script class="script-class" data-content="generic">
+        (function () {
+            var getData = function(parameters){
+            var tableHead = ['name_class'];
+            $.ajax({
+                url: '/admin/getData',
+                type: 'GET',
+                data: parameters,
+                async : false,
+            }).done(function (data) {
+                var registers = JSON.parse(data);
+                $('table.registers tbody').html('');
+                registers.forEach(function (item, i) {                  
+                    $('table.registers tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
+                    $('table.registers tbody tr#row' + i + '').after('<tr class="row hidden" id="editRow' + i + '"></tr>');
+                
+                    $('table.registers tbody tr#row' + i + '').append(
+                        '<td class="col-lg-8">' + item.name_class +'</td>'+
+                        '<td class="col-lg-4 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
+                        '<div class="tool remove" data-id="'+item.id_class+'"></div></td>'
+                    );
+                    
+                    $('table.registers tbody tr#editRow'+ i + '').append(
+                        '<td class="col-lg-8"><input name="'+tableHead[0]+'" type="text" value="' + item.name_class + '"/></td>'+
+                        '<td class="col-lg-4"><div class="tool edit" data-id-edit=" '+item.id_class+'" data-id="tr#editRow'+i+'"></div>'+
+                        '<div class="tool cancel"></div></td>'
+                    );
+                });
+
+                $('.open-edit').on('click', function(){
+                    $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                    $($(this).attr('data-id')).removeClass('hidden').slideDown();
+                    
+                    $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+
+                    $(this).parents('.view-row').addClass('border-top-right-left edit-select');
+                    $($(this).attr('data-id')).addClass('border-right-bottom-left');
+                });
+
+                $('.cancel').on('click', function(){
+                    $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                    $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+                });
+    
+                $('.remove').on('click', function(){
+                    data = { 'entity': 'class','idClass': $(this).attr('data-id') };
+                    $.ajax({
+                        url : 'admin/remove',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data : JSON.stringify(data),
+                        async : false,
+                        type: 'POST'
+                    }).done(function(data){
+                            getData({'entity':'class'});
+                            alert('turma removido!');
+                    });
+                });
+
+                $('.edit').on('click', function(){
+                    data = {
+                        'entity': 'class',
+                        'nameClass': $($(this).attr('data-id')).find('input[name="name_class"]').val(),
+                        'idClass' : $(this).attr('data-id-edit')
+                    };
+                    $.ajax({
+                        url : 'admin/edit',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data : JSON.stringify(data),
+                        async : false,
+                        type: 'POST'
+                    }).done(function(data){
+                            getData({'entity':'class'});
+                            alert('dados alterados!');
+                    });
+                });
+            });
+        }
+        getData({'entity':'class'});
+        })();
+    </script>
+</body>
+
+</html>

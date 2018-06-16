@@ -3,47 +3,54 @@ const CourseImportController = require('./course/import-course');
 const DisciplineImportController = require('./discipline/import-discipline');
 const TeacherImportController = require('./teacher/import-teacher');
 const StudentImportController = require('./student/student-import');
+const ClassImportController = require('./class/import-class');
 
-class ControllerImport{
-    constructor(route, data){
+class ControllerImport {
+    constructor(route, data) {
         this.route = route;
         this.data = data;
     }
-    csvInsertData(callback){
-        switch(this.route){
+    csvInsertData(callback) {
+        switch (this.route) {
             case 'admin':
                 let controllerAdm = new AdminImportController(this.data);
-                controllerAdm.getReadData( data => 
+                controllerAdm.getReadData(data =>
                     controllerAdm.insertDataAdmin(data, response => callback(response))
                 );
-            break;
+                break;
             case 'course':
                 let controllerCourse = new CourseImportController(this.data);
-                controllerCourse.getReadData( data =>
+                controllerCourse.getReadData(data =>
                     controllerCourse.insertDataCourse(data, response => callback(response))
                 );
-            break;
+                break;
             case 'discipline':
                 let controllerDiscipline = new DisciplineImportController(this.data);
-                controllerDiscipline.getReadData( data =>
+                controllerDiscipline.getReadData(data =>
                     controllerDiscipline.insertDataDiscipline(data, response => callback(response))
                 );
-            break;
+                break;
             case 'teacher':
                 let controllerTeacher = new TeacherImportController(this.data);
-                controllerTeacher.getReadData( data =>
+                controllerTeacher.getReadData(data =>
                     controllerTeacher.insertDataTeacher(data, response => callback(response))
                 );
-            break;
+                break;
             case 'student':
                 let controllerStudent = new StudentImportController(this.data);
-                controllerStudent.getReadData( data =>
+                controllerStudent.getReadData(data =>
                     controllerStudent.insertDataStudent(data, response => callback(response))
                 );
-            break;
+                break;
+            case 'class':
+                let controllerClass = new ClassImportController(this.data);
+                controllerClass.getReadData(data =>
+                    controllerClass.insertDataClass(data, response => callback(response))
+                );
+                break;
             default:
                 callback('error');
-            break;
+                break;
         }
     }
 }

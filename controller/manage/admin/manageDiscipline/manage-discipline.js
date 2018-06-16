@@ -1,6 +1,6 @@
 const CrudDiscipline = require('../../../../models/crud/crudDiscipline/crud-discipline');
 
-class ManageCourse{
+class ManageDiscipline{
     constructor(){
         this.crudDiscipline = new CrudDiscipline();
     }
@@ -26,4 +26,4 @@ class ManageCourse{
     }
 }
 
-module.exports = ManageCourse;
+module.exports = ManageDiscipline;
