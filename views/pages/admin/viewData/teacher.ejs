@@ -1,156 +1,196 @@
 <!DOCTYPE html>
 <html>
+
 <body>
     <section class="page-content big-content" data-content="generic">
         <figure class="title-content">
-            <img src="images/content/itens/file.png"/>
+            <img src="images/content/itens/file.png" />
             <h2>Professor</h2>
         </figure>
         <section class="big-inner-content table-content">
-        <table class="registers">
-            <thead>
-                <tr class="row">
-                    <td class="col-lg-4">
-                        Nome
-                    </td>
-                    <td class="col-lg-3">
-                        Registro
-                    </td>
-                    <td class="col-lg-3">
-                        Disciplina
-                    </td>
-                    <td class="col-lg-2">
-                        Ação
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+            <table class="registers">
+                <thead>
+                    <tr class="row">
+                        <td class="col-lg-2">
+                            Nome
+                        </td>
+                        <td class="col-lg-2">
+                            Registro
+                        </td>
+                        <td class="col-lg-2">
+                            E-mail
+                        </td>
+                        <td class="col-lg-2">
+                            Disciplina
+                        </td>
+                        <td class="col-lg-2">
+                            Turma
+                        </td>
+                        <td class="col-lg-2">
+                            Ação
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </section>
     </section>
 
     <script class="script-teacher" data-content="generic">
         (function () {
-            var getData = function(parameters, callback){
-            var tableHead = ['name_teacher', 'registry'];
-            $.ajax({
-                url: '/admin/getData',
-                type: 'GET',
-                data: parameters,
-                async : false,
-            }).done(function (data) {
-                var registers = JSON.parse(data);
-                $('table.registers tbody').html('');
-                registers.forEach(function (item, i) {                   
-                    $('table.registers tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
-                    $('table.registers tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '"></tr>');
-                
-                    $('table.registers tbody tr#row' + i + '').append(
-                        '<td class="col-lg-4">' + item.name_teacher +'</td>'+
-                        '<td class="col-lg-3">'+item.registry+'</td>'+
-                        '<td class="col-lg-3 discipline"id="teacherDiscipline'+item.id_teacher+'"></td>'+
-                        '<td class="col-lg-2 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
-                        '<div class="tool remove" data-id="'+item.id_teacher+'"></div></td>'
-                    );
-                    
-                    $('table.registers tbody tr#editRow'+ i + '').append(
-                        '<td class="col-lg-4"><input name="'+tableHead[0]+'" type="text" value="' + item.name_teacher + '"/></td>'+
-                        '<td class="col-lg-3"><input name="'+tableHead[1]+'" type="text" value="' + item.registry + '"/></td>'+
-                        '<td class="col-lg-3 disciplineEdit" id="teacherDiscipline'+item.id_teacher+'"></td>'+
-                        '<td class="col-lg-2"><div class="tool edit" data-id-edit=" '+item.id_teacher+'" data-id="tr#editRow'+i+'"></div>'+
-                        '<div class="tool cancel"></div></td>'
-                    );
-                });
+            var getData = function (parameters, callback) {
+                var tableHead = ['name_teacher', 'registry', 'email'];
+                $.ajax({
+                    url: '/admin/getData',
+                    type: 'GET',
+                    data: parameters,
+                    async: false,
+                }).done(function (data) {
+                    var registers = JSON.parse(data);
+                    $('table.registers tbody').html('');
+                    registers.forEach(function (item, i) {
+                        $('table.registers tbody').append('<tr class="row view-row" id="row' + i + '"></tr>');
+                        $('table.registers tbody tr#row' + i + '').after('<tr class="row hidden edit-row" id="editRow' + i + '"></tr>');
 
-                $('.open-edit').on('click', function(){
-                    $('tr[id^="editRow"]').addClass('hidden').slideUp();
-                    $($(this).attr('data-id')).removeClass('hidden').slideDown();
-                    
-                    $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+                        $('table.registers tbody tr#row' + i + '').append(
+                            '<td class="col-lg-2">' + item.name_teacher + '</td>' +
+                            '<td class="col-lg-2">' + item.registry + '</td>' +
+                            '<td class="col-lg-2">' + item.email + '</td>' +
+                            '<td class="col-lg-2 discipline"id="teacherDiscipline' + item.id_teacher + '"></td>' +
+                            '<td class="col-lg-2 classTeacher"id="teacherClass' + item.id_teacher + '"></td>' +
+                            '<td class="col-lg-2 content-tools"><div class="tool open-edit" data-id="tr#editRow' + i + '"></div>' +
+                            '<div class="tool remove" data-id="' + item.id_teacher + '"></div></td>'
+                        );
 
-                    $(this).parents('.view-row').addClass('border-top-right-left edit-select');
-                    $($(this).attr('data-id')).addClass('border-right-bottom-left');
-                });
-
-                $('.cancel').on('click', function(){
-                    $('tr[id^="editRow"]').addClass('hidden').slideUp();
-                    $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
-                });
-    
-                $('.remove').on('click', function(){
-                    data = { 'entity': 'teacher','idTeacher': $(this).attr('data-id') };
-                    $.ajax({
-                        url : 'admin/remove',
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        data : JSON.stringify(data),
-                        async : false,
-                        type: 'POST'
-                    }).done(function(data){
-                            getData({'entity':'teacher', 'limit': 9, 'offset': 0 });
-                            alert('professor removido!');
+                        $('table.registers tbody tr#editRow' + i + '').append(
+                            '<td class="col-lg-2"><input name="' + tableHead[0] + '" type="text" value="' + item.name_teacher + '"/></td>' +
+                            '<td class="col-lg-2"><input name="' + tableHead[1] + '" type="text" value="' + item.registry + '"/></td>' +
+                            '<td class="col-lg-2"><input name="' + tableHead[2] + '" type="text" value="' + item.email + '"/></td>' +
+                            '<td class="col-lg-2 disciplineEdit" id="teacherDiscipline' + item.id_teacher + '"></td>' +
+                            '<td class="col-lg-2 cls-Edit" id="teacherClass' + item.id_teacher + '"></td>' +
+                            '<td class="col-lg-2"><div class="tool edit" data-id-edit=" ' + item.id_teacher + '" data-id="tr#editRow' + i + '"></div>' +
+                            '<div class="tool cancel"></div></td>'
+                        );
                     });
-                });
 
-                $('.edit').on('click', function(){
-                    var idTeacher = $(this).attr('data-id-edit');
-                    var nameTeacher = $($(this).attr('data-id')).find('input[name="name_teacher"]').val();
-                    var Registry = $($(this).attr('data-id')).find('input[name="registry"]').val();
-                    var element = $($(this).attr('data-id'));
+                    $('.open-edit').on('click', function () {
+                        $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                        $($(this).attr('data-id')).removeClass('hidden').slideDown();
 
-                    data = {
-                        'entity': 'teacher',
-                        'name': nameTeacher,
-                        'registry': Registry,
-                        'idTeacher' : idTeacher
-                    };
-                    $.ajax({
-                        url : 'admin/edit',
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        data : JSON.stringify(data),
-                        async : false,
-                        type: 'POST'
-                    }).done(function(data){
-                        disciplinesChecked = [];
-                        element.find('input[name="disciplines"]:checked').each(function(){
-                            disciplinesChecked.push([parseInt(idTeacher), parseInt($(this).val())]);
+                        $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+
+                        $(this).parents('.view-row').addClass('border-top-right-left edit-select');
+                        $($(this).attr('data-id')).addClass('border-right-bottom-left');
+                    });
+
+                    $('.cancel').on('click', function () {
+                        $('tr[id^="editRow"]').addClass('hidden').slideUp();
+                        $('tr[id^="editRow"], .view-row').removeClass('border-top-right-left edit-select border-right-bottom-left');
+                    });
+
+                    $('.remove').on('click', function () {
+                        data = { 'entity': 'teacher', 'idTeacher': $(this).attr('data-id') };
+                        $.ajax({
+                            url: 'admin/remove',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(data),
+                            async: false,
+                            type: 'POST'
+                        }).done(function (data) {
+                            getData({ 'entity': 'teacher', 'limit': 9, 'offset': 0 });
+                            alert('professor removido!');
                         });
-                        insertDisciplinesTeacher = {
-                            'entity': 'teacherDiscipline',
-                            'registers' : disciplinesChecked,
+                    });
+
+                    $('.edit').on('click', function () {
+                        var idTeacher = $(this).attr('data-id-edit');
+                        var nameTeacher = $($(this).attr('data-id')).find('input[name="name_teacher"]').val();
+                        var Registry = $($(this).attr('data-id')).find('input[name="registry"]').val();
+                        var email = $($(this).attr('data-id')).find('input[name="email"]').val();
+                        var element = $($(this).attr('data-id'));
+
+                        var data = {
+                            'entity': 'teacher',
+                            'name': nameTeacher,
+                            'registry': Registry,
+                            'email': email,
                             'idTeacher': idTeacher
                         };
-                        
-                        insertGenericData(JSON.stringify(insertDisciplinesTeacher), function(){
-                            mountStructure(function(){
-                                alert('dados alterados!');
+                        $.ajax({
+                            url: 'admin/edit',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(data),
+                            async: false,
+                            type: 'POST'
+                        }).done(function (data) {
+                            var disciplinesChecked = [];
+                            var classChecked = [];
+
+                            element.find('input[name="disciplines"]:checked').each(function () {
+                                disciplinesChecked.push([parseInt(idTeacher), parseInt($(this).val())]);
+                            });
+                            element.find('input[name="class"]:checked').each(function () {
+                                classChecked.push([parseInt($(this).val()), parseInt(idTeacher)]);
+                            });
+                            insertDisciplinesTeacher = {
+                                'entity': 'teacherDiscipline',
+                                'registers': disciplinesChecked,
+                                'idTeacher': idTeacher
+                            };
+
+                            var insertClassTeacher = {
+                                'entity': 'teacherClass',
+                                'registers': classChecked,
+                                'idTeacher': idTeacher
+                            };
+
+                            insertGenericData(JSON.stringify(insertDisciplinesTeacher), function () {
+                                insertGenericData(JSON.stringify(insertClassTeacher), function () {
+                                    mountStructure(function () {
+                                        alert('dados alterados!');
+                                    });
+                                });
                             });
                         });
                     });
+                    return callback();
                 });
-                return callback();
-            });
-        }
-        var mountStructure = function(callback){
-                getData({'entity':'teacher', 'limit': 9, 'offset': 0 }, function(){
-                    getGenericData({'entity':'discipline', 'limit': 9, 'offset': 0 }, function(data){
-                        
+            }
+            var mountStructure = function (callback) {
+                getData({ 'entity': 'teacher', 'limit': 9, 'offset': 0 }, function () {
+                    getGenericData({ 'entity': 'discipline', 'limit': 9, 'offset': 0 }, function (data) {
+
                         var disciplines = JSON.parse(data);
                         var elementEdit = $('table tr.edit-row');
 
-                        var elements = disciplines.map(function(item,index){
-                            return {name: 'disciplines', value: item.name_discipline, id: item.id_discipline};
+                        var elements = disciplines.map(function (item, index) {
+                            return { name: 'disciplines', value: item.name_discipline, id: item.id_discipline };
                         });
 
                         elementEdit.find('.disciplineEdit').html('');
 
-                        listInputCheckBox(elements, function(structure){
+                        listInputCheckBox(elements, function (structure) {
                             elementEdit.find('.disciplineEdit').append(structure);
                         });
                     });
-                    getGenericData({'entity':'teacherDiscipline', 'limit': 9, 'offset': 0 }, function(data){
+                    getGenericData({ 'entity': 'class' }, function (dataClass) {
+                        var teacherClass = JSON.parse(dataClass);
+                        var elementEdit = $('table tr.edit-row');
+
+                        var elements = teacherClass.map(function (item, index) {
+                            return { name: 'class', value: item.name_class, id: item.id_class };
+                        });
+
+                        elementEdit.find('.cls-Edit').html('');
+
+                        listInputCheckBox(elements, function (structure) {
+                            elementEdit.find('.cls-Edit').append(structure);
+                        });
+                    });
+                    getGenericData({ 'entity': 'teacherDiscipline', 'limit': 9, 'offset': 0 }, function (data) {
                         var teacherDisciplines = JSON.parse(data);
                         var elementView = $('table tr.view-row');
                         var elementEdit = $('table tr.edit-row');
@@ -159,11 +199,28 @@
                         elementView.find('.discipline').html('');
                         elementView.find('.discipline').append('<ul></ul>');
 
-                        teacherDisciplines.forEach(function(item, i){
-                            for(var j = 0; j < elementView.length; j++){
-                                if(elementView.eq(j).find('.discipline').attr('id') == `teacherDiscipline${item.id_teacher}`){
+                        teacherDisciplines.forEach(function (item, i) {
+                            for (var j = 0; j < elementView.length; j++) {
+                                if (elementView.eq(j).find('.discipline').attr('id') == `teacherDiscipline${item.id_teacher}`) {
                                     elementView.eq(j).find('.discipline ul').append('<li>' + item.name_discipline + '</li>');
-                                    elementEdit.eq(j).find(`input[id="${item.name_discipline+item.id_discipline}"]`).attr('checked','checked');
+                                    elementEdit.eq(j).find(`input[id="${item.name_discipline + item.id_discipline}"]`).attr('checked', 'checked');
+                                }
+                            }
+                        });
+                    });
+                    getGenericData({ 'entity': 'teacherClass' }, function (data) {
+                        var teacherClass = JSON.parse(data);
+                        var elementView = $('table tr.view-row');
+                        var elementEdit = $('table tr.edit-row');
+
+                        elementView.find('.classTeacher').html('');
+                        elementView.find('.classTeacher').append('<ul></ul>');
+
+                        teacherClass.forEach(function (item, i) {
+                            for (var j = 0; j < elementView.length; j++) {
+                                if (elementView.eq(j).find('.classTeacher').attr('id') == `teacherClass${item.id_teacher}`) {
+                                    elementView.eq(j).find('.classTeacher ul').append('<li>' + item.name_class + '</li>');
+                                    elementEdit.eq(j).find(`.cls-Edit input[value="${item.id_class}"]`).prop('checked', true);
                                 }
                             }
                         });
@@ -173,8 +230,8 @@
             };
 
             var key = true;
-            if(key){
-                mountStructure(function(){
+            if (key) {
+                mountStructure(function () {
                     key = false;
                 });
             }
