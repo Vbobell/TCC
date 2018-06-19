@@ -8,6 +8,7 @@ const ManageTeacher = require('../../admin/manageTeacher/manage-teacher');
 const ManageColaborationTopic = require('../manageColaborationTopic/manage-colaboration-topic');
 const ManageDisciplineTopic = require('../manageDisciplineTopic/manage-discipline-topic');
 const ManageTopicComment = require('../manageTopicComment/manage-topic-comment');
+const ManageTeacherClass = require('../manageTeacherClass/manage-teacher-class');
 
 class ManageSearch {
     constructor(entity, parameters) {
@@ -16,7 +17,7 @@ class ManageSearch {
     }
     getData(callback) {
         let that = this;
-        
+
         switch (this.entity) {
             case 'teacherDiscipline':
                 let data = {
@@ -37,15 +38,22 @@ class ManageSearch {
             case 'newActivity':
                 let manageActivityDiscipline = new ManageTeacherDiscipline();
                 let manageRewardActivity = new ManageRewardActivity();
+                let manageTeacherClass = new ManageTeacherClass();
+
+
                 let returnData = {
                     disciplines: "",
+                    classTeacher: "",
                     rewards: ""
                 };
                 manageActivityDiscipline.getDataTeacherDiscipline(this.parameters, dataDiscipline => {
                     returnData.disciplines = dataDiscipline;
-                    manageRewardActivity.getDataRewardActivity(this.parameters, dataReward => {
+                    manageRewardActivity.getDataRewardActivity(that.parameters, dataReward => {
                         returnData.rewards = dataReward;
-                        return callback(returnData);
+                        manageTeacherClass.getDataTeacherDiscipline(that.parameters, dataClass => {
+                            returnData.classTeacher = dataClass;
+                            return callback(returnData);
+                        });
                     });
                 });
                 break;
@@ -184,22 +192,22 @@ class ManageSearch {
                 });
 
                 break;
-                case 'viewDisciplineAllTopics':
+            case 'viewDisciplineAllTopics':
                 let manageDisciplineAllTopics = new ManageDisciplineTopic();
                 let manageTopicComment = new ManageTopicComment();
 
                 let dataDisciplineAllTopics = {
                     "alltopics": true,
                     "topics": "",
-                    "comments":""
+                    "comments": ""
                 };
 
                 manageDisciplineAllTopics.getDisciplineAllTopics(this.parameters, (dataTopics) => {
                     dataDisciplineAllTopics.topics = dataTopics;
-                    
-                    manageTopicComment.getComments(that.parameters, (dataComments) =>{
+
+                    manageTopicComment.getComments(that.parameters, (dataComments) => {
                         dataDisciplineAllTopics.comments = dataComments;
-                        
+
                         return callback(dataDisciplineAllTopics);
                     });
                 });

@@ -10,11 +10,14 @@
             <table class="registers">
                 <thead>
                     <tr class="row">
-                        <td class="col-lg-5">
+                        <td class="col-lg-3">
                             Nome
                         </td>
                         <td class="col-lg-4">
                             Descrição
+                        </td>
+                        <td class="col-lg-2">
+                            pontuação
                         </td>
                         <td class="col-lg-3">
                             Ação
@@ -22,16 +25,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                <% data.forEach(function(activity) { %>
+                <% data.disciplineActivity.forEach(function(activity) { 
+                    var asResolved = false;
+                    var point = 0;
+                    %>
                     <tr class="row view-row not-edit">
-                        <td class="col-lg-5">
+                        <td class="col-lg-3">
                         <%= activity.name_activity %>
                         </td>
                         <td class="col-lg-4">
                             <%= activity.description_activity %>
                         </td>
+                        <td class="col-lg-2">
+                            <% for(var studentActivity of data.studentActivity) { 
+                                    if(activity.id_activity == studentActivity.id_activity)  {
+                                        asResolved = true;
+                                        point = studentActivity.point_rechead;
+                                        break;
+                                    }
+                                }
+                            %>
+                            <% if(!asResolved) { %>
+                                <label class="point-activity">Atividade não realizada</label>
+                            <% }else{  %>
+                                <label class="point-activity"><%= point %></label>
+                            <% }%>
+                        </td>
                         <td class="col-lg-3 content-tools" data-path="activity">
-                            <div class="tool open-edit" data-item="activity" data-id="<%= activity.id_activity %>"></div>
+                            <% if(!asResolved) { %>
+                                <div class="tool open-edit" data-item="activity" data-id="<%= activity.id_activity %>"></div>
+                            <% }  %>
                         </td>
                     </tr>
                 <% }); %>

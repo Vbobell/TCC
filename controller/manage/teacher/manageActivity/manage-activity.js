@@ -38,13 +38,14 @@ class ManageActivity {
             parameters.config.descriptionActivity,
             parameters.config.pointActivity,
             parameters.config.idDiscipline,
-            parameters.config.idTeacher
+            parameters.config.idTeacher,
+            parameters.config.idClass
         ]
 
         this.crudActivity.executeUniqueInsert(
             'activity',
-            '(name_activity, description_activity, point_activity, id_discipline, id_teacher)',
-            '($1, $2, $3, $4, $5)',
+            '(name_activity, description_activity, point_activity, id_discipline, id_teacher, id_class)',
+            '($1, $2, $3, $4, $5, $6)',
             'id_activity',
             registry,
             response => {
@@ -59,15 +60,16 @@ class ManageActivity {
             parameters.config.pointActivity,
             parameters.config.idDiscipline,
             parameters.config.idTeacher,
+            parameters.config.idClass,
             parameters.id
         ];
 
-        let where = 'id_activity = $6';
+        let where = 'id_activity = $7';
 
         this.crudActivity.executeUpdate(
             'activity',
-            '(name_activity, description_activity, point_activity, id_discipline, id_teacher)',
-            '($1, $2, $3, $4, $5)',
+            '(name_activity, description_activity, point_activity, id_discipline, id_teacher, id_class)',
+            '($1, $2, $3, $4, $5, $6)',
             where,
             registry,
             response => {

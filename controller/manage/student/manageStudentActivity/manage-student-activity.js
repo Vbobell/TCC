@@ -76,6 +76,15 @@ class ManageStudentActivity{
                 return callback(response);
             });
     }
+
+    getStudentActivitysPoint(parameters, callback){
+        let registry = [
+            parameters.idStudent
+        ]
+        this.crudStudentActivity.selectActivityPoint(registry, dataActivity =>{
+            return callback(dataActivity);
+        });
+    }
 }
 
 module.exports = ManageStudentActivity;

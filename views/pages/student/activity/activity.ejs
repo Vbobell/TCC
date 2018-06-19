@@ -94,9 +94,12 @@
             activity.questions = realizeActivity.questions;
 
         }
+        
+        $('.elements-question:not(.elements-question[data-section="description"])').hide();
 
         $('.item-menu-list[data-menu="question"]').on('click', function(){
             $('.elements-question').hide();
+            $('.questions .item-question').removeClass('active');
             $('.elements-question[data-section="description"]').fadeIn(200);
         });
 

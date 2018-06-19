@@ -85,8 +85,10 @@ CREATE TABLE activity(
     point_activity DOUBLE PRECISION NOT NULL,
     id_discipline INT NOT NULL,
     id_teacher INT NOT NULL,
+    id_class INT NOT NULL,
+    FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher),
     FOREIGN KEY (id_discipline) REFERENCES discipline (id_discipline),
-    FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher)
+    FOREIGN KEY (id_class) REFERENCES class_ (id_class)
 );
 
 CREATE TABLE activity_question(

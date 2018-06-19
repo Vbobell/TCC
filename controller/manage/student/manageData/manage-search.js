@@ -9,6 +9,7 @@ const ManageStudent = require('../../admin/manageStudent/manage-student');
 const ManageColaborationTopic = require('../manageColaborationTopic/manage-colaboration-topic');
 const ManageDisciplineTopic = require('../manageDisciplineTopic/manage-discipline-topic');
 const ManageTopicComment = require('../manageTopicComment/manage-topic-comment');
+const ManageStudentActivity = require('../manageStudentActivity/manage-student-activity');
 
 class ManageSearch {
     constructor(entity, parameters) {
@@ -51,10 +52,21 @@ class ManageSearch {
                     return callback(data);
                 });
                 break;
-            case 'studentDisciplineActivity':
+            case 'studentDisciplineActivity':                
+                let manageStudentActivity = new ManageStudentActivity();
                 let manageDisciplineActivity = new ManageDisciplineActivity();
-                manageDisciplineActivity.getDataStudentDisciplineActivity(this.parameters, data => {
-                    return callback(data);
+                let dataDisciplineActivity = {
+                    'disciplineActivity': '',
+                    'studentActivity': ''
+                }
+
+                manageDisciplineActivity.getDataStudentDisciplineActivity(this.parameters, disciplineActivity => {
+                    dataDisciplineActivity.disciplineActivity =  disciplineActivity;
+                    manageStudentActivity.getStudentActivitysPoint(that.parameters, studentActivity => {
+                        dataDisciplineActivity.studentActivity =  studentActivity;
+                        return callback(dataDisciplineActivity);
+                    })
+                    
                 });
                 break;
             case 'studentActivity':

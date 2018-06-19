@@ -36,11 +36,11 @@ class CrudDisciplineActivity extends Crud{
                     return json(JSON.stringify(err));
                 }
                client.query(`SELECT id_activity, name_activity, description_activity 
-                FROM activity, discipline WHERE
-                activity.id_discipline =  discipline.id_discipline
+                FROM activity, discipline, class_, student_class WHERE
+                activity.id_discipline =  discipline.id_discipline AND
+                activity.id_class = class_.id_class
                 AND discipline.id_discipline = $1
-                AND id_activity NOT IN
-                (SELECT id_activity FROM student_activity WHERE id_student = $2)
+                AND student_class.id_student = $2
                 ORDER BY name_activity ASC`, registry, function (err, result) {
                 done();
                     if (err) {

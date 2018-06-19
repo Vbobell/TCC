@@ -135,6 +135,15 @@
                             </li>
                         <% }); %>
                         </ul>
+                        <h4>Turmas</h4>
+                        <ul>
+                            <% data.classTeacher.forEach(function(classTeacher) { %>
+                                <li>
+                                    <input type="radio" name="class-activity" id="class-<%= classTeacher.id_class %>" data-id="<%= classTeacher.id_class %>"/>
+                                    <label for="#class-<%= classTeacher.id_class %>"><%= classTeacher.name_class %></label>
+                                </li>
+                            <% }); %>
+                        </ul>
                     </div>
                     <div class="col-xl-8 config-item reward">
                         <h4 class="col-xl-12">Bonificação</h4>
@@ -367,16 +376,19 @@
                         'descriptionActivity' : '',
                         'pointActivity': $('[name="points-activity"]').val(),
                         'idDiscipline': 0,
+                        'idClass': 0,
                         'idTeacher': user.id,
                         'rewards': []
                 };
                 var nameActivity = $('[name="name-activity"]');
                 var descriptionActivity = $('[name="description-activity"]');
                 var disciplineActivity = $('[name="discipline-activity"]:checked');
+                var classActivity = $('[name="class-activity"]:checked');
 
                 if(nameActivity.val().replace(' ', '').length == 0 || 
                 descriptionActivity.val().replace(' ', '').length == 0 || 
-                disciplineActivity.length == 0){
+                disciplineActivity.length == 0 ||
+                classActivity.length == 0){
                     throw "empty";
                 }else{
                     $('figure.active[name="reward-activity"]').each(function(){
@@ -384,7 +396,8 @@
                     });
                     config.nameActivity = nameActivity.val();
                     config.descriptionActivity = descriptionActivity.val();
-                    config.idDiscipline =  disciplineActivity.attr('data-id');
+                    config.idDiscipline = disciplineActivity.attr('data-id');
+                    config.idClass = classActivity.attr('data-id');
                     valid = true;
                 }
             }catch(e){
