@@ -9,12 +9,15 @@ class Topic {
         var user = JSON.parse(localStorage.getItem('user'));
         var topicData = "";
         var comments = [];
+        var countTopic = 0;
 
         for (var topic of this.topics) {
             if (topic.id_topic == id) {
                 topicData = topic;
+                topicData.countTopic = countTopic;
                 break;
             }
+            countTopic++;
         }
         var topicIdUser = topicData.id_student != undefined ? topicData.id_student : topicData.id_teacher
         var nameUser = topicData.name_student != undefined ? topicData.name_student : topicData.name_teacher;
@@ -36,6 +39,7 @@ class Topic {
         element.find('p[name="description-topic"]').text(topicData.description_topic);
 
         element.find('.comments').attr('data-id-topic', topicData.id_topic);
+        element.find('.comments').attr('data-index-topic', topicData.countTopic);
 
         that.domEventsTopic(element);
 
@@ -353,15 +357,17 @@ class Topic {
 
         element.find('.best-comment input[type="checkbox"]').on('change', function () {
             var that = $(this);
-;
+;           var topicNow = thatObj.topics[parseInt($(this).parents('.comments').attr('data-index-topic'))];
             var parameters = {
                 "typeUser": user.type,
                 "commentTypeUser": $(this).parents('.action-comment').attr('data-type-user'),
                 "entity": "bestComment",
                 "idTopic": $(this).parents('.comments').attr('data-id-topic'),
                 "idComment": $(this).parents('.item-comment').attr('data-id-comment'),
-                "idUser": $(this).parents('.action-comment').attr('data-id-user'), 
-                "bestComment": $(this).is(':checked')
+                "idUser": $(this).parents('.action-comment').attr('data-id-user'),
+                "bestComment": $(this).is(':checked'),
+                "idDiscipline": topicNow.id_discipline,
+                "points": topicNow.point_type_topic
             };
 
             thatObj.editTopicComment(parameters, function () {

@@ -32,8 +32,10 @@ class ManageUpdate{
             case 'bestComment':
             let manageBestComment = new ManageTopicComment();
 
-            manageBestComment.updateBestComment(this.parameters, (data) => {
-                return callback(data);
+            manageBestComment.updateBestComment(this.parameters, (dataComment) => {
+                manageBestComment.pointsComment(this.parameters, () =>{
+                    return callback(dataComment);
+                });
             });
             break;
             case 'updateResolvedTopic':

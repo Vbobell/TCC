@@ -1,8 +1,10 @@
 const CrudTopicComment = require('../../../../models/crud/crudTopicComment/crud-topic-comment');
+const CrudUserPoints = require('../../../../models/crud/crudUserPoints/crud-user-points');
 
 class ManageTopicComment {
     constructor() {
         this.crudTopicComment = new CrudTopicComment();
+        this.crudUserPoints = new CrudUserPoints();
     }
 
     getComments(parameters, callback) {
@@ -144,6 +146,62 @@ class ManageTopicComment {
                     return callback(commentData);
                 });
         }
+    }
+
+    pointsComment(parameters, callback) {
+        let that = this;
+
+        let registry = [
+            parameters.idUser,
+            parameters.idDiscipline
+        ];
+        let table = "";
+        let columns = "";
+        let returnId = "";
+        let where= "";
+
+        if (parameters.commentTypeUser == "student") {
+            table = 'student_points';
+            columns = '(id_student, id_discipline, points)';
+            returnId = 'id_student_point';
+            where = "id_student = $1 AND id_discipline = $2";
+        }else{
+            table = 'teacher_points';
+            columns = '(id_teacher, id_discipline, points)';
+            returnId = 'id_teacher_point';
+            where = "id_teacher = $1 AND id_discipline = $2";
+        }
+            this.crudUserPoints.selectStudentPoint(registry, (data) => {
+                if (data.length == 0 && parameters.bestComment) {
+                    registry.push(parameters.points);
+                    that.crudUserPoints.executeUniqueInsert(
+                        table, columns, '($1, $2, $3)', returnId, registry, 
+                        (topicData) => {
+                            return callback(topicData);
+                        });
+                } else if(data.length > 0){
+                    if(parameters.bestComment){
+                        registry.push(parseFloat(data[0].points)+parseFloat(parameters.points));
+                    }else{
+                        let result = parseFloat(data[0].points)-parseFloat(parameters.points);
+                        
+                        if(result < 0){
+                            registry.push(0);
+                        }else{
+                            registry.push(result);
+                        }
+                    }
+
+                    this.crudUserPoints.executeUpdate(
+                        table, '(points)', '($3)', where, registry,
+                        (user) => {
+                            return callback(user);
+                        });
+                }else{
+                    return callback(false);
+                }
+            });
+        
     }
 }
 
