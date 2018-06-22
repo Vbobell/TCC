@@ -693,6 +693,40 @@ table.registers figure[name="type-topic"] label{
     height: 2em;
     margin: 0 5px 0 0;
 }
+/*Rewards*/
+.section-reward .rewards h3{
+    width: 100%;
+    margin: 0 0 0.5em 0;
+}
+.level-topic {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
+    margin: 0 0 1em 0;
+}
+.level-topic img {
+    width: 10%;
+}
+.level {
+    display: flex;
+    flex-wrap: wrap;
+}
+.level-topic progress[value] {
+    -webkit-appearance: none;
+     appearance: none;
+     width: 100%;
+}
+.level-topic progress[value]::-webkit-progress-value {
+    background-color: #17b377;
+}
+.level-topic progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+/*Rewards*/
+
 /*utils*/
 .inactive{
     opacity: 0.6 !important;

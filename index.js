@@ -93,6 +93,7 @@ app.get('/student', function (request, response) {
       entity: 'studentInit',
       parameters: {
         'registry': request.session.user.user,
+        'idUser': request.session.user.id,
         'limit' : 9,
         'offset' : 0
       }

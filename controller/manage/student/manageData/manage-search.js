@@ -10,6 +10,7 @@ const ManageColaborationTopic = require('../manageColaborationTopic/manage-colab
 const ManageDisciplineTopic = require('../manageDisciplineTopic/manage-discipline-topic');
 const ManageTopicComment = require('../manageTopicComment/manage-topic-comment');
 const ManageStudentActivity = require('../manageStudentActivity/manage-student-activity');
+const ManageStudentLevel = require('../manageStudentLevel/manage-student-level');
 
 class ManageSearch {
     constructor(entity, parameters) {
@@ -26,22 +27,28 @@ class ManageSearch {
                     "rewards": {
                         "all": "",
                         "student": ""
-                    }
+                    },
+                    "levels": ""
                 };
 
                 let initStudentDiscipline = new ManageStudentDiscipline();
                 let initStudentReward = new ManageStudentReward();
                 let initRewards = new ManageReward();
+                let initStudentLevels = new ManageStudentLevel();
 
                 initStudentDiscipline.getDataStudentDiscipline(this.parameters, (disciplines) => {
                     data.disciplines = disciplines;
 
-                    initRewards.getDataRewards(that.parameters, rewardsAll => {
+                    initRewards.getDataRewards(this.parameters, rewardsAll => {
                         data.rewards.all = JSON.parse(rewardsAll);
 
-                        initStudentReward.selectRewards(that.parameters, (rewardsStudent) => {
+                        initStudentReward.selectRewards(this.parameters, (rewardsStudent) => {
                             data.rewards.student = rewardsStudent;
-                            return callback(data);
+
+                            initStudentLevels.getLevelStudent(this.parameters, (studentLevels) => {
+                                data.levels = studentLevels;
+                                return callback(data);
+                            });
                         });
                     });
                 });

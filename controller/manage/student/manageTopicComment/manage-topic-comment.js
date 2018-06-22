@@ -157,51 +157,60 @@ class ManageTopicComment {
         ];
         let table = "";
         let columns = "";
+        let columnUser = "";
         let returnId = "";
-        let where= "";
+        let where = "";
 
         if (parameters.commentTypeUser == "student") {
             table = 'student_points';
             columns = '(id_student, id_discipline, points)';
+            columnUser = 'id_student';
             returnId = 'id_student_point';
             where = "id_student = $1 AND id_discipline = $2";
-        }else{
+        } else {
             table = 'teacher_points';
             columns = '(id_teacher, id_discipline, points)';
+            columnUser = 'id_teacher';
             returnId = 'id_teacher_point';
             where = "id_teacher = $1 AND id_discipline = $2";
         }
-            this.crudUserPoints.selectStudentPoint(registry, (data) => {
-                if (data.length == 0 && parameters.bestComment) {
-                    registry.push(parameters.points);
-                    that.crudUserPoints.executeUniqueInsert(
-                        table, columns, '($1, $2, $3)', returnId, registry, 
-                        (topicData) => {
-                            return callback(topicData);
-                        });
-                } else if(data.length > 0){
-                    if(parameters.bestComment){
-                        registry.push(parseFloat(data[0].points)+parseFloat(parameters.points));
-                    }else{
-                        let result = parseFloat(data[0].points)-parseFloat(parameters.points);
-                        
-                        if(result < 0){
-                            registry.push(0);
-                        }else{
-                            registry.push(result);
-                        }
-                    }
 
-                    this.crudUserPoints.executeUpdate(
-                        table, '(points)', '($3)', where, registry,
-                        (user) => {
-                            return callback(user);
-                        });
-                }else{
-                    return callback(false);
+        let parametersUser = {
+            table,
+            columnUser
+        };
+
+        this.crudUserPoints.selectUserPoint(parametersUser, registry, (data) => {
+            if (data.length == 0 && parameters.bestComment) {
+                registry.push(parameters.points);
+                that.crudUserPoints.executeUniqueInsert(
+                    table, columns, '($1, $2, $3)', returnId, registry,
+                    (topicData) => {
+                        return callback(topicData);
+                    });
+            } else if (data.length > 0) {
+                if (parameters.bestComment) {
+                    registry.push(parseFloat(data[0].points) + parseFloat(parameters.points));
+                } else {
+                    let result = parseFloat(data[0].points) - parseFloat(parameters.points);
+
+                    if (result < 0) {
+                        registry.push(0);
+                    } else {
+                        registry.push(result);
+                    }
                 }
-            });
-        
+
+                this.crudUserPoints.executeUpdate(
+                    table, '(points)', '($3)', where, registry,
+                    (user) => {
+                        return callback(user);
+                    });
+            } else {
+                return callback(false);
+            }
+        });
+
     }
 }
 

@@ -1,14 +1,24 @@
 class ViewReward{
-    constructor(rewards){
+    constructor(rewards, topicsPoint){
         this.rewards = rewards;
+        this.topicsPoint = topicsPoint;
     }
 
     setRewardsView(idDiscipline){
-        this.rewards.forEach(reward => {
+        for(var reward of this.rewards){
             if(idDiscipline == reward.disciplineid){
                 $(`.rewards .reward figure[data-id="${reward.id}"]`).removeClass('inactive');
             }
-        });
+        }
+        for(var topic of this.topicsPoint){
+            if(idDiscipline == topic.discipline){
+                $('.level-topic .level label').text(`Level ${topic.level}`);
+                $('.level-topic img').attr('src', `svg/insignis/level-${topic.level}.svg`);
+                $('.level-topic progress').attr('value', topic.points);
+                $('.level-topic progress').attr('max', topic.level * Math.round(topic.averageTypeTopic));
+                break;
+            }
+        }
     }
 
     domEvents(){

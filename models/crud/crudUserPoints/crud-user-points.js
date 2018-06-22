@@ -1,7 +1,7 @@
 const Crud = require('../generic-crud');
 
 class CrudUserPoints extends Crud{
-    selectStudentPoint(registry, json){
+    selectUserPoint(parameters, registry, json){
         this.getPool((data) =>{
             data.connect(function (err, client, done) {
                 if (err) {
@@ -9,11 +9,30 @@ class CrudUserPoints extends Crud{
                 }
                client.query(`SELECT 
                points
-               FROM student_points
+               FROM ${parameters.table}
                WHERE
-               student_points.id_student = $1
+               ${parameters.columnUser} = $1
                AND
-               student_points.id_discipline = $2`, registry, function (err, result) {
+               id_discipline = $2`, registry, function (err, result) {
+                done();
+                    if (err) {
+                        return json(false);
+                    }
+                    return json(result.rows);
+                });
+            });
+        });
+    }
+    selectAllPointsUser(parameters, registry, json){
+        this.getPool((data) =>{
+            data.connect(function (err, client, done) {
+                if (err) {
+                    return json(false);
+                }
+               client.query(`SELECT 
+               points, id_discipline
+               FROM ${parameters.table} 
+               WHERE ${parameters.columnUser} = $1`, [registry], function (err, result) {
                 done();
                     if (err) {
                         return json(false);
