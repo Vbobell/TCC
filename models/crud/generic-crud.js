@@ -37,11 +37,13 @@ class Crud {
     executeUpdate(table, columns, values, parameters, registry, json) {
         pool.connect(function (err, client, done) {
             if (err) {
+                console.log(err);
                 return json(false);
             }
                 client.query(`UPDATE ${table} SET ${columns}  = ${values} WHERE ${parameters}`, registry, function (err, result) {
                     done();
                     if (err) {
+                        console.log(err);
                         return json(false);
                     }
                     return json(result.rowCount);
