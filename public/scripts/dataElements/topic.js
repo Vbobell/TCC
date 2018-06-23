@@ -39,6 +39,7 @@ class Topic {
         element.find('p[name="description-topic"]').text(topicData.description_topic);
 
         element.find('.comments').attr('data-id-topic', topicData.id_topic);
+        element.find('.comments').attr('data-user-topic', topicData.id_student);
         element.find('.comments').attr('data-index-topic', topicData.countTopic);
 
         that.domEventsTopic(element);
@@ -73,8 +74,10 @@ class Topic {
                 setTimeout(function () {
                     element.find('.comments').append(comments);
 
+                    element.find(`.comments:not(.comments[data-user-topic="${user.id}"]) .best-comment`).remove();
+
                     element.find(`.action-comment:not(.action-comment[data-id-user="${user.id}"])`)
-                        .find('.edit-comment, .remove-comment, .confirm-edit-comment, .cancel-edit-comment, .best-comment').remove();
+                        .find('.edit-comment, .remove-comment, .confirm-edit-comment, .cancel-edit-comment').remove();
 
                     element.find(`.action-comment[data-id-user="${user.id}"]`)
                         .find('.points-comment, .best-comment').remove();
