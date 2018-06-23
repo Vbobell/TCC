@@ -21,39 +21,43 @@ class ManageStudentLevel {
                 };
 
                 manageStudentDiscipline.getDataStudentDiscipline(parameters, (disciplines) => {
-                    for (let i = 0; i < disciplines.length; i++) {
-                        disciplineLevels.push({
-                            'discipline': disciplines[i].id_discipline,
-                            'level': 1,
-                            'points': 0,
-                            'averageTypeTopic': averageTypeTopic
-                        });
+                    if (disciplines.length > 0) {
+                        for (let i = 0; i < disciplines.length; i++) {
+                            disciplineLevels.push({
+                                'discipline': disciplines[i].id_discipline,
+                                'level': 1,
+                                'points': 0,
+                                'averageTypeTopic': averageTypeTopic
+                            });
 
-                        if (pointsDiscipline.length == 0) {
-                            if (i == disciplines.length - 1) {
-                                return callback(disciplineLevels);
-                            }
-                        } else {
-                            for (let j = 0; j < pointsDiscipline.length; j++) {
-                                if (disciplines[i].id_discipline == pointsDiscipline[j].id_discipline) {
-                                    paramCheck.point = pointsDiscipline[j].points;
+                            if (pointsDiscipline.length == 0) {
+                                if (i == disciplines.length - 1) {
+                                    return callback(disciplineLevels);
+                                }
+                            } else {
+                                for (let j = 0; j < pointsDiscipline.length; j++) {
+                                    if (disciplines[i].id_discipline == pointsDiscipline[j].id_discipline) {
+                                        paramCheck.point = pointsDiscipline[j].points;
 
-                                    this.checkLevel(paramCheck, (level) => {
-                                        disciplineLevels[disciplineLevels.length - 1].level = level;
-                                        disciplineLevels[disciplineLevels.length - 1].points = pointsDiscipline[j].points;
+                                        this.checkLevel(paramCheck, (level) => {
+                                            disciplineLevels[disciplineLevels.length - 1].level = level;
+                                            disciplineLevels[disciplineLevels.length - 1].points = pointsDiscipline[j].points;
 
-                                        if (i == disciplines.length - 1) {
+                                            if (i == disciplines.length - 1) {
+                                                return callback(disciplineLevels);
+                                            }
+                                        });
+                                        break;
+                                    } else {
+                                        if (i == disciplines.length - 1 && j == pointsDiscipline.length - 1) {
                                             return callback(disciplineLevels);
                                         }
-                                    });
-                                    break;
-                                } else {
-                                    if (i == disciplines.length - 1 && j == pointsDiscipline.length - 1) {
-                                        return callback(disciplineLevels);
                                     }
                                 }
                             }
                         }
+                    } else {
+                        return callback(false);
                     }
                 });
             });
