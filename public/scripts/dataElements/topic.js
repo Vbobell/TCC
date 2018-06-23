@@ -211,6 +211,8 @@ class Topic {
 
                 element.find(`.action-comment[data-id-user="${user.id}"]`)
                     .find('.points-comment, .best-comment').remove();
+                
+                domEventsComment(element);
                 return callback(true);
             } else {
                 return callback(false);
