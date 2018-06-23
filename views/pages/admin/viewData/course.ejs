@@ -51,16 +51,18 @@
                             '<td class="col-lg-3">' + item.name_course +'</td>' +
                             '<td class="col-lg-4">' + item.description_course +'</td>' +
                             '<td class="col-lg-3 discipline" id="courseDiscipline'+item.id_course+'"></td>' +
-                            '<td class="col-lg-2 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
-                            '<div class="tool remove" data-id="'+item.id_course+'"></div></td>'
+                            '<td class="col-lg-2 content-tools">'+
+                            '<div class="tool open-edit" data-id="tr#editRow'+i+'" title="Editar" alt="Editar"></div>'+
+                            '<div class="tool remove" data-id="'+item.id_course+'" title="Remover" alt="Remover"></div></td>'
                         );
                         
                         $('table.registers tbody tr#editRow'+ i + '').append(
                             '<td class="col-lg-3"><input name="'+tableHead[0]+'" type="text" value="' + item.name_course + '"/></td>'+
                             '<td class="col-lg-4"><input name="'+tableHead[1]+'" type="text" value="' + item.description_course + '"/></td>'+
                             '<td class="col-lg-3 disciplineEdit" id="courseDiscipline'+item.id_course+'"></td>' +
-                            '<td class="col-lg-2"><div class="tool edit" data-id-edit="'+item.id_course+'" data-id="tr#editRow'+i+'"></div>'+
-                            '<div class="tool cancel"></div></td>'
+                            '<td class="col-lg-2">'+
+                            '<div class="tool edit" data-id-edit="'+item.id_course+'" data-id="tr#editRow'+i+'" title="Salvar edição" alt="Salvar edição"></div>'+
+                            '<div class="tool cancel" title="Cancelar edição" alt="Cancelar edição"></div></td>'
                         );
                     });
 

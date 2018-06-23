@@ -42,14 +42,16 @@
                 
                     $('table.registers tbody tr#row' + i + '').append(
                         '<td class="col-lg-8">' + item.name_class +'</td>'+
-                        '<td class="col-lg-4 content-tools"><div class="tool open-edit" data-id="tr#editRow'+i+'"></div>'+
-                        '<div class="tool remove" data-id="'+item.id_class+'"></div></td>'
+                        '<td class="col-lg-4 content-tools">'+
+                        '<div class="tool open-edit" data-id="tr#editRow'+i+'" title="Editar" alt="Editar"></div>'+
+                        '<div class="tool remove" data-id="'+item.id_class+'" title="Remover" alt="Remover"></div></td>'
                     );
                     
                     $('table.registers tbody tr#editRow'+ i + '').append(
                         '<td class="col-lg-8"><input name="'+tableHead[0]+'" type="text" value="' + item.name_class + '"/></td>'+
-                        '<td class="col-lg-4"><div class="tool edit" data-id-edit=" '+item.id_class+'" data-id="tr#editRow'+i+'"></div>'+
-                        '<div class="tool cancel"></div></td>'
+                        '<td class="col-lg-4">'+
+                        '<div class="tool edit" data-id-edit=" '+item.id_class+'" data-id="tr#editRow'+i+'" title="Salvar edição" alt="Salvar edição"></div>'+
+                        '<div class="tool cancel" title="Cancelar edição" alt="Cancelar edição"></div></td>'
                     );
                 });
 

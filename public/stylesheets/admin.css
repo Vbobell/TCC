@@ -34,10 +34,11 @@
 
 .content-config{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-content: space-between;
     align-items: center;
     width: 100%;
+    min-height: auto;
     padding: 1em 0;
 }
 
@@ -50,7 +51,9 @@
     width: 15%;
     margin: 0 1em;
 }
-
+.type-topic figure img {
+    width: 25%;
+}
 @media all and (max-width: 1023px){
     .upload-button-content {
         width: 90%;

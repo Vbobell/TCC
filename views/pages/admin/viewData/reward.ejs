@@ -66,7 +66,8 @@
                             '<input type="checkbox" class="switch" data-id="'+item.id_reward +'"'+
                             'data-toggle="toggle" data-on="Habilitada" data-off="Desabilitada" data-onstyle="success" data-offstyle="danger" data-width="120" '+checked+'>'+
                             '</td>' +
-                            '<td class="col-lg-2 content-tools"><div class="tool open-config" data-id="tr#editRow'+i+'"></div>' +
+                            '<td class="col-lg-2 content-tools">'+
+                            '<div class="tool open-config" data-id="tr#editRow'+i+'" title="Configuração" alt="Configuração"></div>' +
                             '</td>'
                         );
                         
@@ -118,8 +119,9 @@
                                     $('table.registers tbody tr.edit-row[data-id="'+ item.id_reward + '"]').html("");
                                     $('table.registers tbody tr.edit-row[data-id="'+ item.id_reward + '"]').append(
                                         '<td class="col-lg-10">' + data + '</td>' +
-                                        '<td class="col-lg-2"><div class="tool edit" data-id-name="" data-id-edit="'+item.id_reward_config+'"></div>' +
-                                        '<div class="tool cancel"></div></td>'
+                                        '<td class="col-lg-2">'+
+                                        '<div class="tool edit" data-id-name="" data-id-edit="'+item.id_reward_config+'" title="Salvar configuração" alt="Salvar configuração"></div>' +
+                                        '<div class="tool cancel" title="Cancelar configuração" alt="Cancelar configuração"></div></td>'
                                     )
                                     $('table.registers tbody tr.view-row[data-id="'+ item.id_reward + '"]').attr('data-config', true);
                                 }

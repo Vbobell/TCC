@@ -19,6 +19,11 @@ CREATE TABLE discipline(
     description_discipline TEXT NOT NULL
 );
 
+CREATE TABLE class_(
+    id_class SERIAL NOT NULL PRIMARY KEY,
+    name_class TEXT NOT NULL
+);
+
 CREATE TABLE course_discipline(
     id_course_discipline SERIAL NOT NULL PRIMARY KEY,
     id_course INT NOT NULL,
@@ -220,11 +225,6 @@ CREATE TABLE teacher_topic_comments(
     points DOUBLE PRECISION DEFAULT 0,
     FOREIGN KEY (id_topic) REFERENCES topic (id_topic),
     FOREIGN KEY (id_teacher) REFERENCES teacher (id_teacher)
-);
-
-CREATE TABLE class_(
-    id_class SERIAL NOT NULL PRIMARY KEY,
-    name_class TEXT NOT NULL
 );
 
 CREATE TABLE discipline_class(

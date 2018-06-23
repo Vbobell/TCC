@@ -33,13 +33,13 @@
                     </header>
                     <section class="col-12 col-xl-12 question-tools">
                         <div class="col-12 col-xl-8 type-question">
-                            <figure class="active" data-tool="unique">
+                            <figure class="active" data-tool="unique" title="Unica escolha" alt="Unica escolha">
                                 <img src="images/content/tools/unique.png"/>
                             </figure>
-                            <figure data-tool="multiple">
+                            <figure data-tool="multiple" title="Multipla escolha" alt="Multipla escolha">
                                 <img src="images/content/tools/multiple.png"/>
                             </figure>
-                            <figure data-tool="draw">
+                            <figure data-tool="draw" title="Resposta escrita" alt="Resposta escrita">
                                 <img src="images/content/tools/draw.png"/>
                             </figure>
                         </div>
@@ -256,7 +256,7 @@
                         `<tr class="row-data">
                             <td class="col-2 col-xl-1 content-tool"><input class="correct" name="correct-${ _this.attr('data-type') }" type="${ _this.attr('data-type') }"/></td>
                             <td class="col-8 col-xl-10"><p class="description" contenteditable="true"></p></td>
-                            <td class="col-2 col-xl-1 content-tool"><button class="tool remove"></button></td>
+                            <td class="col-2 col-xl-1 content-tool"><button class="tool remove" title="Remover" alt="Remover"></button></td>
                         </tr>`
                 );
                 $('.elements-question .tool.btn-add').removeClass('inactive');
@@ -322,8 +322,8 @@
                         $('li.questions ul').append(
                             $('<li class="question">')
                                 .append($('<label>').text(question.description.substr(0, 10)))
-                                .append($('<div class="tool open-edit">'))
-                                .append($('<div class="tool remove">'))
+                                .append($('<div class="tool open-edit" title="Editar" alt="Editar">'))
+                                .append($('<div class="tool remove" title="Remover" alt="Remover">'))
                                 .attr('data-question', activity.questions.length-1)
                         )
                     }
