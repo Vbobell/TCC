@@ -271,6 +271,7 @@ class CrudStudentReward extends Crud{
                     WHERE reward.id_reward = student_reward.id_reward
                     AND discipline.id_discipline = student_discipline.id_discipline
                     AND student.id_student = student_discipline.id_student
+                    AND student.id_student = student_reward.id_student
                     AND student.registry = $1
                     GROUP BY reward.id_reward, discipline.id_discipline
                     ORDER BY reward.id_reward`, registry, function (err, result) {

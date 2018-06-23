@@ -5,6 +5,7 @@ class ViewReward{
     }
 
     setRewardsView(idDiscipline){
+        console.log(this.rewards);
         for(var reward of this.rewards){
             if(idDiscipline == reward.disciplineid){
                 $(`.rewards .reward figure[data-id="${reward.id}"]`).removeClass('inactive');

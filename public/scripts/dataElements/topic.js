@@ -74,6 +74,9 @@ class Topic {
                 setTimeout(function () {
                     element.find('.comments').append(comments);
 
+                    
+                    $('.best-comment input:checked').parents('.item-comment').addClass('item-best-comment');
+
                     element.find(`.comments:not(.comments[data-user-topic="${user.id}"]) .best-comment`).remove();
 
                     element.find(`.action-comment:not(.action-comment[data-id-user="${user.id}"])`)
@@ -379,6 +382,8 @@ class Topic {
                 if(that.is(':checked')){
                     thatObj.commentsTopics.forEach((element, index) => {
                         if(element.id_topic == that.parents('.comments').attr('data-id-topic')){
+                            thatObj.commentsTopics[index].best_comment = true;
+                        }else{
                             thatObj.commentsTopics[index].best_comment = false;
                         }
                     });
