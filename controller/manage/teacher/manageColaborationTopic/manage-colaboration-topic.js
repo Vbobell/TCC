@@ -131,7 +131,7 @@ class ManageColaborationTopic{
 
         this.crudColaborationTopic.executeUpdateSet(
             'colaboration_topic', 
-            'id_type_topic = $1',
+            'SET id_type_topic = $1',
             where,
             registry,
             response => {

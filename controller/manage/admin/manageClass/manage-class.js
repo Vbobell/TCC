@@ -26,7 +26,7 @@ class ManageClass {
     editClass(parameters, callback) {
         let registry = [parameters.nameClass, parameters.idClass];
         let where = 'id_class = $2';
-        this.crudClass.executeUpdateSet('class_', 'name_class = $1', where, registry, data => {
+        this.crudClass.executeUpdateSet('class_', 'SET name_class = $1', where, registry, data => {
             return callback(data);
         });
     }

@@ -131,7 +131,7 @@ class ManageColaborationTopic{
 
         this.crudStudentTopic.executeUpdateSet(
             'colaboration_topic', 
-            'id_type_topic = $1',
+            'SET id_type_topic = $1',
             where,
             registry,
             response => {
@@ -170,7 +170,7 @@ class ManageColaborationTopic{
 
         this.crudStudentTopic.executeUpdateSet(
             'topic', 
-            'resolved = FROM colaboration_topic, student_topic ',
+            'SET resolved = $3 FROM colaboration_topic, student_topic ',
             where,
             registry,
             response => {

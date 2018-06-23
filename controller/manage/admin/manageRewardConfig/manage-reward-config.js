@@ -12,7 +12,7 @@ class ManageRewardConfig{
     editRewardConfig(parameters, callback){
         let registry = [parameters.config, parameters.idConfig];
         let where = 'id_reward_config = $2';
-        this.crudRewardConfig.executeUpdateSet('reward_configuration', 'config = $1', where, registry, data => {
+        this.crudRewardConfig.executeUpdateSet('reward_configuration', 'SET config = $1', where, registry, data => {
             return callback(data);
         });
     }
