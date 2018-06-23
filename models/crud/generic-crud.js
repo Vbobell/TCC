@@ -50,6 +50,22 @@ class Crud {
                 });
         });
     }
+    executeUpdateSet(table, set, parameters, registry, json) {
+        pool.connect(function (err, client, done) {
+            if (err) {
+                console.log(err);
+                return json(false);
+            }
+                client.query(`UPDATE ${table} ${set} WHERE ${parameters}`, registry, function (err, result) {
+                    done();
+                    if (err) {
+                        console.log(err);
+                        return json(false);
+                    }
+                    return json(result.rowCount);
+                });
+        });
+    }
     executeDelete(table, parameters, registry, json) {
         pool.connect(function (err, client, done) {
             if (err) {

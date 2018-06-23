@@ -70,20 +70,18 @@ class ManageTopicComment {
         let whereAll = "id_topic = $1";
 
         if (parameters.bestComment) {
-           /*  this.crudTopicComment.executeUpdate(
+            this.crudTopicComment.executeUpdateSet(
                 'teacher_topic_comments',
-                '(best_comment)',
-                '($2)',
+                'SET best_comment = $2',
                 whereAll,
                 registryAll,
                 (allComment) => {
-                    this.crudTopicComment.executeUpdate(
+                    this.crudTopicComment.executeUpdateSet(
                         'student_topic_comments',
-                        '(best_comment)',
-                        '($2)',
+                        'SET best_comment = $2',
                         whereAll,
                         registryAll,
-                        (allComment) => { */
+                        (allComment) => {
                             let table = "";
                             let registry = "";
                             let where = "";
@@ -103,17 +101,16 @@ class ManageTopicComment {
                                 parameters.bestComment
                             ];
 
-                            this.crudTopicComment.executeUpdate(
+                            this.crudTopicComment.executeUpdateSet(
                                 table,
-                                '(best_comment)',
-                                '($4)',
+                                'SET best_comment = $4',
                                 where,
                                 registry,
                                 (commentData) => {
                                     return callback(commentData);
                                 });
-            /*             });
-                }); */
+                        });
+                });
         } else {
             let table = "";
             let registry = "";
@@ -134,10 +131,9 @@ class ManageTopicComment {
                 parameters.bestComment
             ];
 
-            this.crudTopicComment.executeUpdate(
+            this.crudTopicComment.executeUpdateSet(
                 table,
-                '(best_comment)',
-                '($4)',
+                'SET best_comment = $2',
                 where,
                 registry,
                 (commentData) => {
