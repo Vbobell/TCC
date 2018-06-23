@@ -1,8 +1,12 @@
 const CrudActivity = require('../../../../models/crud/crudActivity/crud-activity');
+const CrudStudent =  require('../../../../models/crud/crudStudent/crud-student');
+const CrudStudentActivity = require('../../../../models/crud/crudStudentActivity/crud-student-activity');
 
 class ManageActivity {
     constructor() {
         this.crudActivity = new CrudActivity();
+        this.crudStudent = new CrudStudent();
+        this.crudStudentActivity = new CrudStudentActivity();
         this.data = '';
     }
     getDataActivity(parameters, callback) {
@@ -87,6 +91,28 @@ class ManageActivity {
                         return callback(response);
                     });
             });
+    }
+
+    getResultsActivity(parameters, callback){
+        let data = {
+            'students': '',
+            'studentsResults': ''
+        };
+
+        let registry = [
+            parameters.idDiscipline,
+            parameters.idClass
+        ];
+
+        this.crudStudent.selectStudentDisciplinAndClass(registry, (students) => {
+            data.students = students;
+
+            this.crudStudentActivity.selectStudentsResults(registry, (studentsResults) =>{
+                data.studentsResults = studentsResults;
+
+                return callback(data);
+            });
+        });
     }
 }
 

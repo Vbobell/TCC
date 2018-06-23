@@ -212,6 +212,12 @@ class ManageSearch {
                     });
                 });
                 break;
+                case 'activityViewResults':
+                    let activityViewManage = new ManageActivity();
+                    activityViewManage.getResultsActivity(this.parameters, (data) =>{
+                        return callback(data);
+                    });
+                break;
             default:
                 return callback(false);
                 break;

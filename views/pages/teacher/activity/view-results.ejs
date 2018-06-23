@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section class="page-content big-content" data-content="generic">
+        <figure class="title-content">
+            <img src="images/content/itens/file.png"/>
+            <h2>Resumo da atividade</h2>
+        </figure>
+        <section class="big-inner-content table-content">
+            <table class="registers">
+                <thead>
+                    <tr class="row">
+                        <td class="col-lg-6">
+                            Aluno
+                        </td>
+                        <td class="col-lg-6">
+                            Pontos
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                <% data.students.forEach(function(student) { 
+                    var points = 0; %>
+                    <tr class="row">
+                        <td class="col-lg-6">
+                        <%= student.name_student %>
+                        </td>
+                        <td class="col-lg-6">
+                            <% for(var studentPoints of data.studentsResults) { 
+                                    if(student.id_student == studentPoints.id_student){
+                                        points = studentPoints.point_rechead;
+                                        break;
+                                    }
+                                }
+                            %>
+                            <%= points %>
+                        </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </section>
+    </section>
+</body>
+</html>

@@ -50,6 +50,27 @@ class CrudStudent extends Crud{
             });
         });
     }
+    selectStudentDisciplinAndClass(registry, json){
+        this.getPool((data) =>{ 
+            data.connect(function (err, client, done) {
+                if (err) {
+                    return json(false);
+                }
+                client.query(`SELECT student.id_student, student.name_student
+                FROM student, student_discipline, student_class
+                WHERE student.id_student = student_discipline.id_student
+                AND student.id_student = student_class.id_student
+                AND student_discipline.id_discipline = $1
+                AND student_class.id_class = $2`, registry , function (err, result) {
+                    done();
+                    if (err) {
+                        return json(false);
+                    }
+                    return json(result.rows);
+                });
+            });
+        });
+    }
 }
 
 module.exports = CrudStudent;

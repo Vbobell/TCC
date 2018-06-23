@@ -13,13 +13,16 @@ class CrudDisciplineActivity extends Crud{
                 AND discipline.id_discipline = $1
                 ORDER BY name_activity ASC LIMIT $1 OFFSET $2;`, [registry, limit, offset] , function (err, result) {
                 */
-               client.query(`SELECT id_activity, name_activity, description_activity 
-                FROM activity, discipline, teacher WHERE
-                activity.id_discipline =  discipline.id_discipline
-                AND activity.id_teacher = teacher.id_teacher
-                AND discipline.id_discipline = $1
-                AND teacher.id_teacher = $2
-                ORDER BY name_activity ASC`, registry, function (err, result) {
+               client.query(`SELECT id_activity, name_activity, description_activity, 
+               class_.id_class, class_.name_class, activity.id_discipline 
+               FROM activity, discipline, teacher, teacher_class, class_ WHERE
+               activity.id_discipline =  discipline.id_discipline
+               AND activity.id_teacher = teacher.id_teacher
+               AND activity.id_class = teacher_class.id_class
+               AND teacher_class.id_class = class_.id_class
+               AND discipline.id_discipline = $1
+               AND teacher.id_teacher = $2
+               ORDER BY name_activity ASC`, registry, function (err, result) {
                 done();
                     if (err) {
                         return json(JSON.stringify(err));

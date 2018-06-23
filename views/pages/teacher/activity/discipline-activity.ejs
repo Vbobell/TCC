@@ -10,13 +10,16 @@
             <table class="registers">
                 <thead>
                     <tr class="row">
-                        <td class="col-lg-5">
+                        <td class="col-lg-4">
                             Nome
                         </td>
                         <td class="col-lg-4">
                             Descrição
                         </td>
-                        <td class="col-lg-3">
+                        <td class="col-lg-2">
+                            Turma
+                        </td>
+                        <td class="col-lg-2">
                             Ação
                         </td>
                     </tr>
@@ -24,13 +27,18 @@
                 <tbody>
                 <% data.forEach(function(activity) { %>
                     <tr class="row">
-                        <td class="col-lg-5">
+                        <td class="col-lg-4">
                         <%= activity.name_activity %>
                         </td>
                         <td class="col-lg-4">
                             <%= activity.description_activity %>
                         </td>
-                        <td class="col-lg-3 content-tools" data-path="activity">
+                        <td class="col-lg-2">
+                            <%= activity.name_class %>
+                        </td>
+                        <td class="col-lg-2 content-tools" data-path="activity">
+                                <div class="tool open-view" data-item="view-results" 
+                                data-id-discipline="<%= activity.id_discipline %>" data-class="<%= activity.id_class %>"></div>
                             <div class="tool open-edit" data-item="activity" data-id="<%= activity.id_activity %>"></div>
                             <div class="tool remove" data-item="discipline-activity" data-id="<%= activity.id_activity %>"></div>
                         </td>
@@ -41,6 +49,44 @@
         </section>
     </section>
     <script class="script-edit-activity" data-content="generic">
+        $('.open-view').on('click', function(){
+        var user = JSON.parse(localStorage.getItem('user'));
+        var data = { 
+            'path' : $(this).parent().attr('data-path') ,  
+            'file' : $(this).attr('data-item'),
+            'controller' : {
+                'type': 'search',
+                'entity': 'activityViewResults',
+                'parameters': {
+                    'idDiscipline' : $(this).attr('data-id-discipline'),
+                    'idClass': $(this).attr('data-class')
+                }
+            }
+        }
+        var key = false;
+        $('.page-content').fadeOut(200, function(){
+            $('[data-content="generic"]').remove();
+            $.ajax({
+                url : '/teacher/route/',
+                data : data,
+                dataType : 'html',
+                async : false,
+                type: 'GET'
+            }).done(function(data){
+                $('body').append($(data)[1]);
+                $('body').append($(data)[3]);
+                setTimeout(function(){
+                    $('.page-content[data-content="generic"]').fadeIn(200);
+                },200);
+                if(!key){
+                    if (!mobile) {
+                        $('.inner-header h1').append('<span> > '+$('.page-content[data-content="generic"] .title-content h2').text() +'</span>');
+                    }
+                    key = true;
+                }
+            });
+        });
+    });
     $('.open-edit').on('click', function(){
         var user = JSON.parse(localStorage.getItem('user'));
         var data = { 
