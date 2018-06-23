@@ -234,7 +234,7 @@ class Topic {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify(data),
-            async: false,
+            async: true,
             type: 'POST'
         }).then(function (idComment) {
             return callback(idComment);
@@ -255,7 +255,7 @@ class Topic {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify(dataEdit),
-            async: false,
+            async: true,
             type: 'POST'
         }).then(function (data) {
             return callback(data);
@@ -276,7 +276,7 @@ class Topic {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify(dataEdit),
-            async: false,
+            async: true,
             type: 'POST'
         }).then(function (data) {
             return callback(data);
