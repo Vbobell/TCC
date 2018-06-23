@@ -52,7 +52,7 @@ class ManageTopicComment {
 
         this.crudTopicComment.executeUpdateSet(
             'student_topic_comments',
-            'comment = $3',
+            'SET comment = $3',
             where,
             registry,
             (commentData) => {
@@ -71,14 +71,14 @@ class ManageTopicComment {
         if (parameters.bestComment) {
             this.crudTopicComment.executeUpdateSet(
                 'teacher_topic_comments',
-                'best_comment = $2',
+                'SET best_comment = $2',
                 whereAll,
                 registryAll,
                 (allComment) => {
 
                     this.crudTopicComment.executeUpdateSet(
                         'student_topic_comments',
-                        'best_comment = $2',
+                        'SET best_comment = $2',
                         whereAll,
                         registryAll,
                         (allComment) => {
@@ -104,7 +104,7 @@ class ManageTopicComment {
 
                             this.crudTopicComment.executeUpdateSet(
                                 table,
-                                'best_comment = $4',
+                                'SET best_comment = $4',
                                 where,
                                 registry,
                                 (commentData) => {
@@ -134,7 +134,7 @@ class ManageTopicComment {
 
             this.crudTopicComment.executeUpdateSet(
                 table,
-                'best_comment = $4',
+                'SET best_comment = $4',
                 where,
                 registry,
                 (commentData) => {
@@ -197,7 +197,7 @@ class ManageTopicComment {
                 }
 
                 this.crudUserPoints.executeUpdateSet(
-                    table, 'points = $3', where, registry,
+                    table, 'SET points = $3', where, registry,
                     (user) => {
                         return callback(user);
                     });
