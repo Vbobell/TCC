@@ -10,10 +10,9 @@ class ManageTypeTopic{
         });
     }
     editTypeTopic(parameters, callback){
-        let values = '($1)';
         let registry = [parameters.point, parameters.id];
         let where = 'id_type_topic = $2';
-        this.crudTypeTopic.executeUpdate('type_topic', '(point_type_topic)', values, where, registry, data => {
+        this.crudTypeTopic.executeUpdateSet('type_topic', 'point_type_topic = $1', where, registry, data => {
             return callback(data);
         });
     }

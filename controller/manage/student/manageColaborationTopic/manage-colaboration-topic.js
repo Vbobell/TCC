@@ -129,10 +129,9 @@ class ManageColaborationTopic{
 
         let where = 'id_topic = $2';
 
-        this.crudStudentTopic.executeUpdate(
+        this.crudStudentTopic.executeUpdateSet(
             'colaboration_topic', 
-            '(id_type_topic)',
-            '($1)',
+            'id_type_topic = $1',
             where,
             registry,
             response => {
@@ -169,10 +168,9 @@ class ManageColaborationTopic{
                      AND colaboration_topic.id_colaboration_topic = student_topic.id_colaboration_topic 
                      AND student_topic.id_student = $2`;
 
-        this.crudStudentTopic.executeUpdate(
+        this.crudStudentTopic.executeUpdateSet(
             'topic', 
-            '(resolved)',
-            '($3) FROM colaboration_topic, student_topic ',
+            'resolved = FROM colaboration_topic, student_topic ',
             where,
             registry,
             response => {

@@ -129,10 +129,9 @@ class ManageColaborationTopic{
 
         let where = 'id_topic = $2';
 
-        this.crudColaborationTopic.executeUpdate(
+        this.crudColaborationTopic.executeUpdateSet(
             'colaboration_topic', 
-            '(id_type_topic)',
-            '($1)',
+            'id_type_topic = $1',
             where,
             registry,
             response => {
