@@ -43,15 +43,16 @@ class ManageTopicComment {
 
     updateStudentComment(parameters, callback) {
         let registry = [
+            parameters.idComment,
+            parameters.idStudent,
             parameters.comment
         ];
 
-        let where = `id_student_topic_comment = ${parameters.idComment} AND id_student = ${parameters.idStudent}`;
+        let where = "id_student_topic_comment = $1 AND id_student = $2";
 
-        this.crudTopicComment.executeUpdate(
+        this.crudTopicComment.executeUpdateSet(
             'student_topic_comments',
-            '(comment)',
-            '($1)',
+            'comment = $3',
             where,
             registry,
             (commentData) => {
@@ -61,24 +62,23 @@ class ManageTopicComment {
 
     updateBestComment(parameters, callback) {
         let registryAll = [
+            parameters.idTopic,
             false
         ];
 
-        let whereAll = `id_topic = ${parameters.idTopic}`;
+        let whereAll = "id_topic = $1";
 
         if (parameters.bestComment) {
-            this.crudTopicComment.executeUpdate(
+            this.crudTopicComment.executeUpdateSet(
                 'teacher_topic_comments',
-                '(best_comment)',
-                '($1)',
+                'best_comment = $2',
                 whereAll,
                 registryAll,
                 (allComment) => {
 
-                    this.crudTopicComment.executeUpdate(
+                    this.crudTopicComment.executeUpdateSet(
                         'student_topic_comments',
-                        '(best_comment)',
-                        '($1)',
+                        'best_comment = $2',
                         whereAll,
                         registryAll,
                         (allComment) => {
@@ -89,22 +89,22 @@ class ManageTopicComment {
 
                             if (parameters.commentTypeUser == "student") {
                                 table = "student_topic_comments";
-                                where = `id_topic = ${parameters.idTopic} AND id_student = ${parameters.idUser} 
-                                AND id_student_topic_comment = ${parameters.idComment}`;
+                                where = "id_topic = $1 AND id_student = $2 AND id_student_topic_comment = $3";
                             } else {
                                 table = "teacher_topic_comments";
-                                where = `id_topic = ${parameters.idTopic} AND id_teacher = ${parameters.idUser} 
-                                AND id_teacher_topic_comment = ${parameters.idComment}`;
+                                where = "id_topic = $1 AND id_teacher = $2 AND id_teacher_topic_comment = $3";
                             }
 
                             registry = [
+                                parameters.idTopic,
+                                parameters.idUser,
+                                parameters.idComment,
                                 parameters.bestComment
                             ];
 
-                            this.crudTopicComment.executeUpdate(
+                            this.crudTopicComment.executeUpdateSet(
                                 table,
-                                '(best_comment)',
-                                '($1)',
+                                'best_comment = $4',
                                 where,
                                 registry,
                                 (commentData) => {
@@ -119,22 +119,22 @@ class ManageTopicComment {
 
             if (parameters.commentTypeUser == "student") {
                 table = "student_topic_comments";
-                where = `id_topic = ${parameters.idTopic} AND id_student = ${parameters.idUser} 
-                AND id_student_topic_comment = ${parameters.idComment}`;
+                where = "id_topic = $1 AND id_student = $2 AND id_student_topic_comment = $3";
             } else {
                 table = "teacher_topic_comments";
-                where = `id_topic = ${parameters.idTopic} AND id_teacher = ${parameters.idUser} 
-                AND id_teacher_topic_comment = ${parameters.idComment}`;
+                where = "id_topic = $1 AND id_teacher = $2 AND id_teacher_topic_comment = $3";
             }
 
             registry = [
+                parameters.idTopic,
+                parameters.idUser,
+                parameters.idComment,
                 parameters.bestComment
             ];
 
-            this.crudTopicComment.executeUpdate(
+            this.crudTopicComment.executeUpdateSet(
                 table,
-                '(best_comment)',
-                '($1)',
+                'best_comment = $4',
                 where,
                 registry,
                 (commentData) => {
@@ -196,8 +196,8 @@ class ManageTopicComment {
                     }
                 }
 
-                this.crudUserPoints.executeUpdate(
-                    table, '(points)', '($3)', where, registry,
+                this.crudUserPoints.executeUpdateSet(
+                    table, 'points = $3', where, registry,
                     (user) => {
                         return callback(user);
                     });
