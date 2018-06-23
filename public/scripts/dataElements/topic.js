@@ -74,7 +74,7 @@ class Topic {
                     element.find('.comments').append(comments);
 
                     element.find(`.action-comment:not(.action-comment[data-id-user="${user.id}"])`)
-                        .find('.edit-comment, .remove-comment, .confirm-edit-comment, .cancel-edit-comment, .points-comment, .best-comment').remove();
+                        .find('.edit-comment, .remove-comment, .confirm-edit-comment, .cancel-edit-comment, .best-comment').remove();
 
                     element.find(`.action-comment[data-id-user="${user.id}"]`)
                         .find('.points-comment, .best-comment').remove();
