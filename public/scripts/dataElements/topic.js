@@ -240,7 +240,7 @@ class Topic {
     }
 
     editTopicComment(parameters, callback) {
-        var data = {
+        var dataEdit = {
             'controller': {
                 'type': 'update',
                 'entity': parameters.entity,
@@ -252,7 +252,7 @@ class Topic {
             url: `/${parameters.typeUser}/post/update`,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: JSON.stringify(data),
+            data: JSON.stringify(dataEdit),
             async: true,
             type: 'POST'
         }).then(function (data) {
@@ -261,7 +261,7 @@ class Topic {
     }
 
     editTopic(parameters, callback){
-        var data = {
+        var dataEdit = {
             'controller': {
                 'type': 'update',
                 'entity': parameters.entity,
@@ -273,7 +273,7 @@ class Topic {
             url: `/${parameters.typeUser}/post/update`,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: JSON.stringify(data),
+            data: JSON.stringify(dataEdit),
             async: true,
             type: 'POST'
         }).then(function (data) {
