@@ -228,11 +228,11 @@ class Topic {
         };
 
         $.ajax({
-            url: `/${parameters.typeUser}/post/insert`,
+            url: '/'+parameters.typeUser+'/post/update',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify(data),
-            async: true,
+            async: false,
             type: 'POST'
         }).then(function (idComment) {
             return callback(idComment);
@@ -249,11 +249,11 @@ class Topic {
         };
 
         $.ajax({
-            url: `/${parameters.typeUser}/post/update`,
+            url: '/'+parameters.typeUser+'/post/update',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify(dataEdit),
-            async: true,
+            async: false,
             type: 'POST'
         }).then(function (data) {
             return callback(data);
@@ -270,11 +270,11 @@ class Topic {
         };
 
         $.ajax({
-            url: `/${parameters.typeUser}/post/update`,
+            url: '/'+parameters.typeUser+'/post/update',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify(dataEdit),
-            async: true,
+            async: false,
             type: 'POST'
         }).then(function (data) {
             return callback(data);
