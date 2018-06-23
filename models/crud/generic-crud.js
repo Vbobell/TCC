@@ -40,7 +40,7 @@ class Crud {
                 console.log(err);
                 return json(false);
             }
-                client.query(`UPDATE ${table} SET ${columns}  = ${values} WHERE ${parameters}`, registry, function (err, result) {
+                client.query(`UPDATE ${table} SET ${columns} = ${values} WHERE ${parameters}`, registry, function (err, result) {
                     done();
                     if (err) {
                         console.log(err);

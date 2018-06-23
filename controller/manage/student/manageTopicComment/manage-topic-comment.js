@@ -70,22 +70,20 @@ class ManageTopicComment {
         let whereAll = "id_topic = $1";
 
         if (parameters.bestComment) {
-            this.crudTopicComment.executeUpdate(
+           /*  this.crudTopicComment.executeUpdate(
                 'teacher_topic_comments',
                 '(best_comment)',
                 '($2)',
                 whereAll,
                 registryAll,
                 (allComment) => {
-                    console.log(allComment);
                     this.crudTopicComment.executeUpdate(
                         'student_topic_comments',
                         '(best_comment)',
                         '($2)',
                         whereAll,
                         registryAll,
-                        (allComment) => {
-                            console.log(allComment);
+                        (allComment) => { */
                             let table = "";
                             let registry = "";
                             let where = "";
@@ -97,7 +95,7 @@ class ManageTopicComment {
                                 table = "teacher_topic_comments";
                                 where = "id_topic = $1 AND id_teacher = $2 AND id_teacher_topic_comment = $3";
                             }
-                            console.log(parameters);
+
                             registry = [
                                 parameters.idTopic,
                                 parameters.idUser,
@@ -112,11 +110,10 @@ class ManageTopicComment {
                                 where,
                                 registry,
                                 (commentData) => {
-                                    console.log(commentData);
                                     return callback(commentData);
                                 });
-                        });
-                });
+            /*             });
+                }); */
         } else {
             let table = "";
             let registry = "";
