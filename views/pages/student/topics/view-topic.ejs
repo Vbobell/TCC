@@ -123,7 +123,7 @@
                     topic.createTopicComment($('.comments'), dataComment, function (data) {
                         if (data) {
                             $('.comments .not-comment').fadeOut(200, function () {
-                                that.val('');
+                                $('.topic-comment').val('');
                             });
                         } else {
                             alert('ocorreu um erro!');
