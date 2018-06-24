@@ -294,11 +294,13 @@ p.answer {
     background-color: rgba(44, 43, 46, 0.4);
     z-index: 10;
 }
+.reward.background .content-reward{
+    display: flex;
+    width: 30%;
+}
 .reward.background .close {
+    width: auto;
     float: none;
-    position: absolute;
-    top: 0;
-    right: 0;
     color: #ffffff;
     text-shadow: none;
     opacity: 1;
@@ -313,8 +315,11 @@ p.answer {
     padding: 1em;
 }
 .reward.background figure{
-    width: 30%;
+    width: 100%;
     padding: 4em;
+}
+.reward.background figure figcaption{
+    width: 100%;
 }
 .reward.background .animated{
     animation: rotate 1s;
