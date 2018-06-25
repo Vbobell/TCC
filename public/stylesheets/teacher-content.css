@@ -138,7 +138,7 @@ p[contenteditable] {
     width: 100%;
 }
 
-@media all and (max-width:1024px){
+@media all and (max-width:1023px){
     .section-question .question-tools {
         flex-wrap: wrap;
     }

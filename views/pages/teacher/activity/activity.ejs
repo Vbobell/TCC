@@ -11,7 +11,7 @@
             <% } %>
         </figure>
         <section class="big-inner-content table-content content-menu">
-            <section class="col-12 col-xl-2 activity-menu inner-menu">
+            <section class="col-12 col-lg-2 col-xl-2 activity-menu inner-menu">
                 <ul>
                     <li class="item-menu-list active" data-menu="question">Questão</li>
                     <li class="item-menu-list questions"><ul class="inner-list-menu"></ul></li>
@@ -26,13 +26,13 @@
                     <% } %>
                 </div>
             </section>
-            <section class="col-xl-10 activity-content">
-                <section class="col-12 col-xl-12 section-question" data-section="question">
-                    <header class="col-12 col-xl-12">
+            <section class="col-lg-10 col-xl-10 activity-content">
+                <section class="col-12 col-lg-12 col-xl-12 section-question" data-section="question">
+                    <header class="col-12 col-lg-12 col-xl-12">
                         <h3>Inserir questão</h3>
                     </header>
-                    <section class="col-12 col-xl-12 question-tools">
-                        <div class="col-12 col-xl-8 type-question">
+                    <section class="col-12 col-lg-12 col-xl-12 question-tools">
+                        <div class="col-12 col-lg-8 col-xl-8 type-question">
                             <figure class="active" data-tool="unique" title="Unica escolha" alt="Unica escolha">
                                 <img src="images/content/tools/unique.png"/>
                             </figure>
@@ -43,7 +43,7 @@
                                 <img src="images/content/tools/draw.png"/>
                             </figure>
                         </div>
-                        <div class="col-12 col-xl-4 question-action">
+                        <div class="col-12 col-lg-4 col-xl-4 question-action">
                                 <button id="save-question" data-save="insert" class="tool btn-correct"></button>
                                 <label for="save-question">Adicionar questão</label>
                         </div>
@@ -59,9 +59,9 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <td class="col-2 col-xl-1 content-tool"><h5>Correta</h5></td>
-                                            <td class="col-8 col-xl-10"><h5>Descrição</h5></td>
-                                            <td class="col-2 col-xl-1 content-tool"></td>
+                                            <td class="col-2 col-lg-1 col-xl-1 content-tool"><h5>Correta</h5></td>
+                                            <td class="col-8 col-lg-10 col-xl-10"><h5>Descrição</h5></td>
+                                            <td class="col-2 col-lg-1 col-xl-1 content-tool"></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -86,9 +86,9 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <td class="col-2 col-xl-1 content-tool"><h5>Correta</h5></td>
-                                            <td class="col-8 col-xl-10"><h5>Descrição</h5></td>
-                                            <td class="col-2 col-xl-1 content-tool"></td>
+                                            <td class="col-2 col-lg-1 col-xl-1 content-tool"><h5>Correta</h5></td>
+                                            <td class="col-8 col-lg-10 col-xl-10"><h5>Descrição</h5></td>
+                                            <td class="col-2 col-lg-1 col-xl-1 content-tool"></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -112,20 +112,20 @@
                         </div>
                     </article>
                 </section>
-                <section class="col-12 col-xl-12 activity-config" data-section="config" style="display:none;">
-                    <header class="col-12 col-xl-12">
+                <section class="col-12 col-lg-12 col-xl-12 activity-config" data-section="config" style="display:none;">
+                    <header class="col-12 col-lg-12 col-xl-12">
                         <h3>Configuração</h3>
                     </header>
-                    <section class="col-12 col-xl-12 content-config">
-                    <div class="col-xl-4 config-item">
+                    <section class="col-12 col-lg-12 col-xl-12 content-config">
+                    <div class="col-lg-4 col-xl-4 config-item">
                         <h4>Nome da atividade</h4>
                         <input name="name-activity" type="text"/>
                     </div>
-                    <div class="col-xl-4 config-item">
+                    <div class="col-lg-4 col-xl-4 config-item">
                         <h4>Descrição da atividade</h4>
                         <textarea name="description-activity"></textarea>
                     </div>
-                    <div class="col-xl-4 config-item">
+                    <div class="col-lg-4 col-xl-4 config-item">
                         <h4>Disciplina</h4>
                         <ul>
                         <% data.disciplines.forEach(function(discipline) { %>
@@ -145,10 +145,10 @@
                             <% }); %>
                         </ul>
                     </div>
-                    <div class="col-xl-8 config-item reward">
-                        <h4 class="col-xl-12">Bonificação</h4>
+                    <div class="col-lg-8 col-xl-8 config-item reward">
+                        <h4 class="col-lg-12 col-xl-12">Bonificação</h4>
                         <% data.rewards.forEach(function(reward) { %>
-                            <div class="col-xl-4">
+                            <div class="col-lg-4 col-xl-4">
                                 <figure name="reward-activity" data-id="<%= reward.id_reward %>">
                                     <img src="images/reward/<%=reward.file_reward%>.png"/>
                                 </figure>
@@ -156,7 +156,7 @@
                             </div>
                         <% }); %>  
                     </div>
-                    <div class="col-xl-4 config-item">
+                    <div class="col-lg-4 col-xl-4 config-item">
                         <h4>Pontuação</h4>
                         <input id="point" name="points-activity" type="number" min="1" max="10" value="1"/>
                     </div>
@@ -254,9 +254,9 @@
 
                 _this.parents('.elements-question').find('.alternative table').append(
                         `<tr class="row-data">
-                            <td class="col-2 col-xl-1 content-tool"><input class="correct" name="correct-${ _this.attr('data-type') }" type="${ _this.attr('data-type') }"/></td>
-                            <td class="col-8 col-xl-10"><p class="description" contenteditable="true"></p></td>
-                            <td class="col-2 col-xl-1 content-tool"><button class="tool remove" title="Remover" alt="Remover"></button></td>
+                            <td class="col-2 col-lg-1 col-xl-1 content-tool"><input class="correct" name="correct-${ _this.attr('data-type') }" type="${ _this.attr('data-type') }"/></td>
+                            <td class="col-8 col-lg-10 col-xl-10"><p class="description" contenteditable="true"></p></td>
+                            <td class="col-2 col-lg-1 col-xl-1 content-tool"><button class="tool remove" title="Remover" alt="Remover"></button></td>
                         </tr>`
                 );
                 $('.elements-question .tool.btn-add').removeClass('inactive');

@@ -11,16 +11,16 @@ class StructureActivity{
                 $('<tr>').append(
                     $('<td>').append(
                         $('<input>').attr({'type': type, 'name':'correct-'+ type}).prop({'checked': alternative.correct}).addClass('correct')
-                    ).addClass('col-2 col-xl-1 content-tool')
+                    ).addClass('col-2 col-lg-1 col-xl-1 content-tool')
                 ).append(
                     $('<td>').append(
                         $('<p>').attr('contenteditable', true)
                         .addClass('description').text(alternative.description)
-                    ).addClass('col-8 col-xl-10')
+                    ).addClass('col-8 col-lg-10 col-xl-10')
                 ).append(
                     $('<td>').append(
                         $('<button>').addClass('tool remove')
-                    ).addClass('col-2 col-xl-1 content-tool')
+                    ).addClass('col-2 col-lg-1 col-xl-1 content-tool')
                 ).addClass('row-data')
             );
         });
@@ -35,11 +35,11 @@ class StructureActivity{
                     $('<td>').append(
                         $('<input>').attr({'type': type, 'name':'correct-'+ type, 'data-alternative':index})
                         .prop({'checked': alternative.correct}).addClass('correct')
-                    ).addClass('col-2 col-xl-1 content-tool')
+                    ).addClass('col-2 col-lg-1 col-xl-1 content-tool')
                 ).append(
                     $('<td>').append(
                         $('<p>').addClass('description').text(alternative.description)
-                    ).addClass('col-10 col-xl-11')
+                    ).addClass('col-10 col-lg-11 col-xl-11')
                 ).attr({'data-question': position}).addClass('row-data')
             );
         });

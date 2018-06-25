@@ -70,7 +70,7 @@
 .section-reward .reward figure.inactive{
     filter: grayscale(1);
 }
-@media all and (max-width:1024px){
+@media all and (max-width:1023px){
     .section-question {
         padding: 1em;
     }
